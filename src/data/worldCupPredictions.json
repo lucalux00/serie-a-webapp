@@ -1,0 +1,34 @@
+{
+  "matches": [
+    {
+      "id": "wc26-1",
+      "home": "Francia",
+      "away": "Spagna",
+      "time": "14 Lug 2026 - 21:00 (Dallas)",
+      "prob": { "h": 40, "d": 35, "a": 25 },
+      "exactResult": "1-1 (Passa Francia)",
+      "unpredictabilityIndex": 7,
+      "keyFactor": "Il duello a centrocampo tra Rodri e Tchouaméni. Se la Francia riesce a spezzare il possesso prolungato spagnolo, le ripartenze veloci sulle fasce saranno devastanti.",
+      "analysis": "Incrociando i dati degli ultimi 20 anni, la Spagna soffre le squadre che rinunciano al possesso (vedi Marocco 2022). La Francia, con il suo 38% di possesso palla medio, è l'avversario statisticamente peggiore per la Roja. Variabile critica: le altissime temperature e l'umidità di Dallas favoriranno l'estrema solidità atletica dei transalpini nei tempi supplementari."
+    },
+    {
+      "id": "wc26-2",
+      "home": "Inghilterra",
+      "away": "Argentina",
+      "time": "15 Lug 2026 - 21:00 (Atlanta)",
+      "prob": { "h": 30, "d": 30, "a": 40 },
+      "exactResult": "0-1",
+      "unpredictabilityIndex": 9,
+      "keyFactor": "Pressione psicologica estrema. Le tensioni storiche tra le due nazioni influenzeranno il match e il nervosismo porterà ad alto rischio di cartellini rossi.",
+      "analysis": "L'algoritmo rileva una sopravvalutazione oggettiva dell'Inghilterra (xG prodotto 1.2 vs 2.1 dell'Argentina nel torneo). La fisicità inglese impatterà contro il proverbiale agonismo della difesa albiceleste. Il mercato scommesse sta sovraccaricando le quote inglesi per via del volume di gioco britannico, generando un enorme 'valore nascosto' statistico sulla vittoria sudamericana nei 90 minuti."
+    }
+  ],
+  "accumulator": {
+    "title": "La Multipla del Data Scientist",
+    "bets": [
+      { "match": "Francia - Spagna", "pick": "Passaggio Turno: Francia", "odds": "1.75" },
+      { "match": "Inghilterra - Argentina", "pick": "Under 2.5", "odds": "1.65" }
+    ],
+    "totalOdds": "2.88"
+  }
+}

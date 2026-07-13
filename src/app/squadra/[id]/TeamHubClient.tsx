@@ -60,14 +60,24 @@ export default function TeamHubClient({ team, news, squadData }: any) {
           {activeTab === 'news' && (
             <motion.div key="news" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
               {topNews.length > 0 && (
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3">
                   {topNews.map((item: any, idx: number) => (
-                    <button key={idx} onClick={() => setSelectedNews(item)} className="bg-[#1E293B] border border-[#334155] rounded-2xl p-4 shadow-md flex flex-col justify-between aspect-square active:scale-95 transition-transform text-left">
-                      <div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source}</span>
+                    <button key={idx} onClick={() => setSelectedNews(item)} className="bg-[#1E293B] border border-[#334155] rounded-xl p-3 shadow-md flex items-center active:scale-95 transition-transform text-left">
+                      {/* Thumbnail Placeholder/Image */}
+                      <div className="w-16 h-16 bg-[#0F172A] rounded-lg shrink-0 mr-4 flex items-center justify-center overflow-hidden border border-[#334155]">
+                        {item.imageUrl ? (
+                          <img src={item.imageUrl} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="text-[#334155] font-black text-2xl">📰</div>
+                        )}
                       </div>
-                      <h3 className="text-sm font-bold leading-tight mt-2 line-clamp-3">{item.cleanTitle}</h3>
-                      <div className="text-[10px] text-[#94A3B8] font-bold text-right mt-2">{item.time}</div>
+                      <div className="flex-1 overflow-hidden">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source}</span>
+                          <span className="text-[10px] text-[#94A3B8] font-bold">{item.time}</span>
+                        </div>
+                        <h3 className="text-sm font-bold leading-tight line-clamp-2">{item.cleanTitle}</h3>
+                      </div>
                     </button>
                   ))}
                 </div>
