@@ -17,16 +17,32 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-              key={item.href} 
-              href={item.href}
-              className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${isActive ? 'text-[#10B981]' : 'text-[#94A3B8] hover:text-[#F8FAFC]'}`}
-            >
-              <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-              <span className="text-[10px] font-medium">{item.label}</span>
-            </Link>
-          );
-        })}
+    <>
+      {/* Creator Signature */}
+      <div className="fixed bottom-[80px] w-full flex justify-center pointer-events-none z-40">
+        <div className="bg-[#0F172A]/80 backdrop-blur text-[10px] text-[#94A3B8] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-[#334155]/50 shadow-lg">
+          Created by <span className="text-[#10B981]">Luca Pinelli</span>
+        </div>
       </div>
-    </nav>
+
+      <nav className="fixed bottom-0 w-full bg-[#0F172A]/95 backdrop-blur-md border-t border-[#1E293B] pb-safe z-50">
+        <div className="flex justify-around items-center h-16">
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            return (
+              <Link 
+                key={item.href} 
+                href={item.href}
+                className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${isActive ? 'text-[#10B981]' : 'text-[#94A3B8] hover:text-[#F8FAFC]'}`}
+              >
+                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+                <span className="text-[10px] font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </>
   );
 }
