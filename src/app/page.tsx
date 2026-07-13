@@ -32,10 +32,10 @@ export default function Home() {
       <div className="mt-4 flex items-center justify-between">
         <div>
           <h2 className="text-[#94A3B8] text-sm font-bold uppercase tracking-wider">Bentornato,</h2>
-          <h1 className="text-3xl font-black text-white">{user?.username}</h1>
+          <h1 className="text-3xl font-black text-white">{user?.name}</h1>
         </div>
-        <div className="w-12 h-12 bg-[#1E293B] rounded-full border-2 border-[#334155] flex items-center justify-center font-black text-xl text-[#10B981]">
-          {user?.username.charAt(0).toUpperCase()}
+        <div className="w-12 h-12 bg-[#1E293B] rounded-full border-2 border-[#334155] flex items-center justify-center text-[#10B981] font-black text-xl shadow-lg">
+          {user?.name.charAt(0).toUpperCase()}
         </div>
       </div>
 

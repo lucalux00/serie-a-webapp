@@ -17,9 +17,8 @@ function AppContent({ children }: { children: React.ReactNode }) {
     </div>;
   }
 
-  if (!user) {
-    return <LoginPage />;
-  }
+  // Rimossa la forzatura di LoginPage all'avvio. L'app è visibile anche senza login.
+  // LoginPage verrà utilizzato solo nella rotta /profilo o per onboarding specifico.
 
   return (
     <>

@@ -1,37 +1,113 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type UserData = {
-  username: string;
-  favoriteTeamId: string | null;
-  favoriteTeamName: string | null;
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  favoriteTeamId?: string | null;
+  favoriteTeamName?: string | null;
+  avatar?: string;
 };
 
 interface AuthContextType {
-  user: UserData | null;
-  login: (username: string, teamId: string, teamName: string) => void;
-  logout: () => void;
+  user: User | null;
   isLoaded: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<void>;
+  logout: () => void;
+  updateUser: (updates: Partial<User>) => void;
+  // Legacy method per supportare l'onboarding iniziale se usato
+  legacyLogin: (username: string, teamId: string, teamName: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<UserData | null>(null);
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Initialize from LocalStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem('serieA_user');
-    if (stored) {
-      setUser(JSON.parse(stored));
-    }
-    setIsLoaded(true);
+    const checkAuth = () => {
+      const storedUser = localStorage.getItem('serieA_user');
+      if (storedUser) {
+        try {
+          const parsed = JSON.parse(storedUser);
+          setUser({
+            id: parsed.id || 'legacy-id',
+            name: parsed.name || parsed.username || 'Utente',
+            email: parsed.email || '',
+            favoriteTeamId: parsed.favoriteTeamId,
+            favoriteTeamName: parsed.favoriteTeamName,
+            avatar: parsed.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${parsed.name || parsed.username}`
+          });
+        } catch (e) {
+          // ignore
+        }
+      }
+      setIsLoaded(true);
+    };
+    checkAuth();
   }, []);
 
-  const login = (username: string, teamId: string, teamName: string) => {
-    const userData = { username, favoriteTeamId: teamId, favoriteTeamName: teamName };
-    setUser(userData);
-    localStorage.setItem('serieA_user', JSON.stringify(userData));
+  const login = async (email: string, password: string) => {
+    // MOCK BACKEND DELAY
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
+    const foundUser = usersDb.find((u: any) => u.email === email && u.password === password);
+
+    if (!foundUser) {
+      throw new Error('Credenziali non valide o utente inesistente.');
+    }
+
+    const sessionUser = {
+      id: foundUser.id,
+      name: foundUser.name,
+      email: foundUser.email,
+      favoriteTeamId: foundUser.favoriteTeamId,
+      favoriteTeamName: foundUser.favoriteTeamName,
+      avatar: foundUser.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${foundUser.name}`
+    };
+
+    setUser(sessionUser);
+    localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
+  };
+
+  const register = async (name: string, email: string, password: string) => {
+    // MOCK BACKEND DELAY
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
+    
+    if (usersDb.some((u: any) => u.email === email)) {
+      throw new Error('Esiste già un account con questa email.');
+    }
+
+    const newUser = {
+      id: Math.random().toString(36).substring(2, 9),
+      name,
+      email,
+      password, // In un sistema reale, questa verrebbe hashiata (es. bcrypt)
+      favoriteTeamId: null,
+      favoriteTeamName: null
+    };
+
+    usersDb.push(newUser);
+    localStorage.setItem('serieA_db', JSON.stringify(usersDb));
+
+    // Auto-login after registration
+    const sessionUser = {
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${newUser.name}`
+    };
+
+    setUser(sessionUser);
+    localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
   };
 
   const logout = () => {
@@ -39,8 +115,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('serieA_user');
   };
 
+  const updateUser = (updates: Partial<User>) => {
+    if (!user) return;
+    const updatedUser = { ...user, ...updates };
+    setUser(updatedUser);
+    localStorage.setItem('serieA_user', JSON.stringify(updatedUser));
+    
+    // Update the DB record as well
+    const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
+    const dbIndex = usersDb.findIndex((u: any) => u.id === user.id);
+    if (dbIndex > -1) {
+      usersDb[dbIndex] = { ...usersDb[dbIndex], ...updates };
+      localStorage.setItem('serieA_db', JSON.stringify(usersDb));
+    }
+  };
+
+  const legacyLogin = (username: string, teamId: string, teamName: string) => {
+    const userData = { id: 'legacy', name: username, email: '', favoriteTeamId: teamId, favoriteTeamName: teamName };
+    setUser(userData);
+    localStorage.setItem('serieA_user', JSON.stringify(userData));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoaded }}>
+    <AuthContext.Provider value={{ user, isLoaded, login, register, logout, updateUser, legacyLogin }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { ShieldAlert, ArrowRight, UserCircle } from 'lucide-react';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { legacyLogin } = useAuth();
   const [step, setStep] = useState<1 | 2>(1);
   const [username, setUsername] = useState('');
   const [selectedTeam, setSelectedTeam] = useState<any>(null);
@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   const handleRegister = () => {
     if (selectedTeam) {
-      login(username, selectedTeam.id, selectedTeam.name);
+      legacyLogin(username, selectedTeam.id, selectedTeam.name);
     }
   };
 
