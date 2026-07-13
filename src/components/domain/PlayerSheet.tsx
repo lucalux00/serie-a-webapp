@@ -19,26 +19,6 @@ function formatDate(dateStr: string): string {
 }
 
 export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
-  const [realData, setRealData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (player && player.name) {
-      setLoading(true);
-      setRealData(null);
-      const role = player.position || player.role || '';
-      fetch(`/api/player?name=${encodeURIComponent(player.name)}&role=${encodeURIComponent(role)}`)
-        .then(r => r.json())
-        .then(data => {
-          setRealData(data);
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    }
-  }, [player]);
-
-  const isGoalkeeper = realData?.stats?.isGoalkeeper;
-
   return (
     <AnimatePresence>
       {player && (
@@ -68,7 +48,6 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
             </div>
 
             <div className="p-6 space-y-5">
-
               {/* Info Base */}
               {!player.isStaff && (
                 <div className="flex items-center space-x-4">
@@ -78,19 +57,9 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                   <div className="flex-1">
                     <div className="flex flex-wrap gap-3 text-sm text-[#94A3B8] font-semibold">
                       {player.age && <span>{player.age} anni</span>}
-                      {player.height && <><span>•</span><span>{player.height} cm</span></>}
-                      {player.weight && <><span>•</span><span>{player.weight} kg</span></>}
+                      {player.height && <><span>•</span><span>{player.height}</span></>}
+                      {player.weight && <><span>•</span><span>{player.weight}</span></>}
                     </div>
-                    {realData?.anagrafica && (
-                      <div className="text-[11px] text-[#64748B] mt-1 font-semibold">
-                        {realData.anagrafica.dataNascita && (
-                          <span>Nato il {realData.anagrafica.dataNascita}</span>
-                        )}
-                        {realData.anagrafica.luogoNascita && realData.anagrafica.luogoNascita !== 'Non disponibile' && (
-                          <span> a {realData.anagrafica.luogoNascita}</span>
-                        )}
-                      </div>
-                    )}
                   </div>
                 </div>
               )}
@@ -118,147 +87,63 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                 </div>
               )}
 
-              {/* Loader */}
-              {loading && (
-                <div className="flex flex-col items-center justify-center py-10">
-                  <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin" />
-                  <span className="text-[#94A3B8] text-sm mt-4 font-bold animate-pulse">Ricerca dati su Wikipedia...</span>
+              {/* STATISTICHE - 3 sezioni */}
+              <div className="space-y-3">
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#94A3B8] border-b border-[#334155] pb-1">Statistiche</h3>
+
+                {/* Carriera Club */}
+                <div className="bg-[#0F172A] rounded-xl border border-[#334155] p-4">
+                  <div className="text-[9px] text-[#10B981] font-black uppercase tracking-widest mb-3">Carriera Club Totale</div>
+                  <div className="flex justify-around text-center">
+                    <div>
+                      <div className="text-2xl font-black text-white">{player.stats?.appearances ?? '—'}</div>
+                      <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">Presenze</div>
+                    </div>
+                    <div className="w-px bg-[#334155]" />
+                    <div>
+                      <div className="text-2xl font-black text-white">
+                        {player.position === 'Portiere' ? '—' : (player.stats?.goals ?? '—')}
+                      </div>
+                      <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">
+                        {player.position === 'Portiere' ? 'Portiere' : 'Gol'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Biografia */}
+              {player.biography && player.biography.length > 5 && (
+                <div className="bg-[#0F172A] rounded-2xl border border-[#334155] overflow-hidden">
+                  <div className="bg-[#334155]/30 px-4 py-2 border-b border-[#334155] font-bold text-xs uppercase tracking-wider text-[#94A3B8]">
+                    Biografia
+                  </div>
+                  <div className="p-4 text-sm text-[#94A3B8] leading-relaxed">
+                    {player.biography}
+                  </div>
                 </div>
               )}
 
-              {/* Dati Reali */}
-              {!loading && realData && (
-                <>
-                  {/* STATISTICHE - 3 sezioni */}
-                  <div className="space-y-3">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-[#94A3B8] border-b border-[#334155] pb-1">Statistiche</h3>
-
-                    {/* Carriera Club */}
-                    <div className="bg-[#0F172A] rounded-xl border border-[#334155] p-4">
-                      <div className="text-[9px] text-[#10B981] font-black uppercase tracking-widest mb-3">Carriera Club Totale</div>
-                      <div className="flex justify-around text-center">
-                        <div>
-                          <div className="text-2xl font-black text-white">{realData.stats?.carriera?.presenze ?? '—'}</div>
-                          <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">Presenze</div>
-                        </div>
-                        <div className="w-px bg-[#334155]" />
-                        <div>
-                          <div className="text-2xl font-black text-white">
-                            {isGoalkeeper ? '—' : (realData.stats?.carriera?.gol ?? '—')}
-                          </div>
-                          <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">
-                            {isGoalkeeper ? 'Portiere' : 'Gol'}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Squadra Attuale */}
-                    {(realData.stats?.squadraAttuale?.presenze > 0) && (
-                      <div className="bg-[#0F172A] rounded-xl border border-[#0EA5E9]/40 p-4">
-                        <div className="text-[9px] text-[#0EA5E9] font-black uppercase tracking-widest mb-3">
-                          Ultima Stagione {realData.stats?.squadraAttuale?.nome ? `· ${realData.stats.squadraAttuale.nome}` : ''}
-                        </div>
-                        <div className="flex justify-around text-center">
-                          <div>
-                            <div className="text-2xl font-black text-white">{realData.stats?.squadraAttuale?.presenze ?? '—'}</div>
-                            <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">Presenze</div>
-                          </div>
-                          <div className="w-px bg-[#334155]" />
-                          <div>
-                            <div className="text-2xl font-black text-white">
-                              {isGoalkeeper ? '—' : (realData.stats?.squadraAttuale?.gol ?? '—')}
-                            </div>
-                            <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">
-                              {isGoalkeeper ? 'Portiere' : 'Gol'}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Nazionale */}
-                    {realData.stats?.nazionale?.presenze > 0 && (
-                      <div className="bg-[#0F172A] rounded-xl border border-[#F59E0B]/30 p-4">
-                        <div className="text-[9px] text-[#F59E0B] font-black uppercase tracking-widest mb-3 flex items-center">
-                          <Shield size={10} className="mr-1.5" /> Nazionale
-                        </div>
-                        <div className="flex justify-around text-center">
-                          <div>
-                            <div className="text-2xl font-black text-white">{realData.stats?.nazionale?.presenze ?? '—'}</div>
-                            <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">Presenze</div>
-                          </div>
-                          <div className="w-px bg-[#334155]" />
-                          <div>
-                            <div className="text-2xl font-black text-white">
-                              {isGoalkeeper ? '—' : (realData.stats?.nazionale?.gol ?? '—')}
-                            </div>
-                            <div className="text-[9px] text-[#64748B] uppercase font-bold mt-0.5">
-                              {isGoalkeeper ? 'Portiere' : 'Gol'}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+              {/* Profilo Economico */}
+              <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-5 rounded-2xl border border-[#334155]">
+                <h3 className="font-bold text-[#F8FAFC] mb-4 flex items-center text-sm">
+                  <User size={16} className="mr-2 text-[#10B981]" /> Profilo Economico
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center border-b border-[#334155] pb-3">
+                    <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Valore di Mercato</span>
+                    <span className="font-black text-[#10B981]">{player.marketValue || 'Dato non disponibile'}</span>
                   </div>
-
-                  {/* Biografia */}
-                  {realData.biografia && realData.biografia.length > 30 && (
-                    <div className="bg-[#0F172A] rounded-2xl border border-[#334155] overflow-hidden">
-                      <div className="bg-[#334155]/30 px-4 py-2 border-b border-[#334155] font-bold text-xs uppercase tracking-wider text-[#94A3B8]">
-                        Biografia
-                      </div>
-                      <div className="p-4 text-sm text-[#94A3B8] leading-relaxed">
-                        {realData.biografia}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Caratteristiche */}
-                  {realData.caratteristiche && realData.caratteristiche.length > 30 && (
-                    <div className="bg-[#0F172A] rounded-2xl border border-[#334155] overflow-hidden">
-                      <div className="bg-[#334155]/30 px-4 py-2 border-b border-[#334155] font-bold text-xs uppercase tracking-wider text-[#94A3B8]">
-                        Caratteristiche Tecniche
-                      </div>
-                      <div className="p-4 text-sm text-[#94A3B8] leading-relaxed">
-                        {realData.caratteristiche}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Profilo Economico */}
-                  <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-5 rounded-2xl border border-[#334155]">
-                    <h3 className="font-bold text-[#F8FAFC] mb-4 flex items-center text-sm">
-                      <User size={16} className="mr-2 text-[#10B981]" /> Profilo Economico
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center border-b border-[#334155] pb-3">
-                        <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Valore di Mercato</span>
-                        <span className="font-black text-[#10B981]">{realData.marketValue}</span>
-                      </div>
-                      <div className="flex justify-between items-center border-b border-[#334155] pb-3">
-                        <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Stipendio Annuo Netto</span>
-                        <span className="font-black text-[#0EA5E9]">{realData.salary}</span>
-                      </div>
-
-                      {realData.instagram ? (
-                        <a
-                          href={realData.instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 via-red-500 to-yellow-500 text-white font-black py-3 rounded-xl active:scale-95 transition-transform shadow-lg text-sm"
-                        >
-                          <ExternalLink size={16} /> Instagram Ufficiale
-                        </a>
-                      ) : (
-                        <div className="text-center text-[10px] text-[#475569] font-black uppercase tracking-widest bg-[#0F172A] py-3 rounded-xl border border-[#334155]">
-                          Instagram non trovato
-                        </div>
-                      )}
-                    </div>
+                  <div className="flex justify-between items-center border-b border-[#334155] pb-3">
+                    <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Stipendio Annuo Netto</span>
+                    <span className="font-black text-[#0EA5E9]">{player.salary || 'Dato non pubblicato'}</span>
                   </div>
-                </>
-              )}
+                  <div className="flex justify-between items-center border-b border-[#334155] pb-3">
+                    <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Scadenza Contratto</span>
+                    <span className="font-black text-white">{player.contractUntil || 'N/A'}</span>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </motion.div>

@@ -43,8 +43,8 @@ export default function TeamHubClient({ team, news, squadData }: any) {
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-[#0F172A] pb-[100px]">
-      {/* Header Squadra */}
+    <div className="flex flex-col w-full min-h-screen bg-[#0B1120] text-white font-sans pb-28">
+      {/* Header Immagine */}
       <div className="sticky top-[56px] z-30 bg-[#1E293B] border-b border-[#334155] p-4 flex items-center shadow-lg">
         <button onClick={() => router.push('/')} className="p-2 -ml-2 text-[#94A3B8]">
           <ChevronLeft size={28} />

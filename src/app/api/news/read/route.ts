@@ -46,9 +46,20 @@ async function extractArticleText(url: string): Promise<string> {
   const reader = new Readability(window.document);
   const article = reader.parse();
 
-  if (article && article.textContent) {
+  let content = article?.textContent || '';
+    
+  // Fallback: se Readability estrae troppo poco (es. paywall o markup complesso), prendiamo brutalmente tutti i paragrafi
+  if (content.length < 500) {
+    const paragraphs = Array.from(window.document.querySelectorAll('p'));
+    const fullText = paragraphs.map(p => p.textContent?.trim()).filter(t => t && t.length > 40).join('\n\n');
+    if (fullText.length > content.length) {
+      content = fullText;
+    }
+  }
+
+  if (content) {
     // Pulizia di newline multipli generati da Readability
-    let cleanText = article.textContent.replace(/\n\s*\n/g, '\n\n').trim();
+    let cleanText = content.replace(/\n\s*\n/g, '\n\n').trim();
     return cleanText;
   }
 

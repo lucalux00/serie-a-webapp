@@ -26,7 +26,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col w-full h-full p-4 space-y-6">
+    <div className="flex flex-col w-full min-h-screen p-4 space-y-6 pb-28 bg-[#0B1120] text-white">
       
       {/* Saluto Utente */}
       <div className="mt-4 flex items-center justify-between">
