@@ -19,13 +19,22 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
 
   // Caricamento Deep Squads (Mock generato)
   let squadData = null;
+  let trofeiData = null;
   try {
     const squadsPath = path.join(process.cwd(), 'src', 'data', 'deepSquads.json');
     const allSquads = JSON.parse(fs.readFileSync(squadsPath, 'utf8'));
     squadData = allSquads[teamId] || null;
+
+    const trofeiPath = path.join(process.cwd(), 'src', 'data', 'trofeiCronologia.json');
+    if (fs.existsSync(trofeiPath)) {
+      const allTrofei = JSON.parse(fs.readFileSync(trofeiPath, 'utf8'));
+      trofeiData = allTrofei.filter((t: any) => t.team === teamId);
+    } else {
+      trofeiData = [];
+    }
   } catch (error) {
-    console.error('Error loading deepSquads:', error);
+    console.error('Error loading data:', error);
   }
 
-  return <TeamHubClient team={team} news={news} squadData={squadData} />;
+  return <TeamHubClient team={team} news={news} squadData={squadData} trofeiData={trofeiData} />;
 }

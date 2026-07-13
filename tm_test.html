@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    
+<script type="text/javascript" data-description="sourcepoint stub code">
+    !function () { var e = function () { var e, t = "__tcfapiLocator", a = [], n = window; for (; n;) { try { if (n.frames[t]) { e = n; break } } catch (e) { } if (n === window.top) break; n = n.parent } e || (!function e() { var a = n.document, r = !!n.frames[t]; if (!r) if (a.body) { var i = a.createElement("iframe"); i.style.cssText = "display:none", i.name = t, a.body.appendChild(i) } else setTimeout(e, 5); return !r }(), n.__tcfapi = function () { for (var e, t = arguments.length, n = new Array(t), r = 0; r < t; r++)n[r] = arguments[r]; if (!n.length) return a; if ("setGdprApplies" === n[0]) n.length > 3 && 2 === parseInt(n[1], 10) && "boolean" == typeof n[3] && (e = n[3], "function" == typeof n[2] && n[2]("set", !0)); else if ("ping" === n[0]) { var i = { gdprApplies: e, cmpLoaded: !1, cmpStatus: "stub" }; "function" == typeof n[2] && n[2](i) } else a.push(n) }, n.addEventListener("message", (function (e) { var t = "string" == typeof e.data, a = {}; try { a = t ? JSON.parse(e.data) : e.data } catch (e) { } var n = a.__tcfapiCall; n && window.__tcfapi(n.command, n.version, (function (a, r) { var i = { __tcfapiReturn: { returnValue: a, success: r, callId: n.callId } }; t && (i = JSON.stringify(i)), e.source.postMessage(i, "*") }), n.parameter) }), !1)) }; "undefined" != typeof module ? module.exports = e : e() }();
+</script>
+<script data-description="sourcepoint configuration">
+window._sp_ = {
+    config: {"accountId":1254,"propertyId":7431,"gdpr":{"consentLanguage":"it","targetingParams":{"acps":"false"}},"baseEndpoint":"https://cdn.privacy-mgmt.com","isSPA":true,"cpPropertyId":"f9a67652"}}
+</script>
+<script src="https://cdn.privacy-mgmt.com/wrapperMessagingWithoutDetection.js" async></script>
+<script type="text/javascript" data-description="contentpass integration">
+    (function() {
+        var cpBaseUrl = 'https://cp.transfermarkt.it';
+        var cpController = cpBaseUrl + '/now.js';
+        var cpPropertyId = 'f9a67652';
+
+        !function(C,o,n,t,P,a,s){C['CPObject']=n;C[n]||(C[n]=function(){
+        (C[n].q=C[n].q||[]).push(arguments)});C[n].l=+new Date;a=o.createElement(t);
+        s=o.getElementsByTagName(t)[0];a.src=P;s.parentNode.insertBefore(a,s)}
+        (window,document,'cp','script',cpController);
+
+        !function(C,o,n,t,P){if(!C[n].patched){cp('extension','authenticate');P=C[n].q.push;
+        C[n].q.push=function(a){if(a[0]==='authenticate'){if((o['cookie']||'').indexOf('_cpauthhint=')===-1&&
+        !(C['localStorage']||{})['_cpuser']&&C.location.href.toLowerCase().indexOf('cpauthenticated')===-1){
+        t={isLoggedIn:function(){return false;},hasValidSubscription:function(){return false;}};
+        (typeof a[1]==='function'&&a[1](null,t));C[n].afp=true;P.apply(C[n].q,[['authenticate',null]]);
+        return t;}}P.apply(C[n].q,[a]);}}}
+        (window,document,'cp',false);
+
+        cp('create', cpPropertyId, {
+        baseUrl: cpBaseUrl
+        });
+
+        cp('render', {
+        onFullConsent: function() {
+            console.log('[DEMO] onFullConsent');
+        }
+        })
+    })()
+</script>
+
+<script type="text/javascript" data-description="contentpass sourcepoint fast path">
+(function () {
+    cp('authenticate', function(err, user) {
+        if (err || (!user.isLoggedIn() && !user.hasValidSubscription())) {
+        // console.log('[SPCP] Taking fast path');
+        (function spExecMsg() {
+            if (window._sp_ && window._sp_.executeMessaging) {
+            if (!window._sp_.config.isSPA) {
+                // console.warn('[SPCP] Sourcepoint not in SPA mode!');
+            } else if (window._sp_.version) {
+                // console.log('[SPCP] Sourcepoint already running');
+            } else {
+                // console.log('[SPCP] Starting Sourcepoint');
+                window._sp_.executeMessaging();
+            }
+            } else {
+            // console.log('[SPCP] Sourcepoint not loaded yet. Retrying.');
+            setTimeout(spExecMsg, 10);
+            }
+        })();
+        }
+    });
+    })();
+</script>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=no" />
+<meta name="keywords" content="Serie A,Italia" />
+<meta name="pbstck_context:website" content="transfermarkt" />
+<meta name="pbstck_context:device" content="desktop" />
+<meta name="pbstck_context:section" content="test" />
+<meta name="description" content="Tutti i trasferimenti in tempo reale della Serie A. Elenco con il profilo del giocatore, le società coinvolte e il prezzo pagato." />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="https://tmssl.akamaized.net/images/tm_logo.png" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="Serie A - Ultimi trasferimenti" />
+<meta property="twitter:title" content="Serie A - Ultimi trasferimenti" />
+<meta property="og:url" content="https://www.transfermarkt.it/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="de" rel="alternate" href="https://www.transfermarkt.de/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="de-LU" rel="alternate" href="https://www.transfermarkt.de/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="de-AT" rel="alternate" href="https://www.transfermarkt.at/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="de-CH" rel="alternate" href="https://www.transfermarkt.ch/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="tr" rel="alternate" href="https://www.transfermarkt.com.tr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="it-CH" rel="alternate" href="https://www.transfermarkt.it/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="it" rel="alternate" href="https://www.transfermarkt.it/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="pl" rel="alternate" href="https://www.transfermarkt.pl/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en-GB" rel="alternate" href="https://www.transfermarkt.co.uk/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en-IE" rel="alternate" href="https://www.transfermarkt.co.uk/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es" rel="alternate" href="https://www.transfermarkt.es/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-ES" rel="alternate" href="https://www.transfermarkt.es/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-CL" rel="alternate" href="https://www.transfermarkt.es/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-VE" rel="alternate" href="https://www.transfermarkt.es/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-EC" rel="alternate" href="https://www.transfermarkt.es/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-CU" rel="alternate" href="https://www.transfermarkt.es/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="nl" rel="alternate" href="https://www.transfermarkt.nl/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="pt" rel="alternate" href="https://www.transfermarkt.pt/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="ru" rel="alternate" href="https://www.transfermarkt.world/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="fr-CH" rel="alternate" href="https://www.transfermarkt.fr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="fr" rel="alternate" href="https://www.transfermarkt.fr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="fr-CA" rel="alternate" href="https://www.transfermarkt.fr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="fr-CI" rel="alternate" href="https://www.transfermarkt.fr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="fr-LU" rel="alternate" href="https://www.transfermarkt.fr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="fr-BE" rel="alternate" href="https://www.transfermarkt.fr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="pt-BR" rel="alternate" href="https://www.transfermarkt.com.br/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en-US" rel="alternate" href="https://www.transfermarkt.us/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en-CA" rel="alternate" href="https://www.transfermarkt.us/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en-IN" rel="alternate" href="https://www.transfermarkt.co.in/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en-ZA" rel="alternate" href="https://www.transfermarkt.co.za/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="x-default" rel="alternate" href="https://www.transfermarkt.com/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="en" rel="alternate" href="https://www.transfermarkt.com/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="nl-BE" rel="alternate" href="https://www.transfermarkt.be/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="ro" rel="alternate" href="https://www.transfermarkt.ro/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="el-GR" rel="alternate" href="https://www.transfermarkt.gr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="ko-KR" rel="alternate" href="https://www.transfermarkt.co.kr/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-AR" rel="alternate" href="https://www.transfermarkt.com.ar/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-MX" rel="alternate" href="https://www.transfermarkt.mx/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-CO" rel="alternate" href="https://www.transfermarkt.co/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="es-PE" rel="alternate" href="https://www.transfermarkt.pe/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="ms" rel="alternate" href="https://www.transfermarkt.my/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="ja" rel="alternate" href="https://www.transfermarkt.jp/serie-a/letztetransfers/wettbewerb/IT1" />
+<link hreflang="id" rel="alternate" href="https://www.transfermarkt.co.id/serie-a/letztetransfers/wettbewerb/IT1" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-main.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/css/stylesheets/main_desktop.css?lm=1783936450" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-discover.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-button-list.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-link-list.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-print.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-competition.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-statistics.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-chosen.min.css?lm=1783936452" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/css/stylesheets/main.css?lm=1783936450" />
+<link rel="stylesheet" type="text/css" href="https://tmssl.akamaized.net/styles/tm-club-profile.min.css?lm=1783936452" />
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/vendor/jquery.min.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/assets/b7c5571cf8957553f95f6d9069eaed67/jquery.ba-bbq.min.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/jquery.bxslider.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/main.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/chosen.ajaxaddition.jquery.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/functions.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/main_desktop.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/chosen.jquery.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/consent/bundle.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+console.info("%c [TM-ADs] Initialize Ads on domain .it (wettbewerb/letztetransfers)", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot rectangle1 (/5196,58778164/mediumrectangle_1) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot rectangle2 (/5196,58778164/mediumrectangle_2) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot fireplace (/5196,58778164/fireplace) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot skyscraper-left-bound (/5196,58778164/Skyscraper_left) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot skyscraper (/5196,58778164/skyscraper_right) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot billboard (/5196,58778164/pushbar_1) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot interstitial (/5196,58778164/intropage) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot fullsize_contentad (/5196,58778164/pushbar_2) for sportsnetwork", "background: #282828; color: #bada55")
+    var oddsServe = function(placement,competition,match,node) {
+        if (!node){
+            var s=document.readyState==='loading'?document.getElementsByTagName('script'):[];
+            node=s.length?s[s.length-1].parentNode:null;
+        }
+        oddsServe.queue.push({contentUnitId:placement,competition:competition,match:match,node:node});
+    }
+    
+    oddsServe.onInit=function(callbacks){
+        if (typeof window.__tcfapi === 'function') {
+            __tcfapi('addEventListener', 2, function(tcdata, success) {
+                let tcf20compatibleString;
+                if(success) {
+                    if (tcdata.eventStatus === 'useractioncomplete') {
+                        tcf20compatibleString = tcdata.tcString;
+                    } else if (tcdata.eventStatus === 'tcloaded') {
+                        tcf20compatibleString = tcdata.tcString;
+                    }
+                    callbacks.setGdprOptions({
+                        gdpr:1,
+                        gdpr_pd:1,
+                        gdpr_consent:tcf20compatibleString,
+                    });
+                }
+            });
+        } else {
+            console.warn('E2: __tcfapi not found');
+        }
+    };
+    oddsServe.options={gdpr_wait:true};
+    oddsServe.queue=[];
+console.info("%c [TM-ADs] Render slot 1by1px (/5196,58778164/skin_oop) for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Add adslot configuration for 9 ad slots rectangle1 | rectangle2 | fireplace | skyscraper-left-bound | skyscraper | billboard | interstitial | fullsize_contentad | 1by1px", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Adslots without configuration: content_spezial | skyscraperbtf | richmedia", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Register slots with JS vendor lib", "background: #282828; color: #bada55")
+window.addEventListener('load', () => {
+  const offset = window.matchMedia('(max-width: 768px)').matches ? 80 : 120;
+  document.querySelectorAll('[data-sticky]').forEach(node => {
+    const parent = node.parentElement;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) {
+        parent.style.position = 'sticky';
+        parent.style.top = `${offset}px`;
+        parent.style.zIndex = 12000000;
+        setTimeout(() => {
+          parent.style.removeProperty('position');
+          parent.style.removeProperty('top');
+          parent.style.removeProperty('z-index');
+        }, parseInt(node.dataset?.sticky) || 3000);
+        observer.unobserve(parent);
+      }
+    }, { rootMargin: `-${offset}px 0px 0px 0px`, threshold: 1 });
+    observer.observe(parent);
+  });
+});
+
+console.info("%c [TM-ADs] Render ad slots js for sportsnetwork", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Added external ad script https://boot.pbstck.com/v1/adm/6d965896-ef32-4989-a32c-7341574387ec for googleadvertising on wettbewerbe_rest", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Added external ad script https://t.seedtag.com/t/0054-3928-01.js for googleadvertising on wettbewerbe_rest", "background: #282828; color: #bada55")
+/*]]>*/
+</script>
+<title>Serie A - Ultimi trasferimenti | Transfermarkt</title>
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-152x152.png">
+    
+<script type="text/javascript">
+   tmData = {
+       loggedIn : "0",
+       tmTraffic: "0",
+   };
+</script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let utmVars = {
+        eVar1: urlParams.get('utm_campaign'),
+        eVar6: urlParams.get('utm_source'),
+        eVar24: urlParams.get('utm_medium')
+    };
+    Object.keys(utmVars).forEach((k) => utmVars[k] == null && delete utmVars[k]);
+
+    window.tmAnalyticsDataLayer = window.tmAnalyticsDataLayer || [];
+    window.tmAnalytics = {
+        dimensions: {
+            eVar11: 'Serie A (IT1)',
+			eVar12: 'Italy',
+			eVar10: '',
+			...utmVars,
+            evar19: window.location.href,
+            eVar35 : '',
+			eVar37 : '',
+    },
+    properties: {
+        prop2: 'statistik',
+		prop3: 'wettbewerb',
+		prop4: 'letztetransfers',
+		prop5: 'IT1',
+		prop14: 'statistik_wettbewerb_letztetransfers_IT1',
+		prop9: window.location.hostname,
+        prop10: window.location.href,
+        prop1 : 'false',
+    },
+    pageDetails: {
+        pageViews: {
+            value: 1
+        },
+        isErrorPage: 'false',
+            isHomepage: 'false',
+            name: 'Serie A - Ultimi trasferimenti | Transfermarkt',
+            URL: window.location.href,
+            server: 'prod-tm-web-server-11139'
+    },
+    };
+
+function tmEventForLink(category, aTag, label) {
+    const url = new URL(aTag.href);
+    const link = url.pathname + url.search;
+    tmEvent(category, link, label);
+}
+
+function tmEvent(category, action, label, detail = '') {
+    if (typeof gtag === 'function') {
+        gtag('event',
+            action,
+            {
+                'event_category': category,
+                'event_label': label
+            }
+        );
+    }
+
+    const ev = {
+        event: 'tmEvent',
+        tmEvent: {
+            customDimensions: {
+                eVars: {
+                    ...tmAnalytics.dimensions
+                },
+                props: {
+                    prop6: category,
+                    prop7: action,
+                    prop8: label,
+                    prop17: detail,
+                    ...tmAnalytics.properties
+                }
+            },
+            event1to100: {
+                event7: {
+                    value: 1
+                },
+                event8: null,
+            },
+            session: {
+                web: {
+                    webInteraction: {
+                        linkClicks: {
+                            value: 1
+                        }
+                    },
+                    webPageDetails: {
+                        ...tmAnalytics.pageDetails,
+                        ...{
+                            pageViews: {
+                                value: null
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+     if (!window._satellite) {
+        once = false;
+        window._satellite = { _monitors: [{
+            ruleTriggered: (e) => {
+                if (once) {
+                    return;
+                }
+                once = true;
+                setTimeout(() => {
+                    tmAnalyticsDataLayer.push(ev);
+                    tmAnalyticsDataLayer.push(function (dl) {
+                        const state = dl.getState();
+                    });
+                }, 1);
+            }
+        }] };
+    } else {
+        tmAnalyticsDataLayer.push(ev);
+        tmAnalyticsDataLayer.push(function (dl) {
+            const state = dl.getState();
+        });
+    }
+}
+function tmTrackingAndAds() {
+    if (typeof gtag === 'function') {
+        gtag("event", "page_view", {
+            page_path: "/jsContent" + window.location.pathname
+        });
+    }
+
+    tmAnalyticsDataLayer.push({
+        event: 'tmTrackingAndAds',
+        tmTrackingAndAds: {
+            customDimensions: {
+                eVars: tmAnalytics.dimensions,
+                props: tmAnalytics.properties
+            },
+            event1to100: {
+                event7: null,
+                event8: {
+                    value: 1
+                }
+            },
+            session: {
+                web: {
+                    webInteraction: {
+                        linkClicks: {
+                            value: null
+                        }
+                    },
+                    webPageDetails: {
+                        ...tmAnalytics.pageDetails,
+                        ...{
+                            pageViews: {
+                                value: 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+    tmAnalyticsDataLayer.push(function (dl) {
+        const state = dl.getState();
+    });
+}
+function tmTiming(value, name, event_category, event_label) {
+    console.log('tmTiming', value, name, event_category, event_label);
+}
+
+        !function(e,a,n,t){var i=e.head;if(i){
+            if (a) return;
+            var o=e.createElement("style");
+            o.id="alloy-prehiding",o.innerText=n,i.appendChild(o),setTimeout(function(){o.parentNode&&o.parentNode.removeChild(o)},t)}}
+        (document, document.location.href.indexOf("adobe_authoring_enabled") !== -1, ".personalization-container { opacity: 0 !important }", 3000);
+
+            !function(n,o){o.forEach(function(o){n[o]||((n.__alloyNS=n.__alloyNS||
+                []).push(o),n[o]=function(){var u=arguments;return new Promise(
+                function(i,l){n[o].q.push([i,l,u])})},n[o].q=[])})}
+            (window,["alloy"]);
+</script>
+<tm-consent
+    type="adobe"
+    no-checkbox
+    embed="PHNjcmlwdCBhc3luYyBzcmM9Imh0dHBzOi8vYXNzZXRzLmFkb2JlZHRtLmNvbS83Y2FkY2E5NWRkOWEvY2Q0YWI4ODRkMjMxL2xhdW5jaC0wMTI3MmI0MDBjNjUubWluLmpzIj48L3NjcmlwdD4=">
+</tm-consent>
+
+    <script type="text/javascript" src="https://tmssl.akamaized.net//ads/ads.js"></script>
+    <script type="text/javascript">
+        window.tmGaId = "UA-3816204-13";
+
+        function sendIvwData() {}
+    </script>
+    </head>
+
+<body class="desktop " itemscope itemtype="http://schema.org/WebPage" data-tm-tld="it" data-cmp-layer-id="227440" data-db-name="it-der-zauberzwerg" >
+    <div class="werbung ad-placement-note werbung-fireplace" data-ad-placement-note="Pubblicità">
+  <div id="fireplace" style="min-width: 728px; min-height: 90px;"></div>
+</div>
+
+                <tm-domain-note></tm-domain-note>
+        <div id="main">
+                    <button id="back-to-top" title="Nach oben">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17.795" height="10.009" viewBox="0 0 17.795 10.009">
+                    <path id="angle-up" d="M20.683,17.01a1.112,1.112,0,0,1-.786-.326l-7-7-7,7a1.112,1.112,0,1,1-1.573-1.573l7.785-7.785a1.112,1.112,0,0,1,1.573,0l7.785,7.785a1.112,1.112,0,0,1-.786,1.9Z" transform="translate(-4 -7)" fill="#fff"/>
+                </svg>
+            </button>
+            <div class="werbung-skyscraper-left-bound-container">
+                <div class="werbung ad-placement-note werbung-skyscraper-left-bound" data-ad-placement-note="Pubblicità">
+  <div id="Skyscraper_left" style="min-width: 300px; min-height: 600px;"></div>
+</div>
+            </div>
+            <div class="werbung-skyscraper-container">
+                <div class="werbung ad-placement-note werbung-skyscraper" data-ad-placement-note="Pubblicità">
+  <div id="skyscraper_right" style="min-width: 300px; min-height: 600px;"></div>
+</div>
+            </div>
+
+            <div class="werbung-skyscraperbtf-container">
+                            </div>
+        
+        <div id="tm-overlay"></div>
+
+                    <div class="tm-header__box">
+                <!-- logo  -->
+                <a href="/" class="tm-header__logo" onclick="tmEvent('hauptnavi', '/', 'TM-Logo');">
+                    <img src="https://tmsi.akamaized.net/head/tm_logo_rebrush.svg"
+                         height="62"
+                         width="156"
+                         title="Transfermarkt"
+                         alt="Transfermarkt"
+                    >
+                </a>
+
+                <!-- domainswitcher  -->
+                <div class="domin-swicher">
+                    <tm-domain-switcher
+                        tld="it"
+                        translations='{&quot;chooseYourDomain&quot;:&quot;Scegli la tua lingua&quot;}'></tm-domain-switcher>
+                </div>
+
+                <!-- live -->
+                <tm-live-match-count
+                    class="tm-header__live"
+                    auto-request                    content='{&quot;liveMatches&quot;:&quot;Partite in diretta&quot;,&quot;liveMatch&quot;:&quot;Partita in diretta&quot;,&quot;live&quot;:&quot;Diretta&quot;}'></tm-live-match-count>
+
+                <!-- Search -->
+                                    <div class="tm-header__search " id="schnellsuche-platz">
+                        <form name="schnellsuche" id="schnellsuche" class="tm-header__form" action="/schnellsuche/ergebnis/schnellsuche">
+                            <input type="text" name="query" class="tm-header__input--search-field" onClick="" placeholder="Inserire termine di ricerca... " autocorrect="off" spellcheck="false" value="" />
+                            <button type="submit" value="" class="tm-header__input--search-send" alt="Cerca ">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" viewBox="0 0 18 18">
+                                    <path d="M17.825,16.847 L14.28,13.303 C17.072,9.987 16.756,5.061 13.563,2.13 C10.37,-0.8 5.435,-0.695 2.37,2.37 C-0.695,5.435 -0.8,10.37 2.13,13.563 C5.061,16.756 9.987,17.072 13.303,14.28 L16.847,17.825 C17.121,18.069 17.538,18.057 17.797,17.797 C18.057,17.538 18.069,17.121 17.825,16.847 z M1.418,8.108 C1.417,4.413 4.412,1.417 8.107,1.416 C11.802,1.415 14.798,4.411 14.799,8.106 C14.799,11.801 11.804,14.797 8.108,14.797 C4.414,14.797 1.419,11.803 1.418,8.108 z" fill="#000" />
+                                </svg>
+                            </button>
+                        </form>
+                        <a href="/detailsuche/spielerdetail/suche" title="Ricerca dettagliata" id="detailsuche-head" class="tm-header__search-detail">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" viewBox="0, 0, 18, 18">
+                                <path d="M3.138,3.558 C3.137,1.593 4.727,0 6.69,0 C8.652,-0 10.243,1.592 10.243,3.556 C10.243,5.521 8.653,7.113 6.69,7.113 C4.729,7.113 3.138,5.522 3.138,3.558 z M8.233,13.187 C8.261,11.778 8.861,10.442 9.893,9.486 C9.967,9.418 9.997,9.315 9.971,9.219 C9.946,9.119 9.863,9.044 9.76,9.03 C9.331,8.938 8.893,8.893 8.454,8.895 L4.906,8.895 C3.583,8.808 2.286,9.298 1.35,10.239 C0.414,11.179 -0.07,12.479 0.021,13.804 C-0.085,14.656 0.209,15.509 0.817,16.114 C1.425,16.72 2.279,17.009 3.13,16.897 L9.266,16.897 C9.372,16.895 9.467,16.831 9.508,16.732 C9.549,16.634 9.527,16.521 9.453,16.444 C8.665,15.544 8.232,14.387 8.236,13.191 z M17.805,17.804 C17.68,17.93 17.511,18 17.334,18 C17.158,18 16.989,17.93 16.864,17.804 L15.237,16.177 C13.686,17.242 11.58,16.949 10.378,15.501 C9.176,14.052 9.274,11.926 10.604,10.594 C11.934,9.263 14.058,9.165 15.505,10.368 C16.952,11.571 17.244,13.68 16.181,15.233 L17.805,16.866 C18.065,17.126 18.065,17.548 17.805,17.808 z M15.484,13.182 C15.484,11.911 14.455,10.881 13.186,10.881 C11.917,10.881 10.888,11.911 10.888,13.182 C10.888,14.452 11.917,15.482 13.186,15.482 C14.455,15.482 15.484,14.452 15.484,13.182 z" fill="#000" />
+                            </svg>
+                        </a>
+                    </div>
+                
+                <!-- login button -->
+                <div class="tm-header__login">
+                    <tm-userbox translations='{&quot;addFavorite&quot;:&quot;Aggiungere questa pagina&quot;,&quot;adminArea&quot;:&quot;Sezione amministratore&quot;,&quot;adminTools&quot;:&quot;Funzioni interne&quot;,&quot;allFavoriteLinkText&quot;:&quot;Vai a tutti i miei link salvati&quot;,&quot;applyAsModOrDatascout&quot;:&quot;Diventare datascout o moderatore&quot;,&quot;checkAllNews&quot;:&quot;Tutte le news&quot;,&quot;checkAllRumours&quot;:&quot;Tutti i rumor&quot;,&quot;chooseYourDomain&quot;:&quot;Scegli la tua lingua&quot;,&quot;clickAgain&quot;:&quot;Fare nuovamente clic per copiare il link&quot;,&quot;clubBoard&quot;:&quot;Forum club&quot;,&quot;confirm&quot;:&quot;OK&quot;,&quot;copied&quot;:&quot;Copiato&quot;,&quot;copyLink&quot;:&quot;Copiare il link &quot;,&quot;createAccount&quot;:&quot;Crea il tuo account&quot;,&quot;createNewMessage&quot;:&quot;Invia nuovo messaggio&quot;,&quot;createShortlink&quot;:&quot;Creare shortlink&quot;,&quot;createShortNews&quot;:&quot;Inviare una notizia&quot;,&quot;dashboard&quot;:&quot;Panoramica&quot;,&quot;dataAdministration&quot;:&quot;Cura dei dati&quot;,&quot;debug&quot;:&quot;Debug&quot;,&quot;deleteAll&quot;:&quot;Cancellare tutti&quot;,&quot;deleteConfirm&quot;:&quot;S\u00ec, cancella.&quot;,&quot;editText&quot;:&quot;Edit&quot;,&quot;forgotPassword&quot;:&quot;Password dimenticata?&quot;,&quot;forgotUsername&quot;:&quot;Nome utente dimenticato?&quot;,&quot;forgotLoginDetails&quot;:&quot;Hai dimenticato i dati di accesso?&quot;,&quot;forum&quot;:&quot;forum&quot;,&quot;groundhoppingTool&quot;:&quot;Diario tifoso&quot;,&quot;lastMatch&quot;:&quot;Ultimo incontro&quot;,&quot;signin&quot;:&quot;Login&quot;,&quot;login&quot;:&quot;Login&quot;,&quot;logOut&quot;:&quot;Esci&quot;,&quot;manageFavorites&quot;:&quot;Modifica preferiti&quot;,&quot;marketValue&quot;:&quot;Valore di Mercato&quot;,&quot;matchplan&quot;:&quot;Calendario&quot;,&quot;messages&quot;:&quot;Messaggi&quot;,&quot;myClub&quot;:&quot;Mia squadra&quot;,&quot;myClubText&quot;:&quot;Con un account puoi salvare il tuo club preferito e trovare tutte le informazioni e novit\u00e0 sulla tua squadra del cuore.&quot;,&quot;myDreamTeam&quot;:&quot;Il mio Dream Team&quot;,&quot;myFavorites&quot;:&quot;I miei preferiti&quot;,&quot;myFavoritesText&quot;:&quot;Con un account Transfermarkt, potete salvare qualsiasi pagina tra i preferiti e accedervi con un solo clic.&quot;,&quot;myProfile&quot;:&quot;Il mio profilo&quot;,&quot;news&quot;:&quot;News&quot;,&quot;newsAdministration&quot;:&quot;Amministrazione news&quot;,&quot;nextMatch&quot;:&quot;Prossimo incontro&quot;,&quot;noNewNotifications&quot;:&quot;Non ci sono novit\u00e0&quot;,&quot;notifications&quot;:&quot;Notifiche&quot;,&quot;notificationsDeletedAutomatically&quot;:&quot;Nota: le notifiche vengano cancellate automaticamente dopo 30 giorni&quot;,&quot;notifyDeleteMessage&quot;:&quot;Messaggi privati pi\u00f9 vecchi di 45 giorni vengano cancellati in via automatica &quot;,&quot;or&quot;:&quot;o&quot;,&quot;other&quot;:&quot;Altro&quot;,&quot;overview&quot;:&quot;Tutte le info&quot;,&quot;password&quot;:&quot;Password&quot;,&quot;playerRatings&quot;:&quot;Voto giocatori (Bundesliga)&quot;,&quot;playerWatchlist&quot;:&quot;Scouting tool&quot;,&quot;postponed&quot;:&quot;spostato&quot;,&quot;profile&quot;:&quot;Profilo  &quot;,&quot;progDebug&quot;:&quot;Prog. Debug&quot;,&quot;progProfile&quot;:&quot;Prog. Debug&quot;,&quot;registerNow&quot;:&quot;Registrati ora&quot;,&quot;rememberMe&quot;:&quot;Salva login&quot;,&quot;removeFavorite&quot;:&quot;Rimuovi questa pagina&quot;,&quot;rumors&quot;:&quot;Rumor&quot;,&quot;schedule&quot;:&quot;Calendario&quot;,&quot;sessionExpired&quot;:&quot;La tua sessione su Transfermarkt \u00e8 scaduta. Effettua nuovamente l&#039;accesso.&quot;,&quot;sessionExpiredTitle&quot;:&quot;Sessione scaduta&quot;,&quot;setting&quot;:&quot;Preferenze&quot;,&quot;shortlink&quot;:&quot;Shortlink&quot;,&quot;shortLinkCreationError&quot;:&quot;Errore nella creazione dello shortlink&quot;,&quot;shortLinkHasBeenCreated&quot;:&quot;Shortlink creato e copiato nei tuoi appunti&quot;,&quot;shortLinkIsBeingCreated&quot;:&quot;Crea shortlink ...&quot;,&quot;showAllMessages&quot;:&quot;Mostra tutti i messaggi&quot;,&quot;totalMarketValue&quot;:&quot;Valore Giocatori&quot;,&quot;translation&quot;:&quot;Traduzione&quot;,&quot;username&quot;:&quot;Nome utente&quot;,&quot;whyRegister&quot;:&quot;Perch\u00e9 registrasi?&quot;,&quot;Bitte korrigieren Sie die markierten Felder&quot;:&quot;Correggi i campi evidenziati&quot;,&quot;mindestensDreiZeichen&quot;:&quot;Almeno tre caratteri&quot;,&quot;mindestensAchtZeichen&quot;:&quot;Almeno otto caratteri&quot;,&quot;pleaseCorrectFields&quot;:&quot;profil&quot;,&quot;minThreeCharacters&quot;:&quot;Almeno tre caratteri&quot;,&quot;minEightCharacters&quot;:&quot;Almeno otto caratteri&quot;,&quot;noAtCharacter&quot;:&quot;Il carattere @ non \u00e8 consentito nel nome utente&quot;,&quot;agentProfile&quot;:&quot;Il profilo della mia agenzia&quot;}' page-title="Serie A - Ultimi trasferimenti | Transfermarkt" tld="it" agent-profile=""  />
+                </div>
+            </div>
+        
+        
+                        <!-- mobile end -->
+            <nav class="main-navbar">
+                                    <a href="/" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/', 'In primo piano')">
+                        In primo piano                    </a>
+                                    <a href="/weltmeisterschaft/startseite/pokalwettbewerb/FIWC" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/weltmeisterschaft/startseite/pokalwettbewerb/FIWC', 'Mondiali 2026')">
+                        Mondiali 2026                    </a>
+                                    <a href="/navigation/transfersundgeruechte" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/navigation/transfersundgeruechte', 'Calciomercato')">
+                        Calciomercato                    </a>
+                                    <a href="/navigation/marktwerte" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/navigation/marktwerte', 'Valori di mercato')">
+                        Valori di mercato                    </a>
+                                    <a href="/navigation/wettbewerbe" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/navigation/wettbewerbe', 'Database')">
+                        Database                    </a>
+                                    <a href="/navigation/statistiken" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/navigation/statistiken', 'Statistiche')">
+                        Statistiche                    </a>
+                                    <a href="/navigation/community" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/navigation/community', 'Community')">
+                        Community                    </a>
+                                    <a href="/navigation/gaming" class="main-navbar__lp-link " onclick="tmEvent('hauptnavi', '/navigation/gaming', 'Gaming')">
+                        Gaming                    </a>
+                                <div class="main-navbar__details">
+                    <div class="hamburger">
+                        <em></em>
+                    </div>
+                    <div class="dropdown-layer"></div>
+                    <div class="main-navbar__dropdown">
+                                                            <div class="recommendation">
+        
+    
+                            <div class="tm-discover__hero-container tm-discover__hero-container-grid tm-discover-container-grid">
+                    
+                                    <section class="tm-button-list__wrapper tm-button-list__wrapper--two-thirds  "><span class="tm-discover__h2">I più cliccati</span><ul class="tm-button-list"><li><a
+                        href="/mondiali/startseite/wettbewerb/FIWC"
+                        title="Mondiali"
+                        target=""
+                        class="tm-button-list__list-item tm-button-list__list-item--big "
+                        onclick="tmEvent('recommendations_recommendation', '/mondiali/startseite/wettbewerb/FIWC' , '1_1', 'buttonList');"
+                    ><img
+                            src="https://tmssl.akamaized.net//images/logo/homepageWappen150x150/fiwc.png?lm=1747989919"
+                            alt="Mondiali"
+                            class="tm-button-list__image tm-button-list__image--big 1"
+                            width="54"
+                            height="36"
+                        ></a></li><li><a
+                        href="/serie-a/startseite/wettbewerb/IT1"
+                        title="Serie A"
+                        target=""
+                        class="tm-button-list__list-item tm-button-list__list-item--big "
+                        onclick="tmEvent('recommendations_recommendation', '/serie-a/startseite/wettbewerb/IT1' , '1_2', 'buttonList');"
+                    ><img
+                            src="https://tmssl.akamaized.net//images/logo/homepageWappen150x150/it1.png?lm=1656073460"
+                            alt="Serie A"
+                            class="tm-button-list__image tm-button-list__image--big 1"
+                            width="54"
+                            height="36"
+                        ></a></li><li><a
+                        href="/serie-b/startseite/wettbewerb/IT2"
+                        title="Serie B"
+                        target=""
+                        class="tm-button-list__list-item tm-button-list__list-item--big "
+                        onclick="tmEvent('recommendations_recommendation', '/serie-b/startseite/wettbewerb/IT2' , '1_3', 'buttonList');"
+                    ><img
+                            src="https://tmssl.akamaized.net//images/logo/homepageWappen150x150/it2.png?lm=1720690779"
+                            alt="Serie B"
+                            class="tm-button-list__image tm-button-list__image--big 1"
+                            width="54"
+                            height="36"
+                        ></a></li><li><a
+                        href="/inter/startseite/verein/46"
+                        title=""
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big "
+                        onclick="tmEvent('recommendations_recommendation', '/inter/startseite/verein/46' , '1_4', 'buttonList');"
+                    ><img
+                            src="https://tmssl.akamaized.net//images/wappen/homepageWappen150x150/46.png?lm=1618900989"
+                            alt="Inter"
+                            class="tm-button-list__image tm-button-list__image--big 1"
+                            width="54"
+                            height="36"
+                        ></a></li><li><a
+                        href="/Milan/startseite/verein/5"
+                        title=""
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big "
+                        onclick="tmEvent('recommendations_recommendation', '/Milan/startseite/verein/5' , '1_5', 'buttonList');"
+                    ><img
+                            src="https://tmssl.akamaized.net//images/wappen/homepageWappen150x150/5.png?lm=1605166627"
+                            alt="AC Milan"
+                            class="tm-button-list__image tm-button-list__image--big 1"
+                            width="54"
+                            height="36"
+                        ></a></li><li><a
+                        href="/juventus/startseite/verein/506"
+                        title=""
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big "
+                        onclick="tmEvent('recommendations_recommendation', '/juventus/startseite/verein/506' , '1_6', 'buttonList');"
+                    ><img
+                            src="https://tmssl.akamaized.net//images/wappen/homepageWappen150x150/506.png?lm=1626441487"
+                            alt="Juventus FC"
+                            class="tm-button-list__image tm-button-list__image--big 1"
+                            width="54"
+                            height="36"
+                        ></a></li></ul></section>
+                                                                                
+        
+    
+                
+                                    <section class="tm-button-list__wrapper tm-button-list__wrapper--one-third  tm-button-list__desktop"><span class="tm-discover__h2">Procuratori</span><ul class="tm-button-list"><li><a
+                        href="/agent-support/beraterIndex/berater"
+                        title="Agent Support"
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big tm-button-list__agent"
+                        onclick="tmEvent('recommendations_recommendation', '/agent-support/beraterIndex/berater' , '2_1', 'buttonList');"
+                    ><img
+                            src="https://tmsi.akamaized.net/rebrush/navigation/agent-support.webp"
+                            alt=""
+                            class="tm-button-list__image tm-button-list__image--big tm-button-list__image--country tm-button-list__image--border"
+                            width="54"
+                            height="36"
+                        >Agent<br>Support</a></li><li><a
+                        href="/berater/beraterfirmenuebersicht/berater"
+                        title="Agenzie di giocatori"
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big tm-button-list__agent"
+                        onclick="tmEvent('recommendations_recommendation', '/berater/beraterfirmenuebersicht/berater' , '2_2', 'buttonList');"
+                    ><img
+                            src="https://tmsi.akamaized.net/rebrush/navigation/agent-statistic.webp"
+                            alt=""
+                            class="tm-button-list__image tm-button-list__image--big tm-button-list__image--country tm-button-list__image--border"
+                            width="54"
+                            height="36"
+                        >Agenzie<br>di<br>giocatori</a></li><li><a
+                        href="/premium-service/salespage/berater"
+                        title="Servizio Premium"
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big tm-button-list__agent"
+                        onclick="tmEvent('recommendations_recommendation', '/premium-service/salespage/berater' , '2_3', 'buttonList');"
+                    ><img
+                            src="https://tmsi.akamaized.net/rebrush/navigation/premium-service.webp"
+                            alt=""
+                            class="tm-button-list__image tm-button-list__image--big tm-button-list__image--country tm-button-list__image--border"
+                            width="54"
+                            height="36"
+                        >Servizio<br>Premium</a></li></ul></section>
+                                                                                
+        
+    
+                
+                                            
+<section class="tm-link-list-container tm-link-list--full ">
+        <div
+        class="tm-link-list-element"
+        role="navigation"
+        aria-label=""
+    >
+                    
+                        
+                                            <ul
+    class="tm-link-list-unordered   recommendation__links"
+>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/discussione-valori-di-mercato/detail/forum/67"
+                    title="Analisi Valori di Mercato"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/discussione-valori-di-mercato/detail/forum/67' , '3_1','linkList');"
+                >
+                    Analisi Valori di Mercato
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/calciomercato-italiano/detail/forum/154"
+                    title="Calciomercato"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/calciomercato-italiano/detail/forum/154' , '3_2','linkList');"
+                >
+                    Calciomercato
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/statistik/neuestetransfers"
+                    title="Diretta mercato"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/statistik/neuestetransfers' , '3_3','linkList');"
+                >
+                    Diretta mercato
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/whatsMyValue"
+                    title="What's my value?"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/whatsMyValue' , '3_4','linkList');"
+                >
+                    What's my value?
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/serie-a/marktwerte/wettbewerb/IT1"
+                    title="Giocatori più preziosi (Serie A)"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/serie-a/marktwerte/wettbewerb/IT1' , '3_5','linkList');"
+                >
+                    Giocatori più preziosi (Serie A)
+                </a>
+                    </li>
+    </ul>
+                                            <ul
+    class="tm-link-list-unordered   recommendation__links"
+>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/spieler-statistik/wertvollstespieler/marktwertetop"
+                    title="Giocatori più preziosi (Mondo)"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/spieler-statistik/wertvollstespieler/marktwertetop' , '3_6','linkList');"
+                >
+                    Giocatori più preziosi (Mondo)
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/statistik/endendevertraege"
+                    title="Giocatori in scadenza"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/statistik/endendevertraege' , '3_7','linkList');"
+                >
+                    Giocatori in scadenza
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/statistik/vertragslosespieler"
+                    title="Giocatori svincolati"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/statistik/vertragslosespieler' , '3_8','linkList');"
+                >
+                    Giocatori svincolati
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/uebersicht/index/forum"
+                    title="Tutto il forum"
+                    target="_self"
+                    onclick="tmEvent('recommendations_recommendation', '/uebersicht/index/forum' , '3_9','linkList');"
+                >
+                    Tutto il forum
+                </a>
+                    </li>
+            <li
+            class="tm-link-list-item"
+        >
+                            <a
+                    class="tm-link__arrow  "
+                    href="/scommesse/"
+                    title="Scommesse"
+                    target="_blank"
+                    onclick="tmEvent('recommendations_recommendation', '/scommesse/' , '3_10','linkList');"
+                >
+                    Scommesse
+                </a>
+                    </li>
+    </ul>
+                        </div>
+
+    </section>
+                                                                        
+        
+    
+                
+                                    <section class="tm-button-list__wrapper tm-button-list__wrapper--full  tm-button-list__mobile"><span class="tm-discover__h2">Agents Mobil</span><ul class="tm-button-list"><li><a
+                        href="/agent-support/beraterIndex/berater"
+                        title="Agent Support"
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big tm-button-list__agent"
+                        onclick="tmEvent('recommendations_recommendation', '/agent-support/beraterIndex/berater' , '4_1', 'buttonList');"
+                    ><img
+                            src="https://tmsi.akamaized.net/rebrush/navigation/agent-support.webp"
+                            alt=""
+                            class="tm-button-list__image tm-button-list__image--big tm-button-list__image--country tm-button-list__image--border"
+                            width="54"
+                            height="36"
+                        >Agent<br>Support</a></li><li><a
+                        href="/berater/beraterfirmenuebersicht/berater"
+                        title="Agenzie di giocatori"
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big tm-button-list__agent"
+                        onclick="tmEvent('recommendations_recommendation', '/berater/beraterfirmenuebersicht/berater' , '4_2', 'buttonList');"
+                    ><img
+                            src="https://tmsi.akamaized.net/rebrush/navigation/agent-statistic.webp"
+                            alt=""
+                            class="tm-button-list__image tm-button-list__image--big tm-button-list__image--country tm-button-list__image--border"
+                            width="54"
+                            height="36"
+                        >Agenzie<br>di<br>giocatori</a></li><li><a
+                        href="/premium-service/salespage/berater"
+                        title="Servizio Premium"
+                        target="_self"
+                        class="tm-button-list__list-item tm-button-list__list-item--big tm-button-list__agent"
+                        onclick="tmEvent('recommendations_recommendation', '/premium-service/salespage/berater' , '4_3', 'buttonList');"
+                    ><img
+                            src="https://tmsi.akamaized.net/rebrush/navigation/premium-service.webp"
+                            alt=""
+                            class="tm-button-list__image tm-button-list__image--big tm-button-list__image--country tm-button-list__image--border"
+                            width="54"
+                            height="36"
+                        >Servizio<br>Premium</a></li></ul></section>
+                                                                                
+                    </div>
+        
+    </div>
+                                                </div>
+                </div>
+            </nav>
+
+            <div class="quick-select-wrapper">
+    
+    <tm-quick-select defaultCountry="75" defaultCompetition="IT1" defaultClub="" defaultPlayer="" dropdown-visible="" translations='{"home":"Home","country":"Nazione","competition":"Competizione","club":"Societ\u00e0","player":"Giocatori","attack":"Attacco","midfield":"Centrocampo","defense":"Difesa","goalkeeper":"Porta"}'>
+    </tm-quick-select>
+</div>
+
+            
+        
+        <div class="werbung ad-placement-note werbung-billboard" data-ad-placement-note="Pubblicità">
+  <div id="pushbar_1" style="min-width: 728px; min-height: 60px;"></div>
+</div>
+<div class="werbung ad-placement-note werbung-interstitial" data-ad-placement-note="Pubblicità">
+  <div id="intropage"></div>
+</div>
+
+
+        
+        <main id="tm-main">
+            
+<header class="data-header">
+    <div class="data-header__headline-container">
+                    <div class="data-header__headline-wrapper data-header__headline-wrapper--oswald">
+                Serie A            </div>
+                </div>
+    <div class="data-header__box--big">
+                    <a class="data-header__box__club-link" href="/wettbewerbe/national/wettbewerbe/75">
+                                    <img src="https://tmssl.akamaized.net//images/flagge/headerRund/75.png?lm=1520611569" alt="
+                    Italia" height="80" width="80" class="data-header__box__flag">
+                                </a>
+                    <div class="data-header__club-info">
+            <span class="data-header__club" itemprop="affiliation">
+                <a href="/wettbewerbe/national/wettbewerbe/75">
+                    Italia                </a>
+            </span>
+            <span class="data-header__label">
+                Livello:                <span itemprop="dataItem" class="data-header__content">
+                    Primo livello                </span>
+            </span>
+                            <span class="data-header__label">
+                    Campione in carica:
+                    <span itemprop="dataItem" class="data-header__content">
+                        <a title="Inter" href="/inter/startseite/verein/46">Inter</a>                    </span>
+                </span>
+                                    <span class="data-header__label">
+                        Record scudetti:
+                        <span itemprop="dataItem" class="data-header__content">
+                            <a title="Juventus FC" href="/juventus-fc/startseite/verein/506">Juventus FC</a>&nbsp;&nbsp;<span class="data-header__content">36&nbsp;</span><span class="data-header__content">x</span>                        </span>
+                    </span>
+                                                        <span class="data-header__label">
+                        Classifica 5 anni:
+                        <span itemprop="dataItem" class="data-header__content">
+                            <a href="/uefa/5jahreswertung/statistik">2. posto</a>&nbsp;&nbsp;<span class="data-header__content">84.232 </span><span class="data-header__content">Punti</span>                        </span>
+                    </span>
+                                            </div>
+    </div>
+    <div class="data-header__profile-container">
+        <img src="https://tmssl.akamaized.net//images/logo/header/it1.png?lm=1656073460" title="Serie A" alt="Serie A" class="" />    </div>
+            <div class="data-header__box--small">
+            <a href="" class="data-header__market-value-wrapper">
+                5,52 <span class="waehrung">mld €</span>                <p class="data-header__last-update">
+                    Valore totale rose                </p>
+            </a>
+        </div>
+            <div class="data-header__info-box">
+        <div class="data-header__details">
+            <ul class="data-header__items">
+                <li class="data-header__label">
+                    Larghezza:
+                    <span itemprop="dataItem" class="data-header__content">
+                        20 squadre                    </span>
+                </li>
+                <li class="data-header__label">
+                    Giocatori:
+                    <span itemprop="dataItem" class="data-header__content">
+                        661                    </span>
+                </li>
+                <li class="data-header__label">
+                    Stranieri:
+                    <span itemprop="dataItem" class="data-header__content">
+                        <a href="/serie-a/gastarbeiter/wettbewerb/IT1">418&nbsp;Giocatori</a>&nbsp;&nbsp;<span class="tabellenplatz">63,2%</span>                    </span>
+                </li>
+            </ul>
+            <ul class="data-header__items">
+                <li class="data-header__label">
+                    &oslash;-Valore di mercato:                    <span itemprop="dataItem" class="data-header__content">
+                        8,35 mln €                    </span>
+                </li>
+                <li class="data-header__label">
+                                            &oslash;-Età:
+                                            <span itemprop="dataItem" class="data-header__content">
+                        25,3                    </span>
+                </li>
+                                <li class="data-header__label">
+                    Calciatore più prezioso:
+                    <span itemprop="dataItem" class="data-header__content">
+                        <a title="Lautaro Martínez" href="/lautaro-martinez/profil/spieler/406625">Lautaro Martínez</a>&nbsp;&nbsp;<span class="tabellenplatz">85,00 mln €</span>                    </span>
+                </li>
+                            </ul>
+        </div>
+
+    </div>
+</header>
+<a href="https://www.transfermarkt.it/italianiIPCtotale/view/news/482592"
+        target="0"
+    class="db mt10"
+        onclick="tmEvent('banner', 'https://www.transfermarkt.it/italianiIPCtotale/view/news/482592', 'd-day-banner');"
+>
+    <img
+        loading="lazy"
+        src="https://dzjovqk3zamsg.cloudfront.net/ipc-italiani-totale-des.jpg"
+        width="1034"
+        height="99"
+        alt="deadline-day banner"
+    >
+</a>
+
+<script type="text/javascript">
+    (() => {
+        const cookies = document.cookie
+            .split(';')
+            .map(c => c.trim().split('='))
+            .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+        const isContentPassUser = cookies?._cpauthhint !== undefined;
+        if (isContentPassUser) {
+            const adNodes = document.querySelectorAll('.ad-placement-note');
+            adNodes.forEach(node => node.remove());
+        }
+    })();
+</script><tm-subnavigation
+    controller="wettbewerb"
+    id="IT1"
+    season="2026"
+    section="wettbewerb"
+    style="display: block; margin: 0 5px;">
+</tm-subnavigation>
+<div class="row">
+    <div class="large-8 columns mobile_p0">
+
+        <div class="box">
+            <h1 class="content-box-headline">
+                Ultimi trasferimenti            </h1>
+            <div id="statistik-infoblock">
+                <p class="info-content">
+                     Gli ultimi trasferimenti per competizione. I giocatori sono elencati in modo cronologico dall'alto in basso.                </p>
+            </div>
+                            
+<div class="tm-tabs">
+    <a class="tm-tab tm-tab__active--parent" href="/serie-a/letztetransfers/wettbewerb/IT1"><div class=" tm-tab__active"><span>Compatto</span></div></a><a class="tm-tab" href="/serie-a/letztetransfers/wettbewerb/IT1/plus/1"><div class=""><span>Esteso</span></div></a><a class="tm-tab" href="/serie-a/letztetransfers/wettbewerb/IT1/galerie/1"><div class=""><span>Galleria</span></div></a></div>
+                <div class="responsive-table">
+                    <div id="yw1" class="grid-view">
+<div class="summary"></div>
+<table class="items">
+<thead>
+<tr>
+<th id="yw1_c0">Giocatore</th><th class="zentriert" id="yw1_c1"><a class="sort-link" href="/serie-a/letztetransfers/wettbewerb/IT1/sort/age">Età</a></th><th id="yw1_c2">Ceduto da</th><th id="yw1_c3">Acquistato da</th><th class="rechts" id="yw1_c4">Costo</th></tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/186368-1692819728.jpg?lm=1" title="Valentino Lazaro" alt="Valentino Lazaro" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Valentino Lazaro" href="/valentino-lazaro/profil/spieler/186368">Valentino Lazaro</a></td></tr><tr><td>Esterno di destra</td></tr></table></td><td class="zentriert">30</td><td><table class=inline-table><tr><td class=wappen><a title="Torino FC" href="/fc-turin/transfers/verein/416"><img src="https://tmssl.akamaized.net//images/wappen/tiny/416.png?lm=1438548174" title="Torino FC" alt="Torino FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Torino FC" href="/fc-turin/transfers/verein/416">Torino</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Al-Ain FC" href="/al-ain-fc/transfers/verein/2150"><img src="https://tmssl.akamaized.net//images/wappen/tiny/2150.png?lm=1726761353" title="Al-Ain FC" alt="Al-Ain FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Al-Ain FC" href="/al-ain-fc/transfers/verein/2150">Al-Ain</a></td></tr></table></td><td class="rechts hauptlink">gratuito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/1225943-1758693223.jpg?lm=1" title="Abdoulie Ndow" alt="Abdoulie Ndow" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Abdoulie Ndow" href="/abdoulie-ndow/profil/spieler/1225943">Abdoulie Ndow</a></td></tr><tr><td>Trequartista</td></tr></table></td><td class="zentriert">21</td><td><table class=inline-table><tr><td class=wappen><a title="Frosinone Calcio" href="/frosinone-calcio/transfers/verein/8970"><img src="https://tmssl.akamaized.net//images/wappen/tiny/8970.png?lm=1438547543" title="Frosinone Calcio" alt="Frosinone Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Frosinone Calcio" href="/frosinone-calcio/transfers/verein/8970">Frosinone</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Spezia Calcio" href="/spezia-calcio/transfers/verein/3522"><img src="https://tmssl.akamaized.net//images/wappen/tiny/3522.png?lm=1751366796" title="Spezia Calcio" alt="Spezia Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Spezia Calcio" href="/spezia-calcio/transfers/verein/3522">Spezia</a></td></tr></table></td><td class="rechts hauptlink">?</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/490573-1664283995.png?lm=1" title="Seid Korac" alt="Seid Korac" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Seid Korac" href="/seid-korac/profil/spieler/490573">Seid Korac</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">24</td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Hellas Verona" href="/hellas-verona/transfers/verein/276"><img src="https://tmssl.akamaized.net//images/wappen/tiny/276.png?lm=1617228746" title="Hellas Verona" alt="Hellas Verona" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Hellas Verona" href="/hellas-verona/transfers/verein/276">Verona</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/197901-1632538991.jpg?lm=1" title="Stefano Minelli" alt="Stefano Minelli" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Stefano Minelli" href="/stefano-minelli/profil/spieler/197901">Stefano Minelli</a></td></tr><tr><td>Portiere</td></tr></table></td><td class="zentriert">32</td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Calcio Desenzano" href="/desenzano-calvina/transfers/verein/56265"><img src="https://tmssl.akamaized.net//images/wappen/tiny/56265.png?lm=1600754284" title="Calcio Desenzano" alt="Calcio Desenzano" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Calcio Desenzano" href="/desenzano-calvina/transfers/verein/56265">Desenzano</a></td></tr></table></td><td class="rechts hauptlink">gratuito</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/494805-1783925121.jpg?lm=1" title="Alessio Pozzi" alt="Alessio Pozzi" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Alessio Pozzi" href="/alessio-pozzi/profil/spieler/494805">Alessio Pozzi</a></td></tr><tr><td>Portiere</td></tr></table></td><td class="zentriert">25</td><td><table class=inline-table><tr><td class=wappen><a title="Vis Pesaro 1898" href="/vis-pesaro-dal-1898/transfers/verein/7030"><img src="https://tmssl.akamaized.net//images/wappen/tiny/7030.png?lm=1664354484" title="Vis Pesaro 1898" alt="Vis Pesaro 1898" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Vis Pesaro 1898" href="/vis-pesaro-dal-1898/transfers/verein/7030">Vis Pesaro</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td class="rechts hauptlink">?</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/855308-1752140643.jpg?lm=1" title="Arthur Atta" alt="Arthur Atta" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Arthur Atta" href="/arthur-atta/profil/spieler/855308">Arthur Atta</a></td></tr><tr><td>Centrocampista</td></tr></table></td><td class="zentriert">23</td><td><table class=inline-table><tr><td class=wappen><a title="Udinese Calcio" href="/udinese-calcio/transfers/verein/410"><img src="https://tmssl.akamaized.net//images/wappen/tiny/410.png?lm=1688982584" title="Udinese Calcio" alt="Udinese Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Udinese Calcio" href="/udinese-calcio/transfers/verein/410">Udinese</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430"><img src="https://tmssl.akamaized.net//images/wappen/tiny/430.png?lm=1722844765" title="ACF Fiorentina" alt="ACF Fiorentina" class="tiny_wappen" /></a></td><td class=hauptlink><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430">Fiorentina</a></td></tr></table></td><td class="rechts hauptlink">25,00 mln €</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/136111-1692963337.jpg?lm=1" title="Nicola Leali" alt="Nicola Leali" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Nicola Leali" href="/nicola-leali/profil/spieler/136111">Nicola Leali</a></td></tr><tr><td>Portiere</td></tr></table></td><td class="zentriert">33</td><td><table class=inline-table><tr><td class=wappen><a title="Genoa CFC" href="/genua-cfc/transfers/verein/252"><img src="https://tmssl.akamaized.net//images/wappen/tiny/252.png?lm=1655305880" title="Genoa CFC" alt="Genoa CFC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Genoa CFC" href="/genua-cfc/transfers/verein/252">Genoa</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Hellas Verona" href="/hellas-verona/transfers/verein/276"><img src="https://tmssl.akamaized.net//images/wappen/tiny/276.png?lm=1617228746" title="Hellas Verona" alt="Hellas Verona" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Hellas Verona" href="/hellas-verona/transfers/verein/276">Verona</a></td></tr></table></td><td class="rechts hauptlink">gratuito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/310527-1692963812.jpg?lm=1" title="Paulo Azzi" alt="Paulo Azzi" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Paulo Azzi" href="/paulo-azzi/profil/spieler/310527">Paulo Azzi</a></td></tr><tr><td>Esterno di sinistra</td></tr></table></td><td class="zentriert">31</td><td><table class=inline-table><tr><td class=wappen><a title="AC Monza" href="/ac-monza/transfers/verein/2919"><img src="https://tmssl.akamaized.net//images/wappen/tiny/2919.png?lm=1562072734" title="AC Monza" alt="AC Monza" class="tiny_wappen" /></a></td><td class=hauptlink><a title="AC Monza" href="/ac-monza/transfers/verein/2919">Monza</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Modena FC" href="/modena-fc-2018/transfers/verein/1385"><img src="https://tmssl.akamaized.net//images/wappen/tiny/1385.png?lm=1657012115" title="Modena FC" alt="Modena FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Modena FC" href="/modena-fc-2018/transfers/verein/1385">Modena</a></td></tr></table></td><td class="rechts hauptlink">?</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/618341-1730127774.jpg?lm=1" title="Mario Gila" alt="Mario Gila" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Mario Gila" href="/mario-gila/profil/spieler/618341">Mario Gila</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">25</td><td><table class=inline-table><tr><td class=wappen><a title="SS Lazio" href="/lazio-rom/transfers/verein/398"><img src="https://tmssl.akamaized.net//images/wappen/tiny/398.png?lm=1601537785" title="SS Lazio" alt="SS Lazio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="SS Lazio" href="/lazio-rom/transfers/verein/398">Lazio</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="AC Milan" href="/ac-mailand/transfers/verein/5"><img src="https://tmssl.akamaized.net//images/wappen/tiny/5.png?lm=1605166627" title="AC Milan" alt="AC Milan" class="tiny_wappen" /></a></td><td class=hauptlink><a title="AC Milan" href="/ac-mailand/transfers/verein/5">Milan</a></td></tr></table></td><td class="rechts hauptlink">30,00 mln €</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/899542-1715679763.jpg?lm=1" title="Lorenzo Romani" alt="Lorenzo Romani" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Lorenzo Romani" href="/lorenzo-romani/profil/spieler/899542">Lorenzo Romani</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">21</td><td><table class=inline-table><tr><td class=wappen><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430"><img src="https://tmssl.akamaized.net//images/wappen/tiny/430.png?lm=1722844765" title="ACF Fiorentina" alt="ACF Fiorentina" class="tiny_wappen" /></a></td><td class=hauptlink><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430">Fiorentina</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Carrarese Calcio 1908" href="/carrarese-calcio-1908/transfers/verein/4159"><img src="https://tmssl.akamaized.net//images/wappen/tiny/4159.png?lm=1719392824" title="Carrarese Calcio 1908" alt="Carrarese Calcio 1908" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Carrarese Calcio 1908" href="/carrarese-calcio-1908/transfers/verein/4159">Carrarese</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/566626-1722942514.jpg?lm=1" title="Elias Havel" alt="Elias Havel" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Elias Havel" href="/elias-havel/profil/spieler/566626">Elias Havel</a></td></tr><tr><td>Punta centrale</td></tr></table></td><td class="zentriert">23</td><td><table class=inline-table><tr><td class=wappen><a title="TSV Hartberg" href="/tsv-hartberg/transfers/verein/4467"><img src="https://tmssl.akamaized.net//images/wappen/tiny/4467.png?lm=1697975944" title="TSV Hartberg" alt="TSV Hartberg" class="tiny_wappen" /></a></td><td class=hauptlink><a title="TSV Hartberg" href="/tsv-hartberg/transfers/verein/4467">TSV Hartberg</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Genoa CFC" href="/genua-cfc/transfers/verein/252"><img src="https://tmssl.akamaized.net//images/wappen/tiny/252.png?lm=1655305880" title="Genoa CFC" alt="Genoa CFC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Genoa CFC" href="/genua-cfc/transfers/verein/252">Genoa</a></td></tr></table></td><td class="rechts hauptlink">2,00 mln €</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/357991-1697554707.png?lm=1" title="Alessandro Plizzari" alt="Alessandro Plizzari" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Alessandro Plizzari" href="/alessandro-plizzari/profil/spieler/357991">Alessandro Plizzari</a></td></tr><tr><td>Portiere</td></tr></table></td><td class="zentriert">26</td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="FC Südtirol" href="/fc-sudtirol/transfers/verein/4554"><img src="https://tmssl.akamaized.net//images/wappen/tiny/4554.png?lm=1465161205" title="FC Südtirol" alt="FC Südtirol" class="tiny_wappen" /></a></td><td class=hauptlink><a title="FC Südtirol" href="/fc-sudtirol/transfers/verein/4554">Südtirol</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/934159-1676018484.jpg?lm=1" title="Tommaso Martinelli" alt="Tommaso Martinelli" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Tommaso Martinelli" href="/tommaso-martinelli/profil/spieler/934159">Tommaso Martinelli</a></td></tr><tr><td>Portiere</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430"><img src="https://tmssl.akamaized.net//images/wappen/tiny/430.png?lm=1722844765" title="ACF Fiorentina" alt="ACF Fiorentina" class="tiny_wappen" /></a></td><td class=hauptlink><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430">Fiorentina</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="US Avellino 1912" href="/us-avellino-1912/transfers/verein/2331"><img src="https://tmssl.akamaized.net//images/wappen/tiny/2331.png?lm=1446296368" title="US Avellino 1912" alt="US Avellino 1912" class="tiny_wappen" /></a></td><td class=hauptlink><a title="US Avellino 1912" href="/us-avellino-1912/transfers/verein/2331">Avellino</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/1371198-1779142472.jpg?lm=1" title="Ale Gomes" alt="Ale Gomes" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Ale Gomes" href="/ale-gomes/profil/spieler/1371198">Ale Gomes</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">18</td><td><table class=inline-table><tr><td class=wappen><a title="Real Saragozza" href="/real-saragossa/transfers/verein/142"><img src="https://tmssl.akamaized.net//images/wappen/tiny/142.png?lm=1405877974" title="Real Saragozza" alt="Real Saragozza" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Real Saragozza" href="/real-saragossa/transfers/verein/142">Real Saragozza</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td class="rechts hauptlink">2,00 mln €</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/358008-1757604842.jpg?lm=1" title="Gianluca Gaetano" alt="Gianluca Gaetano" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Gianluca Gaetano" href="/gianluca-gaetano/profil/spieler/358008">Gianluca Gaetano</a></td></tr><tr><td>Mediano</td></tr></table></td><td class="zentriert">26</td><td><table class=inline-table><tr><td class=wappen><a title="Cagliari Calcio" href="/cagliari-calcio/transfers/verein/1390"><img src="https://tmssl.akamaized.net//images/wappen/tiny/1390.png?lm=1626441409" title="Cagliari Calcio" alt="Cagliari Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Cagliari Calcio" href="/cagliari-calcio/transfers/verein/1390">Cagliari</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Atalanta" href="/atalanta-bergamo/transfers/verein/800"><img src="https://tmssl.akamaized.net//images/wappen/tiny/800.png?lm=1780904763" title="Atalanta" alt="Atalanta" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Atalanta" href="/atalanta-bergamo/transfers/verein/800">Atalanta</a></td></tr></table></td><td class="rechts hauptlink">12,00 mln €</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/980632-1734332485.jpg?lm=1" title="Sergiu Perciun" alt="Sergiu Perciun" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Sergiu Perciun" href="/sergiu-perciun/profil/spieler/980632">Sergiu Perciun</a></td></tr><tr><td>Trequartista</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="Torino FC" href="/fc-turin/transfers/verein/416"><img src="https://tmssl.akamaized.net//images/wappen/tiny/416.png?lm=1438548174" title="Torino FC" alt="Torino FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Torino FC" href="/fc-turin/transfers/verein/416">Torino</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Ascoli Calcio" href="/ascoli-calcio/transfers/verein/408"><img src="https://tmssl.akamaized.net//images/wappen/tiny/408.png?lm=1783577961" title="Ascoli Calcio" alt="Ascoli Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Ascoli Calcio" href="/ascoli-calcio/transfers/verein/408">Ascoli</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/default.jpg?lm=1" title="Pietro Pinelli" alt="Pietro Pinelli" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Pietro Pinelli" href="/pietro-pinelli/profil/spieler/1056287">Pietro Pinelli</a></td></tr><tr><td>Mediano</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="SS Lazio" href="/lazio-rom/transfers/verein/398"><img src="https://tmssl.akamaized.net//images/wappen/tiny/398.png?lm=1601537785" title="SS Lazio" alt="SS Lazio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="SS Lazio" href="/lazio-rom/transfers/verein/398">Lazio</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Carrarese Calcio 1908" href="/carrarese-calcio-1908/transfers/verein/4159"><img src="https://tmssl.akamaized.net//images/wappen/tiny/4159.png?lm=1719392824" title="Carrarese Calcio 1908" alt="Carrarese Calcio 1908" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Carrarese Calcio 1908" href="/carrarese-calcio-1908/transfers/verein/4159">Carrarese</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/903706-1721802675.png?lm=1" title="Albion Rrahmani" alt="Albion Rrahmani" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Albion Rrahmani" href="/albion-rrahmani/profil/spieler/903706">Albion Rrahmani</a></td></tr><tr><td>Punta centrale</td></tr></table></td><td class="zentriert">25</td><td><table class=inline-table><tr><td class=wappen><a title="AC Sparta Praga" href="/ac-sparta-prag/transfers/verein/197"><img src="https://tmssl.akamaized.net//images/wappen/tiny/197.png?lm=1705397331" title="AC Sparta Praga" alt="AC Sparta Praga" class="tiny_wappen" /></a></td><td class=hauptlink><a title="AC Sparta Praga" href="/ac-sparta-prag/transfers/verein/197">Sparta Praga</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td class="rechts hauptlink">7,50 mln €</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/613393-1692963581.jpg?lm=1" title="Gaetano Oristanio" alt="Gaetano Oristanio" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Gaetano Oristanio" href="/gaetano-oristanio/profil/spieler/613393">Gaetano Oristanio</a></td></tr><tr><td>Trequartista</td></tr></table></td><td class="zentriert">23</td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Torino FC" href="/fc-turin/transfers/verein/416"><img src="https://tmssl.akamaized.net//images/wappen/tiny/416.png?lm=1438548174" title="Torino FC" alt="Torino FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Torino FC" href="/fc-turin/transfers/verein/416">Torino</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/707450-1751270499.jpg?lm=1" title="Lorenzo Amatucci" alt="Lorenzo Amatucci" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Lorenzo Amatucci" href="/lorenzo-amatucci/profil/spieler/707450">Lorenzo Amatucci</a></td></tr><tr><td>Mediano</td></tr></table></td><td class="zentriert">22</td><td><table class=inline-table><tr><td class=wappen><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430"><img src="https://tmssl.akamaized.net//images/wappen/tiny/430.png?lm=1722844765" title="ACF Fiorentina" alt="ACF Fiorentina" class="tiny_wappen" /></a></td><td class=hauptlink><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430">Fiorentina</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Deportivo A Coruña" href="/deportivo-la-coruna/transfers/verein/897"><img src="https://tmssl.akamaized.net//images/wappen/tiny/897.png?lm=1782419490" title="Deportivo A Coruña" alt="Deportivo A Coruña" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Deportivo A Coruña" href="/deportivo-la-coruna/transfers/verein/897">Dep. A Coruña</a></td></tr></table></td><td class="rechts hauptlink">2,50 mln €</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/388294-1690186175.jpg?lm=1" title="Omar Traoré" alt="Omar Traoré" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Omar Traoré" href="/omar-traore/profil/spieler/388294">Omar Traoré</a></td></tr><tr><td>Terzino destro</td></tr></table></td><td class="zentriert">28</td><td><table class=inline-table><tr><td class=wappen><a title="1.FC Heidenheim 1846" href="/1-fc-heidenheim-1846/transfers/verein/2036"><img src="https://tmssl.akamaized.net//images/wappen/tiny/2036.png?lm=1685457789" title="1.FC Heidenheim 1846" alt="1.FC Heidenheim 1846" class="tiny_wappen" /></a></td><td class=hauptlink><a title="1.FC Heidenheim 1846" href="/1-fc-heidenheim-1846/transfers/verein/2036">Heidenheim</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Udinese Calcio" href="/udinese-calcio/transfers/verein/410"><img src="https://tmssl.akamaized.net//images/wappen/tiny/410.png?lm=1688982584" title="Udinese Calcio" alt="Udinese Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Udinese Calcio" href="/udinese-calcio/transfers/verein/410">Udinese</a></td></tr></table></td><td class="rechts hauptlink">gratuito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/957822-1755840967.jpg?lm=1" title="Eddy Kouadio" alt="Eddy Kouadio" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Eddy Kouadio" href="/eddy-kouadio/profil/spieler/957822">Eddy Kouadio</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430"><img src="https://tmssl.akamaized.net//images/wappen/tiny/430.png?lm=1722844765" title="ACF Fiorentina" alt="ACF Fiorentina" class="tiny_wappen" /></a></td><td class=hauptlink><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430">Fiorentina</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="AC Monza" href="/ac-monza/transfers/verein/2919"><img src="https://tmssl.akamaized.net//images/wappen/tiny/2919.png?lm=1562072734" title="AC Monza" alt="AC Monza" class="tiny_wappen" /></a></td><td class=hauptlink><a title="AC Monza" href="/ac-monza/transfers/verein/2919">Monza</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/197929-1695160944.jpg?lm=1" title="Ivan Provedel" alt="Ivan Provedel" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Ivan Provedel" href="/ivan-provedel/profil/spieler/197929">Ivan Provedel</a></td></tr><tr><td>Portiere</td></tr></table></td><td class="zentriert">32</td><td><table class=inline-table><tr><td class=wappen><a title="SS Lazio" href="/lazio-rom/transfers/verein/398"><img src="https://tmssl.akamaized.net//images/wappen/tiny/398.png?lm=1601537785" title="SS Lazio" alt="SS Lazio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="SS Lazio" href="/lazio-rom/transfers/verein/398">Lazio</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Inter" href="/inter-mailand/transfers/verein/46"><img src="https://tmssl.akamaized.net//images/wappen/tiny/46.png?lm=1618900989" title="Inter" alt="Inter" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Inter" href="/inter-mailand/transfers/verein/46">Inter</a></td></tr></table></td><td class="rechts hauptlink">3,00 mln €</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/568559-1704716630.jpg?lm=1" title="Radu Drăgușin" alt="Radu Drăgușin" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Radu Drăgușin" href="/radu-dragusin/profil/spieler/568559">Radu Drăgușin</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">24</td><td><table class=inline-table><tr><td class=wappen><a title="Tottenham Hotspur" href="/tottenham-hotspur/transfers/verein/148"><img src="https://tmssl.akamaized.net//images/wappen/tiny/148.png?lm=1732011953" title="Tottenham Hotspur" alt="Tottenham Hotspur" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Tottenham Hotspur" href="/tottenham-hotspur/transfers/verein/148">Tottenham</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430"><img src="https://tmssl.akamaized.net//images/wappen/tiny/430.png?lm=1722844765" title="ACF Fiorentina" alt="ACF Fiorentina" class="tiny_wappen" /></a></td><td class=hauptlink><a title="ACF Fiorentina" href="/ac-florenz/transfers/verein/430">Fiorentina</a></td></tr></table></td><td class="rechts hauptlink">Spesa prestito:<br /><i class="normaler-text">1,50 mln €</i></td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/default.jpg?lm=1" title="Marco Ladisa" alt="Marco Ladisa" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Marco Ladisa" href="/marco-ladisa/profil/spieler/966905">Marco Ladisa</a></td></tr><tr><td>Ala sinistra</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="Venezia FC" href="/venezia-fc/transfers/verein/607"><img src="https://tmssl.akamaized.net//images/wappen/tiny/607.png?lm=1782999555" title="Venezia FC" alt="Venezia FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Venezia FC" href="/venezia-fc/transfers/verein/607">Venezia</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="AC Trento" href="/ac-trento/transfers/verein/4095"><img src="https://tmssl.akamaized.net//images/wappen/tiny/4095.png?lm=1760002555" title="AC Trento" alt="AC Trento" class="tiny_wappen" /></a></td><td class=hauptlink><a title="AC Trento" href="/ac-trento/transfers/verein/4095">Trento</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/1059730-1730122720.png?lm=1" title="Giuseppe Mazzaglia" alt="Giuseppe Mazzaglia" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Giuseppe Mazzaglia" href="/giuseppe-mazzaglia/profil/spieler/1059730">Giuseppe Mazzaglia</a></td></tr><tr><td>Centrocampista</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="Como 1907" href="/como-1907/transfers/verein/1047"><img src="https://tmssl.akamaized.net//images/wappen/tiny/1047.png?lm=1565704078" title="Como 1907" alt="Como 1907" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Como 1907" href="/como-1907/transfers/verein/1047">Como</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Folgore Caratese" href="/us-folgore-caratese/transfers/verein/26251"><img src="https://tmssl.akamaized.net//images/wappen/tiny/26251.png?lm=1553790505" title="Folgore Caratese" alt="Folgore Caratese" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Folgore Caratese" href="/us-folgore-caratese/transfers/verein/26251">Caratese</a></td></tr></table></td><td class="rechts hauptlink">?</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/834752-1709676122.png?lm=1" title="Unai Gómez" alt="Unai Gómez" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Unai Gómez" href="/unai-gomez/profil/spieler/834752">Unai Gómez</a></td></tr><tr><td>Trequartista</td></tr></table></td><td class="zentriert">23</td><td><table class=inline-table><tr><td class=wappen><a title="Athletic Bilbao" href="/athletic-bilbao/transfers/verein/621"><img src="https://tmssl.akamaized.net//images/wappen/tiny/621.png?lm=1695069038" title="Athletic Bilbao" alt="Athletic Bilbao" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Athletic Bilbao" href="/athletic-bilbao/transfers/verein/621">Athletic Club</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Udinese Calcio" href="/udinese-calcio/transfers/verein/410"><img src="https://tmssl.akamaized.net//images/wappen/tiny/410.png?lm=1688982584" title="Udinese Calcio" alt="Udinese Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Udinese Calcio" href="/udinese-calcio/transfers/verein/410">Udinese</a></td></tr></table></td><td class="rechts hauptlink">4,50 mln €</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/821052-1751981905.jpg?lm=1" title="Lorenzo Gagliardi" alt="Lorenzo Gagliardi" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Lorenzo Gagliardi" href="/lorenzo-gagliardi/profil/spieler/821052">Lorenzo Gagliardi</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">22</td><td><table class=inline-table><tr><td class=wappen><a title="Genoa CFC" href="/genua-cfc/transfers/verein/252"><img src="https://tmssl.akamaized.net//images/wappen/tiny/252.png?lm=1655305880" title="Genoa CFC" alt="Genoa CFC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Genoa CFC" href="/genua-cfc/transfers/verein/252">Genoa</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Team Altamura" href="/asd-team-altamura/transfers/verein/22408"><img src="https://tmssl.akamaized.net//images/wappen/tiny/22408.png?lm=1696855903" title="Team Altamura" alt="Team Altamura" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Team Altamura" href="/asd-team-altamura/transfers/verein/22408">Team Altamura</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+<tr class="odd">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/297645-1692961254.jpg?lm=1" title="Riccardo Marchizza" alt="Riccardo Marchizza" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Riccardo Marchizza" href="/riccardo-marchizza/profil/spieler/297645">Riccardo Marchizza</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">28</td><td><table class=inline-table><tr><td class=wappen><a title="Frosinone Calcio" href="/frosinone-calcio/transfers/verein/8970"><img src="https://tmssl.akamaized.net//images/wappen/tiny/8970.png?lm=1438547543" title="Frosinone Calcio" alt="Frosinone Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Frosinone Calcio" href="/frosinone-calcio/transfers/verein/8970">Frosinone</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="LR Vicenza" href="/lr-vicenza-virtus/transfers/verein/2655"><img src="https://tmssl.akamaized.net//images/wappen/tiny/2655.png?lm=1577438699" title="LR Vicenza" alt="LR Vicenza" class="tiny_wappen" /></a></td><td class=hauptlink><a title="LR Vicenza" href="/lr-vicenza-virtus/transfers/verein/2655">Vicenza</a></td></tr></table></td><td class="rechts hauptlink">gratuito</td></tr>
+<tr class="even">
+<td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/818878-1620856266.jpg?lm=1" title="Wisdom Amey" alt="Wisdom Amey" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Wisdom Amey" href="/wisdom-amey/profil/spieler/818878">Wisdom Amey</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert">20</td><td><table class=inline-table><tr><td class=wappen><a title="Bologna FC" href="/fc-bologna/transfers/verein/1025"><img src="https://tmssl.akamaized.net//images/wappen/tiny/1025.png?lm=1626441324" title="Bologna FC" alt="Bologna FC" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Bologna FC" href="/fc-bologna/transfers/verein/1025">Bologna</a></td></tr></table></td><td><table class=inline-table><tr><td class=wappen><a title="Frosinone Calcio" href="/frosinone-calcio/transfers/verein/8970"><img src="https://tmssl.akamaized.net//images/wappen/tiny/8970.png?lm=1438547543" title="Frosinone Calcio" alt="Frosinone Calcio" class="tiny_wappen" /></a></td><td class=hauptlink><a title="Frosinone Calcio" href="/frosinone-calcio/transfers/verein/8970">Frosinone</a></td></tr></table></td><td class="rechts hauptlink">Prestito</td></tr>
+</tbody>
+</table>
+<div class="keys" style="display:none" title="/serie-a/letztetransfers/wettbewerb/IT1"><span>2026-07-13</span><span>2026-07-12</span><span>2026-07-11</span><span>2026-07-11</span><span>2026-07-11</span><span>2026-07-11</span><span>2026-07-11</span><span>2026-07-11</span><span>2026-07-10</span><span>2026-07-10</span><span>2026-07-10</span><span>2026-07-10</span><span>2026-07-10</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-09</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-08</span><span>2026-07-07</span></div>
+</div>                </div>
+                    </div>
+    </div>
+
+            <div class="large-4 columns">
+            <div class="werbung ad-placement-note werbung-rectangle1" data-ad-placement-note="Pubblicità">
+  <div id="mediumrectangle_1" style="min-width: 300px; min-height: 250px;"></div>
+</div>
+            <div class="box">
+    <h2 class="content-box-headline">
+        Ultimi aggiornamenti valori mercato    </h2>
+    <div id="yw2" class="grid-view">
+<div class="summary"></div>
+<table class="items">
+<thead>
+<tr>
+<th id="yw2_c0">#</th><th id="yw2_c1">Giocatori</th><th class="zentriert" id="yw2_c2">Società</th><th class="rechts" id="yw2_c3">Valore di mercato</th></tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="zentriert">1</td><td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/991459-1685532176.png?lm=1" title="Daniel Mikołajewski" alt="Daniel Mikołajewski" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Daniel Mikołajewski" href="/daniel-mikolajewski/profil/spieler/991459">Daniel Mikołajewski</a></td></tr><tr><td>Punta centrale</td></tr></table></td><td class="zentriert"><a title="Parma Calcio" href="/parma-calcio-1913/startseite/verein/130/saison_id/2026"><img src="https://tmssl.akamaized.net//images/wappen/verysmall/130.png?lm=1530945992" title="Parma Calcio" alt="Parma Calcio" class="" /></a></td><td class="rechts hauptlink">2,00 mln €&nbsp;<span title="Valore di mercato precedente: 500 mila €; Massimo carriera: 2,00 mln €" class="icons_sprite top-value-ten">&nbsp;</span></td></tr>
+<tr class="even">
+<td class="zentriert">2</td><td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/1040080-1730123867.jpg?lm=1" title="Tommaso Gabellini" alt="Tommaso Gabellini" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Tommaso Gabellini" href="/tommaso-gabellini/profil/spieler/1040080">Tommaso Gabellini</a></td></tr><tr><td>Punta centrale</td></tr></table></td><td class="zentriert"><a title="Torino FC" href="/fc-turin/startseite/verein/416/saison_id/2026"><img src="https://tmssl.akamaized.net//images/wappen/verysmall/416.png?lm=1438548174" title="Torino FC" alt="Torino FC" class="" /></a></td><td class="rechts hauptlink">800 mila €&nbsp;<span title="Valore di mercato precedente: 800 mila €; Massimo carriera: 800 mila €" class="icons_sprite grey-block-ten">&nbsp;</span></td></tr>
+<tr class="odd">
+<td class="zentriert">3</td><td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/1009616-1754284315.jpg?lm=1" title="Dominik Drobnic" alt="Dominik Drobnic" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Dominik Drobnic" href="/dominik-drobnic/profil/spieler/1009616">Dominik Drobnic</a></td></tr><tr><td>Difensore centrale</td></tr></table></td><td class="zentriert"><a title="Parma Calcio" href="/parma-calcio-1913/startseite/verein/130/saison_id/2026"><img src="https://tmssl.akamaized.net//images/wappen/verysmall/130.png?lm=1530945992" title="Parma Calcio" alt="Parma Calcio" class="" /></a></td><td class="rechts hauptlink">800 mila €&nbsp;<span title="Valore di mercato precedente: -; Massimo carriera: 800 mila €" class="icons_sprite top-value-ten">&nbsp;</span></td></tr>
+<tr class="even">
+<td class="zentriert">4</td><td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/1200320-1769618297.jpg?lm=1" title="Hjalte Lærke" alt="Hjalte Lærke" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Hjalte Lærke" href="/hjalte-laerke/profil/spieler/1200320">Hjalte Lærke</a></td></tr><tr><td>Ala destra</td></tr></table></td><td class="zentriert"><a title="US Lecce" href="/us-lecce/startseite/verein/1005/saison_id/2026"><img src="https://tmssl.akamaized.net//images/wappen/verysmall/1005.png?lm=1689169528" title="US Lecce" alt="US Lecce" class="" /></a></td><td class="rechts hauptlink">800 mila €&nbsp;<span title="Valore di mercato precedente: -; Massimo carriera: 800 mila €" class="icons_sprite top-value-ten">&nbsp;</span></td></tr>
+<tr class="odd">
+<td class="zentriert">5</td><td><table class=inline-table><tr><td rowspan=2><a href="#"><img src="https://img.a.transfermarkt.technology/portrait/small/default.jpg?lm=1" title="Paco Esteban" alt="Paco Esteban" class="bilderrahmen-fixed" /></a></td><td class=hauptlink><a title="Paco Esteban" href="/paco-esteban/profil/spieler/937954">Paco Esteban</a></td></tr><tr><td>Punta centrale</td></tr></table></td><td class="zentriert"><a title="US Lecce" href="/us-lecce/startseite/verein/1005/saison_id/2026"><img src="https://tmssl.akamaized.net//images/wappen/verysmall/1005.png?lm=1689169528" title="US Lecce" alt="US Lecce" class="" /></a></td><td class="rechts hauptlink">500 mila €&nbsp;<span title="Valore di mercato precedente: -; Massimo carriera: 500 mila €" class="icons_sprite top-value-ten">&nbsp;</span></td></tr>
+</tbody>
+</table>
+<div class="keys" style="display:none" title="/serie-a/letztetransfers/wettbewerb/IT1"><span>2026-06-25</span><span>2026-06-25</span><span>2026-06-25</span><span>2026-06-25</span><span>2026-06-25</span></div>
+</div><a title="Mostrare statistica" class="content-link" href="/serie-a/marktwertaenderungen/wettbewerb/IT1/saison_id/2026">Mostrare statistica</a></div>
+            <div class="werbung ad-placement-note werbung-rectangle2" data-ad-placement-note="Pubblicità">
+  <div id="mediumrectangle_2" style="min-width: 300px; min-height: 250px;"></div>
+</div>
+        </div>
+    </div>
+<div class="werbung ad-placement-note werbung-fullsize_contentad" data-ad-placement-note="Pubblicità">
+  <div id="pushbar_2" style="min-width: 728px; min-height: 60px;"></div>
+</div>
+        </main>
+        <footer class="tm-footer">
+               <section class="tm-footer__section-quick-links">
+        <strong class="tm-footer__headline tm-footer__headline--large">
+            Links utili        </strong>
+        <div class="tm-footer__link-wrapper">
+            <a href="/spieler-statistik/wertvollstespieler/marktwertetop"
+               onclick="tmEvent('footer', 'quick_links', '/spieler-statistik/wertvollstespieler')"
+               class="tm-footer__link tm-footer__link--arrow"
+            >
+                Giocatori più preziosi del mondo            </a>
+            <a href="/statistik/neuestetransfers"
+                onclick="tmEvent('footer', 'quick_links', '/statistik/neuestetransfers')"
+               class="tm-footer__link tm-footer__link--arrow"
+            >
+                Ultimi trasferimenti            </a>
+            <a href="/geruechte/aktuellegeruechte/statistik"
+                onclick="tmEvent('footer', 'quick_links', '/statistik/aktuellegeruechte')"
+               class="tm-footer__link tm-footer__link--arrow"
+            >
+                Ultime dal mercato            </a>
+            <a href="/spieler-statistik/marktwertaenderungen/marktwertetop"
+                onclick="tmEvent('footer', 'quick_links', '/spieler-statistik/marktwertaenderungen/marktwertetop')"
+               class="tm-footer__link tm-footer__link--arrow"
+            >
+                Gli ultimi valori aggiornati            </a>
+            <a href="/statistik/weltrangliste"
+                onclick="tmEvent('footer', 'quick_links', '/statistik/weltrangliste')"
+               class="tm-footer__link tm-footer__link--arrow"
+            >
+                Classifica mondiale FIFA            </a>
+                        <a href="/scommesse/bookmakers/"
+                onclick="tmEvent('footer', 'quick_links', '/scommesse/bookmakers/')"
+               class="tm-footer__link tm-footer__link--arrow"
+            >
+                Migliori Bookmakers            </a>
+                    </div>
+    </section>
+                <section class="tm-footer__section-involved">
+            <strong class="tm-footer__headline tm-footer__headline--large">
+                Entra nel team di TM            </strong>
+            <div class="tm-footer__link-wrapper">
+                <a href="/intern/paten"
+                    onclick="tmEvent('footer', 'be_involved', 'mods_data_scouts')"
+                   class="tm-footer__link tm-footer__link--arrow"
+                >
+                    Mod & datascout                </a>
+                <a href="/profil/bewerbung"
+                    onclick="tmEvent('footer', 'be_involved', 'apply_mod_datascout')"
+                   class="tm-footer__link tm-footer__link--arrow"
+                >
+                    Vuoi diventare moderatore o datascout?                </a>
+                <a href="/intern/elfGebote"
+                    onclick="tmEvent('footer', 'be_involved', '11_commandments')"
+                   class="tm-footer__link tm-footer__link--arrow"
+                >
+                    11 comandamenti                </a>
+                <a href="/intern/fehlermelden"
+                    onclick="tmEvent('footer', 'be_involved', 'found_mistake')"
+                   class="tm-footer__link tm-footer__link--arrow"
+                >
+                    Trovato un errore?                </a>
+            </div>
+        </section>
+        <section class="tm-footer__section-career">
+            <strong class="tm-footer__headline tm-footer__headline--large">
+                Lavora con noi            </strong>
+            <div class="tm-footer__link-wrapper">
+                                <a href="/intern/tmteam"
+                   class="tm-footer__link tm-footer__link--arrow"
+                   onclick="tmEvent('footer', 'career', 'contact')"
+                >
+                    Contatti                </a>
+            </div>
+        </section>
+        <section class="tm-footer__section-about">
+            <strong class="tm-footer__headline tm-footer__headline--large">
+                Chi siamo            </strong>
+            <div class="tm-footer__link-wrapper">
+                <a href="/intern/tmteam"
+                   onclick="tmEvent('footer', 'about_us', 'tm_team')"
+                   class="tm-footer__link tm-footer__link--arrow"
+                >
+                    Il nostro team                </a>
+                <a href="/intern/faq"
+                   onclick="tmEvent('footer', 'about_us', 'faq')"
+                   class="tm-footer__link tm-footer__link--arrow"
+                >
+                    FAQ                </a>
+            </div>
+        </section>
+            <section class="tm-footer__section-social">
+        <strong class="tm-footer__headline
+            ">
+            Social Media        </strong>
+        <div class="tm-footer__social-wrapper">
+                        <a href="https://www.instagram.com/transfermarkt.it"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'instagram')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/instaRebrush.svg"
+                         alt="instagram"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.facebook.com/transfermarkt.it"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'facebook')">
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/fbRebrush.svg"
+                         alt="facebook"
+                         width="25"
+                         height="25"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.whatsapp.com/channel/0029Vag6MBEGehEKudUZOS0N"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'whatsapp')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/whatsappRebrush.svg"
+                         alt="whatsapp"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://x.com/TMit_news"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'x')">
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/twitter_rebrush.svg"
+                         alt="x"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.threads.net/@transfermarkt.it"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'threads')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/threadsRebrush.svg"
+                         alt="threads"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.tiktok.com/@transfermarkt"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'tiktok')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/tiktokRebrush.svg"
+                         alt="tiktok"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.youtube.com/user/transfermarkt"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'youtube')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/RebrushYoutube.svg"
+                         alt="youtube"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.transfermarkt.it/intern/rssguide"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'rss')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/RebrushRss.svg"
+                         alt="rss"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                <a href="https://www.linkedin.com/company/transfermarkt-gmbh-&-co-kg"
+                   target="_blank"
+                   class="tm-footer__link-social"
+                   onclick="tmEvent('footer', 'social_media', 'linkedIn')"
+                >
+                    <img src="https://tmsi.akamaized.net/icons/socialMedia/linkedInRebrush.svg"
+                         alt="linkedIn"
+                         width="28"
+                         height="28"
+                         class="tm-footer__icon-social"
+                    >
+                </a>
+                        </div>
+    </section>
+                </footer>
+                <div id="menue_overlay"></div>
+    </div>
+    <section class="tm-footer__mobile tm-footer__transfermarkt-info">
+        <section class="tm-footer__section-desktop-width">
+                            <section class="tm-footer__section-company-links">
+                    <span class="tm-footer__headline tm-footer__headline--medium">
+                        Transfermarkt Company Projects                    </span>
+                    <div class="tm-footer__project-wrapper">
+                        <a href="/wahretabelle"
+                           onclick="tmEvent('footer', 'projects', 'wahretabelle')"
+                           class="tm-footer__link"
+                        >
+                            Wahretabelle                        </a>
+                        <a href="https://www.soccerdonna.de/"
+                           onclick="tmEvent('footer', 'projects', 'soccerdonna')"
+                           class="tm-footer__link"
+                        >
+                            Soccerdonna.de                        </a>
+                        <a href="https://scoutastic.com/de/"
+                           onclick="tmEvent('footer', 'projects', 'scoutastic')"
+                           class="tm-footer__link"
+                        >
+                            Scoutastic.com                        </a>
+                    </div>
+                </section>
+                        <section class="tm-footer__section-company-infos">
+                <span class="tm-footer__headline tm-footer__headline--medium">&copy; Transfermarkt <span id="currentYear">2026</span></span>
+                <div class="tm-footer__company-wrapper">
+                    <a
+                    href="/intern/impressum"
+                    class="tm-footer__link tm-footer__link--blue"
+                    onclick="tmEvent('footer', 'officials', 'impressum')"
+                    >
+                        Informazioni legali                    </a>
+                    <a
+                        href="/intern/web/datenschutz"
+                        class="tm-footer__link tm-footer__link--blue"
+                        onclick="tmEvent('footer', 'officials', 'data_protection')"
+                        >
+                        Trattamento dei dati                    </a>
+                    <a
+                        href="javascript:void(0)"
+                        class="cmp-link tm-footer__link tm-footer__link--blue"
+                        onclick="tmEvent('footer', 'officials', 'privacy')"
+                    >
+                        Privacy                    </a>
+                    <a
+                        href="javascript:void(0)"
+                        class="revoke-tracking tm-footer__link tm-footer__link--blue"
+                        onclick="tmEvent('footer', 'officials', 'tracking_revocation')"
+                    >
+                        Annulla tracciamento                    </a>
+                    <a
+                        href="/intern/anb"
+                        class="tm-footer__link tm-footer__link--blue"
+                        onclick="tmEvent('footer', 'officials', 'general_conduct_of_use')"
+                        >
+                        Condizioni d'uso                    </a>
+                                    </div>
+            </section>
+        </section>
+    </section>
+    <script type="text/javascript">
+	if(typeof(adet) == "boolean" && adet == false){
+		img_src="/static/singlepictures/jk99hhfsdh209nbnkjldgh90sghfsdlk";
+	} else {
+		img_src="/static/singlepictures/jku90whjlkjbwbta1g4b8h89fh8sgh8d";
+	}
+	var elem = document.createElement("img");
+	document.body.appendChild(elem);
+	elem.src = img_src;
+</script>
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var cnt = document.querySelectorAll('div.large-4.columns').length;
+                if (cnt == 1) {
+                    var sidebarDiv = document.querySelector('div.large-4.columns');
+                    if (sidebarDiv !== null) {
+                        var sidebar = document.getElementById('werbung_recommender_sidebar_wrapper');
+                        sidebarDiv.appendChild(sidebar);
+                        sidebar.style.display = 'block';
+                    }
+                }
+            });
+        </script>
+        <div id="werbung_recommender_sidebar_wrapper" style="display: none;">
+                    </div>
+    <tm-consent type="googleadvertising" no-checkbox embed="PHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmFka2FvcmEuc3BhY2Uvc3BvcnRuZXR3b3JrL2dlbmVyaWMvcHJvZC9hZGstaW5pdC5qcyIgZGF0YS12ZXJzaW9uPSJ2MyIgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBkZWZlcj48L3NjcmlwdD4="></tm-consent><tm-consent type="adition" no-checkbox embed="PHNjcmlwdCBzcmM9Imh0dHBzOi8vY3JlYXRpdmUtY2RuLm9kZHNzZXJ2ZS5jb20vbG9hZGVyLmpzP3B1Ymxpc2hlcj10bSIgYXN5bmM9ImFzeW5jIj48L3NjcmlwdD4="></tm-consent><tm-consent type='comscore' no-checkbox embed='PHNjcmlwdD4KICAgICAgICAgICAgdmFyIF9jb21zY29yZSA9IF9jb21zY29yZSB8fCBbXTsKICAgICAgICAgICAgX2NvbXNjb3JlLnB1c2goeyBlbmFibGVGaXJzdFBhcnR5Q29va2llOiB0cnVlLCBjMTogIjIiLCBjMjogIjE5MTE4ODIyIiB9KTsKICAgICAgICAgICAgKGZ1bmN0aW9uKCkgewogICAgICAgICAgICAgICAgdmFyIHMgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJzY3JpcHQiKTsKICAgICAgICAgICAgICAgIHZhciBlbCA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCJzY3JpcHQiKVswXTsKICAgICAgICAgICAgICAgIHMuYXN5bmMgPSB0cnVlOwogICAgICAgICAgICAgICAgcy5zcmMgPSAiaHR0cHM6Ly9zYi5zY29yZWNhcmRyZXNlYXJjaC5jb20vY3MvMTkxMTg4MjIvYmVhY29uLmpzIjsKICAgICAgICAgICAgICAgIGVsLnBhcmVudE5vZGUuaW5zZXJ0QmVmb3JlKHMsIGVsKTsKICAgICAgICAgICAgfSkoKTsKICAgICAgICA8L3NjcmlwdD4='></tm-consent><tm-consent type='adrenalead' no-checkbox embed='PHNjcmlwdCB0eXBlPSd0ZXh0L2phdmFzY3JpcHQnPgogICAgICAgICAgICB3aW5kb3cuX25BZHpxPXdpbmRvdy5fbkFkenF8fFtdOyhmdW5jdGlvbigpewogICAgICAgICAgICB3aW5kb3cuX25BZHpxLnB1c2goWydzZXRJZHMnLCc1ZjZhNjYxMWNjNTIyOTkzJ10pOwogICAgICAgICAgICB2YXIgZT0naHR0cHM6Ly9ub3RpZnB1c2guY29tL3NjcmlwdHMvJzsKICAgICAgICAgICAgdmFyIHQ9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CiAgICAgICAgICAgIHQudHlwZT0ndGV4dC9qYXZhc2NyaXB0JzsKICAgICAgICAgICAgdC5kZWZlcj10cnVlOwogICAgICAgICAgICB0LmFzeW5jPXRydWU7CiAgICAgICAgICAgIHQuc3JjPWUrJ25hZHotc2RrLmpzJzsKICAgICAgICAgICAgdmFyIHM9ZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoJ3NjcmlwdCcpWzBdOwogICAgICAgICAgICBzLnBhcmVudE5vZGUuaW5zZXJ0QmVmb3JlKHQscyl9KSgpOwogICAgICAgIDwvc2NyaXB0Pg=='></tm-consent>    <div class="werbung ad-placement-note werbung-1by1px" data-ad-placement-note="Pubblicità">
+  <div id="skin_oop"></div>
+</div>
+
+        <tm-modal id="tm-modal-revoke-tracking" additionalClose="Chiudere">
+        <div class="tm-modal__headline">Annulla tracciamento</div>
+        <p class="tm-modal__text">Ha revocato con successo il suo consenso all'uso di Transfermarkt con tracciamento e cookie. Ora può scegliere tra l'abbonamento Contentpass e l'utilizzo con pubblicità personalizzata, cookie e tracciamento.</p>
+    </tm-modal>
+    
+
+<tm-consent type="googleadvertising" no-checkbox embed="PHNjcmlwdCAgc3JjPSJodHRwczovL2Jvb3QucGJzdGNrLmNvbS92MS9hZG0vNmQ5NjU4OTYtZWYzMi00OTg5LWEzMmMtNzM0MTU3NDM4N2VjIiBhc3luYz0iYXN5bmMiPjwvc2NyaXB0Pg=="></tm-consent>
+<tm-consent type="googleadvertising" no-checkbox embed="PHNjcmlwdCAgc3JjPSJodHRwczovL3Quc2VlZHRhZy5jb20vdC8wMDU0LTM5MjgtMDEuanMiIGFzeW5jPSJhc3luYyI+PC9zY3JpcHQ+"></tm-consent>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/subnavigation/bundle.js"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/assets/aa69c6e9c51f1e811847082c63633956/gridview/jquery.yiigridview.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmssl.akamaized.net/js/custom/vendors.min.js?lm=1783936450"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/domain-switcher/bundle.js"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/quick-select-bar/bundle.js"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/userbox/bundle.js"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/live-match-count/bundle.js"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/domain-note/bundle.js"></script>
+<script type="text/javascript" src="https://tmsi.akamaized.net/js/svelte-components/modal/bundle.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+	var loginUrl='/profil/login';
+	var onlyDE = '';
+	var onlyMobile = '';
+	var onlyTablet = '';
+	var getUserID = '';
+
+jQuery(function($) {
+jQuery('#yw1').yiiGridView({'ajaxUpdate':['yw1'],'ajaxVar':'ajax','pagerClass':'pager','loadingClass':'grid\x2Dview\x2Dloading','filterClass':'filters','tableClass':'items','selectableRows':1,'enableHistory':false,'updateSelector':'\x7Bpage\x7D,\x20\x7Bsort\x7D','filterSelector':'\x7Bfilter\x7D'});
+jQuery('#yw2').yiiGridView({'ajaxUpdate':['yw2'],'ajaxVar':'ajax','pagerClass':'pager','loadingClass':'grid\x2Dview\x2Dloading','filterClass':'filters','tableClass':'items','selectableRows':1,'enableHistory':false,'updateSelector':'\x7Bpage\x7D,\x20\x7Bsort\x7D','filterSelector':'\x7Bfilter\x7D'});
+});
+/*]]>*/
+</script>
+</body>
+
+</html>

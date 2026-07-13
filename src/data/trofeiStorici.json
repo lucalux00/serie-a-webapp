@@ -1,0 +1,74 @@
+{
+  "juventus": [
+    { "name": "Campionato Serie A", "count": 36, "lastWon": "2019/2020", "icon": "🇮🇹" },
+    { "name": "Coppa Italia", "count": 15, "lastWon": "2023/2024", "icon": "🏆" },
+    { "name": "Supercoppa Italiana", "count": 9, "lastWon": "2020", "icon": "🥇" },
+    { "name": "Champions League", "count": 2, "lastWon": "1995/1996", "icon": "⭐" },
+    { "name": "Coppa UEFA/Europa League", "count": 3, "lastWon": "1992/1993", "icon": "🇪🇺" }
+  ],
+  "inter": [
+    { "name": "Campionato Serie A", "count": 20, "lastWon": "2023/2024", "icon": "🇮🇹" },
+    { "name": "Coppa Italia", "count": 9, "lastWon": "2022/2023", "icon": "🏆" },
+    { "name": "Supercoppa Italiana", "count": 8, "lastWon": "2023", "icon": "🥇" },
+    { "name": "Champions League", "count": 3, "lastWon": "2009/2010", "icon": "⭐" },
+    { "name": "Coppa UEFA/Europa League", "count": 3, "lastWon": "1997/1998", "icon": "🇪🇺" },
+    { "name": "Mondiale per Club/Intercontinentale", "count": 3, "lastWon": "2010", "icon": "🌍" }
+  ],
+  "milan": [
+    { "name": "Campionato Serie A", "count": 19, "lastWon": "2021/2022", "icon": "🇮🇹" },
+    { "name": "Coppa Italia", "count": 5, "lastWon": "2002/2003", "icon": "🏆" },
+    { "name": "Supercoppa Italiana", "count": 7, "lastWon": "2016", "icon": "🥇" },
+    { "name": "Champions League", "count": 7, "lastWon": "2006/2007", "icon": "⭐" },
+    { "name": "Mondiale per Club/Intercontinentale", "count": 4, "lastWon": "2007", "icon": "🌍" }
+  ],
+  "napoli": [
+    { 
+      "name": "Campionato Serie A", 
+      "count": 4, 
+      "lastWon": "2025/2026", 
+      "icon": "🇮🇹",
+      "details": {
+        "coach": "Antonio Conte",
+        "points": 94,
+        "formation": ["Meret", "Di Lorenzo", "Rrahmani", "Buongiorno", "Olivera", "Anguissa", "Lobotka", "McTominay", "Kvaratskhelia", "Lukaku", "Politano"]
+      }
+    },
+    { 
+      "name": "Supercoppa Italiana", 
+      "count": 3, 
+      "lastWon": "2025", 
+      "icon": "🥇",
+      "details": {
+        "coach": "Antonio Conte",
+        "points": "Vittoria in Finale",
+        "formation": ["Meret", "Di Lorenzo", "Rrahmani", "Buongiorno", "Olivera", "Anguissa", "Lobotka", "McTominay", "Kvaratskhelia", "Lukaku", "Politano"]
+      }
+    },
+    { "name": "Coppa Italia", "count": 6, "lastWon": "2019/2020", "icon": "🏆" },
+    { "name": "Coppa UEFA", "count": 1, "lastWon": "1988/1989", "icon": "🇪🇺" }
+  ],
+  "roma": [
+    { "name": "Campionato Serie A", "count": 3, "lastWon": "2000/2001", "icon": "🇮🇹" },
+    { "name": "Coppa Italia", "count": 9, "lastWon": "2007/2008", "icon": "🏆" },
+    { "name": "Supercoppa Italiana", "count": 2, "lastWon": "2007", "icon": "🥇" },
+    { "name": "Conference League", "count": 1, "lastWon": "2021/2022", "icon": "🇪🇺" }
+  ],
+  "lazio": [
+    { "name": "Campionato Serie A", "count": 2, "lastWon": "1999/2000", "icon": "🇮🇹" },
+    { "name": "Coppa Italia", "count": 7, "lastWon": "2018/2019", "icon": "🏆" },
+    { "name": "Supercoppa Italiana", "count": 5, "lastWon": "2019", "icon": "🥇" },
+    { "name": "Coppa delle Coppe", "count": 1, "lastWon": "1998/1999", "icon": "🇪🇺" },
+    { "name": "Supercoppa Europea", "count": 1, "lastWon": "1999", "icon": "🇪🇺" }
+  ],
+  "atalanta": [
+    { "name": "Europa League", "count": 1, "lastWon": "2023/2024", "icon": "🇪🇺" },
+    { "name": "Coppa Italia", "count": 1, "lastWon": "1962/1963", "icon": "🏆" },
+    { "name": "Campionato Serie B", "count": 6, "lastWon": "2010/2011", "icon": "🥈" }
+  ],
+  "fiorentina": [
+    { "name": "Campionato Serie A", "count": 2, "lastWon": "1968/1969", "icon": "🇮🇹" },
+    { "name": "Coppa Italia", "count": 6, "lastWon": "2000/2001", "icon": "🏆" },
+    { "name": "Supercoppa Italiana", "count": 1, "lastWon": "1996", "icon": "🥇" },
+    { "name": "Coppa delle Coppe", "count": 1, "lastWon": "1960/1961", "icon": "🇪🇺" }
+  ]
+}

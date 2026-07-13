@@ -24,12 +24,12 @@ function AppContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main className="min-h-screen pb-16">
+      <BottomNav />
+      <main className="min-h-screen pt-[120px] pb-8">
         {children}
       </main>
       <NewsTicker />
       <CookieConsent />
-      <BottomNav />
     </>
   );
 }

@@ -3,48 +3,33 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw, CheckCircle2, Search } from 'lucide-react';
+import Script from 'next/script';
 
-const ADVANCED_MARKET_DATA = [
-  // SERIE A - Ufficiali
-  { id: 1, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Napoli', player: 'Alessandro Buongiorno', fromTo: 'dal Torino', fee: '35M €', date: 'Oggi 14:30' },
-  { id: 2, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Inter', player: 'Albert Gudmundsson', fromTo: 'dal Genoa', fee: '30M €', date: 'Ieri 18:00' },
-  { id: 3, league: 'A', status: 'ufficiale', type: 'cessione', team: 'Juventus', player: 'Federico Chiesa', fromTo: 'al Liverpool', fee: '40M €', date: 'Ieri 10:15' },
-  { id: 4, league: 'A', status: 'ufficiale', type: 'prestito', team: 'Milan', player: 'Lazar Samardzic', fromTo: 'dall\'Udinese', fee: 'Prestito con obbligo', date: '11 Luglio 2026' },
-  { id: 5, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Roma', player: 'Matias Soulé', fromTo: 'dalla Juventus', fee: '28M €', date: '10 Luglio 2026' },
-  { id: 99, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Inter', player: 'Davide Frattesi', fromTo: 'dal Sassuolo', fee: '33M €', date: 'Luglio 2024' }, // Storico da scartare
-  
-  // SERIE A - Trattative
-  { id: 6, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Juventus', player: 'Teun Koopmeiners', fromTo: 'dall\'Atalanta', fee: 'Offerta: 55M €', date: 'In corso' },
-  { id: 7, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Napoli', player: 'Romelu Lukaku', fromTo: 'dal Chelsea', fee: 'In attesa cessione Osimhen', date: 'In corso' },
-  { id: 8, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Milan', player: 'Youssouf Fofana', fromTo: 'dal Monaco', fee: 'Distanza di 5M €', date: 'Fase avanzata' },
-  { id: 98, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Roma', player: 'Romelu Lukaku', fromTo: 'dal Chelsea', fee: 'Prestito', date: 'Agosto 2024' }, // Storico da scartare
-  
-  // SERIE B - Ufficiali
-  { id: 9, league: 'B', status: 'ufficiale', type: 'acquisto', team: 'Palermo', player: 'Thomas Henry', fromTo: 'dal Verona', fee: '4M €', date: 'Oggi 11:00' },
-  { id: 10, league: 'B', status: 'ufficiale', type: 'acquisto', team: 'Sampdoria', player: 'Massimo Coda', fromTo: 'dal Genoa', fee: 'Svincolato', date: 'Ieri 15:45' },
-  { id: 11, league: 'B', status: 'ufficiale', type: 'cessione', team: 'Cremonese', player: 'Dennis Johnsen', fromTo: 'al Venezia', fee: 'Risoluzione', date: '10 Luglio 2026' },
-  { id: 12, league: 'B', status: 'ufficiale', type: 'prestito', team: 'Bari', player: 'Kevin Lasagna', fromTo: 'dal Verona', fee: 'Prestito secco', date: '09 Luglio 2026' },
-  { id: 97, league: 'B', status: 'ufficiale', type: 'acquisto', team: 'Parma', player: 'Adrián Bernabé', fromTo: 'Svincolato', fee: 'Gratis', date: 'Luglio 2025' }, // Storico da scartare
-  
-  // SERIE B - Trattative
-  { id: 13, league: 'B', status: 'trattativa', type: 'trattativa', team: 'Sassuolo', player: 'Domenico Berardi', fromTo: 'alla Juventus', fee: 'Richiesta: 20M €', date: 'In corso' },
-  { id: 14, league: 'B', status: 'trattativa', type: 'trattativa', team: 'Frosinone', player: 'Emanuele Valeri', fromTo: 'dal Parma', fee: 'Sondaggio', date: 'Iniziale' },
-];
+const ADVANCED_MARKET_DATA: any[] = []; // Rimossi i dati finti
 
 export default function MarketFeed() {
   const [leagueTab, setLeagueTab] = useState<'A' | 'B'>('A');
   const [searchQuery, setSearchQuery] = useState('');
+  const [liveData, setLiveData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // FILTRO RIGIDO 2026: Esclude qualsiasi record che contenga anni passati (es. 2025, 2024, 2023)
-  const isCurrentYear = (dateStr: string) => {
-    return !/(2025|2024|2023|2022|2021|2020)/.test(dateStr);
-  };
+  React.useEffect(() => {
+    setLoading(true);
+    fetch(`/api/mercato/live?league=${leagueTab}`)
+      .then(r => r.json())
+      .then(data => {
+        setLiveData(data.transfers || []);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLiveData([]);
+        setLoading(false);
+      });
+  }, [leagueTab]);
 
-  const currentData = ADVANCED_MARKET_DATA.filter(d => 
-    d.league === leagueTab && 
-    isCurrentYear(d.date) &&
-    (d.player.toLowerCase().includes(searchQuery.toLowerCase()) || 
-     d.team.toLowerCase().includes(searchQuery.toLowerCase()))
+  const currentData = liveData.filter(d => 
+    d.player.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    d.team.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const ufficiali = currentData.filter(d => d.status === 'ufficiale');
@@ -138,20 +123,33 @@ export default function MarketFeed() {
           {/* Sezione Ufficiali */}
           <section>
             <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-              <CheckCircle2 size={16} className="mr-2" /> Ufficialità
+              <CheckCircle2 size={16} className="mr-2" /> Ufficialità Live
             </h2>
-            <div className="grid grid-cols-1 gap-3">
-              {ufficiali.length > 0 ? ufficiali.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessuna ufficialità trovata.</div>}
-            </div>
+            {loading ? (
+              <div className="flex justify-center py-10">
+                <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-3">
+                {ufficiali.length > 0 ? ufficiali.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessuna ufficialità trovata nelle ultime ore.</div>}
+              </div>
+            )}
           </section>
 
           {/* Sezione Trattative */}
           <section>
             <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-              <RefreshCw size={16} className="mr-2" /> Trattative in Corso
+              <RefreshCw size={16} className="mr-2" /> Rumors & Trattative (Live Feed X)
             </h2>
-            <div className="grid grid-cols-1 gap-3">
-              {trattative.length > 0 ? trattative.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessuna trattativa trovata.</div>}
+            <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[600px] border border-[#334155] flex flex-col relative">
+              <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
+                Connessione al Feed di Fabrizio Romano...
+              </div>
+              <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
+                <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
+                </a> 
+                <Script async src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" />
+              </div>
             </div>
           </section>
         </motion.div>
