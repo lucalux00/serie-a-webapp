@@ -21,7 +21,8 @@ export default function TeamHub({ params }: { params: Promise<{ id: string }> })
     // Carichiamo dinamicamente il file generato dallo script
     import('@/data/realNews.json')
       .then(module => {
-        const teamNews = module.default[teamId] || [];
+        const data = module.default as Record<string, any[]>;
+        const teamNews = data[teamId] || [];
         setNews(teamNews);
       })
       .catch(() => {
