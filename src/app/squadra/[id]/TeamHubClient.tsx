@@ -11,6 +11,7 @@ export default function TeamHubClient({ team, news, squadData }: any) {
   const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats'>('news');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
+  const [selectedNews, setSelectedNews] = useState<any>(null);
 
   const topNews = news.slice(0, 4);
   const otherNews = news.slice(4);
@@ -61,25 +62,25 @@ export default function TeamHubClient({ team, news, squadData }: any) {
               {topNews.length > 0 && (
                 <div className="grid grid-cols-2 gap-3">
                   {topNews.map((item: any, idx: number) => (
-                    <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="bg-[#1E293B] border border-[#334155] rounded-2xl p-4 shadow-md flex flex-col justify-between aspect-square active:scale-95 transition-transform">
+                    <button key={idx} onClick={() => setSelectedNews(item)} className="bg-[#1E293B] border border-[#334155] rounded-2xl p-4 shadow-md flex flex-col justify-between aspect-square active:scale-95 transition-transform text-left">
                       <div>
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source}</span>
                       </div>
                       <h3 className="text-sm font-bold leading-tight mt-2 line-clamp-3">{item.cleanTitle}</h3>
                       <div className="text-[10px] text-[#94A3B8] font-bold text-right mt-2">{item.time}</div>
-                    </a>
+                    </button>
                   ))}
                 </div>
               )}
               <div className="space-y-3">
                 {otherNews.map((item: any, idx: number) => (
-                  <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="block bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md active:scale-95 transition-transform">
+                  <button key={idx} onClick={() => setSelectedNews(item)} className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md active:scale-95 transition-transform">
                     <div className="flex justify-between items-start mb-2">
                       <span className="text-[10px] font-bold text-[#0EA5E9] uppercase">{item.source}</span>
                       <span className="text-[10px] text-[#94A3B8] font-bold">{item.time}</span>
                     </div>
                     <h3 className="text-sm font-bold leading-snug">{item.cleanTitle}</h3>
-                  </a>
+                  </button>
                 ))}
               </div>
             </motion.div>
@@ -228,6 +229,50 @@ export default function TeamHubClient({ team, news, squadData }: any) {
       </div>
 
       <PlayerSheet player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+
+      {/* News Sheet Modal */}
+      <AnimatePresence>
+        {selectedNews && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setSelectedNews(null)}
+              className="fixed inset-0 bg-[#0F172A]/80 backdrop-blur-sm z-50"
+            />
+            <motion.div 
+              initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed bottom-0 left-0 right-0 max-h-[85vh] bg-[#1E293B] border-t border-[#334155] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-50 flex flex-col"
+            >
+              <div className="bg-[#1E293B] px-6 py-4 border-b border-[#334155] flex justify-between items-start rounded-t-3xl shrink-0">
+                <div className="w-12 h-1.5 bg-[#334155] rounded-full absolute top-2 left-1/2 -translate-x-1/2" />
+                <div className="pr-4 mt-2">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{selectedNews.source}</span>
+                  <span className="text-[10px] text-[#94A3B8] font-bold ml-2">{selectedNews.time}</span>
+                  <h2 className="text-lg font-black mt-2 leading-tight">{selectedNews.cleanTitle}</h2>
+                </div>
+                <button onClick={() => setSelectedNews(null)} className="p-2 bg-[#334155] rounded-full text-white mt-2 shrink-0">
+                  <XCircle size={20} />
+                </button>
+              </div>
+
+              <div className="p-6 overflow-y-auto no-scrollbar flex-1 text-[#94A3B8] text-sm leading-relaxed">
+                <p>{selectedNews.snippet}</p>
+                <div className="mt-8 mb-4">
+                  <a 
+                    href={selectedNews.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="block w-full py-4 bg-[#10B981] text-[#0F172A] text-center font-black rounded-xl active:scale-95 transition-transform"
+                  >
+                    Leggi Articolo Completo
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

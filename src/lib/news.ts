@@ -7,6 +7,7 @@ export interface NewsItem {
   source: string;
   cleanTitle: string;
   time: string;
+  snippet?: string;
 }
 
 const parser = new Parser();
@@ -28,7 +29,8 @@ export async function fetchNewsForTeam(teamName: string): Promise<NewsItem[]> {
         pubDate: item.pubDate || '',
         source: item.source || 'Google News',
         cleanTitle: item.title?.split(' - ')[0] || item.title || '',
-        time
+        time,
+        snippet: item.contentSnippet || item.content || 'Nessuna anteprima disponibile.'
       };
     });
     return articles;
