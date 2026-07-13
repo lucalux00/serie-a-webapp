@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Activity, User, BookOpen, Star, Target, Goal } from 'lucide-react';
+import { X, Activity, User, BookOpen, Star, Target, Goal, ArrowRightLeft } from 'lucide-react';
 
 interface PlayerSheetProps {
   player: any;
@@ -55,6 +55,33 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                   )}
                 </div>
               </div>
+
+              {/* Prestiti / Mercato Info */}
+              {player.status === 'In Prestito' && player.loanDetails && (
+                <div className="bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-2xl p-4 flex flex-col space-y-2">
+                  <div className="flex items-center text-[#F59E0B] font-bold uppercase text-xs">
+                    <ArrowRightLeft size={14} className="mr-2" /> Dettagli Prestito
+                  </div>
+                  <div className="text-sm">
+                    <span className="text-[#94A3B8]">Squadra Destinazione:</span> <span className="font-bold text-white">{player.loanDetails.toTeam}</span>
+                  </div>
+                  <div className="text-sm">
+                    <span className="text-[#94A3B8]">Formula:</span> <span className="font-bold text-white">{player.loanDetails.type}</span>
+                  </div>
+                  <div className="flex justify-between text-sm mt-2">
+                    <div>
+                      <span className="text-[#94A3B8] block text-[10px] uppercase">Costo Prestito</span>
+                      <span className="font-black text-[#10B981]">{player.loanDetails.fee}</span>
+                    </div>
+                    {player.loanDetails.buyOption && (
+                      <div className="text-right">
+                        <span className="text-[#94A3B8] block text-[10px] uppercase">Diritto/Obbligo di Riscatto</span>
+                        <span className="font-black text-[#10B981]">{player.loanDetails.buyOption}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Stats Grid */}
               {!player.isStaff && player.stats && (
