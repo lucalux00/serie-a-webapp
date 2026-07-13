@@ -9,19 +9,22 @@ const ADVANCED_MARKET_DATA = [
   { id: 1, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Napoli', player: 'Alessandro Buongiorno', fromTo: 'dal Torino', fee: '35M €', date: 'Oggi 14:30' },
   { id: 2, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Inter', player: 'Albert Gudmundsson', fromTo: 'dal Genoa', fee: '30M €', date: 'Ieri 18:00' },
   { id: 3, league: 'A', status: 'ufficiale', type: 'cessione', team: 'Juventus', player: 'Federico Chiesa', fromTo: 'al Liverpool', fee: '40M €', date: 'Ieri 10:15' },
-  { id: 4, league: 'A', status: 'ufficiale', type: 'prestito', team: 'Milan', player: 'Lazar Samardzic', fromTo: 'dall\'Udinese', fee: 'Prestito con obbligo', date: '11 Luglio' },
-  { id: 5, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Roma', player: 'Matias Soulé', fromTo: 'dalla Juventus', fee: '28M €', date: '10 Luglio' },
+  { id: 4, league: 'A', status: 'ufficiale', type: 'prestito', team: 'Milan', player: 'Lazar Samardzic', fromTo: 'dall\'Udinese', fee: 'Prestito con obbligo', date: '11 Luglio 2026' },
+  { id: 5, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Roma', player: 'Matias Soulé', fromTo: 'dalla Juventus', fee: '28M €', date: '10 Luglio 2026' },
+  { id: 99, league: 'A', status: 'ufficiale', type: 'acquisto', team: 'Inter', player: 'Davide Frattesi', fromTo: 'dal Sassuolo', fee: '33M €', date: 'Luglio 2024' }, // Storico da scartare
   
   // SERIE A - Trattative
   { id: 6, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Juventus', player: 'Teun Koopmeiners', fromTo: 'dall\'Atalanta', fee: 'Offerta: 55M €', date: 'In corso' },
   { id: 7, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Napoli', player: 'Romelu Lukaku', fromTo: 'dal Chelsea', fee: 'In attesa cessione Osimhen', date: 'In corso' },
   { id: 8, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Milan', player: 'Youssouf Fofana', fromTo: 'dal Monaco', fee: 'Distanza di 5M €', date: 'Fase avanzata' },
+  { id: 98, league: 'A', status: 'trattativa', type: 'trattativa', team: 'Roma', player: 'Romelu Lukaku', fromTo: 'dal Chelsea', fee: 'Prestito', date: 'Agosto 2024' }, // Storico da scartare
   
   // SERIE B - Ufficiali
   { id: 9, league: 'B', status: 'ufficiale', type: 'acquisto', team: 'Palermo', player: 'Thomas Henry', fromTo: 'dal Verona', fee: '4M €', date: 'Oggi 11:00' },
   { id: 10, league: 'B', status: 'ufficiale', type: 'acquisto', team: 'Sampdoria', player: 'Massimo Coda', fromTo: 'dal Genoa', fee: 'Svincolato', date: 'Ieri 15:45' },
-  { id: 11, league: 'B', status: 'ufficiale', type: 'cessione', team: 'Cremonese', player: 'Dennis Johnsen', fromTo: 'al Venezia', fee: 'Risoluzione', date: '10 Luglio' },
-  { id: 12, league: 'B', status: 'ufficiale', type: 'prestito', team: 'Bari', player: 'Kevin Lasagna', fromTo: 'dal Verona', fee: 'Prestito secco', date: '09 Luglio' },
+  { id: 11, league: 'B', status: 'ufficiale', type: 'cessione', team: 'Cremonese', player: 'Dennis Johnsen', fromTo: 'al Venezia', fee: 'Risoluzione', date: '10 Luglio 2026' },
+  { id: 12, league: 'B', status: 'ufficiale', type: 'prestito', team: 'Bari', player: 'Kevin Lasagna', fromTo: 'dal Verona', fee: 'Prestito secco', date: '09 Luglio 2026' },
+  { id: 97, league: 'B', status: 'ufficiale', type: 'acquisto', team: 'Parma', player: 'Adrián Bernabé', fromTo: 'Svincolato', fee: 'Gratis', date: 'Luglio 2025' }, // Storico da scartare
   
   // SERIE B - Trattative
   { id: 13, league: 'B', status: 'trattativa', type: 'trattativa', team: 'Sassuolo', player: 'Domenico Berardi', fromTo: 'alla Juventus', fee: 'Richiesta: 20M €', date: 'In corso' },
@@ -32,10 +35,17 @@ export default function MarketFeed() {
   const [leagueTab, setLeagueTab] = useState<'A' | 'B'>('A');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const currentData = ADVANCED_MARKET_DATA.filter(d => d.league === leagueTab && (
-    d.player.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    d.team.toLowerCase().includes(searchQuery.toLowerCase())
-  ));
+  // FILTRO RIGIDO 2026: Esclude qualsiasi record che contenga anni passati (es. 2025, 2024, 2023)
+  const isCurrentYear = (dateStr: string) => {
+    return !/(2025|2024|2023|2022|2021|2020)/.test(dateStr);
+  };
+
+  const currentData = ADVANCED_MARKET_DATA.filter(d => 
+    d.league === leagueTab && 
+    isCurrentYear(d.date) &&
+    (d.player.toLowerCase().includes(searchQuery.toLowerCase()) || 
+     d.team.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   const ufficiali = currentData.filter(d => d.status === 'ufficiale');
   const trattative = currentData.filter(d => d.status === 'trattativa');

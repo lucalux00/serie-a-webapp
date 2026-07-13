@@ -11,13 +11,61 @@ async function searchDDG(query: string) {
     const html = await res.text();
     const $ = cheerio.load(html);
     const snippets: string[] = [];
-    $('.result__snippet').each((i, el) => {
+    $('.result__snippet').each((i: any, el: any) => {
       snippets.push($(el).text().trim());
     });
     return snippets;
   } catch (err) {
     return [];
   }
+}
+
+function parseStatsTable($: any, table: any) {
+  const stats = {
+    carriera: { presenze: "0", reti: "0" },
+    squadraAttuale: { presenze: "0", reti: "0" },
+    nazionale: { presenze: "0", reti: "0" }
+  };
+
+  let mode = 'none'; // 'giovanili', 'club', 'nazionale'
+  let isCurrentTeam = false;
+
+  table.find('tr').each((i: any, tr: any) => {
+    const rowText = $(tr).text().toLowerCase();
+    
+    if (rowText.includes('giovanili')) mode = 'giovanili';
+    else if (rowText.includes('squadre di club')) mode = 'club';
+    else if (rowText.includes('nazionale')) mode = 'nazionale';
+
+    // Rileva righe con presenze (contengono parentesi o numeri)
+    const tds = $(tr).find('td');
+    if (tds.length >= 2) {
+      const yearOrTeam = $(tds[0]).text().trim();
+      const appsGoals = $(tds[tds.length - 1]).text().trim(); // Ultima colonna di solito è presenze (reti)
+
+      const match = appsGoals.match(/(\d+)\s*\(([-]?\d+)\)/); // Esempio: 154 (20)
+      if (match) {
+        const pres = parseInt(match[1]);
+        const reti = parseInt(match[2].replace('-', '0')); // se portiere ha i meno
+
+        if (mode === 'club') {
+          // Aggiungiamo alla carriera totale
+          stats.carriera.presenze = (parseInt(stats.carriera.presenze) + pres).toString();
+          stats.carriera.reti = (parseInt(stats.carriera.reti) + reti).toString();
+          
+          // Ultima squadra club della lista (assumiamo che l'ultima sia quella attuale se ha anni recenti o "20xx-")
+          // Lo sovrascriviamo ad ogni iterazione, l'ultima iterazione rimarrà la "Squadra Attuale"
+          stats.squadraAttuale.presenze = pres.toString();
+          stats.squadraAttuale.reti = reti.toString();
+        } else if (mode === 'nazionale') {
+          stats.nazionale.presenze = (parseInt(stats.nazionale.presenze) + pres).toString();
+          stats.nazionale.reti = (parseInt(stats.nazionale.reti) + reti).toString();
+        }
+      }
+    }
+  });
+
+  return stats;
 }
 
 export async function GET(request: Request) {
@@ -36,29 +84,31 @@ export async function GET(request: Request) {
 
     let biografia = "";
     let caratteristiche = "";
-    let presenze = "N/A";
-    let reti = "N/A";
     let instagram = "";
-    let marketValue = "N/A";
-    let salary = "N/A";
+    let marketValue = "Valore Non Disponibile";
+    let salary = "Stipendio Non Pubblico";
+    let dataNascita = "Sconosciuta";
+    let luogoNascita = "Sconosciuto";
 
     const infobox = $('.sinottico');
+    let advancedStats = {
+      carriera: { presenze: "ND", reti: "ND" },
+      squadraAttuale: { presenze: "ND", reti: "ND" },
+      nazionale: { presenze: "ND", reti: "ND" }
+    };
+
     if (infobox.length > 0) {
-      let foundStats = false;
-      infobox.find('tr').each((i, tr) => {
-        if ($(tr).text().includes('Presenze e reti nei club')) {
-          foundStats = true;
-        } else if (foundStats) {
-          const tdText = $(tr).find('td').last().text().trim();
-          if (tdText && /\d+/.test(tdText) && presenze === "N/A") {
-            const match = tdText.match(/(\d+)\s*\(([^)]+)\)/);
-            if (match) {
-              presenze = match[1];
-              reti = match[2];
-            } else {
-              presenze = tdText;
-            }
-          }
+      advancedStats = parseStatsTable($, infobox);
+      
+      // Estrai dati anagrafici dal sinottico
+      infobox.find('tr').each((i: any, tr: any) => {
+        const thText = $(tr).find('th').text().toLowerCase();
+        const tdText = $(tr).find('td').text().trim();
+        
+        if (thText.includes('data di nascita')) {
+          dataNascita = tdText.split('(')[0].trim();
+        } else if (thText.includes('luogo di nascita')) {
+          luogoNascita = tdText.replace(/\[\d+\]/, '').trim();
         }
       });
     }
@@ -68,7 +118,7 @@ export async function GET(request: Request) {
       biografia = firstP;
     }
 
-    $('h2').each((i, el) => {
+    $('h2').each((i: any, el: any) => {
       const heading = $(el).text().toLowerCase();
       if (heading.includes('biografia')) {
         let p = $(el).nextUntil('h2', 'p').text().trim().substring(0, 400);
@@ -80,36 +130,37 @@ export async function GET(request: Request) {
       }
     });
 
-    // Cerca Link Instagram nei collegamenti esterni di Wiki
-    $('a').each((i, el) => {
+    $('a').each((i: any, el: any) => {
       const href = $(el).attr('href');
       if (href && href.includes('instagram.com')) {
         instagram = href;
       }
     });
 
-    // Intelligence DDG per Mercato e Stipendio
+    // Migliorate Regex e Fallbacks per evitare N/A
     const marketSnippets = await searchDDG(`site:transfermarkt.it "${name}" "valore di mercato"`);
     if (marketSnippets.length > 0) {
-      const match = marketSnippets[0].match(/valore di mercato[:\s]*([\d,.]+\s*(?:mln|mila)?\s*€)/i);
+      const text = marketSnippets.join(' ');
+      // Cerca pattern come "40,00 mln €", "800 mila €", "€50m"
+      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni)?\s*(?:€|euro))/i);
       if (match) marketValue = match[1].trim();
-      else marketValue = "Stima Riservata";
     }
 
-    const salarySnippets = await searchDDG(`"${name}" stipendio netto euro`);
+    const salarySnippets = await searchDDG(`"${name}" stipendio netto calciatore euro serie a`);
     if (salarySnippets.length > 0) {
-      const match = salarySnippets[0].match(/([\d,.]+\s*(?:milioni|mila)?\s*di\s*euro)/i);
+      const text = salarySnippets.join(' ');
+      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni)?\s*(?:di\s*)?(?:€|euro))/i);
       if (match) salary = match[1].trim();
-      else salary = "Dato Non Pubblico";
     }
 
     return NextResponse.json({
       name,
       biografia: biografia || 'Nessuna biografia trovata.',
       caratteristiche: caratteristiche || 'Nessuna caratteristica tecnica specificata.',
-      stats: {
-        presenze: presenze !== "N/A" ? presenze : "ND",
-        reti: reti !== "N/A" ? reti : "ND"
+      stats: advancedStats,
+      anagrafica: {
+        dataNascita,
+        luogoNascita
       },
       instagram: instagram || null,
       marketValue,

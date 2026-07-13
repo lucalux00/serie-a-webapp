@@ -82,40 +82,40 @@ export default function TeamHubClient({ team, news, squadData }: any) {
           {/* TAB: NEWS */}
           {activeTab === 'news' && (
             <motion.div key="news" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
-              {topNews.length > 0 && (
-                <div className="grid grid-cols-1 gap-3">
-                  {topNews.map((item: any, idx: number) => (
-                    <button key={idx} onClick={() => setSelectedNews(item)} className="bg-[#1E293B] border border-[#334155] rounded-xl p-3 shadow-md flex items-center active:scale-95 transition-transform text-left">
-                      {/* Thumbnail Placeholder/Image */}
-                      <div className="w-16 h-16 bg-[#0F172A] rounded-lg shrink-0 mr-4 flex items-center justify-center overflow-hidden border border-[#334155]">
-                        {item.imageUrl ? (
-                          <img src={item.imageUrl} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="text-[#334155] font-black text-2xl">📰</div>
-                        )}
-                      </div>
-                      <div className="flex-1 overflow-hidden">
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source}</span>
-                          <span className="text-[10px] text-[#94A3B8] font-bold">{item.time}</span>
-                        </div>
-                        <h3 className="text-sm font-bold leading-tight line-clamp-2">{item.cleanTitle}</h3>
-                      </div>
-                    </button>
-                  ))}
+              {news.length > 0 ? (
+                <div className="space-y-3">
+                  {[...news]
+                    .sort((a: any, b: any) => {
+                       // Assumendo che il cron job inietti timestamp reali, altrimenti simuliamo l'ordinamento
+                       const tA = a.timestamp || new Date(`1970-01-01T${a.time}:00Z`).getTime();
+                       const tB = b.timestamp || new Date(`1970-01-01T${b.time}:00Z`).getTime();
+                       return tB - tA;
+                    })
+                    .map((item: any, idx: number) => {
+                      // Check reale per le 24 ore (o simulato per le prime 2 news se non ci sono timestamp)
+                      const isNew = item.timestamp ? (Date.now() - item.timestamp < 86400000) : idx < 2;
+                      
+                      return (
+                        <button key={idx} onClick={() => setSelectedNews(item)} className="w-full bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md flex flex-col active:scale-95 transition-transform text-left">
+                          <div className="flex justify-between items-start mb-2 w-full">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source}</span>
+                            <div className="flex items-center space-x-2">
+                              {isNew && (
+                                <span className="bg-[#EF4444] text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]">
+                                  Nuova
+                                </span>
+                              )}
+                              <span className="text-[10px] text-[#94A3B8] font-bold">{item.time}</span>
+                            </div>
+                          </div>
+                          <h3 className="text-sm font-bold leading-tight text-[#F8FAFC]">{item.cleanTitle}</h3>
+                        </button>
+                      );
+                  })}
                 </div>
+              ) : (
+                <div className="text-center text-[#94A3B8] font-medium py-10">Nessuna notizia disponibile.</div>
               )}
-              <div className="space-y-3">
-                {otherNews.map((item: any, idx: number) => (
-                  <button key={idx} onClick={() => setSelectedNews(item)} className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md active:scale-95 transition-transform">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-[10px] font-bold text-[#0EA5E9] uppercase">{item.source}</span>
-                      <span className="text-[10px] text-[#94A3B8] font-bold">{item.time}</span>
-                    </div>
-                    <h3 className="text-sm font-bold leading-snug">{item.cleanTitle}</h3>
-                  </button>
-                ))}
-              </div>
             </motion.div>
           )}
 

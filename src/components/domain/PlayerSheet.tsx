@@ -70,6 +70,11 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                       <span>{player.weight} kg</span>
                     </div>
                   )}
+                  {realData?.anagrafica && (
+                    <div className="text-[10px] text-[#64748B] mt-1 font-bold uppercase">
+                      {realData.anagrafica.dataNascita} • {realData.anagrafica.luogoNascita}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -115,16 +120,36 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                 </div>
               ) : realData ? (
                 <>
-                  {/* Stats Reali */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#0EA5E9]/50 shadow-[0_0_15px_rgba(14,165,233,0.1)]">
-                      <div className="flex items-center text-[#0EA5E9] mb-2 text-[10px] font-black uppercase tracking-wider"><Activity size={14} className="mr-1"/> Presenze Club</div>
-                      <div className="text-2xl font-black text-white">{realData.stats?.presenze || '-'}</div>
+                  {/* Stats Reali (Split in 3) */}
+                  <div className="space-y-3">
+                    {/* Carriera */}
+                    <div className="bg-[#0F172A] rounded-xl border border-[#334155] p-3">
+                      <div className="text-[10px] text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-1">Storico Carriera Club</div>
+                      <div className="flex justify-between">
+                        <div className="flex items-center text-sm font-bold text-white"><Activity size={14} className="mr-2 text-[#0EA5E9]" /> {realData.stats?.carriera?.presenze || '-'} Presenze</div>
+                        <div className="flex items-center text-sm font-bold text-white"><Target size={14} className="mr-2 text-[#10B981]" /> {realData.stats?.carriera?.reti || '-'} Reti</div>
+                      </div>
                     </div>
-                    <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#10B981]/50 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                      <div className="flex items-center text-[#10B981] mb-2 text-[10px] font-black uppercase tracking-wider"><Target size={14} className="mr-1"/> Reti Club</div>
-                      <div className="text-2xl font-black text-white">{realData.stats?.reti || '-'}</div>
+
+                    {/* Squadra Attuale */}
+                    <div className="bg-[#0F172A] rounded-xl border border-[#334155] p-3">
+                      <div className="text-[10px] text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-1">Squadra Attuale</div>
+                      <div className="flex justify-between">
+                        <div className="flex items-center text-sm font-bold text-white"><Activity size={14} className="mr-2 text-[#0EA5E9]" /> {realData.stats?.squadraAttuale?.presenze || '-'} Presenze</div>
+                        <div className="flex items-center text-sm font-bold text-white"><Target size={14} className="mr-2 text-[#10B981]" /> {realData.stats?.squadraAttuale?.reti || '-'} Reti</div>
+                      </div>
                     </div>
+
+                    {/* Nazionale */}
+                    {(realData.stats?.nazionale?.presenze !== "0" && realData.stats?.nazionale?.presenze !== "ND") && (
+                      <div className="bg-[#0F172A] rounded-xl border border-[#334155] p-3">
+                        <div className="text-[10px] text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-1">Nazionale</div>
+                        <div className="flex justify-between">
+                          <div className="flex items-center text-sm font-bold text-white"><Activity size={14} className="mr-2 text-[#0EA5E9]" /> {realData.stats?.nazionale?.presenze || '-'} Presenze</div>
+                          <div className="flex items-center text-sm font-bold text-white"><Target size={14} className="mr-2 text-[#10B981]" /> {realData.stats?.nazionale?.reti || '-'} Reti</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Biografia Reale */}
