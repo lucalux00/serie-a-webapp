@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import CookieConsent from "@/components/layout/CookieConsent";
+import NewsTicker from "@/components/layout/NewsTicker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
+        <NewsTicker />
         <CookieConsent />
         <BottomNav />
       </body>
