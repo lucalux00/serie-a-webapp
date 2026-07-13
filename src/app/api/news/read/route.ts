@@ -6,12 +6,17 @@ import { JSDOM } from 'jsdom';
 async function resolveGoogleNewsUrl(googleUrl: string): Promise<string> {
   try {
     const res = await fetch(googleUrl, {
-      redirect: 'follow',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       }
     });
-    return res.url !== googleUrl ? res.url : googleUrl;
+    const html = await res.text();
+    // Google News returns an HTML with an anchor or meta refresh containing the real URL
+    const match = html.match(/<a[^>]+href="([^"]+)"[^>]*>/i) || html.match(/data-n-href="([^"]+)"/i);
+    if (match && match[1] && match[1].startsWith('http')) {
+      return match[1];
+    }
+    return googleUrl;
   } catch {
     return googleUrl;
   }
