@@ -86,29 +86,32 @@ export default function TeamHubClient({ team, news, squadData }: any) {
                 <div className="space-y-3">
                   {[...news]
                     .sort((a: any, b: any) => {
-                       // Assumendo che il cron job inietti timestamp reali, altrimenti simuliamo l'ordinamento
-                       const tA = a.timestamp || new Date(`1970-01-01T${a.time}:00Z`).getTime();
-                       const tB = b.timestamp || new Date(`1970-01-01T${b.time}:00Z`).getTime();
+                       const tA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
+                       const tB = b.pubDate ? new Date(b.pubDate).getTime() : 0;
                        return tB - tA;
                     })
                     .map((item: any, idx: number) => {
-                      // Check reale per le 24 ore (o simulato per le prime 2 news se non ci sono timestamp)
-                      const isNew = item.timestamp ? (Date.now() - item.timestamp < 86400000) : idx < 2;
-                      
+                      const pubTs = item.pubDate ? new Date(item.pubDate).getTime() : 0;
+                      const isNew = pubTs > 0 && (Date.now() - pubTs < 24 * 60 * 60 * 1000);
+                      const displayTitle = item.cleanTitle || item.title || 'Notizia senza titolo';
+                      const displayDate = item.pubDate 
+                        ? new Date(item.pubDate).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+                        : '';
+
                       return (
                         <button key={idx} onClick={() => setSelectedNews(item)} className="w-full bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md flex flex-col active:scale-95 transition-transform text-left">
                           <div className="flex justify-between items-start mb-2 w-full">
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source}</span>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source || 'News'}</span>
                             <div className="flex items-center space-x-2">
                               {isNew && (
                                 <span className="bg-[#EF4444] text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]">
                                   Nuova
                                 </span>
                               )}
-                              <span className="text-[10px] text-[#94A3B8] font-bold">{item.time}</span>
+                              <span className="text-[10px] text-[#94A3B8] font-bold">{displayDate}</span>
                             </div>
                           </div>
-                          <h3 className="text-sm font-bold leading-tight text-[#F8FAFC]">{item.cleanTitle}</h3>
+                          <h3 className="text-sm font-bold leading-tight text-[#F8FAFC]">{displayTitle}</h3>
                         </button>
                       );
                   })}
@@ -327,12 +330,18 @@ export default function TeamHubClient({ team, news, squadData }: any) {
             >
               <div className="bg-[#1E293B] px-6 py-4 border-b border-[#334155] flex justify-between items-start rounded-t-3xl shrink-0">
                 <div className="w-12 h-1.5 bg-[#334155] rounded-full absolute top-2 left-1/2 -translate-x-1/2" />
-                <div className="pr-4 mt-2">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{selectedNews.source}</span>
-                  <span className="text-[10px] text-[#94A3B8] font-bold ml-2">{selectedNews.time}</span>
-                  <h2 className="text-lg font-black mt-2 leading-tight">{selectedNews.cleanTitle}</h2>
+                <div className="pr-4 mt-2 flex-1">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">
+                    {selectedNews.source || 'Notizia'}
+                  </span>
+                  <span className="text-[10px] text-[#94A3B8] font-bold ml-2">
+                    {selectedNews.pubDate ? new Date(selectedNews.pubDate).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }) : ''}
+                  </span>
+                  <h2 className="text-base font-black mt-2 leading-tight">
+                    {selectedNews.cleanTitle || selectedNews.title || 'Notizia'}
+                  </h2>
                 </div>
-                <button onClick={() => setSelectedNews(null)} className="p-2 bg-[#334155] rounded-full text-white mt-2 shrink-0">
+                <button onClick={() => setSelectedNews(null)} className="p-2 bg-[#334155] rounded-full text-white mt-2 shrink-0 ml-2">
                   <XCircle size={20} />
                 </button>
               </div>
@@ -341,13 +350,23 @@ export default function TeamHubClient({ team, news, squadData }: any) {
                 {loadingArticle ? (
                   <div className="flex flex-col items-center justify-center py-20">
                     <div className="w-10 h-10 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-[#10B981] text-xs font-black uppercase mt-4 animate-pulse">Estrazione integrale...</span>
+                    <span className="text-[#10B981] text-xs font-black uppercase mt-4 animate-pulse">Estrazione articolo...</span>
                   </div>
                 ) : (
-                  <div className="prose prose-invert max-w-none">
+                  <div className="space-y-4">
                     <p className="whitespace-pre-wrap font-medium text-[#F8FAFC] leading-loose text-[15px]">
                       {fullArticleText}
                     </p>
+                    {selectedNews.link && (
+                      <a
+                        href={selectedNews.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full bg-[#1E293B] border border-[#334155] text-[#0EA5E9] font-bold text-sm py-3 rounded-xl mt-4"
+                      >
+                        Apri articolo originale →
+                      </a>
+                    )}
                   </div>
                 )}
               </div>

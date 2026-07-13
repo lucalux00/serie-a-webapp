@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 
-async function searchDDG(query: string) {
+async function searchDDG(query: string): Promise<string[]> {
   try {
     const res = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
       headers: {
@@ -15,55 +15,112 @@ async function searchDDG(query: string) {
       snippets.push($(el).text().trim());
     });
     return snippets;
-  } catch (err) {
+  } catch {
     return [];
   }
 }
 
-function parseStatsTable($: any, table: any) {
+// Parser corretto per la tabella statistiche di Wikipedia
+// La struttura è: Squadra | Anni | Presenze | (Reti)
+// Le reti tra parentesi per i portieri sono GETTONI (goal subiti), non gol segnati
+// Distinguiamo portieri (POR) da altri ruoli
+function parseWikipediaStats($: any, infobox: any, role: string) {
   const stats = {
-    carriera: { presenze: "0", reti: "0" },
-    squadraAttuale: { presenze: "0", reti: "0" },
-    nazionale: { presenze: "0", reti: "0" }
+    carriera:        { presenze: 0, gol: 0 },
+    squadraAttuale:  { presenze: 0, gol: 0, nome: '' },
+    nazionale:       { presenze: 0, gol: 0 }
   };
 
-  let mode = 'none'; // 'giovanili', 'club', 'nazionale'
-  let isCurrentTeam = false;
+  const isGoalkeeper = role?.toUpperCase().includes('POR') || 
+                        role?.toLowerCase().includes('portiere') ||
+                        role?.toLowerCase().includes('goalkeeper');
 
-  table.find('tr').each((i: any, tr: any) => {
-    const rowText = $(tr).text().toLowerCase();
-    
-    if (rowText.includes('giovanili')) mode = 'giovanili';
-    else if (rowText.includes('squadre di club')) mode = 'club';
-    else if (rowText.includes('nazionale')) mode = 'nazionale';
+  let section: 'giovanili' | 'club' | 'nazionale' | 'none' = 'none';
+  let lastClubPresenze = 0;
+  let lastClubGol = 0;
+  let lastClubNome = '';
 
-    // Rileva righe con presenze (contengono parentesi o numeri)
+  infobox.find('tr').each((i: any, tr: any) => {
+    const rowText = $(tr).text().replace(/\s+/g, ' ').trim().toLowerCase();
+
+    // Rileva intestazione sezione
+    if (rowText.includes('giovanili') || rowText.includes('settore giovanile')) {
+      section = 'giovanili';
+      return;
+    }
+    if (rowText.includes('squadre di club') || rowText.includes('club career')) {
+      section = 'club';
+      return;
+    }
+    if (rowText.includes('nazionale') || rowText.includes('national team')) {
+      section = 'nazionale';
+      return;
+    }
+
+    // Salta righe intestazione
+    if ($(tr).find('th').length > 1) return;
+
     const tds = $(tr).find('td');
-    if (tds.length >= 2) {
-      const yearOrTeam = $(tds[0]).text().trim();
-      const appsGoals = $(tds[tds.length - 1]).text().trim(); // Ultima colonna di solito è presenze (reti)
+    if (tds.length < 2) return;
 
-      const match = appsGoals.match(/(\d+)\s*\(([-]?\d+)\)/); // Esempio: 154 (20)
+    // Cerca celle con formato "NNN (MMM)" o solo numeri
+    // La penultima o ultima colonna tipicamente ha presenze (gol)
+    const allCells = tds.toArray().map((td: any) => $(td).text().trim());
+    
+    // Cerca il pattern presenze (gol) - es "154 (20)"
+    let presenzeVal = 0;
+    let golVal = 0;
+    let foundStats = false;
+    
+    for (let c = allCells.length - 1; c >= 0; c--) {
+      const cellText = allCells[c];
+      // Match "NNN (MMM)" con possibili spazi e segni
+      const match = cellText.match(/^(\d+)\s*\(([+-]?\d+)\)$/);
       if (match) {
-        const pres = parseInt(match[1]);
-        const reti = parseInt(match[2].replace('-', '0')); // se portiere ha i meno
+        presenzeVal = parseInt(match[1]);
+        golVal = parseInt(match[2]);
+        foundStats = true;
+        break;
+      }
+      // Match solo numeri
+      if (/^\d+$/.test(cellText) && parseInt(cellText) < 1000) {
+        presenzeVal = parseInt(cellText);
+        foundStats = true;
+        break;
+      }
+    }
 
-        if (mode === 'club') {
-          // Aggiungiamo alla carriera totale
-          stats.carriera.presenze = (parseInt(stats.carriera.presenze) + pres).toString();
-          stats.carriera.reti = (parseInt(stats.carriera.reti) + reti).toString();
-          
-          // Ultima squadra club della lista (assumiamo che l'ultima sia quella attuale se ha anni recenti o "20xx-")
-          // Lo sovrascriviamo ad ogni iterazione, l'ultima iterazione rimarrà la "Squadra Attuale"
-          stats.squadraAttuale.presenze = pres.toString();
-          stats.squadraAttuale.reti = reti.toString();
-        } else if (mode === 'nazionale') {
-          stats.nazionale.presenze = (parseInt(stats.nazionale.presenze) + pres).toString();
-          stats.nazionale.reti = (parseInt(stats.nazionale.reti) + reti).toString();
-        }
+    if (!foundStats) return;
+
+    // Recupera nome squadra (prima cella non numerica)
+    let squadraNome = '';
+    for (const cell of allCells) {
+      if (!/^\d/.test(cell) && !cell.match(/^\(/) && cell.length > 1) {
+        squadraNome = cell.replace(/\[\d+\]/g, '').trim();
+        break;
+      }
+    }
+
+    if (section === 'club') {
+      stats.carriera.presenze += presenzeVal;
+      // Per portieri i "gol" nella parentesi sono gol subiti - non li mostriamo come gol
+      if (!isGoalkeeper) {
+        stats.carriera.gol += golVal;
+      }
+      lastClubPresenze = presenzeVal;
+      lastClubGol = isGoalkeeper ? 0 : golVal;
+      lastClubNome = squadraNome;
+    } else if (section === 'nazionale') {
+      stats.nazionale.presenze += presenzeVal;
+      if (!isGoalkeeper) {
+        stats.nazionale.gol += golVal;
       }
     }
   });
+
+  stats.squadraAttuale.presenze = lastClubPresenze;
+  stats.squadraAttuale.gol = lastClubGol;
+  stats.squadraAttuale.nome = lastClubNome;
 
   return stats;
 }
@@ -71,96 +128,119 @@ function parseStatsTable($: any, table: any) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const name = searchParams.get('name');
+  const role = searchParams.get('role') || '';
 
   if (!name) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }
 
   try {
-    const searchUrl = `https://it.wikipedia.org/w/index.php?search=${encodeURIComponent(name)}`;
-    const res = await fetch(searchUrl);
+    const searchUrl = `https://it.wikipedia.org/w/index.php?search=${encodeURIComponent(name + ' calciatore')}`;
+    const res = await fetch(searchUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; SerieAPortal/1.0)',
+        'Accept-Language': 'it-IT,it;q=0.9'
+      }
+    });
     const html = await res.text();
     const $ = cheerio.load(html);
 
-    let biografia = "";
-    let caratteristiche = "";
-    let instagram = "";
-    let marketValue = "Valore Non Disponibile";
-    let salary = "Stipendio Non Pubblico";
-    let dataNascita = "Sconosciuta";
-    let luogoNascita = "Sconosciuto";
+    let biografia = '';
+    let caratteristiche = '';
+    let instagram = '';
+    let marketValue = 'Dato non disponibile';
+    let salary = 'Dato non pubblicato';
+    let dataNascita = 'Non disponibile';
+    let luogoNascita = 'Non disponibile';
+    let nazionalita = 'Non disponibile';
 
-    const infobox = $('.sinottico');
-    let advancedStats = {
-      carriera: { presenze: "ND", reti: "ND" },
-      squadraAttuale: { presenze: "ND", reti: "ND" },
-      nazionale: { presenze: "ND", reti: "ND" }
+    const infobox = $('.sinottico, .infobox, .wikitable.sinottico');
+    let parsedStats = {
+      carriera:       { presenze: 0, gol: 0 },
+      squadraAttuale: { presenze: 0, gol: 0, nome: '' },
+      nazionale:      { presenze: 0, gol: 0 }
     };
 
     if (infobox.length > 0) {
-      advancedStats = parseStatsTable($, infobox);
-      
-      // Estrai dati anagrafici dal sinottico
+      parsedStats = parseWikipediaStats($, infobox.first(), role);
+
+      // Dati anagrafici
       infobox.find('tr').each((i: any, tr: any) => {
         const thText = $(tr).find('th').text().toLowerCase();
-        const tdText = $(tr).find('td').text().trim();
-        
-        if (thText.includes('data di nascita')) {
+        const tdRaw  = $(tr).find('td').first();
+        const tdText = tdRaw.text().replace(/\[\d+\]/g, '').trim();
+
+        if (thText.includes('data di nascita') || thText.includes('nato il')) {
           dataNascita = tdText.split('(')[0].trim();
-        } else if (thText.includes('luogo di nascita')) {
-          luogoNascita = tdText.replace(/\[\d+\]/, '').trim();
+        } else if (thText.includes('luogo di nascita') || thText.includes('nato a')) {
+          luogoNascita = tdText.split('\n')[0].trim();
+        } else if (thText.includes('nazionalità') || thText.includes('national')) {
+          nazionalita = tdText.split('\n')[0].trim();
         }
       });
     }
 
-    const firstP = $('#mw-content-text .mw-parser-output > p').not('.mw-empty-elt').first().text().trim();
-    if (firstP && firstP.length > 50) {
-      biografia = firstP;
-    }
+    // Biografia - primo paragrafo significativo
+    const firstP = $('#mw-content-text .mw-parser-output > p').not('.mw-empty-elt').filter((i: any, el: any) => {
+      return $(el).text().trim().length > 80;
+    }).first().text().trim();
+    if (firstP) biografia = firstP;
 
-    $('h2').each((i: any, el: any) => {
+    // Caratteristiche tecniche
+    $('h2, h3').each((i: any, el: any) => {
       const heading = $(el).text().toLowerCase();
-      if (heading.includes('biografia')) {
-        let p = $(el).nextUntil('h2', 'p').text().trim().substring(0, 400);
-        if (p) biografia = p + '...';
-      }
       if (heading.includes('caratteristiche')) {
-        let p = $(el).nextUntil('h2', 'p').text().trim().substring(0, 400);
+        const p = $(el).nextUntil('h2,h3', 'p').text().trim().substring(0, 600);
         if (p) caratteristiche = p + '...';
       }
     });
 
-    $('a').each((i: any, el: any) => {
+    // Instagram (nei link esterni wiki)
+    $('a[href*="instagram.com"]').each((i: any, el: any) => {
       const href = $(el).attr('href');
-      if (href && href.includes('instagram.com')) {
-        instagram = href;
-      }
+      if (href && !instagram) instagram = href;
     });
 
-    // Migliorate Regex e Fallbacks per evitare N/A
-    const marketSnippets = await searchDDG(`site:transfermarkt.it "${name}" "valore di mercato"`);
+    // Valore di mercato tramite DDG
+    const [marketSnippets, salarySnippets] = await Promise.all([
+      searchDDG(`"${name}" valore mercato transfermarkt 2026`),
+      searchDDG(`"${name}" stipendio netto milioni 2026 calcio`)
+    ]);
+
     if (marketSnippets.length > 0) {
-      const text = marketSnippets.join(' ');
-      // Cerca pattern come "40,00 mln €", "800 mila €", "€50m"
-      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni)?\s*(?:€|euro))/i);
+      const text = marketSnippets.slice(0, 3).join(' ');
+      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni|k)?\s*(?:€|euro))/i);
       if (match) marketValue = match[1].trim();
     }
 
-    const salarySnippets = await searchDDG(`"${name}" stipendio netto calciatore euro serie a`);
     if (salarySnippets.length > 0) {
-      const text = salarySnippets.join(' ');
-      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni)?\s*(?:di\s*)?(?:€|euro))/i);
+      const text = salarySnippets.slice(0, 3).join(' ');
+      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni|k)?\s*(?:di\s*)?(?:€|euro))/i);
       if (match) salary = match[1].trim();
     }
 
+    const isGoalkeeper = role?.toUpperCase().includes('POR') || role?.toLowerCase().includes('portiere');
+
     return NextResponse.json({
       name,
-      biografia: biografia || 'Nessuna biografia trovata.',
-      caratteristiche: caratteristiche || 'Nessuna caratteristica tecnica specificata.',
-      stats: advancedStats,
-      anagrafica: {
-        dataNascita,
-        luogoNascita
+      biografia: biografia || 'Nessuna biografia trovata su Wikipedia.',
+      caratteristiche: caratteristiche || '',
+      anagrafica: { dataNascita, luogoNascita, nazionalita },
+      stats: {
+        isGoalkeeper,
+        carriera: {
+          presenze: parsedStats.carriera.presenze || 0,
+          gol: parsedStats.carriera.gol || 0,
+        },
+        squadraAttuale: {
+          nome: parsedStats.squadraAttuale.nome || '',
+          presenze: parsedStats.squadraAttuale.presenze || 0,
+          gol: parsedStats.squadraAttuale.gol || 0,
+        },
+        nazionale: {
+          presenze: parsedStats.nazionale.presenze || 0,
+          gol: parsedStats.nazionale.gol || 0,
+        }
       },
       instagram: instagram || null,
       marketValue,

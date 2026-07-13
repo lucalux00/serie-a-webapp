@@ -1,6 +1,25 @@
 import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 
+// Risolve redirect di Google News e altri aggregatori
+async function resolveRedirect(url: string): Promise<string> {
+  try {
+    // Google News usa un URL encoded nell'RSS - proviamo a seguire il redirect
+    const res = await fetch(url, {
+      method: 'GET',
+      redirect: 'follow',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml',
+      }
+    });
+    // Se siamo stati reindirizzati, usa l'URL finale
+    return res.url || url;
+  } catch {
+    return url;
+  }
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get('url');
@@ -10,75 +29,99 @@ export async function GET(request: Request) {
   }
 
   try {
-    const res = await fetch(url, {
+    // Step 1: risolvi redirect (Google News -> sito originale)
+    const resolvedUrl = await resolveRedirect(url);
+
+    // Step 2: fetch del vero articolo
+    const res = await fetch(resolvedUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'it-IT,it;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
       }
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch: ${res.status}`);
+      throw new Error(`Fetch fallito: ${res.status}`);
     }
 
     const html = await res.text();
     const $ = cheerio.load(html);
 
-    // Rimuoviamo elementi non necessari
-    $('script, style, nav, header, footer, aside, iframe, .ads, .social, .banner, [role="banner"], [role="navigation"]').remove();
+    // Rimuovi tutto il rumore
+    $('script, style, nav, header, footer, aside, iframe, .ads, .ad, .advertisement, .social-share, .newsletter, .related, .comments, [role="banner"], [role="navigation"], [role="complementary"], .cookie-banner, .gdpr').remove();
 
     let articleBody = '';
 
-    // Euristiche per trovare il contenitore principale
+    // Selettori in ordine di affidabilità
     const contentSelectors = [
-      'article',
       '[itemprop="articleBody"]',
-      '.entry-content',
+      '.article-body',
+      '.article__body', 
       '.article-content',
+      '.article__content',
+      '.entry-content',
       '.post-content',
-      'main'
+      '.story-body',
+      '.content-body',
+      '#article-body',
+      'article',
+      '[class*="article"]',
+      '[class*="content"]',
+      'main',
     ];
 
-    let contentNode = null;
+    let bestText = '';
+
     for (const selector of contentSelectors) {
       const node = $(selector);
       if (node.length > 0) {
-        contentNode = node;
-        break;
+        const paragraphs: string[] = [];
+        node.find('p').each((i: any, el: any) => {
+          const text = $(el).text().trim();
+          // Filtra paragrafi troppo brevi o probabilmente UI noise
+          if (text.length > 40 && !text.match(/^(Leggi anche|Abbonati|Accedi|Cookie|Privacy|Seguici)/i)) {
+            paragraphs.push(text);
+          }
+        });
+        const joined = paragraphs.join('\n\n');
+        // Tiene il contenuto più lungo trovato
+        if (joined.length > bestText.length) {
+          bestText = joined;
+        }
+        // Se abbiamo già un testo corposo, fermiamoci
+        if (bestText.length > 500) break;
       }
     }
 
-    // Fallback: prendiamo tutti i paragrafi lunghi
-    if (!contentNode) {
+    // Ultimo fallback: tutti i paragrafi della pagina
+    if (bestText.length < 200) {
       const paragraphs: string[] = [];
-      $('p').each((i, el) => {
+      $('p').each((i: any, el: any) => {
         const text = $(el).text().trim();
-        if (text.length > 50) {
+        if (text.length > 60) {
           paragraphs.push(text);
         }
       });
-      articleBody = paragraphs.join('\n\n');
-    } else {
-      // Estraiamo i paragrafi dal nodo principale
-      const paragraphs: string[] = [];
-      contentNode.find('p').each((i, el) => {
-        const text = $(el).text().trim();
-        if (text.length > 20) {
-          paragraphs.push(text);
-        }
-      });
-      articleBody = paragraphs.join('\n\n');
+      if (paragraphs.length > 0) {
+        bestText = paragraphs.join('\n\n');
+      }
     }
 
-    if (!articleBody || articleBody.length < 100) {
-       articleBody = "Impossibile estrarre il testo completo da questo sito. Il sito potrebbe richiedere abbonamento (Paywall) o utilizzare sistemi anti-bot. Ti invitiamo a leggere l'articolo originale tramite il link a fine pagina.";
+    if (!bestText || bestText.length < 100) {
+      bestText = "⚠️ Impossibile estrarre l'articolo completo da questo sito. Potrebbe trattarsi di un contenuto riservato agli abbonati (paywall) o il sito potrebbe bloccare la lettura automatica. Puoi aprire l'articolo originale tramite il pulsante in basso.";
     }
 
     return NextResponse.json({
-      content: articleBody
+      content: bestText,
+      resolvedUrl,
     });
 
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to extract article' }, { status: 500 });
+    return NextResponse.json({ 
+      content: "⚠️ Errore durante l'estrazione dell'articolo. Il sito potrebbe non essere raggiungibile o richiedere un accesso protetto.",
+      resolvedUrl: url
+    });
   }
 }
