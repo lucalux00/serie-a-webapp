@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Activity, User, BookOpen, Star, Target, Goal, ArrowRightLeft } from 'lucide-react';
 
@@ -10,6 +10,23 @@ interface PlayerSheetProps {
 }
 
 export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
+  const [realData, setRealData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (player && player.name && !player.isStaff) {
+      setLoading(true);
+      setRealData(null);
+      fetch(`/api/player?name=${encodeURIComponent(player.name)}`)
+        .then(r => r.json())
+        .then(data => {
+          setRealData(data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [player]);
+
   return (
     <AnimatePresence>
       {player && (
