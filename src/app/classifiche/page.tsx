@@ -6,7 +6,21 @@ import { Trophy, Calendar as CalendarIcon, ChevronRight } from 'lucide-react';
 
 export default function ClassifichePage() {
   const [activeTab, setActiveTab] = useState<'A' | 'B'>('A');
+  const [currentRoundA, setCurrentRoundA] = useState(1);
+  const [currentRoundB, setCurrentRoundB] = useState(1);
+  
   const data = activeTab === 'A' ? classificheData.serieA : classificheData.serieB;
+  const currentRound = activeTab === 'A' ? currentRoundA : currentRoundB;
+
+  const handlePrevRound = () => {
+    if (activeTab === 'A') setCurrentRoundA(prev => Math.max(1, prev - 1));
+    else setCurrentRoundB(prev => Math.max(1, prev - 1));
+  };
+  
+  const handleNextRound = () => {
+    if (activeTab === 'A') setCurrentRoundA(prev => Math.min(38, prev + 1));
+    else setCurrentRoundB(prev => Math.min(38, prev + 1));
+  };
 
   return (
     <div className="flex flex-col w-full min-h-screen pb-24 p-4">
@@ -54,14 +68,13 @@ export default function ClassifichePage() {
                 <th className="px-2 py-3 font-black">Squadra</th>
                 <th className="px-2 py-3 font-black text-center">Pt</th>
                 <th className="px-2 py-3 font-bold text-center text-[#64748B]">G</th>
-                <th className="px-2 py-3 font-bold text-center text-[#64748B]">V</th>
-                <th className="px-2 py-3 font-bold text-center text-[#64748B]">P</th>
-                <th className="px-2 py-3 font-bold text-center text-[#64748B]">S</th>
+                <th className="px-2 py-3 font-bold text-center text-[#64748B] hidden sm:table-cell">V</th>
+                <th className="px-2 py-3 font-bold text-center text-[#64748B] hidden sm:table-cell">N</th>
+                <th className="px-2 py-3 font-bold text-center text-[#64748B] hidden sm:table-cell">P</th>
               </tr>
             </thead>
             <tbody>
               {data.standings.map((team, idx) => {
-                // Style per Champions League, Europa League, Retrocessione ecc.
                 let rowBg = "border-b border-[#334155]/50 bg-[#1E293B]";
                 let posColor = "text-[#94A3B8]";
                 
@@ -81,9 +94,9 @@ export default function ClassifichePage() {
                     <td className="px-2 py-3 font-bold text-white whitespace-nowrap">{team.team}</td>
                     <td className="px-2 py-3 text-center font-black text-[#10B981]">{team.points}</td>
                     <td className="px-2 py-3 text-center font-medium text-[#94A3B8]">{team.played}</td>
-                    <td className="px-2 py-3 text-center font-medium text-[#94A3B8]">{team.w}</td>
-                    <td className="px-2 py-3 text-center font-medium text-[#94A3B8]">{team.d}</td>
-                    <td className="px-2 py-3 text-center font-medium text-[#94A3B8]">{team.l}</td>
+                    <td className="px-2 py-3 text-center font-medium text-[#94A3B8] hidden sm:table-cell">{team.w}</td>
+                    <td className="px-2 py-3 text-center font-medium text-[#94A3B8] hidden sm:table-cell">{team.d}</td>
+                    <td className="px-2 py-3 text-center font-medium text-[#94A3B8] hidden sm:table-cell">{team.l}</td>
                   </tr>
                 );
               })}
@@ -92,20 +105,30 @@ export default function ClassifichePage() {
         </div>
       </div>
 
-      {/* Calendar */}
-      <h2 className="text-lg font-black mb-4 flex items-center">
-        <CalendarIcon size={18} className="mr-2 text-[#0EA5E9]" /> Prossimo Turno
+      {/* CALENDARIO */}
+      <h2 className="text-xl font-black mb-4 text-white flex items-center tracking-tight">
+        <CalendarIcon size={20} className="mr-2 text-[#0EA5E9]" /> Calendario 2026/27
       </h2>
+      
+      <div className="flex items-center justify-between bg-[#1E293B] border border-[#334155] rounded-xl p-2 mb-4 shadow-md">
+        <button onClick={handlePrevRound} disabled={currentRound === 1} className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#0F172A] border border-[#334155] disabled:opacity-50 text-white font-bold active:scale-95 transition-transform">
+          &lt;
+        </button>
+        <div className="font-black text-lg text-white tracking-widest uppercase">{currentRound}ª Giornata</div>
+        <button onClick={handleNextRound} disabled={currentRound === 38} className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#0F172A] border border-[#334155] disabled:opacity-50 text-white font-bold active:scale-95 transition-transform">
+          &gt;
+        </button>
+      </div>
+
       <div className="space-y-3">
-        {data.calendar.map((match, idx) => (
+        {data.calendar.filter(m => m.round === currentRound).map((match, idx) => (
           <div key={idx} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 flex flex-col active:scale-95 transition-transform shadow-md">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-[10px] font-bold text-[#0EA5E9] uppercase bg-[#0EA5E9]/10 px-2 py-1 rounded">1° Giornata</span>
-              <span className="text-xs text-[#94A3B8] font-bold">{match.date}</span>
+              <span className="text-[10px] font-bold text-[#0EA5E9] uppercase bg-[#0EA5E9]/10 px-2 py-1 rounded tracking-widest">{match.date}</span>
             </div>
             <div className="flex justify-between items-center px-2">
               <div className="flex-1 text-right font-black text-white text-base">{match.home}</div>
-              <div className="mx-4 text-[#94A3B8] font-black text-sm bg-[#0F172A] px-3 py-1 rounded-lg border border-[#334155]">-</div>
+              <div className="mx-4 text-[#94A3B8] font-black text-sm bg-[#0F172A] px-3 py-1 rounded-lg border border-[#334155]">VS</div>
               <div className="flex-1 text-left font-black text-white text-base">{match.away}</div>
             </div>
           </div>
