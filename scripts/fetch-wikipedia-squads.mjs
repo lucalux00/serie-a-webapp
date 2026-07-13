@@ -83,8 +83,8 @@ async function scrapeTeam(team) {
     let rosaTable = null;
     
     tables.each((i, table) => {
-      const headerText = $(table).find('th').text().toLowerCase();
-      if (headerText.includes('n.') && headerText.includes('ruolo') && headerText.includes('giocatore')) {
+      const text = $(table).text().toLowerCase();
+      if (text.includes('ruolo') && (text.includes('giocatore') || text.includes('calciatore'))) {
         rosaTable = table;
         return false; // break loop
       }
