@@ -226,2283 +226,2283 @@
     "calendar": [
       {
         "round": 1,
-        "home": "Inter",
-        "away": "Bologna",
-        "date": "22 agosto 2026, 20:45"
-      },
-      {
-        "round": 1,
-        "home": "Udinese",
-        "away": "Cagliari",
-        "date": "22 agosto 2026, 15:00"
-      },
-      {
-        "round": 1,
-        "home": "Lazio",
-        "away": "Roma",
-        "date": "22 agosto 2026, 18:30"
-      },
-      {
-        "round": 1,
-        "home": "Venezia",
-        "away": "Atalanta",
-        "date": "22 agosto 2026, 15:00"
-      },
-      {
-        "round": 1,
-        "home": "Empoli",
-        "away": "Lecce",
-        "date": "22 agosto 2026, 18:30"
-      },
-      {
-        "round": 1,
-        "home": "Monza",
-        "away": "Verona",
-        "date": "22 agosto 2026, 15:00"
-      },
-      {
-        "round": 1,
         "home": "Genoa",
-        "away": "Napoli",
-        "date": "22 agosto 2026, 18:30"
-      },
-      {
-        "round": 1,
-        "home": "Parma",
-        "away": "Como",
-        "date": "22 agosto 2026, 15:00"
-      },
-      {
-        "round": 1,
-        "home": "Fiorentina",
-        "away": "Juventus",
-        "date": "22 agosto 2026, 18:30"
-      },
-      {
-        "round": 1,
-        "home": "Milan",
-        "away": "Torino",
-        "date": "22 agosto 2026, 15:00"
-      },
-      {
-        "round": 2,
-        "home": "Monza",
         "away": "Inter",
-        "date": "29 agosto 2026, 20:45"
+        "date": "17 agosto 2026, 18:30"
       },
       {
-        "round": 2,
-        "home": "Genoa",
-        "away": "Empoli",
-        "date": "29 agosto 2026, 15:00"
-      },
-      {
-        "round": 2,
-        "home": "Parma",
-        "away": "Venezia",
-        "date": "29 agosto 2026, 18:30"
-      },
-      {
-        "round": 2,
-        "home": "Fiorentina",
-        "away": "Lazio",
-        "date": "29 agosto 2026, 15:00"
-      },
-      {
-        "round": 2,
-        "home": "Milan",
-        "away": "Udinese",
-        "date": "29 agosto 2026, 18:30"
-      },
-      {
-        "round": 2,
-        "home": "Torino",
-        "away": "Bologna",
-        "date": "29 agosto 2026, 15:00"
-      },
-      {
-        "round": 2,
-        "home": "Juventus",
-        "away": "Cagliari",
-        "date": "29 agosto 2026, 18:30"
-      },
-      {
-        "round": 2,
-        "home": "Como",
-        "away": "Roma",
-        "date": "29 agosto 2026, 15:00"
-      },
-      {
-        "round": 2,
-        "home": "Napoli",
-        "away": "Atalanta",
-        "date": "29 agosto 2026, 18:30"
-      },
-      {
-        "round": 2,
-        "home": "Verona",
-        "away": "Lecce",
-        "date": "29 agosto 2026, 15:00"
-      },
-      {
-        "round": 3,
-        "home": "Inter",
-        "away": "Empoli",
-        "date": "05 settembre 2026, 20:45"
-      },
-      {
-        "round": 3,
-        "home": "Monza",
-        "away": "Venezia",
-        "date": "05 settembre 2026, 15:00"
-      },
-      {
-        "round": 3,
-        "home": "Genoa",
-        "away": "Lazio",
-        "date": "05 settembre 2026, 18:30"
-      },
-      {
-        "round": 3,
-        "home": "Parma",
-        "away": "Udinese",
-        "date": "05 settembre 2026, 15:00"
-      },
-      {
-        "round": 3,
-        "home": "Fiorentina",
-        "away": "Bologna",
-        "date": "05 settembre 2026, 18:30"
-      },
-      {
-        "round": 3,
-        "home": "Milan",
-        "away": "Cagliari",
-        "date": "05 settembre 2026, 15:00"
-      },
-      {
-        "round": 3,
-        "home": "Torino",
-        "away": "Roma",
-        "date": "05 settembre 2026, 18:30"
-      },
-      {
-        "round": 3,
-        "home": "Juventus",
-        "away": "Atalanta",
-        "date": "05 settembre 2026, 15:00"
-      },
-      {
-        "round": 3,
-        "home": "Como",
-        "away": "Lecce",
-        "date": "05 settembre 2026, 18:30"
-      },
-      {
-        "round": 3,
-        "home": "Napoli",
-        "away": "Verona",
-        "date": "05 settembre 2026, 15:00"
-      },
-      {
-        "round": 4,
-        "home": "Venezia",
-        "away": "Inter",
-        "date": "12 settembre 2026, 20:45"
-      },
-      {
-        "round": 4,
-        "home": "Empoli",
-        "away": "Lazio",
-        "date": "12 settembre 2026, 15:00"
-      },
-      {
-        "round": 4,
-        "home": "Monza",
-        "away": "Udinese",
-        "date": "12 settembre 2026, 18:30"
-      },
-      {
-        "round": 4,
-        "home": "Genoa",
-        "away": "Bologna",
-        "date": "12 settembre 2026, 15:00"
-      },
-      {
-        "round": 4,
-        "home": "Parma",
-        "away": "Cagliari",
-        "date": "12 settembre 2026, 18:30"
-      },
-      {
-        "round": 4,
-        "home": "Fiorentina",
-        "away": "Roma",
-        "date": "12 settembre 2026, 15:00"
-      },
-      {
-        "round": 4,
-        "home": "Milan",
-        "away": "Atalanta",
-        "date": "12 settembre 2026, 18:30"
-      },
-      {
-        "round": 4,
-        "home": "Torino",
-        "away": "Lecce",
-        "date": "12 settembre 2026, 15:00"
-      },
-      {
-        "round": 4,
-        "home": "Juventus",
-        "away": "Verona",
-        "date": "12 settembre 2026, 18:30"
-      },
-      {
-        "round": 4,
-        "home": "Como",
-        "away": "Napoli",
-        "date": "12 settembre 2026, 15:00"
-      },
-      {
-        "round": 5,
-        "home": "Inter",
-        "away": "Lazio",
-        "date": "19 settembre 2026, 20:45"
-      },
-      {
-        "round": 5,
-        "home": "Venezia",
-        "away": "Udinese",
-        "date": "19 settembre 2026, 15:00"
-      },
-      {
-        "round": 5,
-        "home": "Empoli",
-        "away": "Bologna",
-        "date": "19 settembre 2026, 18:30"
-      },
-      {
-        "round": 5,
-        "home": "Monza",
-        "away": "Cagliari",
-        "date": "19 settembre 2026, 15:00"
-      },
-      {
-        "round": 5,
-        "home": "Genoa",
-        "away": "Roma",
-        "date": "19 settembre 2026, 18:30"
-      },
-      {
-        "round": 5,
-        "home": "Parma",
-        "away": "Atalanta",
-        "date": "19 settembre 2026, 15:00"
-      },
-      {
-        "round": 5,
-        "home": "Fiorentina",
-        "away": "Lecce",
-        "date": "19 settembre 2026, 18:30"
-      },
-      {
-        "round": 5,
-        "home": "Milan",
-        "away": "Verona",
-        "date": "19 settembre 2026, 15:00"
-      },
-      {
-        "round": 5,
-        "home": "Torino",
-        "away": "Napoli",
-        "date": "19 settembre 2026, 18:30"
-      },
-      {
-        "round": 5,
-        "home": "Juventus",
-        "away": "Como",
-        "date": "19 settembre 2026, 15:00"
-      },
-      {
-        "round": 6,
-        "home": "Udinese",
-        "away": "Inter",
-        "date": "26 settembre 2026, 20:45"
-      },
-      {
-        "round": 6,
-        "home": "Lazio",
-        "away": "Bologna",
-        "date": "26 settembre 2026, 15:00"
-      },
-      {
-        "round": 6,
-        "home": "Venezia",
-        "away": "Cagliari",
-        "date": "26 settembre 2026, 18:30"
-      },
-      {
-        "round": 6,
-        "home": "Empoli",
-        "away": "Roma",
-        "date": "26 settembre 2026, 15:00"
-      },
-      {
-        "round": 6,
-        "home": "Monza",
-        "away": "Atalanta",
-        "date": "26 settembre 2026, 18:30"
-      },
-      {
-        "round": 6,
-        "home": "Genoa",
-        "away": "Lecce",
-        "date": "26 settembre 2026, 15:00"
-      },
-      {
-        "round": 6,
-        "home": "Parma",
-        "away": "Verona",
-        "date": "26 settembre 2026, 18:30"
-      },
-      {
-        "round": 6,
-        "home": "Fiorentina",
-        "away": "Napoli",
-        "date": "26 settembre 2026, 15:00"
-      },
-      {
-        "round": 6,
-        "home": "Milan",
-        "away": "Como",
-        "date": "26 settembre 2026, 18:30"
-      },
-      {
-        "round": 6,
-        "home": "Torino",
-        "away": "Juventus",
-        "date": "26 settembre 2026, 15:00"
-      },
-      {
-        "round": 7,
-        "home": "Inter",
-        "away": "Genoa",
-        "date": "03 ottobre 2026, 20:45"
-      },
-      {
-        "round": 7,
-        "home": "Parma",
-        "away": "Monza",
-        "date": "03 ottobre 2026, 15:00"
-      },
-      {
-        "round": 7,
-        "home": "Fiorentina",
-        "away": "Empoli",
-        "date": "03 ottobre 2026, 18:30"
-      },
-      {
-        "round": 7,
-        "home": "Milan",
-        "away": "Venezia",
-        "date": "03 ottobre 2026, 15:00"
-      },
-      {
-        "round": 7,
-        "home": "Torino",
-        "away": "Lazio",
-        "date": "03 ottobre 2026, 18:30"
-      },
-      {
-        "round": 7,
-        "home": "Juventus",
-        "away": "Udinese",
-        "date": "03 ottobre 2026, 15:00"
-      },
-      {
-        "round": 7,
-        "home": "Como",
-        "away": "Bologna",
-        "date": "03 ottobre 2026, 18:30"
-      },
-      {
-        "round": 7,
-        "home": "Napoli",
-        "away": "Cagliari",
-        "date": "03 ottobre 2026, 15:00"
-      },
-      {
-        "round": 7,
-        "home": "Verona",
-        "away": "Roma",
-        "date": "03 ottobre 2026, 18:30"
-      },
-      {
-        "round": 7,
-        "home": "Lecce",
-        "away": "Atalanta",
-        "date": "03 ottobre 2026, 15:00"
-      },
-      {
-        "round": 8,
-        "home": "Cagliari",
-        "away": "Inter",
-        "date": "10 ottobre 2026, 20:45"
-      },
-      {
-        "round": 8,
-        "home": "Bologna",
-        "away": "Roma",
-        "date": "10 ottobre 2026, 15:00"
-      },
-      {
-        "round": 8,
-        "home": "Udinese",
-        "away": "Atalanta",
-        "date": "10 ottobre 2026, 18:30"
-      },
-      {
-        "round": 8,
-        "home": "Lazio",
-        "away": "Lecce",
-        "date": "10 ottobre 2026, 15:00"
-      },
-      {
-        "round": 8,
-        "home": "Venezia",
-        "away": "Verona",
-        "date": "10 ottobre 2026, 18:30"
-      },
-      {
-        "round": 8,
-        "home": "Empoli",
-        "away": "Napoli",
-        "date": "10 ottobre 2026, 15:00"
-      },
-      {
-        "round": 8,
-        "home": "Monza",
-        "away": "Como",
-        "date": "10 ottobre 2026, 18:30"
-      },
-      {
-        "round": 8,
-        "home": "Genoa",
-        "away": "Juventus",
-        "date": "10 ottobre 2026, 15:00"
-      },
-      {
-        "round": 8,
-        "home": "Parma",
-        "away": "Torino",
-        "date": "10 ottobre 2026, 18:30"
-      },
-      {
-        "round": 8,
-        "home": "Fiorentina",
-        "away": "Milan",
-        "date": "10 ottobre 2026, 15:00"
-      },
-      {
-        "round": 9,
-        "home": "Inter",
-        "away": "Roma",
-        "date": "17 ottobre 2026, 20:45"
-      },
-      {
-        "round": 9,
-        "home": "Cagliari",
-        "away": "Atalanta",
-        "date": "17 ottobre 2026, 15:00"
-      },
-      {
-        "round": 9,
-        "home": "Bologna",
-        "away": "Lecce",
-        "date": "17 ottobre 2026, 18:30"
-      },
-      {
-        "round": 9,
-        "home": "Udinese",
-        "away": "Verona",
-        "date": "17 ottobre 2026, 15:00"
-      },
-      {
-        "round": 9,
-        "home": "Lazio",
-        "away": "Napoli",
-        "date": "17 ottobre 2026, 18:30"
-      },
-      {
-        "round": 9,
-        "home": "Venezia",
-        "away": "Como",
-        "date": "17 ottobre 2026, 15:00"
-      },
-      {
-        "round": 9,
-        "home": "Empoli",
-        "away": "Juventus",
-        "date": "17 ottobre 2026, 18:30"
-      },
-      {
-        "round": 9,
-        "home": "Monza",
-        "away": "Torino",
-        "date": "17 ottobre 2026, 15:00"
-      },
-      {
-        "round": 9,
-        "home": "Genoa",
-        "away": "Milan",
-        "date": "17 ottobre 2026, 18:30"
-      },
-      {
-        "round": 9,
+        "round": 1,
         "home": "Parma",
         "away": "Fiorentina",
-        "date": "17 ottobre 2026, 15:00"
+        "date": "17 agosto 2026, 18:30"
+      },
+      {
+        "round": 1,
+        "home": "Empoli",
+        "away": "Monza",
+        "date": "17 agosto 2026, 20:45"
+      },
+      {
+        "round": 1,
+        "home": "Milan",
+        "away": "Torino",
+        "date": "17 agosto 2026, 20:45"
+      },
+      {
+        "round": 1,
+        "home": "Bologna",
+        "away": "Udinese",
+        "date": "18 agosto 2026, 18:30"
+      },
+      {
+        "round": 1,
+        "home": "Verona",
+        "away": "Napoli",
+        "date": "18 agosto 2026, 18:30"
+      },
+      {
+        "round": 1,
+        "home": "Cagliari",
+        "away": "Roma",
+        "date": "18 agosto 2026, 20:45"
+      },
+      {
+        "round": 1,
+        "home": "Lazio",
+        "away": "Venezia",
+        "date": "18 agosto 2026, 20:45"
+      },
+      {
+        "round": 1,
+        "home": "Lecce",
+        "away": "Atalanta",
+        "date": "19 agosto 2026, 18:30"
+      },
+      {
+        "round": 1,
+        "home": "Juventus",
+        "away": "Como",
+        "date": "19 agosto 2026, 20:45"
+      },
+      {
+        "round": 2,
+        "home": "Parma",
+        "away": "Milan",
+        "date": "24 agosto 2026, 18:30"
+      },
+      {
+        "round": 2,
+        "home": "Udinese",
+        "away": "Lazio",
+        "date": "24 agosto 2026, 18:30"
+      },
+      {
+        "round": 2,
+        "home": "Inter",
+        "away": "Lecce",
+        "date": "24 agosto 2026, 20:45"
+      },
+      {
+        "round": 2,
+        "home": "Monza",
+        "away": "Genoa",
+        "date": "24 agosto 2026, 20:45"
+      },
+      {
+        "round": 2,
+        "home": "Fiorentina",
+        "away": "Venezia",
+        "date": "25 agosto 2026, 18:30"
+      },
+      {
+        "round": 2,
+        "home": "Torino",
+        "away": "Atalanta",
+        "date": "25 agosto 2026, 18:30"
+      },
+      {
+        "round": 2,
+        "home": "Napoli",
+        "away": "Bologna",
+        "date": "25 agosto 2026, 20:45"
+      },
+      {
+        "round": 2,
+        "home": "Roma",
+        "away": "Empoli",
+        "date": "25 agosto 2026, 20:45"
+      },
+      {
+        "round": 2,
+        "home": "Cagliari",
+        "away": "Como",
+        "date": "26 agosto 2026, 18:30"
+      },
+      {
+        "round": 2,
+        "home": "Verona",
+        "away": "Juventus",
+        "date": "26 agosto 2026, 20:45"
+      },
+      {
+        "round": 3,
+        "home": "Venezia",
+        "away": "Torino",
+        "date": "30 agosto 2026, 18:30"
+      },
+      {
+        "round": 3,
+        "home": "Inter",
+        "away": "Atalanta",
+        "date": "30 agosto 2026, 20:45"
+      },
+      {
+        "round": 3,
+        "home": "Bologna",
+        "away": "Empoli",
+        "date": "31 agosto 2026, 18:30"
+      },
+      {
+        "round": 3,
+        "home": "Lecce",
+        "away": "Cagliari",
+        "date": "31 agosto 2026, 18:30"
+      },
+      {
+        "round": 3,
+        "home": "Lazio",
+        "away": "Milan",
+        "date": "31 agosto 2026, 20:45"
+      },
+      {
+        "round": 3,
+        "home": "Napoli",
+        "away": "Parma",
+        "date": "31 agosto 2026, 20:45"
+      },
+      {
+        "round": 3,
+        "home": "Fiorentina",
+        "away": "Monza",
+        "date": "01 settembre 2026, 18:30"
+      },
+      {
+        "round": 3,
+        "home": "Genoa",
+        "away": "Verona",
+        "date": "01 settembre 2026, 18:30"
+      },
+      {
+        "round": 3,
+        "home": "Juventus",
+        "away": "Roma",
+        "date": "01 settembre 2026, 20:45"
+      },
+      {
+        "round": 3,
+        "home": "Udinese",
+        "away": "Como",
+        "date": "01 settembre 2026, 20:45"
+      },
+      {
+        "round": 4,
+        "home": "Como",
+        "away": "Bologna",
+        "date": "14 settembre 2026, 15:00"
+      },
+      {
+        "round": 4,
+        "home": "Empoli",
+        "away": "Juventus",
+        "date": "14 settembre 2026, 18:00"
+      },
+      {
+        "round": 4,
+        "home": "Milan",
+        "away": "Venezia",
+        "date": "14 settembre 2026, 20:45"
+      },
+      {
+        "round": 4,
+        "home": "Genoa",
+        "away": "Roma",
+        "date": "15 settembre 2026, 12:30"
+      },
+      {
+        "round": 4,
+        "home": "Atalanta",
+        "away": "Fiorentina",
+        "date": "15 settembre 2026, 15:00"
+      },
+      {
+        "round": 4,
+        "home": "Torino",
+        "away": "Lecce",
+        "date": "15 settembre 2026, 15:00"
+      },
+      {
+        "round": 4,
+        "home": "Cagliari",
+        "away": "Napoli",
+        "date": "15 settembre 2026, 18:00"
+      },
+      {
+        "round": 4,
+        "home": "Monza",
+        "away": "Inter",
+        "date": "15 settembre 2026, 20:45"
+      },
+      {
+        "round": 4,
+        "home": "Parma",
+        "away": "Udinese",
+        "date": "16 settembre 2026, 18:30"
+      },
+      {
+        "round": 4,
+        "home": "Lazio",
+        "away": "Verona",
+        "date": "16 settembre 2026, 20:45"
+      },
+      {
+        "round": 5,
+        "home": "Cagliari",
+        "away": "Empoli",
+        "date": "20 settembre 2026, 18:30"
+      },
+      {
+        "round": 5,
+        "home": "Verona",
+        "away": "Torino",
+        "date": "20 settembre 2026, 20:45"
+      },
+      {
+        "round": 5,
+        "home": "Venezia",
+        "away": "Genoa",
+        "date": "21 settembre 2026, 15:00"
+      },
+      {
+        "round": 5,
+        "home": "Juventus",
+        "away": "Napoli",
+        "date": "21 settembre 2026, 18:00"
+      },
+      {
+        "round": 5,
+        "home": "Lecce",
+        "away": "Parma",
+        "date": "21 settembre 2026, 20:45"
+      },
+      {
+        "round": 5,
+        "home": "Fiorentina",
+        "away": "Lazio",
+        "date": "22 settembre 2026, 12:30"
+      },
+      {
+        "round": 5,
+        "home": "Monza",
+        "away": "Bologna",
+        "date": "22 settembre 2026, 15:00"
+      },
+      {
+        "round": 5,
+        "home": "Roma",
+        "away": "Udinese",
+        "date": "22 settembre 2026, 18:00"
+      },
+      {
+        "round": 5,
+        "home": "Inter",
+        "away": "Milan",
+        "date": "22 settembre 2026, 20:45"
+      },
+      {
+        "round": 5,
+        "home": "Atalanta",
+        "away": "Como",
+        "date": "24 settembre 2026, 20:45"
+      },
+      {
+        "round": 6,
+        "home": "Milan",
+        "away": "Lecce",
+        "date": "27 settembre 2026, 20:45"
+      },
+      {
+        "round": 6,
+        "home": "Udinese",
+        "away": "Inter",
+        "date": "28 settembre 2026, 15:00"
+      },
+      {
+        "round": 6,
+        "home": "Genoa",
+        "away": "Juventus",
+        "date": "28 settembre 2026, 18:00"
+      },
+      {
+        "round": 6,
+        "home": "Bologna",
+        "away": "Atalanta",
+        "date": "28 settembre 2026, 20:45"
+      },
+      {
+        "round": 6,
+        "home": "Torino",
+        "away": "Lazio",
+        "date": "29 settembre 2026, 12:30"
+      },
+      {
+        "round": 6,
+        "home": "Como",
+        "away": "Verona",
+        "date": "29 settembre 2026, 15:00"
+      },
+      {
+        "round": 6,
+        "home": "Roma",
+        "away": "Venezia",
+        "date": "29 settembre 2026, 15:00"
+      },
+      {
+        "round": 6,
+        "home": "Empoli",
+        "away": "Fiorentina",
+        "date": "29 settembre 2026, 18:00"
+      },
+      {
+        "round": 6,
+        "home": "Napoli",
+        "away": "Monza",
+        "date": "29 settembre 2026, 20:45"
+      },
+      {
+        "round": 6,
+        "home": "Parma",
+        "away": "Cagliari",
+        "date": "30 settembre 2026, 20:45"
+      },
+      {
+        "round": 7,
+        "home": "Napoli",
+        "away": "Como",
+        "date": "04 ottobre 2026, 18:30"
+      },
+      {
+        "round": 7,
+        "home": "Verona",
+        "away": "Venezia",
+        "date": "04 ottobre 2026, 20:45"
+      },
+      {
+        "round": 7,
+        "home": "Udinese",
+        "away": "Lecce",
+        "date": "05 ottobre 2026, 15:00"
+      },
+      {
+        "round": 7,
+        "home": "Atalanta",
+        "away": "Genoa",
+        "date": "05 ottobre 2026, 18:00"
+      },
+      {
+        "round": 7,
+        "home": "Inter",
+        "away": "Torino",
+        "date": "05 ottobre 2026, 20:45"
+      },
+      {
+        "round": 7,
+        "home": "Juventus",
+        "away": "Cagliari",
+        "date": "06 ottobre 2026, 12:30"
+      },
+      {
+        "round": 7,
+        "home": "Bologna",
+        "away": "Parma",
+        "date": "06 ottobre 2026, 15:00"
+      },
+      {
+        "round": 7,
+        "home": "Lazio",
+        "away": "Empoli",
+        "date": "06 ottobre 2026, 15:00"
+      },
+      {
+        "round": 7,
+        "home": "Monza",
+        "away": "Roma",
+        "date": "06 ottobre 2026, 18:00"
+      },
+      {
+        "round": 7,
+        "home": "Fiorentina",
+        "away": "Milan",
+        "date": "06 ottobre 2026, 20:45"
+      },
+      {
+        "round": 8,
+        "home": "Como",
+        "away": "Parma",
+        "date": "19 ottobre 2026, 15:00"
+      },
+      {
+        "round": 8,
+        "home": "Genoa",
+        "away": "Bologna",
+        "date": "19 ottobre 2026, 15:00"
+      },
+      {
+        "round": 8,
+        "home": "Milan",
+        "away": "Udinese",
+        "date": "19 ottobre 2026, 18:00"
+      },
+      {
+        "round": 8,
+        "home": "Juventus",
+        "away": "Lazio",
+        "date": "19 ottobre 2026, 20:45"
+      },
+      {
+        "round": 8,
+        "home": "Empoli",
+        "away": "Napoli",
+        "date": "20 ottobre 2026, 12:30"
+      },
+      {
+        "round": 8,
+        "home": "Lecce",
+        "away": "Fiorentina",
+        "date": "20 ottobre 2026, 15:00"
+      },
+      {
+        "round": 8,
+        "home": "Venezia",
+        "away": "Atalanta",
+        "date": "20 ottobre 2026, 15:00"
+      },
+      {
+        "round": 8,
+        "home": "Cagliari",
+        "away": "Torino",
+        "date": "20 ottobre 2026, 18:00"
+      },
+      {
+        "round": 8,
+        "home": "Roma",
+        "away": "Inter",
+        "date": "20 ottobre 2026, 20:45"
+      },
+      {
+        "round": 8,
+        "home": "Verona",
+        "away": "Monza",
+        "date": "21 ottobre 2026, 20:45"
+      },
+      {
+        "round": 9,
+        "home": "Udinese",
+        "away": "Cagliari",
+        "date": "25 ottobre 2026, 18:30"
+      },
+      {
+        "round": 9,
+        "home": "Torino",
+        "away": "Como",
+        "date": "25 ottobre 2026, 20:45"
+      },
+      {
+        "round": 9,
+        "home": "Napoli",
+        "away": "Lecce",
+        "date": "26 ottobre 2026, 15:00"
+      },
+      {
+        "round": 9,
+        "home": "Atalanta",
+        "away": "Verona",
+        "date": "26 ottobre 2026, 20:45"
+      },
+      {
+        "round": 9,
+        "home": "Parma",
+        "away": "Empoli",
+        "date": "27 ottobre 2026, 12:30"
+      },
+      {
+        "round": 9,
+        "home": "Lazio",
+        "away": "Genoa",
+        "date": "27 ottobre 2026, 15:00"
+      },
+      {
+        "round": 9,
+        "home": "Monza",
+        "away": "Venezia",
+        "date": "27 ottobre 2026, 15:00"
+      },
+      {
+        "round": 9,
+        "home": "Inter",
+        "away": "Juventus",
+        "date": "27 ottobre 2026, 18:00"
+      },
+      {
+        "round": 9,
+        "home": "Fiorentina",
+        "away": "Roma",
+        "date": "27 ottobre 2026, 20:45"
+      },
+      {
+        "round": 10,
+        "home": "Cagliari",
+        "away": "Bologna",
+        "date": "29 ottobre 2026, 18:30"
+      },
+      {
+        "round": 10,
+        "home": "Lecce",
+        "away": "Verona",
+        "date": "29 ottobre 2026, 18:30"
+      },
+      {
+        "round": 10,
+        "home": "Milan",
+        "away": "Napoli",
+        "date": "29 ottobre 2026, 20:45"
+      },
+      {
+        "round": 10,
+        "home": "Empoli",
+        "away": "Inter",
+        "date": "30 ottobre 2026, 18:30"
+      },
+      {
+        "round": 10,
+        "home": "Venezia",
+        "away": "Udinese",
+        "date": "30 ottobre 2026, 18:30"
       },
       {
         "round": 10,
         "home": "Atalanta",
-        "away": "Inter",
-        "date": "24 ottobre 2026, 20:45"
+        "away": "Monza",
+        "date": "30 ottobre 2026, 20:45"
       },
       {
         "round": 10,
-        "home": "Roma",
-        "away": "Lecce",
-        "date": "24 ottobre 2026, 15:00"
-      },
-      {
-        "round": 10,
-        "home": "Cagliari",
-        "away": "Verona",
-        "date": "24 ottobre 2026, 18:30"
-      },
-      {
-        "round": 10,
-        "home": "Bologna",
-        "away": "Napoli",
-        "date": "24 ottobre 2026, 15:00"
-      },
-      {
-        "round": 10,
-        "home": "Udinese",
-        "away": "Como",
-        "date": "24 ottobre 2026, 18:30"
-      },
-      {
-        "round": 10,
-        "home": "Lazio",
-        "away": "Juventus",
-        "date": "24 ottobre 2026, 15:00"
-      },
-      {
-        "round": 10,
-        "home": "Venezia",
-        "away": "Torino",
-        "date": "24 ottobre 2026, 18:30"
-      },
-      {
-        "round": 10,
-        "home": "Empoli",
-        "away": "Milan",
-        "date": "24 ottobre 2026, 15:00"
-      },
-      {
-        "round": 10,
-        "home": "Monza",
-        "away": "Fiorentina",
-        "date": "24 ottobre 2026, 18:30"
+        "home": "Juventus",
+        "away": "Parma",
+        "date": "30 ottobre 2026, 20:45"
       },
       {
         "round": 10,
         "home": "Genoa",
-        "away": "Parma",
-        "date": "24 ottobre 2026, 15:00"
+        "away": "Fiorentina",
+        "date": "31 ottobre 2026, 18:30"
       },
       {
-        "round": 11,
-        "home": "Inter",
-        "away": "Lecce",
+        "round": 10,
+        "home": "Como",
+        "away": "Lazio",
+        "date": "31 ottobre 2026, 20:45"
+      },
+      {
+        "round": 10,
+        "home": "Roma",
+        "away": "Torino",
         "date": "31 ottobre 2026, 20:45"
       },
       {
         "round": 11,
-        "home": "Atalanta",
-        "away": "Verona",
-        "date": "31 ottobre 2026, 15:00"
-      },
-      {
-        "round": 11,
-        "home": "Roma",
-        "away": "Napoli",
-        "date": "31 ottobre 2026, 18:30"
-      },
-      {
-        "round": 11,
-        "home": "Cagliari",
-        "away": "Como",
-        "date": "31 ottobre 2026, 15:00"
-      },
-      {
-        "round": 11,
         "home": "Bologna",
-        "away": "Juventus",
-        "date": "31 ottobre 2026, 18:30"
+        "away": "Lecce",
+        "date": "02 novembre 2026, 15:00"
       },
       {
         "round": 11,
         "home": "Udinese",
-        "away": "Torino",
-        "date": "31 ottobre 2026, 15:00"
-      },
-      {
-        "round": 11,
-        "home": "Lazio",
-        "away": "Milan",
-        "date": "31 ottobre 2026, 18:30"
-      },
-      {
-        "round": 11,
-        "home": "Venezia",
-        "away": "Fiorentina",
-        "date": "31 ottobre 2026, 15:00"
-      },
-      {
-        "round": 11,
-        "home": "Empoli",
-        "away": "Parma",
-        "date": "31 ottobre 2026, 18:30"
+        "away": "Juventus",
+        "date": "02 novembre 2026, 18:00"
       },
       {
         "round": 11,
         "home": "Monza",
+        "away": "Milan",
+        "date": "02 novembre 2026, 20:45"
+      },
+      {
+        "round": 11,
+        "home": "Napoli",
+        "away": "Atalanta",
+        "date": "03 novembre 2026, 12:30"
+      },
+      {
+        "round": 11,
+        "home": "Torino",
+        "away": "Fiorentina",
+        "date": "03 novembre 2026, 15:00"
+      },
+      {
+        "round": 11,
+        "home": "Verona",
+        "away": "Roma",
+        "date": "03 novembre 2026, 18:00"
+      },
+      {
+        "round": 11,
+        "home": "Inter",
+        "away": "Venezia",
+        "date": "03 novembre 2026, 20:45"
+      },
+      {
+        "round": 11,
+        "home": "Empoli",
+        "away": "Como",
+        "date": "04 novembre 2026, 18:30"
+      },
+      {
+        "round": 11,
+        "home": "Parma",
         "away": "Genoa",
-        "date": "31 ottobre 2026, 15:00"
+        "date": "04 novembre 2026, 18:30"
+      },
+      {
+        "round": 11,
+        "home": "Lazio",
+        "away": "Cagliari",
+        "date": "04 novembre 2026, 20:45"
       },
       {
         "round": 12,
-        "home": "Verona",
-        "away": "Inter",
+        "home": "Genoa",
+        "away": "Como",
         "date": "07 novembre 2026, 20:45"
       },
       {
         "round": 12,
         "home": "Lecce",
-        "away": "Napoli",
-        "date": "07 novembre 2026, 15:00"
-      },
-      {
-        "round": 12,
-        "home": "Atalanta",
-        "away": "Como",
-        "date": "07 novembre 2026, 18:30"
-      },
-      {
-        "round": 12,
-        "home": "Roma",
-        "away": "Juventus",
-        "date": "07 novembre 2026, 15:00"
-      },
-      {
-        "round": 12,
-        "home": "Cagliari",
-        "away": "Torino",
-        "date": "07 novembre 2026, 18:30"
-      },
-      {
-        "round": 12,
-        "home": "Bologna",
-        "away": "Milan",
-        "date": "07 novembre 2026, 15:00"
-      },
-      {
-        "round": 12,
-        "home": "Udinese",
-        "away": "Fiorentina",
-        "date": "07 novembre 2026, 18:30"
-      },
-      {
-        "round": 12,
-        "home": "Lazio",
-        "away": "Parma",
-        "date": "07 novembre 2026, 15:00"
+        "away": "Empoli",
+        "date": "08 novembre 2026, 20:45"
       },
       {
         "round": 12,
         "home": "Venezia",
-        "away": "Genoa",
-        "date": "07 novembre 2026, 18:30"
+        "away": "Parma",
+        "date": "09 novembre 2026, 15:00"
       },
       {
         "round": 12,
-        "home": "Empoli",
-        "away": "Monza",
-        "date": "07 novembre 2026, 15:00"
-      },
-      {
-        "round": 13,
-        "home": "Inter",
-        "away": "Napoli",
-        "date": "14 novembre 2026, 20:45"
-      },
-      {
-        "round": 13,
-        "home": "Verona",
-        "away": "Como",
-        "date": "14 novembre 2026, 15:00"
-      },
-      {
-        "round": 13,
-        "home": "Lecce",
-        "away": "Juventus",
-        "date": "14 novembre 2026, 18:30"
-      },
-      {
-        "round": 13,
-        "home": "Atalanta",
-        "away": "Torino",
-        "date": "14 novembre 2026, 15:00"
-      },
-      {
-        "round": 13,
-        "home": "Roma",
-        "away": "Milan",
-        "date": "14 novembre 2026, 18:30"
-      },
-      {
-        "round": 13,
         "home": "Cagliari",
-        "away": "Fiorentina",
-        "date": "14 novembre 2026, 15:00"
-      },
-      {
-        "round": 13,
-        "home": "Bologna",
-        "away": "Parma",
-        "date": "14 novembre 2026, 18:30"
-      },
-      {
-        "round": 13,
-        "home": "Udinese",
-        "away": "Genoa",
-        "date": "14 novembre 2026, 15:00"
-      },
-      {
-        "round": 13,
-        "home": "Lazio",
-        "away": "Monza",
-        "date": "14 novembre 2026, 18:30"
-      },
-      {
-        "round": 13,
-        "home": "Venezia",
-        "away": "Empoli",
-        "date": "14 novembre 2026, 15:00"
-      },
-      {
-        "round": 14,
-        "home": "Como",
-        "away": "Inter",
-        "date": "21 novembre 2026, 20:45"
-      },
-      {
-        "round": 14,
-        "home": "Napoli",
-        "away": "Juventus",
-        "date": "21 novembre 2026, 15:00"
-      },
-      {
-        "round": 14,
-        "home": "Verona",
-        "away": "Torino",
-        "date": "21 novembre 2026, 18:30"
-      },
-      {
-        "round": 14,
-        "home": "Lecce",
         "away": "Milan",
-        "date": "21 novembre 2026, 15:00"
+        "date": "09 novembre 2026, 18:00"
       },
       {
-        "round": 14,
-        "home": "Atalanta",
-        "away": "Fiorentina",
-        "date": "21 novembre 2026, 18:30"
-      },
-      {
-        "round": 14,
-        "home": "Roma",
-        "away": "Parma",
-        "date": "21 novembre 2026, 15:00"
-      },
-      {
-        "round": 14,
-        "home": "Cagliari",
-        "away": "Genoa",
-        "date": "21 novembre 2026, 18:30"
-      },
-      {
-        "round": 14,
-        "home": "Bologna",
-        "away": "Monza",
-        "date": "21 novembre 2026, 15:00"
-      },
-      {
-        "round": 14,
-        "home": "Udinese",
-        "away": "Empoli",
-        "date": "21 novembre 2026, 18:30"
-      },
-      {
-        "round": 14,
-        "home": "Lazio",
-        "away": "Venezia",
-        "date": "21 novembre 2026, 15:00"
-      },
-      {
-        "round": 15,
-        "home": "Inter",
-        "away": "Juventus",
-        "date": "28 novembre 2026, 20:45"
-      },
-      {
-        "round": 15,
-        "home": "Como",
-        "away": "Torino",
-        "date": "28 novembre 2026, 15:00"
-      },
-      {
-        "round": 15,
-        "home": "Napoli",
-        "away": "Milan",
-        "date": "28 novembre 2026, 18:30"
-      },
-      {
-        "round": 15,
-        "home": "Verona",
-        "away": "Fiorentina",
-        "date": "28 novembre 2026, 15:00"
-      },
-      {
-        "round": 15,
-        "home": "Lecce",
-        "away": "Parma",
-        "date": "28 novembre 2026, 18:30"
-      },
-      {
-        "round": 15,
-        "home": "Atalanta",
-        "away": "Genoa",
-        "date": "28 novembre 2026, 15:00"
-      },
-      {
-        "round": 15,
-        "home": "Roma",
-        "away": "Monza",
-        "date": "28 novembre 2026, 18:30"
-      },
-      {
-        "round": 15,
-        "home": "Cagliari",
-        "away": "Empoli",
-        "date": "28 novembre 2026, 15:00"
-      },
-      {
-        "round": 15,
-        "home": "Bologna",
-        "away": "Venezia",
-        "date": "28 novembre 2026, 18:30"
-      },
-      {
-        "round": 15,
-        "home": "Udinese",
-        "away": "Lazio",
-        "date": "28 novembre 2026, 15:00"
-      },
-      {
-        "round": 16,
-        "home": "Torino",
-        "away": "Inter",
-        "date": "05 dicembre 2026, 20:45"
-      },
-      {
-        "round": 16,
+        "round": 12,
         "home": "Juventus",
-        "away": "Milan",
-        "date": "05 dicembre 2026, 15:00"
+        "away": "Torino",
+        "date": "09 novembre 2026, 20:45"
       },
       {
-        "round": 16,
-        "home": "Como",
-        "away": "Fiorentina",
-        "date": "05 dicembre 2026, 18:30"
-      },
-      {
-        "round": 16,
-        "home": "Napoli",
-        "away": "Parma",
-        "date": "05 dicembre 2026, 15:00"
-      },
-      {
-        "round": 16,
-        "home": "Verona",
-        "away": "Genoa",
-        "date": "05 dicembre 2026, 18:30"
-      },
-      {
-        "round": 16,
-        "home": "Lecce",
-        "away": "Monza",
-        "date": "05 dicembre 2026, 15:00"
-      },
-      {
-        "round": 16,
+        "round": 12,
         "home": "Atalanta",
-        "away": "Empoli",
-        "date": "05 dicembre 2026, 18:30"
-      },
-      {
-        "round": 16,
-        "home": "Roma",
-        "away": "Venezia",
-        "date": "05 dicembre 2026, 15:00"
-      },
-      {
-        "round": 16,
-        "home": "Cagliari",
-        "away": "Lazio",
-        "date": "05 dicembre 2026, 18:30"
-      },
-      {
-        "round": 16,
-        "home": "Bologna",
         "away": "Udinese",
-        "date": "05 dicembre 2026, 15:00"
+        "date": "10 novembre 2026, 12:30"
       },
       {
-        "round": 17,
-        "home": "Inter",
-        "away": "Milan",
-        "date": "12 dicembre 2026, 20:45"
-      },
-      {
-        "round": 17,
-        "home": "Torino",
-        "away": "Fiorentina",
-        "date": "12 dicembre 2026, 15:00"
-      },
-      {
-        "round": 17,
-        "home": "Juventus",
-        "away": "Parma",
-        "date": "12 dicembre 2026, 18:30"
-      },
-      {
-        "round": 17,
-        "home": "Como",
-        "away": "Genoa",
-        "date": "12 dicembre 2026, 15:00"
-      },
-      {
-        "round": 17,
-        "home": "Napoli",
-        "away": "Monza",
-        "date": "12 dicembre 2026, 18:30"
-      },
-      {
-        "round": 17,
-        "home": "Verona",
-        "away": "Empoli",
-        "date": "12 dicembre 2026, 15:00"
-      },
-      {
-        "round": 17,
-        "home": "Lecce",
-        "away": "Venezia",
-        "date": "12 dicembre 2026, 18:30"
-      },
-      {
-        "round": 17,
-        "home": "Atalanta",
-        "away": "Lazio",
-        "date": "12 dicembre 2026, 15:00"
-      },
-      {
-        "round": 17,
-        "home": "Roma",
-        "away": "Udinese",
-        "date": "12 dicembre 2026, 18:30"
-      },
-      {
-        "round": 17,
-        "home": "Cagliari",
-        "away": "Bologna",
-        "date": "12 dicembre 2026, 15:00"
-      },
-      {
-        "round": 18,
+        "round": 12,
         "home": "Fiorentina",
-        "away": "Inter",
-        "date": "19 dicembre 2026, 20:45"
-      },
-      {
-        "round": 18,
-        "home": "Milan",
-        "away": "Parma",
-        "date": "19 dicembre 2026, 15:00"
-      },
-      {
-        "round": 18,
-        "home": "Torino",
-        "away": "Genoa",
-        "date": "19 dicembre 2026, 18:30"
-      },
-      {
-        "round": 18,
-        "home": "Juventus",
-        "away": "Monza",
-        "date": "19 dicembre 2026, 15:00"
-      },
-      {
-        "round": 18,
-        "home": "Como",
-        "away": "Empoli",
-        "date": "19 dicembre 2026, 18:30"
-      },
-      {
-        "round": 18,
-        "home": "Napoli",
-        "away": "Venezia",
-        "date": "19 dicembre 2026, 15:00"
-      },
-      {
-        "round": 18,
-        "home": "Verona",
-        "away": "Lazio",
-        "date": "19 dicembre 2026, 18:30"
-      },
-      {
-        "round": 18,
-        "home": "Lecce",
-        "away": "Udinese",
-        "date": "19 dicembre 2026, 15:00"
-      },
-      {
-        "round": 18,
-        "home": "Atalanta",
-        "away": "Bologna",
-        "date": "19 dicembre 2026, 18:30"
-      },
-      {
-        "round": 18,
-        "home": "Roma",
-        "away": "Cagliari",
-        "date": "19 dicembre 2026, 15:00"
-      },
-      {
-        "round": 19,
-        "home": "Inter",
-        "away": "Parma",
-        "date": "26 dicembre 2026, 20:45"
-      },
-      {
-        "round": 19,
-        "home": "Fiorentina",
-        "away": "Genoa",
-        "date": "26 dicembre 2026, 15:00"
-      },
-      {
-        "round": 19,
-        "home": "Milan",
-        "away": "Monza",
-        "date": "26 dicembre 2026, 18:30"
-      },
-      {
-        "round": 19,
-        "home": "Torino",
-        "away": "Empoli",
-        "date": "26 dicembre 2026, 15:00"
-      },
-      {
-        "round": 19,
-        "home": "Juventus",
-        "away": "Venezia",
-        "date": "26 dicembre 2026, 18:30"
-      },
-      {
-        "round": 19,
-        "home": "Como",
-        "away": "Lazio",
-        "date": "26 dicembre 2026, 15:00"
-      },
-      {
-        "round": 19,
-        "home": "Napoli",
-        "away": "Udinese",
-        "date": "26 dicembre 2026, 18:30"
-      },
-      {
-        "round": 19,
-        "home": "Verona",
-        "away": "Bologna",
-        "date": "26 dicembre 2026, 15:00"
-      },
-      {
-        "round": 19,
-        "home": "Lecce",
-        "away": "Cagliari",
-        "date": "26 dicembre 2026, 18:30"
-      },
-      {
-        "round": 19,
-        "home": "Atalanta",
-        "away": "Roma",
-        "date": "26 dicembre 2026, 15:00"
-      },
-      {
-        "round": 20,
-        "home": "Lazio",
-        "away": "Inter",
-        "date": "02 gennaio 2027, 20:45"
-      },
-      {
-        "round": 20,
-        "home": "Udinese",
-        "away": "Venezia",
-        "date": "02 gennaio 2027, 15:00"
-      },
-      {
-        "round": 20,
-        "home": "Bologna",
-        "away": "Empoli",
-        "date": "02 gennaio 2027, 18:30"
-      },
-      {
-        "round": 20,
-        "home": "Cagliari",
-        "away": "Monza",
-        "date": "02 gennaio 2027, 15:00"
-      },
-      {
-        "round": 20,
-        "home": "Roma",
-        "away": "Genoa",
-        "date": "02 gennaio 2027, 18:30"
-      },
-      {
-        "round": 20,
-        "home": "Atalanta",
-        "away": "Parma",
-        "date": "02 gennaio 2027, 15:00"
-      },
-      {
-        "round": 20,
-        "home": "Lecce",
-        "away": "Fiorentina",
-        "date": "02 gennaio 2027, 18:30"
-      },
-      {
-        "round": 20,
-        "home": "Verona",
-        "away": "Milan",
-        "date": "02 gennaio 2027, 15:00"
-      },
-      {
-        "round": 20,
-        "home": "Napoli",
-        "away": "Torino",
-        "date": "02 gennaio 2027, 18:30"
-      },
-      {
-        "round": 20,
-        "home": "Como",
-        "away": "Juventus",
-        "date": "02 gennaio 2027, 15:00"
-      },
-      {
-        "round": 21,
-        "home": "Empoli",
-        "away": "Inter",
-        "date": "09 gennaio 2027, 20:45"
-      },
-      {
-        "round": 21,
-        "home": "Venezia",
-        "away": "Monza",
-        "date": "09 gennaio 2027, 15:00"
-      },
-      {
-        "round": 21,
-        "home": "Lazio",
-        "away": "Genoa",
-        "date": "09 gennaio 2027, 18:30"
-      },
-      {
-        "round": 21,
-        "home": "Udinese",
-        "away": "Parma",
-        "date": "09 gennaio 2027, 15:00"
-      },
-      {
-        "round": 21,
-        "home": "Bologna",
-        "away": "Fiorentina",
-        "date": "09 gennaio 2027, 18:30"
-      },
-      {
-        "round": 21,
-        "home": "Cagliari",
-        "away": "Milan",
-        "date": "09 gennaio 2027, 15:00"
-      },
-      {
-        "round": 21,
-        "home": "Roma",
-        "away": "Torino",
-        "date": "09 gennaio 2027, 18:30"
-      },
-      {
-        "round": 21,
-        "home": "Atalanta",
-        "away": "Juventus",
-        "date": "09 gennaio 2027, 15:00"
-      },
-      {
-        "round": 21,
-        "home": "Lecce",
-        "away": "Como",
-        "date": "09 gennaio 2027, 18:30"
-      },
-      {
-        "round": 21,
-        "home": "Verona",
-        "away": "Napoli",
-        "date": "09 gennaio 2027, 15:00"
-      },
-      {
-        "round": 22,
-        "home": "Inter",
         "away": "Verona",
-        "date": "16 gennaio 2027, 20:45"
+        "date": "10 novembre 2026, 15:00"
+      },
+      {
+        "round": 12,
+        "home": "Roma",
+        "away": "Bologna",
+        "date": "10 novembre 2026, 15:00"
+      },
+      {
+        "round": 12,
+        "home": "Monza",
+        "away": "Lazio",
+        "date": "10 novembre 2026, 18:00"
+      },
+      {
+        "round": 12,
+        "home": "Inter",
+        "away": "Napoli",
+        "date": "10 novembre 2026, 20:45"
+      },
+      {
+        "round": 13,
+        "home": "Verona",
+        "away": "Inter",
+        "date": "23 novembre 2026, 15:00"
+      },
+      {
+        "round": 13,
+        "home": "Milan",
+        "away": "Juventus",
+        "date": "23 novembre 2026, 18:00"
+      },
+      {
+        "round": 13,
+        "home": "Parma",
+        "away": "Atalanta",
+        "date": "23 novembre 2026, 20:45"
+      },
+      {
+        "round": 13,
+        "home": "Genoa",
+        "away": "Cagliari",
+        "date": "24 novembre 2026, 12:30"
+      },
+      {
+        "round": 13,
+        "home": "Como",
+        "away": "Fiorentina",
+        "date": "24 novembre 2026, 15:00"
+      },
+      {
+        "round": 13,
+        "home": "Torino",
+        "away": "Monza",
+        "date": "24 novembre 2026, 15:00"
+      },
+      {
+        "round": 13,
+        "home": "Napoli",
+        "away": "Roma",
+        "date": "24 novembre 2026, 18:00"
+      },
+      {
+        "round": 13,
+        "home": "Lazio",
+        "away": "Bologna",
+        "date": "24 novembre 2026, 20:45"
+      },
+      {
+        "round": 13,
+        "home": "Empoli",
+        "away": "Udinese",
+        "date": "25 novembre 2026, 18:30"
+      },
+      {
+        "round": 13,
+        "home": "Venezia",
+        "away": "Lecce",
+        "date": "25 novembre 2026, 20:45"
+      },
+      {
+        "round": 14,
+        "home": "Cagliari",
+        "away": "Verona",
+        "date": "29 novembre 2026, 20:45"
+      },
+      {
+        "round": 14,
+        "home": "Como",
+        "away": "Monza",
+        "date": "30 novembre 2026, 15:00"
+      },
+      {
+        "round": 14,
+        "home": "Milan",
+        "away": "Empoli",
+        "date": "30 novembre 2026, 18:00"
+      },
+      {
+        "round": 14,
+        "home": "Bologna",
+        "away": "Venezia",
+        "date": "30 novembre 2026, 20:45"
+      },
+      {
+        "round": 14,
+        "home": "Udinese",
+        "away": "Genoa",
+        "date": "01 dicembre 2026, 12:30"
+      },
+      {
+        "round": 14,
+        "home": "Parma",
+        "away": "Lazio",
+        "date": "01 dicembre 2026, 15:00"
+      },
+      {
+        "round": 14,
+        "home": "Torino",
+        "away": "Napoli",
+        "date": "01 dicembre 2026, 15:00"
+      },
+      {
+        "round": 14,
+        "home": "Lecce",
+        "away": "Juventus",
+        "date": "01 dicembre 2026, 20:45"
+      },
+      {
+        "round": 14,
+        "home": "Roma",
+        "away": "Atalanta",
+        "date": "02 dicembre 2026, 20:45"
+      },
+      {
+        "round": 15,
+        "home": "Inter",
+        "away": "Parma",
+        "date": "06 dicembre 2026, 18:30"
+      },
+      {
+        "round": 15,
+        "home": "Atalanta",
+        "away": "Milan",
+        "date": "06 dicembre 2026, 20:45"
+      },
+      {
+        "round": 15,
+        "home": "Genoa",
+        "away": "Torino",
+        "date": "07 dicembre 2026, 15:00"
+      },
+      {
+        "round": 15,
+        "home": "Juventus",
+        "away": "Bologna",
+        "date": "07 dicembre 2026, 18:00"
+      },
+      {
+        "round": 15,
+        "home": "Roma",
+        "away": "Lecce",
+        "date": "07 dicembre 2026, 20:45"
+      },
+      {
+        "round": 15,
+        "home": "Fiorentina",
+        "away": "Cagliari",
+        "date": "08 dicembre 2026, 12:30"
+      },
+      {
+        "round": 15,
+        "home": "Verona",
+        "away": "Empoli",
+        "date": "08 dicembre 2026, 15:00"
+      },
+      {
+        "round": 15,
+        "home": "Venezia",
+        "away": "Como",
+        "date": "08 dicembre 2026, 18:00"
+      },
+      {
+        "round": 15,
+        "home": "Napoli",
+        "away": "Lazio",
+        "date": "08 dicembre 2026, 20:45"
+      },
+      {
+        "round": 15,
+        "home": "Monza",
+        "away": "Udinese",
+        "date": "09 dicembre 2026, 20:45"
+      },
+      {
+        "round": 16,
+        "home": "Empoli",
+        "away": "Torino",
+        "date": "13 dicembre 2026, 20:45"
+      },
+      {
+        "round": 16,
+        "home": "Cagliari",
+        "away": "Atalanta",
+        "date": "14 dicembre 2026, 15:00"
+      },
+      {
+        "round": 16,
+        "home": "Udinese",
+        "away": "Napoli",
+        "date": "14 dicembre 2026, 18:00"
+      },
+      {
+        "round": 16,
+        "home": "Juventus",
+        "away": "Venezia",
+        "date": "14 dicembre 2026, 20:45"
+      },
+      {
+        "round": 16,
+        "home": "Lecce",
+        "away": "Monza",
+        "date": "15 dicembre 2026, 12:30"
+      },
+      {
+        "round": 16,
+        "home": "Bologna",
+        "away": "Fiorentina",
+        "date": "15 dicembre 2026, 15:00"
+      },
+      {
+        "round": 16,
+        "home": "Parma",
+        "away": "Verona",
+        "date": "15 dicembre 2026, 15:00"
+      },
+      {
+        "round": 16,
+        "home": "Como",
+        "away": "Roma",
+        "date": "15 dicembre 2026, 18:00"
+      },
+      {
+        "round": 16,
+        "home": "Milan",
+        "away": "Genoa",
+        "date": "15 dicembre 2026, 20:45"
+      },
+      {
+        "round": 16,
+        "home": "Lazio",
+        "away": "Inter",
+        "date": "16 dicembre 2026, 20:45"
+      },
+      {
+        "round": 17,
+        "home": "Verona",
+        "away": "Milan",
+        "date": "20 dicembre 2026, 20:45"
+      },
+      {
+        "round": 17,
+        "home": "Torino",
+        "away": "Bologna",
+        "date": "21 dicembre 2026, 15:00"
+      },
+      {
+        "round": 17,
+        "home": "Genoa",
+        "away": "Napoli",
+        "date": "21 dicembre 2026, 18:00"
+      },
+      {
+        "round": 17,
+        "home": "Lecce",
+        "away": "Lazio",
+        "date": "21 dicembre 2026, 20:45"
+      },
+      {
+        "round": 17,
+        "home": "Roma",
+        "away": "Parma",
+        "date": "22 dicembre 2026, 12:30"
+      },
+      {
+        "round": 17,
+        "home": "Venezia",
+        "away": "Cagliari",
+        "date": "22 dicembre 2026, 15:00"
+      },
+      {
+        "round": 17,
+        "home": "Atalanta",
+        "away": "Empoli",
+        "date": "22 dicembre 2026, 18:00"
+      },
+      {
+        "round": 17,
+        "home": "Monza",
+        "away": "Juventus",
+        "date": "22 dicembre 2026, 20:45"
+      },
+      {
+        "round": 17,
+        "home": "Fiorentina",
+        "away": "Udinese",
+        "date": "23 dicembre 2026, 18:30"
+      },
+      {
+        "round": 17,
+        "home": "Inter",
+        "away": "Como",
+        "date": "23 dicembre 2026, 20:45"
+      },
+      {
+        "round": 18,
+        "home": "Empoli",
+        "away": "Genoa",
+        "date": "28 dicembre 2026, 15:00"
+      },
+      {
+        "round": 18,
+        "home": "Parma",
+        "away": "Monza",
+        "date": "28 dicembre 2026, 15:00"
+      },
+      {
+        "round": 18,
+        "home": "Cagliari",
+        "away": "Inter",
+        "date": "28 dicembre 2026, 18:00"
+      },
+      {
+        "round": 18,
+        "home": "Lazio",
+        "away": "Atalanta",
+        "date": "28 dicembre 2026, 20:45"
+      },
+      {
+        "round": 18,
+        "home": "Udinese",
+        "away": "Torino",
+        "date": "29 dicembre 2026, 12:30"
+      },
+      {
+        "round": 18,
+        "home": "Napoli",
+        "away": "Venezia",
+        "date": "29 dicembre 2026, 15:00"
+      },
+      {
+        "round": 18,
+        "home": "Juventus",
+        "away": "Fiorentina",
+        "date": "29 dicembre 2026, 18:00"
+      },
+      {
+        "round": 18,
+        "home": "Milan",
+        "away": "Roma",
+        "date": "29 dicembre 2026, 20:45"
+      },
+      {
+        "round": 18,
+        "home": "Como",
+        "away": "Lecce",
+        "date": "30 dicembre 2026, 18:30"
+      },
+      {
+        "round": 18,
+        "home": "Bologna",
+        "away": "Verona",
+        "date": "30 dicembre 2026, 20:45"
+      },
+      {
+        "round": 19,
+        "home": "Venezia",
+        "away": "Empoli",
+        "date": "04 gennaio 2027, 15:00"
+      },
+      {
+        "round": 19,
+        "home": "Fiorentina",
+        "away": "Napoli",
+        "date": "04 gennaio 2027, 18:00"
+      },
+      {
+        "round": 19,
+        "home": "Verona",
+        "away": "Udinese",
+        "date": "04 gennaio 2027, 20:45"
+      },
+      {
+        "round": 19,
+        "home": "Monza",
+        "away": "Cagliari",
+        "date": "05 gennaio 2027, 12:30"
+      },
+      {
+        "round": 19,
+        "home": "Lecce",
+        "away": "Genoa",
+        "date": "05 gennaio 2027, 15:00"
+      },
+      {
+        "round": 19,
+        "home": "Torino",
+        "away": "Parma",
+        "date": "05 gennaio 2027, 18:00"
+      },
+      {
+        "round": 19,
+        "home": "Roma",
+        "away": "Lazio",
+        "date": "05 gennaio 2027, 20:45"
+      },
+      {
+        "round": 20,
+        "home": "Lazio",
+        "away": "Como",
+        "date": "10 gennaio 2027, 20:45"
+      },
+      {
+        "round": 20,
+        "home": "Empoli",
+        "away": "Lecce",
+        "date": "11 gennaio 2027, 15:00"
+      },
+      {
+        "round": 20,
+        "home": "Udinese",
+        "away": "Atalanta",
+        "date": "11 gennaio 2027, 15:00"
+      },
+      {
+        "round": 20,
+        "home": "Torino",
+        "away": "Juventus",
+        "date": "11 gennaio 2027, 18:00"
+      },
+      {
+        "round": 20,
+        "home": "Milan",
+        "away": "Cagliari",
+        "date": "11 gennaio 2027, 20:45"
+      },
+      {
+        "round": 20,
+        "home": "Genoa",
+        "away": "Parma",
+        "date": "12 gennaio 2027, 12:30"
+      },
+      {
+        "round": 20,
+        "home": "Venezia",
+        "away": "Inter",
+        "date": "12 gennaio 2027, 15:00"
+      },
+      {
+        "round": 20,
+        "home": "Bologna",
+        "away": "Roma",
+        "date": "12 gennaio 2027, 18:00"
+      },
+      {
+        "round": 20,
+        "home": "Napoli",
+        "away": "Verona",
+        "date": "12 gennaio 2027, 20:45"
+      },
+      {
+        "round": 20,
+        "home": "Monza",
+        "away": "Fiorentina",
+        "date": "13 gennaio 2027, 20:45"
+      },
+      {
+        "round": 19,
+        "home": "Como",
+        "away": "Milan",
+        "date": "14 gennaio 2027, 18:30"
+      },
+      {
+        "round": 19,
+        "home": "Atalanta",
+        "away": "Juventus",
+        "date": "14 gennaio 2027, 20:45"
+      },
+      {
+        "round": 19,
+        "home": "Inter",
+        "away": "Bologna",
+        "date": "15 gennaio 2027, 20:45"
+      },
+      {
+        "round": 21,
+        "home": "Roma",
+        "away": "Genoa",
+        "date": "17 gennaio 2027, 20:45"
+      },
+      {
+        "round": 21,
+        "home": "Bologna",
+        "away": "Monza",
+        "date": "18 gennaio 2027, 15:00"
+      },
+      {
+        "round": 21,
+        "home": "Juventus",
+        "away": "Milan",
+        "date": "18 gennaio 2027, 18:00"
+      },
+      {
+        "round": 21,
+        "home": "Atalanta",
+        "away": "Napoli",
+        "date": "18 gennaio 2027, 20:45"
+      },
+      {
+        "round": 21,
+        "home": "Fiorentina",
+        "away": "Torino",
+        "date": "19 gennaio 2027, 12:30"
+      },
+      {
+        "round": 21,
+        "home": "Cagliari",
+        "away": "Lecce",
+        "date": "19 gennaio 2027, 15:00"
+      },
+      {
+        "round": 21,
+        "home": "Parma",
+        "away": "Venezia",
+        "date": "19 gennaio 2027, 15:00"
+      },
+      {
+        "round": 21,
+        "home": "Verona",
+        "away": "Lazio",
+        "date": "19 gennaio 2027, 18:00"
+      },
+      {
+        "round": 21,
+        "home": "Inter",
+        "away": "Empoli",
+        "date": "19 gennaio 2027, 20:45"
+      },
+      {
+        "round": 21,
+        "home": "Como",
+        "away": "Udinese",
+        "date": "20 gennaio 2027, 20:45"
       },
       {
         "round": 22,
-        "home": "Napoli",
-        "away": "Lecce",
-        "date": "16 gennaio 2027, 15:00"
+        "home": "Torino",
+        "away": "Cagliari",
+        "date": "24 gennaio 2027, 20:45"
       },
       {
         "round": 22,
         "home": "Como",
         "away": "Atalanta",
-        "date": "16 gennaio 2027, 18:30"
+        "date": "25 gennaio 2027, 15:00"
       },
       {
         "round": 22,
-        "home": "Juventus",
-        "away": "Roma",
-        "date": "16 gennaio 2027, 15:00"
+        "home": "Napoli",
+        "away": "Juventus",
+        "date": "25 gennaio 2027, 18:00"
       },
       {
         "round": 22,
-        "home": "Torino",
-        "away": "Cagliari",
-        "date": "16 gennaio 2027, 18:30"
+        "home": "Empoli",
+        "away": "Bologna",
+        "date": "25 gennaio 2027, 20:45"
       },
       {
         "round": 22,
         "home": "Milan",
-        "away": "Bologna",
-        "date": "16 gennaio 2027, 15:00"
+        "away": "Parma",
+        "date": "26 gennaio 2027, 12:30"
       },
       {
         "round": 22,
-        "home": "Fiorentina",
-        "away": "Udinese",
-        "date": "16 gennaio 2027, 18:30"
+        "home": "Udinese",
+        "away": "Roma",
+        "date": "26 gennaio 2027, 15:00"
       },
       {
         "round": 22,
-        "home": "Parma",
-        "away": "Lazio",
-        "date": "16 gennaio 2027, 15:00"
-      },
-      {
-        "round": 22,
-        "home": "Genoa",
-        "away": "Venezia",
-        "date": "16 gennaio 2027, 18:30"
-      },
-      {
-        "round": 22,
-        "home": "Monza",
-        "away": "Empoli",
-        "date": "16 gennaio 2027, 15:00"
-      },
-      {
-        "round": 23,
-        "home": "Parma",
+        "home": "Lecce",
         "away": "Inter",
-        "date": "23 gennaio 2027, 20:45"
+        "date": "26 gennaio 2027, 18:00"
+      },
+      {
+        "round": 22,
+        "home": "Lazio",
+        "away": "Fiorentina",
+        "date": "26 gennaio 2027, 20:45"
+      },
+      {
+        "round": 22,
+        "home": "Venezia",
+        "away": "Verona",
+        "date": "27 gennaio 2027, 18:30"
+      },
+      {
+        "round": 22,
+        "home": "Genoa",
+        "away": "Monza",
+        "date": "27 gennaio 2027, 20:45"
       },
       {
         "round": 23,
-        "home": "Genoa",
-        "away": "Fiorentina",
-        "date": "23 gennaio 2027, 15:00"
+        "home": "Parma",
+        "away": "Lecce",
+        "date": "31 gennaio 2027, 20:45"
       },
       {
         "round": 23,
         "home": "Monza",
-        "away": "Milan",
-        "date": "23 gennaio 2027, 18:30"
-      },
-      {
-        "round": 23,
-        "home": "Empoli",
-        "away": "Torino",
-        "date": "23 gennaio 2027, 15:00"
-      },
-      {
-        "round": 23,
-        "home": "Venezia",
-        "away": "Juventus",
-        "date": "23 gennaio 2027, 18:30"
-      },
-      {
-        "round": 23,
-        "home": "Lazio",
-        "away": "Como",
-        "date": "23 gennaio 2027, 15:00"
+        "away": "Verona",
+        "date": "01 febbraio 2027, 15:00"
       },
       {
         "round": 23,
         "home": "Udinese",
-        "away": "Napoli",
-        "date": "23 gennaio 2027, 18:30"
+        "away": "Venezia",
+        "date": "01 febbraio 2027, 15:00"
+      },
+      {
+        "round": 23,
+        "home": "Atalanta",
+        "away": "Torino",
+        "date": "01 febbraio 2027, 18:00"
       },
       {
         "round": 23,
         "home": "Bologna",
-        "away": "Verona",
-        "date": "23 gennaio 2027, 15:00"
+        "away": "Como",
+        "date": "01 febbraio 2027, 20:45"
       },
       {
         "round": 23,
-        "home": "Cagliari",
-        "away": "Lecce",
-        "date": "23 gennaio 2027, 18:30"
+        "home": "Juventus",
+        "away": "Empoli",
+        "date": "02 febbraio 2027, 12:30"
+      },
+      {
+        "round": 23,
+        "home": "Fiorentina",
+        "away": "Genoa",
+        "date": "02 febbraio 2027, 15:00"
+      },
+      {
+        "round": 23,
+        "home": "Milan",
+        "away": "Inter",
+        "date": "02 febbraio 2027, 18:00"
       },
       {
         "round": 23,
         "home": "Roma",
-        "away": "Atalanta",
-        "date": "23 gennaio 2027, 15:00"
-      },
-      {
-        "round": 24,
-        "home": "Inter",
-        "away": "Torino",
-        "date": "30 gennaio 2027, 20:45"
-      },
-      {
-        "round": 24,
-        "home": "Milan",
-        "away": "Juventus",
-        "date": "30 gennaio 2027, 15:00"
-      },
-      {
-        "round": 24,
-        "home": "Fiorentina",
-        "away": "Como",
-        "date": "30 gennaio 2027, 18:30"
-      },
-      {
-        "round": 24,
-        "home": "Parma",
         "away": "Napoli",
-        "date": "30 gennaio 2027, 15:00"
+        "date": "02 febbraio 2027, 20:45"
       },
       {
-        "round": 24,
-        "home": "Genoa",
-        "away": "Verona",
-        "date": "30 gennaio 2027, 18:30"
+        "round": 23,
+        "home": "Cagliari",
+        "away": "Lazio",
+        "date": "03 febbraio 2027, 20:45"
       },
       {
-        "round": 24,
-        "home": "Monza",
-        "away": "Lecce",
-        "date": "30 gennaio 2027, 15:00"
-      },
-      {
-        "round": 24,
-        "home": "Empoli",
-        "away": "Atalanta",
-        "date": "30 gennaio 2027, 18:30"
-      },
-      {
-        "round": 24,
-        "home": "Venezia",
-        "away": "Roma",
-        "date": "30 gennaio 2027, 15:00"
-      },
-      {
-        "round": 24,
-        "home": "Lazio",
-        "away": "Cagliari",
-        "date": "30 gennaio 2027, 18:30"
-      },
-      {
-        "round": 24,
-        "home": "Udinese",
-        "away": "Bologna",
-        "date": "30 gennaio 2027, 15:00"
-      },
-      {
-        "round": 25,
-        "home": "Napoli",
+        "round": 14,
+        "home": "Fiorentina",
         "away": "Inter",
         "date": "06 febbraio 2027, 20:45"
       },
       {
-        "round": 25,
+        "round": 24,
         "home": "Como",
-        "away": "Verona",
-        "date": "06 febbraio 2027, 15:00"
+        "away": "Juventus",
+        "date": "07 febbraio 2027, 20:45"
       },
       {
-        "round": 25,
-        "home": "Juventus",
-        "away": "Lecce",
-        "date": "06 febbraio 2027, 18:30"
-      },
-      {
-        "round": 25,
-        "home": "Torino",
+        "round": 24,
+        "home": "Verona",
         "away": "Atalanta",
-        "date": "06 febbraio 2027, 15:00"
+        "date": "08 febbraio 2027, 15:00"
+      },
+      {
+        "round": 24,
+        "home": "Empoli",
+        "away": "Milan",
+        "date": "08 febbraio 2027, 18:00"
+      },
+      {
+        "round": 24,
+        "home": "Torino",
+        "away": "Genoa",
+        "date": "08 febbraio 2027, 20:45"
+      },
+      {
+        "round": 24,
+        "home": "Venezia",
+        "away": "Roma",
+        "date": "09 febbraio 2027, 12:30"
+      },
+      {
+        "round": 24,
+        "home": "Cagliari",
+        "away": "Parma",
+        "date": "09 febbraio 2027, 15:00"
+      },
+      {
+        "round": 24,
+        "home": "Lazio",
+        "away": "Monza",
+        "date": "09 febbraio 2027, 15:00"
+      },
+      {
+        "round": 24,
+        "home": "Lecce",
+        "away": "Bologna",
+        "date": "09 febbraio 2027, 18:00"
+      },
+      {
+        "round": 24,
+        "home": "Napoli",
+        "away": "Udinese",
+        "date": "09 febbraio 2027, 20:45"
+      },
+      {
+        "round": 24,
+        "home": "Inter",
+        "away": "Fiorentina",
+        "date": "10 febbraio 2027, 20:45"
+      },
+      {
+        "round": 25,
+        "home": "Bologna",
+        "away": "Torino",
+        "date": "14 febbraio 2027, 20:45"
+      },
+      {
+        "round": 25,
+        "home": "Atalanta",
+        "away": "Cagliari",
+        "date": "15 febbraio 2027, 15:00"
+      },
+      {
+        "round": 25,
+        "home": "Lazio",
+        "away": "Napoli",
+        "date": "15 febbraio 2027, 18:00"
       },
       {
         "round": 25,
         "home": "Milan",
-        "away": "Roma",
-        "date": "06 febbraio 2027, 18:30"
+        "away": "Verona",
+        "date": "15 febbraio 2027, 20:45"
       },
       {
         "round": 25,
         "home": "Fiorentina",
-        "away": "Cagliari",
-        "date": "06 febbraio 2027, 15:00"
-      },
-      {
-        "round": 25,
-        "home": "Parma",
-        "away": "Bologna",
-        "date": "06 febbraio 2027, 18:30"
-      },
-      {
-        "round": 25,
-        "home": "Genoa",
-        "away": "Udinese",
-        "date": "06 febbraio 2027, 15:00"
+        "away": "Como",
+        "date": "16 febbraio 2027, 12:30"
       },
       {
         "round": 25,
         "home": "Monza",
-        "away": "Lazio",
-        "date": "06 febbraio 2027, 18:30"
+        "away": "Lecce",
+        "date": "16 febbraio 2027, 15:00"
       },
       {
         "round": 25,
-        "home": "Empoli",
+        "home": "Udinese",
+        "away": "Empoli",
+        "date": "16 febbraio 2027, 15:00"
+      },
+      {
+        "round": 25,
+        "home": "Parma",
+        "away": "Roma",
+        "date": "16 febbraio 2027, 18:00"
+      },
+      {
+        "round": 25,
+        "home": "Juventus",
+        "away": "Inter",
+        "date": "16 febbraio 2027, 20:45"
+      },
+      {
+        "round": 25,
+        "home": "Genoa",
         "away": "Venezia",
-        "date": "06 febbraio 2027, 15:00"
+        "date": "17 febbraio 2027, 20:45"
       },
       {
         "round": 26,
         "home": "Lecce",
-        "away": "Inter",
-        "date": "13 febbraio 2027, 20:45"
-      },
-      {
-        "round": 26,
-        "home": "Verona",
-        "away": "Atalanta",
-        "date": "13 febbraio 2027, 15:00"
-      },
-      {
-        "round": 26,
-        "home": "Napoli",
-        "away": "Roma",
-        "date": "13 febbraio 2027, 18:30"
-      },
-      {
-        "round": 26,
-        "home": "Como",
-        "away": "Cagliari",
-        "date": "13 febbraio 2027, 15:00"
-      },
-      {
-        "round": 26,
-        "home": "Juventus",
-        "away": "Bologna",
-        "date": "13 febbraio 2027, 18:30"
-      },
-      {
-        "round": 26,
-        "home": "Torino",
         "away": "Udinese",
-        "date": "13 febbraio 2027, 15:00"
-      },
-      {
-        "round": 26,
-        "home": "Milan",
-        "away": "Lazio",
-        "date": "13 febbraio 2027, 18:30"
-      },
-      {
-        "round": 26,
-        "home": "Fiorentina",
-        "away": "Venezia",
-        "date": "13 febbraio 2027, 15:00"
+        "date": "21 febbraio 2027, 20:45"
       },
       {
         "round": 26,
         "home": "Parma",
-        "away": "Empoli",
-        "date": "13 febbraio 2027, 18:30"
+        "away": "Bologna",
+        "date": "22 febbraio 2027, 15:00"
       },
       {
         "round": 26,
-        "home": "Genoa",
-        "away": "Monza",
-        "date": "13 febbraio 2027, 15:00"
+        "home": "Venezia",
+        "away": "Lazio",
+        "date": "22 febbraio 2027, 15:00"
       },
       {
-        "round": 27,
+        "round": 26,
+        "home": "Torino",
+        "away": "Milan",
+        "date": "22 febbraio 2027, 18:00"
+      },
+      {
+        "round": 26,
         "home": "Inter",
-        "away": "Atalanta",
-        "date": "20 febbraio 2027, 20:45"
-      },
-      {
-        "round": 27,
-        "home": "Lecce",
-        "away": "Roma",
-        "date": "20 febbraio 2027, 15:00"
-      },
-      {
-        "round": 27,
-        "home": "Verona",
-        "away": "Cagliari",
-        "date": "20 febbraio 2027, 18:30"
-      },
-      {
-        "round": 27,
-        "home": "Napoli",
-        "away": "Bologna",
-        "date": "20 febbraio 2027, 15:00"
-      },
-      {
-        "round": 27,
-        "home": "Como",
-        "away": "Udinese",
-        "date": "20 febbraio 2027, 18:30"
-      },
-      {
-        "round": 27,
-        "home": "Juventus",
-        "away": "Lazio",
-        "date": "20 febbraio 2027, 15:00"
-      },
-      {
-        "round": 27,
-        "home": "Torino",
-        "away": "Venezia",
-        "date": "20 febbraio 2027, 18:30"
-      },
-      {
-        "round": 27,
-        "home": "Milan",
-        "away": "Empoli",
-        "date": "20 febbraio 2027, 15:00"
-      },
-      {
-        "round": 27,
-        "home": "Fiorentina",
-        "away": "Monza",
-        "date": "20 febbraio 2027, 18:30"
-      },
-      {
-        "round": 27,
-        "home": "Parma",
         "away": "Genoa",
-        "date": "20 febbraio 2027, 15:00"
+        "date": "22 febbraio 2027, 20:45"
       },
       {
-        "round": 28,
-        "home": "Genoa",
-        "away": "Inter",
+        "round": 26,
+        "home": "Como",
+        "away": "Napoli",
+        "date": "23 febbraio 2027, 12:30"
+      },
+      {
+        "round": 26,
+        "home": "Verona",
+        "away": "Fiorentina",
+        "date": "23 febbraio 2027, 15:00"
+      },
+      {
+        "round": 26,
+        "home": "Empoli",
+        "away": "Atalanta",
+        "date": "23 febbraio 2027, 18:00"
+      },
+      {
+        "round": 26,
+        "home": "Cagliari",
+        "away": "Juventus",
+        "date": "23 febbraio 2027, 20:45"
+      },
+      {
+        "round": 26,
+        "home": "Roma",
+        "away": "Monza",
+        "date": "24 febbraio 2027, 20:45"
+      },
+      {
+        "round": 9,
+        "home": "Bologna",
+        "away": "Milan",
         "date": "27 febbraio 2027, 20:45"
       },
       {
-        "round": 28,
-        "home": "Monza",
-        "away": "Parma",
-        "date": "27 febbraio 2027, 15:00"
+        "round": 27,
+        "home": "Fiorentina",
+        "away": "Lecce",
+        "date": "28 febbraio 2027, 20:45"
       },
       {
-        "round": 28,
-        "home": "Empoli",
-        "away": "Fiorentina",
-        "date": "27 febbraio 2027, 18:30"
+        "round": 27,
+        "home": "Atalanta",
+        "away": "Venezia",
+        "date": "01 marzo 2027, 15:00"
       },
       {
-        "round": 28,
-        "home": "Venezia",
-        "away": "Milan",
-        "date": "27 febbraio 2027, 15:00"
+        "round": 27,
+        "home": "Napoli",
+        "away": "Inter",
+        "date": "01 marzo 2027, 18:00"
       },
       {
-        "round": 28,
-        "home": "Lazio",
-        "away": "Torino",
-        "date": "27 febbraio 2027, 18:30"
-      },
-      {
-        "round": 28,
+        "round": 27,
         "home": "Udinese",
-        "away": "Juventus",
-        "date": "27 febbraio 2027, 15:00"
+        "away": "Parma",
+        "date": "01 marzo 2027, 20:45"
       },
       {
-        "round": 28,
+        "round": 27,
+        "home": "Monza",
+        "away": "Torino",
+        "date": "02 marzo 2027, 12:30"
+      },
+      {
+        "round": 27,
         "home": "Bologna",
+        "away": "Cagliari",
+        "date": "02 marzo 2027, 15:00"
+      },
+      {
+        "round": 27,
+        "home": "Genoa",
+        "away": "Empoli",
+        "date": "02 marzo 2027, 15:00"
+      },
+      {
+        "round": 27,
+        "home": "Roma",
         "away": "Como",
-        "date": "27 febbraio 2027, 18:30"
+        "date": "02 marzo 2027, 18:00"
+      },
+      {
+        "round": 27,
+        "home": "Milan",
+        "away": "Lazio",
+        "date": "02 marzo 2027, 20:45"
+      },
+      {
+        "round": 27,
+        "home": "Juventus",
+        "away": "Verona",
+        "date": "03 marzo 2027, 20:45"
       },
       {
         "round": 28,
         "home": "Cagliari",
-        "away": "Napoli",
-        "date": "27 febbraio 2027, 15:00"
+        "away": "Genoa",
+        "date": "07 marzo 2027, 20:45"
       },
       {
         "round": 28,
-        "home": "Roma",
-        "away": "Verona",
-        "date": "27 febbraio 2027, 18:30"
-      },
-      {
-        "round": 28,
-        "home": "Atalanta",
-        "away": "Lecce",
-        "date": "27 febbraio 2027, 15:00"
-      },
-      {
-        "round": 29,
-        "home": "Roma",
-        "away": "Inter",
-        "date": "06 marzo 2027, 20:45"
-      },
-      {
-        "round": 29,
-        "home": "Atalanta",
-        "away": "Cagliari",
-        "date": "06 marzo 2027, 15:00"
-      },
-      {
-        "round": 29,
-        "home": "Lecce",
-        "away": "Bologna",
-        "date": "06 marzo 2027, 18:30"
-      },
-      {
-        "round": 29,
-        "home": "Verona",
-        "away": "Udinese",
-        "date": "06 marzo 2027, 15:00"
-      },
-      {
-        "round": 29,
-        "home": "Napoli",
-        "away": "Lazio",
-        "date": "06 marzo 2027, 18:30"
-      },
-      {
-        "round": 29,
         "home": "Como",
         "away": "Venezia",
-        "date": "06 marzo 2027, 15:00"
+        "date": "08 marzo 2027, 15:00"
       },
       {
-        "round": 29,
-        "home": "Juventus",
-        "away": "Empoli",
-        "date": "06 marzo 2027, 18:30"
+        "round": 28,
+        "home": "Parma",
+        "away": "Torino",
+        "date": "08 marzo 2027, 15:00"
       },
       {
-        "round": 29,
-        "home": "Torino",
+        "round": 28,
+        "home": "Lecce",
+        "away": "Milan",
+        "date": "08 marzo 2027, 18:00"
+      },
+      {
+        "round": 28,
+        "home": "Inter",
         "away": "Monza",
-        "date": "06 marzo 2027, 15:00"
+        "date": "08 marzo 2027, 20:45"
+      },
+      {
+        "round": 28,
+        "home": "Verona",
+        "away": "Bologna",
+        "date": "09 marzo 2027, 12:30"
+      },
+      {
+        "round": 28,
+        "home": "Napoli",
+        "away": "Fiorentina",
+        "date": "09 marzo 2027, 15:00"
+      },
+      {
+        "round": 28,
+        "home": "Empoli",
+        "away": "Roma",
+        "date": "09 marzo 2027, 18:00"
+      },
+      {
+        "round": 28,
+        "home": "Juventus",
+        "away": "Atalanta",
+        "date": "09 marzo 2027, 20:45"
+      },
+      {
+        "round": 28,
+        "home": "Lazio",
+        "away": "Udinese",
+        "date": "10 marzo 2027, 20:45"
+      },
+      {
+        "round": 29,
+        "home": "Genoa",
+        "away": "Lecce",
+        "date": "14 marzo 2027, 20:45"
+      },
+      {
+        "round": 29,
+        "home": "Monza",
+        "away": "Parma",
+        "date": "15 marzo 2027, 15:00"
+      },
+      {
+        "round": 29,
+        "home": "Udinese",
+        "away": "Verona",
+        "date": "15 marzo 2027, 15:00"
       },
       {
         "round": 29,
         "home": "Milan",
-        "away": "Genoa",
-        "date": "06 marzo 2027, 18:30"
+        "away": "Como",
+        "date": "15 marzo 2027, 18:00"
+      },
+      {
+        "round": 29,
+        "home": "Torino",
+        "away": "Empoli",
+        "date": "15 marzo 2027, 20:45"
+      },
+      {
+        "round": 29,
+        "home": "Venezia",
+        "away": "Napoli",
+        "date": "16 marzo 2027, 12:30"
+      },
+      {
+        "round": 29,
+        "home": "Bologna",
+        "away": "Lazio",
+        "date": "16 marzo 2027, 15:00"
+      },
+      {
+        "round": 29,
+        "home": "Roma",
+        "away": "Cagliari",
+        "date": "16 marzo 2027, 16:00"
       },
       {
         "round": 29,
         "home": "Fiorentina",
-        "away": "Parma",
-        "date": "06 marzo 2027, 15:00"
-      },
-      {
-        "round": 30,
-        "home": "Inter",
-        "away": "Monza",
-        "date": "13 marzo 2027, 20:45"
-      },
-      {
-        "round": 30,
-        "home": "Empoli",
-        "away": "Genoa",
-        "date": "13 marzo 2027, 15:00"
-      },
-      {
-        "round": 30,
-        "home": "Venezia",
-        "away": "Parma",
-        "date": "13 marzo 2027, 18:30"
-      },
-      {
-        "round": 30,
-        "home": "Lazio",
-        "away": "Fiorentina",
-        "date": "13 marzo 2027, 15:00"
-      },
-      {
-        "round": 30,
-        "home": "Udinese",
-        "away": "Milan",
-        "date": "13 marzo 2027, 18:30"
-      },
-      {
-        "round": 30,
-        "home": "Bologna",
-        "away": "Torino",
-        "date": "13 marzo 2027, 15:00"
-      },
-      {
-        "round": 30,
-        "home": "Cagliari",
         "away": "Juventus",
-        "date": "13 marzo 2027, 18:30"
+        "date": "16 marzo 2027, 18:00"
       },
       {
-        "round": 30,
-        "home": "Roma",
-        "away": "Como",
-        "date": "13 marzo 2027, 15:00"
-      },
-      {
-        "round": 30,
+        "round": 29,
         "home": "Atalanta",
-        "away": "Napoli",
-        "date": "13 marzo 2027, 18:30"
-      },
-      {
-        "round": 30,
-        "home": "Lecce",
-        "away": "Verona",
-        "date": "13 marzo 2027, 15:00"
-      },
-      {
-        "round": 31,
-        "home": "Milan",
         "away": "Inter",
-        "date": "20 marzo 2027, 20:45"
+        "date": "16 marzo 2027, 20:45"
       },
       {
-        "round": 31,
-        "home": "Fiorentina",
-        "away": "Torino",
-        "date": "20 marzo 2027, 15:00"
-      },
-      {
-        "round": 31,
-        "home": "Parma",
-        "away": "Juventus",
-        "date": "20 marzo 2027, 18:30"
-      },
-      {
-        "round": 31,
-        "home": "Genoa",
-        "away": "Como",
-        "date": "20 marzo 2027, 15:00"
-      },
-      {
-        "round": 31,
-        "home": "Monza",
-        "away": "Napoli",
-        "date": "20 marzo 2027, 18:30"
-      },
-      {
-        "round": 31,
-        "home": "Empoli",
-        "away": "Verona",
-        "date": "20 marzo 2027, 15:00"
-      },
-      {
-        "round": 31,
-        "home": "Venezia",
-        "away": "Lecce",
-        "date": "20 marzo 2027, 18:30"
-      },
-      {
-        "round": 31,
-        "home": "Lazio",
-        "away": "Atalanta",
-        "date": "20 marzo 2027, 15:00"
-      },
-      {
-        "round": 31,
-        "home": "Udinese",
-        "away": "Roma",
-        "date": "20 marzo 2027, 18:30"
-      },
-      {
-        "round": 31,
-        "home": "Bologna",
-        "away": "Cagliari",
-        "date": "20 marzo 2027, 15:00"
-      },
-      {
-        "round": 32,
-        "home": "Inter",
-        "away": "Venezia",
-        "date": "27 marzo 2027, 20:45"
-      },
-      {
-        "round": 32,
-        "home": "Lazio",
-        "away": "Empoli",
-        "date": "27 marzo 2027, 15:00"
-      },
-      {
-        "round": 32,
-        "home": "Udinese",
-        "away": "Monza",
-        "date": "27 marzo 2027, 18:30"
-      },
-      {
-        "round": 32,
-        "home": "Bologna",
-        "away": "Genoa",
-        "date": "27 marzo 2027, 15:00"
-      },
-      {
-        "round": 32,
-        "home": "Cagliari",
-        "away": "Parma",
-        "date": "27 marzo 2027, 18:30"
-      },
-      {
-        "round": 32,
-        "home": "Roma",
-        "away": "Fiorentina",
-        "date": "27 marzo 2027, 15:00"
-      },
-      {
-        "round": 32,
-        "home": "Atalanta",
-        "away": "Milan",
-        "date": "27 marzo 2027, 18:30"
-      },
-      {
-        "round": 32,
-        "home": "Lecce",
-        "away": "Torino",
-        "date": "27 marzo 2027, 15:00"
-      },
-      {
-        "round": 32,
-        "home": "Verona",
-        "away": "Juventus",
-        "date": "27 marzo 2027, 18:30"
-      },
-      {
-        "round": 32,
-        "home": "Napoli",
-        "away": "Como",
-        "date": "27 marzo 2027, 15:00"
-      },
-      {
-        "round": 33,
-        "home": "Inter",
-        "away": "Como",
-        "date": "03 aprile 2027, 20:45"
-      },
-      {
-        "round": 33,
-        "home": "Juventus",
-        "away": "Napoli",
-        "date": "03 aprile 2027, 15:00"
-      },
-      {
-        "round": 33,
-        "home": "Torino",
-        "away": "Verona",
-        "date": "03 aprile 2027, 18:30"
-      },
-      {
-        "round": 33,
-        "home": "Milan",
-        "away": "Lecce",
-        "date": "03 aprile 2027, 15:00"
-      },
-      {
-        "round": 33,
-        "home": "Fiorentina",
-        "away": "Atalanta",
-        "date": "03 aprile 2027, 18:30"
-      },
-      {
-        "round": 33,
-        "home": "Parma",
-        "away": "Roma",
-        "date": "03 aprile 2027, 15:00"
-      },
-      {
-        "round": 33,
-        "home": "Genoa",
-        "away": "Cagliari",
-        "date": "03 aprile 2027, 18:30"
-      },
-      {
-        "round": 33,
-        "home": "Monza",
-        "away": "Bologna",
-        "date": "03 aprile 2027, 15:00"
-      },
-      {
-        "round": 33,
-        "home": "Empoli",
-        "away": "Udinese",
-        "date": "03 aprile 2027, 18:30"
-      },
-      {
-        "round": 33,
-        "home": "Venezia",
-        "away": "Lazio",
-        "date": "03 aprile 2027, 15:00"
-      },
-      {
-        "round": 34,
-        "home": "Juventus",
-        "away": "Inter",
-        "date": "10 aprile 2027, 20:45"
-      },
-      {
-        "round": 34,
-        "home": "Torino",
-        "away": "Como",
-        "date": "10 aprile 2027, 15:00"
-      },
-      {
-        "round": 34,
-        "home": "Milan",
-        "away": "Napoli",
-        "date": "10 aprile 2027, 18:30"
-      },
-      {
-        "round": 34,
-        "home": "Fiorentina",
-        "away": "Verona",
-        "date": "10 aprile 2027, 15:00"
-      },
-      {
-        "round": 34,
-        "home": "Parma",
-        "away": "Lecce",
-        "date": "10 aprile 2027, 18:30"
-      },
-      {
-        "round": 34,
-        "home": "Genoa",
-        "away": "Atalanta",
-        "date": "10 aprile 2027, 15:00"
-      },
-      {
-        "round": 34,
-        "home": "Monza",
-        "away": "Roma",
-        "date": "10 aprile 2027, 18:30"
-      },
-      {
-        "round": 34,
-        "home": "Empoli",
-        "away": "Cagliari",
-        "date": "10 aprile 2027, 15:00"
-      },
-      {
-        "round": 34,
-        "home": "Venezia",
-        "away": "Bologna",
-        "date": "10 aprile 2027, 18:30"
-      },
-      {
-        "round": 34,
-        "home": "Lazio",
-        "away": "Udinese",
-        "date": "10 aprile 2027, 15:00"
-      },
-      {
-        "round": 35,
-        "home": "Inter",
-        "away": "Udinese",
-        "date": "17 aprile 2027, 20:45"
-      },
-      {
-        "round": 35,
-        "home": "Bologna",
-        "away": "Lazio",
-        "date": "17 aprile 2027, 15:00"
-      },
-      {
-        "round": 35,
-        "home": "Cagliari",
-        "away": "Venezia",
-        "date": "17 aprile 2027, 18:30"
-      },
-      {
-        "round": 35,
-        "home": "Roma",
-        "away": "Empoli",
-        "date": "17 aprile 2027, 15:00"
-      },
-      {
-        "round": 35,
-        "home": "Atalanta",
-        "away": "Monza",
-        "date": "17 aprile 2027, 18:30"
-      },
-      {
-        "round": 35,
-        "home": "Lecce",
-        "away": "Genoa",
-        "date": "17 aprile 2027, 15:00"
-      },
-      {
-        "round": 35,
-        "home": "Verona",
-        "away": "Parma",
-        "date": "17 aprile 2027, 18:30"
-      },
-      {
-        "round": 35,
-        "home": "Napoli",
-        "away": "Fiorentina",
-        "date": "17 aprile 2027, 15:00"
-      },
-      {
-        "round": 35,
+        "round": 30,
         "home": "Como",
+        "away": "Empoli",
+        "date": "29 marzo 2027, 15:00"
+      },
+      {
+        "round": 30,
+        "home": "Venezia",
+        "away": "Bologna",
+        "date": "29 marzo 2027, 15:00"
+      },
+      {
+        "round": 30,
+        "home": "Juventus",
+        "away": "Genoa",
+        "date": "29 marzo 2027, 18:00"
+      },
+      {
+        "round": 30,
+        "home": "Lecce",
+        "away": "Roma",
+        "date": "29 marzo 2027, 20:45"
+      },
+      {
+        "round": 30,
+        "home": "Cagliari",
+        "away": "Monza",
+        "date": "30 marzo 2027, 12:30"
+      },
+      {
+        "round": 30,
+        "home": "Fiorentina",
+        "away": "Atalanta",
+        "date": "30 marzo 2027, 15:00"
+      },
+      {
+        "round": 30,
+        "home": "Inter",
+        "away": "Udinese",
+        "date": "30 marzo 2027, 18:00"
+      },
+      {
+        "round": 30,
+        "home": "Napoli",
         "away": "Milan",
-        "date": "17 aprile 2027, 18:30"
+        "date": "30 marzo 2027, 20:45"
+      },
+      {
+        "round": 30,
+        "home": "Verona",
+        "away": "Parma",
+        "date": "31 marzo 2027, 18:30"
+      },
+      {
+        "round": 30,
+        "home": "Lazio",
+        "away": "Torino",
+        "date": "31 marzo 2027, 20:45"
+      },
+      {
+        "round": 31,
+        "home": "Genoa",
+        "away": "Udinese",
+        "date": "04 aprile 2027, 20:45"
+      },
+      {
+        "round": 31,
+        "home": "Monza",
+        "away": "Como",
+        "date": "05 aprile 2027, 15:00"
+      },
+      {
+        "round": 31,
+        "home": "Parma",
+        "away": "Inter",
+        "date": "05 aprile 2027, 18:00"
+      },
+      {
+        "round": 31,
+        "home": "Milan",
+        "away": "Fiorentina",
+        "date": "05 aprile 2027, 20:45"
+      },
+      {
+        "round": 31,
+        "home": "Lecce",
+        "away": "Venezia",
+        "date": "06 aprile 2027, 12:30"
+      },
+      {
+        "round": 31,
+        "home": "Empoli",
+        "away": "Cagliari",
+        "date": "06 aprile 2027, 15:00"
+      },
+      {
+        "round": 31,
+        "home": "Torino",
+        "away": "Verona",
+        "date": "06 aprile 2027, 15:00"
+      },
+      {
+        "round": 31,
+        "home": "Atalanta",
+        "away": "Lazio",
+        "date": "06 aprile 2027, 18:00"
+      },
+      {
+        "round": 31,
+        "home": "Roma",
+        "away": "Juventus",
+        "date": "06 aprile 2027, 20:45"
+      },
+      {
+        "round": 31,
+        "home": "Bologna",
+        "away": "Napoli",
+        "date": "07 aprile 2027, 20:45"
+      },
+      {
+        "round": 32,
+        "home": "Udinese",
+        "away": "Milan",
+        "date": "11 aprile 2027, 20:45"
+      },
+      {
+        "round": 32,
+        "home": "Venezia",
+        "away": "Monza",
+        "date": "12 aprile 2027, 15:00"
+      },
+      {
+        "round": 32,
+        "home": "Inter",
+        "away": "Cagliari",
+        "date": "12 aprile 2027, 18:00"
+      },
+      {
+        "round": 32,
+        "home": "Juventus",
+        "away": "Lecce",
+        "date": "12 aprile 2027, 20:45"
+      },
+      {
+        "round": 32,
+        "home": "Atalanta",
+        "away": "Bologna",
+        "date": "13 aprile 2027, 12:30"
+      },
+      {
+        "round": 32,
+        "home": "Fiorentina",
+        "away": "Parma",
+        "date": "13 aprile 2027, 15:00"
+      },
+      {
+        "round": 32,
+        "home": "Verona",
+        "away": "Genoa",
+        "date": "13 aprile 2027, 15:00"
+      },
+      {
+        "round": 32,
+        "home": "Como",
+        "away": "Torino",
+        "date": "13 aprile 2027, 18:00"
+      },
+      {
+        "round": 32,
+        "home": "Lazio",
+        "away": "Roma",
+        "date": "13 aprile 2027, 20:45"
+      },
+      {
+        "round": 32,
+        "home": "Napoli",
+        "away": "Empoli",
+        "date": "14 aprile 2027, 20:45"
+      },
+      {
+        "round": 33,
+        "home": "Lecce",
+        "away": "Como",
+        "date": "19 aprile 2027, 15:00"
+      },
+      {
+        "round": 33,
+        "home": "Monza",
+        "away": "Napoli",
+        "date": "19 aprile 2027, 18:00"
+      },
+      {
+        "round": 33,
+        "home": "Roma",
+        "away": "Verona",
+        "date": "19 aprile 2027, 20:45"
+      },
+      {
+        "round": 33,
+        "home": "Empoli",
+        "away": "Venezia",
+        "date": "20 aprile 2027, 15:00"
+      },
+      {
+        "round": 33,
+        "home": "Bologna",
+        "away": "Inter",
+        "date": "20 aprile 2027, 18:00"
+      },
+      {
+        "round": 33,
+        "home": "Milan",
+        "away": "Atalanta",
+        "date": "20 aprile 2027, 20:45"
+      },
+      {
+        "round": 33,
+        "home": "Cagliari",
+        "away": "Fiorentina",
+        "date": "23 aprile 2027, 18:30"
+      },
+      {
+        "round": 33,
+        "home": "Genoa",
+        "away": "Lazio",
+        "date": "23 aprile 2027, 18:30"
+      },
+      {
+        "round": 33,
+        "home": "Parma",
+        "away": "Juventus",
+        "date": "23 aprile 2027, 18:30"
+      },
+      {
+        "round": 33,
+        "home": "Torino",
+        "away": "Udinese",
+        "date": "23 aprile 2027, 18:30"
+      },
+      {
+        "round": 34,
+        "home": "Como",
+        "away": "Genoa",
+        "date": "27 aprile 2027, 12:30"
+      },
+      {
+        "round": 34,
+        "home": "Venezia",
+        "away": "Milan",
+        "date": "27 aprile 2027, 12:30"
+      },
+      {
+        "round": 34,
+        "home": "Fiorentina",
+        "away": "Empoli",
+        "date": "27 aprile 2027, 15:00"
+      },
+      {
+        "round": 34,
+        "home": "Inter",
+        "away": "Roma",
+        "date": "27 aprile 2027, 15:00"
+      },
+      {
+        "round": 34,
+        "home": "Juventus",
+        "away": "Monza",
+        "date": "27 aprile 2027, 18:00"
+      },
+      {
+        "round": 34,
+        "home": "Atalanta",
+        "away": "Lecce",
+        "date": "27 aprile 2027, 20:45"
+      },
+      {
+        "round": 34,
+        "home": "Napoli",
+        "away": "Torino",
+        "date": "27 aprile 2027, 20:45"
+      },
+      {
+        "round": 34,
+        "home": "Udinese",
+        "away": "Bologna",
+        "date": "28 aprile 2027, 18:30"
+      },
+      {
+        "round": 34,
+        "home": "Verona",
+        "away": "Cagliari",
+        "date": "28 aprile 2027, 20:45"
+      },
+      {
+        "round": 34,
+        "home": "Lazio",
+        "away": "Parma",
+        "date": "28 aprile 2027, 20:45"
       },
       {
         "round": 35,
-        "home": "Juventus",
-        "away": "Torino",
-        "date": "17 aprile 2027, 15:00"
+        "home": "Torino",
+        "away": "Venezia",
+        "date": "02 maggio 2027, 20:45"
       },
       {
-        "round": 36,
-        "home": "Inter",
-        "away": "Fiorentina",
-        "date": "24 aprile 2027, 20:45"
+        "round": 35,
+        "home": "Cagliari",
+        "away": "Udinese",
+        "date": "03 maggio 2027, 15:00"
       },
       {
-        "round": 36,
+        "round": 35,
         "home": "Parma",
-        "away": "Milan",
-        "date": "24 aprile 2027, 15:00"
-      },
-      {
-        "round": 36,
-        "home": "Genoa",
-        "away": "Torino",
-        "date": "24 aprile 2027, 18:30"
-      },
-      {
-        "round": 36,
-        "home": "Monza",
-        "away": "Juventus",
-        "date": "24 aprile 2027, 15:00"
-      },
-      {
-        "round": 36,
-        "home": "Empoli",
         "away": "Como",
-        "date": "24 aprile 2027, 18:30"
+        "date": "03 maggio 2027, 15:00"
+      },
+      {
+        "round": 35,
+        "home": "Lecce",
+        "away": "Napoli",
+        "date": "03 maggio 2027, 18:00"
+      },
+      {
+        "round": 35,
+        "home": "Inter",
+        "away": "Verona",
+        "date": "03 maggio 2027, 20:45"
+      },
+      {
+        "round": 35,
+        "home": "Empoli",
+        "away": "Lazio",
+        "date": "04 maggio 2027, 12:30"
+      },
+      {
+        "round": 35,
+        "home": "Monza",
+        "away": "Atalanta",
+        "date": "04 maggio 2027, 15:00"
+      },
+      {
+        "round": 35,
+        "home": "Roma",
+        "away": "Fiorentina",
+        "date": "04 maggio 2027, 18:00"
+      },
+      {
+        "round": 35,
+        "home": "Bologna",
+        "away": "Juventus",
+        "date": "04 maggio 2027, 20:45"
+      },
+      {
+        "round": 35,
+        "home": "Genoa",
+        "away": "Milan",
+        "date": "05 maggio 2027, 20:45"
       },
       {
         "round": 36,
-        "home": "Venezia",
-        "away": "Napoli",
-        "date": "24 aprile 2027, 15:00"
+        "home": "Milan",
+        "away": "Bologna",
+        "date": "09 maggio 2027, 20:45"
+      },
+      {
+        "round": 36,
+        "home": "Como",
+        "away": "Cagliari",
+        "date": "10 maggio 2027, 15:00"
       },
       {
         "round": 36,
         "home": "Lazio",
-        "away": "Verona",
-        "date": "24 aprile 2027, 18:30"
+        "away": "Juventus",
+        "date": "10 maggio 2027, 18:00"
+      },
+      {
+        "round": 36,
+        "home": "Empoli",
+        "away": "Parma",
+        "date": "10 maggio 2027, 20:45"
       },
       {
         "round": 36,
         "home": "Udinese",
+        "away": "Monza",
+        "date": "11 maggio 2027, 12:30"
+      },
+      {
+        "round": 36,
+        "home": "Verona",
         "away": "Lecce",
-        "date": "24 aprile 2027, 15:00"
+        "date": "11 maggio 2027, 15:00"
       },
       {
         "round": 36,
-        "home": "Bologna",
-        "away": "Atalanta",
-        "date": "24 aprile 2027, 18:30"
+        "home": "Torino",
+        "away": "Inter",
+        "date": "11 maggio 2027, 18:00"
       },
       {
         "round": 36,
-        "home": "Cagliari",
+        "home": "Napoli",
+        "away": "Genoa",
+        "date": "11 maggio 2027, 20:45"
+      },
+      {
+        "round": 36,
+        "home": "Venezia",
+        "away": "Fiorentina",
+        "date": "12 maggio 2027, 18:30"
+      },
+      {
+        "round": 36,
+        "home": "Atalanta",
         "away": "Roma",
-        "date": "24 aprile 2027, 15:00"
+        "date": "12 maggio 2027, 20:45"
+      },
+      {
+        "round": 37,
+        "home": "Genoa",
+        "away": "Atalanta",
+        "date": "17 maggio 2027, 20:45"
+      },
+      {
+        "round": 37,
+        "home": "Cagliari",
+        "away": "Venezia",
+        "date": "18 maggio 2027, 20:45"
+      },
+      {
+        "round": 37,
+        "home": "Fiorentina",
+        "away": "Bologna",
+        "date": "18 maggio 2027, 20:45"
+      },
+      {
+        "round": 37,
+        "home": "Verona",
+        "away": "Como",
+        "date": "18 maggio 2027, 20:45"
       },
       {
         "round": 37,
         "home": "Inter",
-        "away": "Cagliari",
-        "date": "01 maggio 2027, 20:45"
-      },
-      {
-        "round": 37,
-        "home": "Roma",
-        "away": "Bologna",
-        "date": "01 maggio 2027, 15:00"
-      },
-      {
-        "round": 37,
-        "home": "Atalanta",
-        "away": "Udinese",
-        "date": "01 maggio 2027, 18:30"
-      },
-      {
-        "round": 37,
-        "home": "Lecce",
         "away": "Lazio",
-        "date": "01 maggio 2027, 15:00"
-      },
-      {
-        "round": 37,
-        "home": "Verona",
-        "away": "Venezia",
-        "date": "01 maggio 2027, 18:30"
-      },
-      {
-        "round": 37,
-        "home": "Napoli",
-        "away": "Empoli",
-        "date": "01 maggio 2027, 15:00"
-      },
-      {
-        "round": 37,
-        "home": "Como",
-        "away": "Monza",
-        "date": "01 maggio 2027, 18:30"
+        "date": "18 maggio 2027, 20:45"
       },
       {
         "round": 37,
         "home": "Juventus",
-        "away": "Genoa",
-        "date": "01 maggio 2027, 15:00"
-      },
-      {
-        "round": 37,
-        "home": "Torino",
-        "away": "Parma",
-        "date": "01 maggio 2027, 18:30"
-      },
-      {
-        "round": 37,
-        "home": "Milan",
-        "away": "Fiorentina",
-        "date": "01 maggio 2027, 15:00"
-      },
-      {
-        "round": 38,
-        "home": "Bologna",
-        "away": "Inter",
-        "date": "08 maggio 2027, 20:45"
-      },
-      {
-        "round": 38,
-        "home": "Cagliari",
         "away": "Udinese",
-        "date": "08 maggio 2027, 15:00"
+        "date": "18 maggio 2027, 20:45"
       },
       {
-        "round": 38,
-        "home": "Roma",
-        "away": "Lazio",
-        "date": "08 maggio 2027, 18:30"
-      },
-      {
-        "round": 38,
-        "home": "Atalanta",
-        "away": "Venezia",
-        "date": "08 maggio 2027, 15:00"
-      },
-      {
-        "round": 38,
+        "round": 37,
         "home": "Lecce",
+        "away": "Torino",
+        "date": "18 maggio 2027, 20:45"
+      },
+      {
+        "round": 37,
+        "home": "Monza",
         "away": "Empoli",
-        "date": "08 maggio 2027, 18:30"
+        "date": "18 maggio 2027, 20:45"
       },
       {
-        "round": 38,
-        "home": "Verona",
-        "away": "Monza",
-        "date": "08 maggio 2027, 15:00"
+        "round": 37,
+        "home": "Parma",
+        "away": "Napoli",
+        "date": "18 maggio 2027, 20:45"
       },
       {
-        "round": 38,
-        "home": "Napoli",
-        "away": "Genoa",
-        "date": "08 maggio 2027, 18:30"
+        "round": 37,
+        "home": "Roma",
+        "away": "Milan",
+        "date": "18 maggio 2027, 20:45"
       },
       {
         "round": 38,
         "home": "Como",
-        "away": "Parma",
-        "date": "08 maggio 2027, 15:00"
+        "away": "Inter",
+        "date": "23 maggio 2027, 20:45"
       },
       {
         "round": 38,
-        "home": "Juventus",
-        "away": "Fiorentina",
-        "date": "08 maggio 2027, 18:30"
+        "home": "Napoli",
+        "away": "Cagliari",
+        "date": "23 maggio 2027, 20:45"
+      },
+      {
+        "round": 38,
+        "home": "Bologna",
+        "away": "Genoa",
+        "date": "24 maggio 2027, 18:00"
+      },
+      {
+        "round": 38,
+        "home": "Milan",
+        "away": "Monza",
+        "date": "24 maggio 2027, 20:45"
+      },
+      {
+        "round": 38,
+        "home": "Atalanta",
+        "away": "Parma",
+        "date": "25 maggio 2027, 20:45"
+      },
+      {
+        "round": 38,
+        "home": "Empoli",
+        "away": "Verona",
+        "date": "25 maggio 2027, 20:45"
+      },
+      {
+        "round": 38,
+        "home": "Lazio",
+        "away": "Lecce",
+        "date": "25 maggio 2027, 20:45"
       },
       {
         "round": 38,
         "home": "Torino",
-        "away": "Milan",
-        "date": "08 maggio 2027, 15:00"
+        "away": "Roma",
+        "date": "25 maggio 2027, 20:45"
+      },
+      {
+        "round": 38,
+        "home": "Udinese",
+        "away": "Fiorentina",
+        "date": "25 maggio 2027, 20:45"
+      },
+      {
+        "round": 38,
+        "home": "Venezia",
+        "away": "Juventus",
+        "date": "25 maggio 2027, 20:45"
       }
     ]
   },
