@@ -6,16 +6,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_samuel_gigot",
@@ -739,16 +730,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_elia_caprile",
@@ -950,16 +932,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_alex_meret",
@@ -1343,16 +1316,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_alessandro_nunziante",
@@ -2220,16 +2184,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_mattia_perin",
@@ -3042,16 +2997,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_odilon_kossounou",
@@ -3227,16 +3173,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_%C5%82ukasz_skorupski",
@@ -3425,16 +3362,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_luca_lezzerini",
@@ -3636,16 +3564,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_alberto_paleari",
@@ -4445,16 +4364,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_piotr_zieli%C5%84ski",
@@ -5109,16 +5019,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_filip_stankovi%C4%87",
@@ -5333,16 +5234,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_abdoulaye_ndiaye",
@@ -5531,16 +5423,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_christian_fr%C3%BCchtl",
@@ -5768,16 +5651,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_jean_butez",
@@ -6005,16 +5879,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_semuel_pizzignacco",
@@ -6224,16 +6089,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_giorgio_cittadini",
@@ -6500,16 +6356,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_mario_gila",
@@ -6698,16 +6545,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_devyne_rensch",
@@ -6896,16 +6734,7 @@
         "role": "Allenatore",
         "module": "4-3-3"
       },
-      "staff": [
-        {
-          "name": "Staff Reale 1",
-          "role": "Vice Allenatore"
-        },
-        {
-          "name": "Staff Reale 2",
-          "role": "Prep. Atletico"
-        }
-      ],
+      "staff": [],
       "players": [
         {
           "id": "wp_josh_doig",

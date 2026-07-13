@@ -151,30 +151,39 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                 </>
               ) : null}
 
-              {/* Curiosità e Diploma */}
-              <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-5 rounded-2xl border border-[#334155]">
-                <h3 className="font-bold text-[#F8FAFC] mb-4 flex items-center">
-                  <BookOpen size={18} className="mr-2 text-[#10B981]"/> Profilo Personale
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between border-b border-[#334155] pb-2">
-                    <span className="text-[#94A3B8]">Voto di Diploma</span>
-                    <span className="font-bold">{player.isStaff ? player.diploma : player.curiosities?.diploma}</span>
+              {/* Profilo Economico e Social */}
+              {realData && (
+                <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-5 rounded-2xl border border-[#334155]">
+                  <h3 className="font-bold text-[#F8FAFC] mb-4 flex items-center">
+                    <User size={18} className="mr-2 text-[#10B981]"/> Profilo Economico e Social
+                  </h3>
+                  <div className="space-y-4 text-sm">
+                    <div className="flex justify-between items-center border-b border-[#334155] pb-3">
+                      <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Valore di Mercato</span>
+                      <span className="font-black text-[#10B981] text-base">{realData.marketValue || 'N/A'}</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-[#334155] pb-3">
+                      <span className="text-[#94A3B8] text-[10px] uppercase font-black tracking-wider">Stipendio Annuo Netto</span>
+                      <span className="font-black text-[#0EA5E9] text-base">{realData.salary || 'N/A'}</span>
+                    </div>
+                    
+                    {realData.instagram ? (
+                      <a 
+                        href={realData.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-full flex items-center justify-center bg-gradient-to-r from-pink-600 via-red-500 to-yellow-500 text-white font-black py-3 rounded-xl active:scale-95 transition-transform mt-2 shadow-lg"
+                      >
+                        Profilo Ufficiale Instagram
+                      </a>
+                    ) : (
+                      <div className="text-center text-[10px] text-[#94A3B8] pt-2 font-black uppercase tracking-widest bg-[#0F172A] py-3 rounded-xl border border-[#334155]">
+                        Nessun Account Instagram Trovato
+                      </div>
+                    )}
                   </div>
-                  {!player.isStaff && (
-                    <>
-                      <div className="flex justify-between border-b border-[#334155] pb-2">
-                        <span className="text-[#94A3B8]">Piede Preferito</span>
-                        <span className="font-bold">{player.foot}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#94A3B8]">Hobby Principale</span>
-                        <span className="font-bold">{player.curiosities?.hobby}</span>
-                      </div>
-                    </>
-                  )}
                 </div>
-              </div>
+              )}
 
             </div>
           </motion.div>

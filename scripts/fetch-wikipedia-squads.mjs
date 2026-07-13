@@ -181,10 +181,7 @@ async function run() {
       
       allSquads[team.id].firstTeam = {
         coach: { name: scrapedData.coachName, role: 'Allenatore', module: '4-3-3' },
-        staff: [
-          { name: 'Staff Reale 1', role: 'Vice Allenatore' },
-          { name: 'Staff Reale 2', role: 'Prep. Atletico' }
-        ],
+        staff: [],
         players: scrapedData.players
       };
       console.log(`✅ ${team.id} aggiornato con ${scrapedData.players.length} giocatori reali.`);
