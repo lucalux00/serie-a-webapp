@@ -3,13 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Newspaper, TrendingUp, Users, User } from 'lucide-react';
+import { Home, Newspaper, TrendingUp, Trophy, User } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Squadre', href: '/', icon: Home },
   { label: 'Mercato', href: '/mercato', icon: Newspaper },
+  { label: 'Classifica', href: '/classifiche', icon: Trophy },
   { label: 'Pronostici', href: '/pronostici', icon: TrendingUp },
-  { label: 'Fanta', href: '/fantacalcio', icon: Users },
   { label: 'Profilo', href: '/profilo', icon: User },
 ];
 

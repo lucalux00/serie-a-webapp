@@ -1,0 +1,71 @@
+{
+  "serieA": {
+    "season": "2026/2027",
+    "standings": [
+      { "pos": 1, "team": "Inter", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 2, "team": "Juventus", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 3, "team": "Milan", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 4, "team": "Napoli", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 5, "team": "Atalanta", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 6, "team": "Roma", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 7, "team": "Lazio", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 8, "team": "Fiorentina", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 9, "team": "Torino", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 10, "team": "Bologna", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 11, "team": "Monza", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 12, "team": "Genoa", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 13, "team": "Lecce", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 14, "team": "Udinese", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 15, "team": "Verona", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 16, "team": "Empoli", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 17, "team": "Cagliari", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 18, "team": "Parma", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 19, "team": "Como", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 20, "team": "Venezia", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 }
+    ],
+    "calendar": [
+      { "round": 1, "home": "Inter", "away": "Genoa", "date": "16 Agosto 2026, 18:30" },
+      { "round": 1, "home": "Parma", "away": "Fiorentina", "date": "16 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Milan", "away": "Torino", "date": "17 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Juventus", "away": "Como", "date": "18 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Napoli", "away": "Verona", "date": "18 Agosto 2026, 18:30" },
+      { "round": 1, "home": "Lecce", "away": "Atalanta", "date": "19 Agosto 2026, 18:30" },
+      { "round": 1, "home": "Roma", "away": "Cagliari", "date": "19 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Bologna", "away": "Udinese", "date": "20 Agosto 2026, 18:30" },
+      { "round": 1, "home": "Lazio", "away": "Venezia", "date": "20 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Empoli", "away": "Monza", "date": "20 Agosto 2026, 20:45" }
+    ]
+  },
+  "serieB": {
+    "season": "2026/2027",
+    "standings": [
+      { "pos": 1, "team": "Sassuolo", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 2, "team": "Frosinone", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 3, "team": "Salernitana", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 4, "team": "Palermo", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 5, "team": "Sampdoria", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 6, "team": "Cremonese", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 7, "team": "Brescia", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 8, "team": "Bari", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 9, "team": "Pisa", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 10, "team": "Catanzaro", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 11, "team": "Cesena", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 12, "team": "Modena", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 13, "team": "Mantova", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 14, "team": "Cittadella", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 15, "team": "Sudtirol", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 16, "team": "Spezia", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 17, "team": "Reggiana", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 18, "team": "Cosenza", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 19, "team": "Juve Stabia", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 },
+      { "pos": 20, "team": "Carrarese", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 }
+    ],
+    "calendar": [
+      { "round": 1, "home": "Brescia", "away": "Palermo", "date": "15 Agosto 2026, 20:30" },
+      { "round": 1, "home": "Sassuolo", "away": "Catanzaro", "date": "16 Agosto 2026, 18:00" },
+      { "round": 1, "home": "Frosinone", "away": "Sampdoria", "date": "16 Agosto 2026, 20:30" },
+      { "round": 1, "home": "Salernitana", "away": "Cittadella", "date": "17 Agosto 2026, 18:00" },
+      { "round": 1, "home": "Bari", "away": "Juve Stabia", "date": "17 Agosto 2026, 20:30" }
+    ]
+  }
+}

@@ -272,16 +272,23 @@ export default function TeamHubClient({ team, news, squadData }: any) {
               <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#F59E0B]/30 rounded-2xl p-6 shadow-[0_0_20px_rgba(245,158,11,0.15)] relative overflow-hidden">
                 <div className="absolute -top-4 -right-4 opacity-5 text-9xl">🏆</div>
                 <h2 className="text-2xl font-black text-[#F59E0B] mb-2 uppercase tracking-widest drop-shadow-md">Hall of Fame</h2>
-                <p className="text-sm text-[#94A3B8] mb-6">Database Storico AI in espansione: componenti e statistiche chiave dell'ultimo grande trionfo.</p>
+                <p className="text-sm text-[#94A3B8] mb-4">Database Storico AI in espansione: componenti e statistiche chiave dell'ultimo grande trionfo.</p>
+                <div className="inline-block px-3 py-1 bg-[#10B981]/20 border border-[#10B981]/50 text-[#10B981] text-[10px] font-black uppercase tracking-widest rounded-lg mb-6">
+                  Aggiornato al 13 Luglio 2026
+                </div>
                 
-                {/* Esempio Scudetto Napoli 22/23 o Generico se altra squadra */}
+                {/* Esempio Generico aggiornato al 2026 */}
                 <div className="bg-[#0F172A]/80 border border-[#334155] rounded-xl p-4 backdrop-blur-sm">
                   <div className="flex items-center justify-between mb-4 border-b border-[#334155] pb-3">
                     <div className="flex items-center">
                       <div className="text-3xl mr-3">🇮🇹</div>
                       <div>
-                        <div className="font-black text-lg text-white">Campionato Serie A</div>
-                        <div className="text-[#10B981] font-bold text-xs uppercase tracking-widest">Stagione 2022/2023</div>
+                        <div className="font-black text-lg text-white">
+                          {team.id === 'inter' ? 'Campionato Serie A' : team.id === 'juventus' ? 'Coppa Italia' : team.id === 'atalanta' ? 'Europa League' : 'Trofeo Storico Rilevante'}
+                        </div>
+                        <div className="text-[#10B981] font-bold text-xs uppercase tracking-widest">
+                          {team.id === 'inter' ? 'Stagione 2025/2026 (Simulato)' : team.id === 'juventus' ? 'Stagione 2023/2024' : team.id === 'atalanta' ? 'Stagione 2023/2024' : 'Fino al 2026'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -289,23 +296,16 @@ export default function TeamHubClient({ team, news, squadData }: any) {
                   <div className="space-y-4">
                     <div>
                       <h4 className="text-[10px] text-[#94A3B8] uppercase font-black tracking-widest mb-2">Allenatore Trionfatore</h4>
-                      <div className="text-white font-bold bg-[#1E293B] p-2 rounded-lg border border-[#334155]">Luciano Spalletti</div>
+                      <div className="text-white font-bold bg-[#1E293B] p-2 rounded-lg border border-[#334155]">{team.id === 'inter' ? 'Simone Inzaghi' : team.coach?.name || 'Allenatore Storico'}</div>
                     </div>
                     
                     <div>
-                      <h4 className="text-[10px] text-[#94A3B8] uppercase font-black tracking-widest mb-2">Formazione Tipo (Eroi)</h4>
+                      <h4 className="text-[10px] text-[#94A3B8] uppercase font-black tracking-widest mb-2">Formazione Tipo (Eroi Storici)</h4>
                       <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#0EA5E9] font-bold mr-2">POR</span> Meret</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Di Lorenzo</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Kim Min-jae</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Rrahmani</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Mario Rui</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> Lobotka</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> Anguissa</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> Zielinski</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#EF4444] font-bold mr-2">ATT</span> Kvaratskhelia</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#EF4444] font-bold mr-2">ATT</span> Politano</div>
-                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155] col-span-2"><span className="text-[#EF4444] font-bold mr-2">ATT</span> Victor Osimhen (Capocannoniere)</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#0EA5E9] font-bold mr-2">POR</span> {team.players?.filter((p: any) => p.position === 'Portiere')[0]?.name || 'Leggenda'}</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> {team.players?.filter((p: any) => p.position === 'Difensore')[0]?.name || 'Leggenda'}</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> {team.players?.filter((p: any) => p.position === 'Centrocampista')[0]?.name || 'Leggenda'}</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#EF4444] font-bold mr-2">ATT</span> {team.players?.filter((p: any) => p.position === 'Attaccante')[0]?.name || 'Leggenda'}</div>
                       </div>
                     </div>
                   </div>
