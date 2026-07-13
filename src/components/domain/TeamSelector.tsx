@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MOCK_TEAMS } from '@/data/mockData';
+import { ALL_TEAMS } from '@/data/teams';
+import { useRouter } from 'next/navigation';
 
 export default function TeamSelector() {
   const [activeTab, setActiveTab] = useState<'A' | 'B'>('A');
+  const router = useRouter();
 
-  const filteredTeams = MOCK_TEAMS.filter(t => t.league === activeTab);
+  const filteredTeams = ALL_TEAMS.filter(t => t.league === activeTab);
 
   return (
     <div className="w-full py-4">
@@ -36,10 +38,11 @@ export default function TeamSelector() {
           <motion.div 
             key={team.id}
             whileTap={{ scale: 0.95 }}
-            className="flex-shrink-0 snap-center w-24 h-24 bg-[#1E293B] rounded-2xl flex flex-col items-center justify-center border border-[#334155] shadow-lg"
+            onClick={() => router.push(`/squadra/${team.id}`)}
+            className="flex-shrink-0 snap-center w-24 h-24 bg-[#1E293B] rounded-2xl flex flex-col items-center justify-center border border-[#334155] shadow-lg cursor-pointer"
           >
             <div className="text-3xl font-black text-white mb-2">{team.logo}</div>
-            <div className="text-xs font-semibold text-[#94A3B8]">{team.name}</div>
+            <div className="text-xs font-semibold text-[#94A3B8] text-center px-1 truncate w-full">{team.name}</div>
           </motion.div>
         ))}
       </motion.div>
