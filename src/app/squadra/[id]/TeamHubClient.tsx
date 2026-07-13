@@ -20,7 +20,11 @@ export default function TeamHubClient({ team, news, squadData }: any) {
     if (selectedNews && selectedNews.link) {
       setLoadingArticle(true);
       setFullArticleText('');
-      fetch(`/api/news/read?url=${encodeURIComponent(selectedNews.link)}`)
+      // Passa anche lo snippet RSS - se disponibile e lungo abbastanza, viene usato direttamente senza scraping
+      const snippetParam = selectedNews.snippet && selectedNews.snippet.length > 100 
+        ? `&snippet=${encodeURIComponent(selectedNews.snippet)}` 
+        : '';
+      fetch(`/api/news/read?url=${encodeURIComponent(selectedNews.link)}${snippetParam}`)
         .then(res => res.json())
         .then(data => {
           setFullArticleText(data.content || "Testo non disponibile.");
