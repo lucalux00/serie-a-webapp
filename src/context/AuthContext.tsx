@@ -53,9 +53,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    // MOCK BACKEND DELAY
-    await new Promise(resolve => setTimeout(resolve, 800));
+    // 1. Tenta il login tramite il Vercel Postgres reale
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
 
+    if (response.ok) {
+      const data = await response.json();
+      const sessionUser = {
+        ...data.user,
+        avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
+      };
+      setUser(sessionUser);
+      localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
+      return;
+    }
+    
+    // Se il DB restituisce un errore specifico 401 (Credenziali errate) lo mostriamo
+    if (response.status === 401) {
+      const errData = await response.json();
+      throw new Error(errData.error || 'Credenziali non valide.');
+    }
+
+    // 2. Fallback: se l'API non è configurata (no POSTGRES_URL) andiamo in fallback locale
+    console.warn("API DB non disponibile, uso il LocalStorage di fallback.");
     const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
     const foundUser = usersDb.find((u: any) => u.email === email && u.password === password);
 
@@ -77,9 +100,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (name: string, email: string, password: string) => {
-    // MOCK BACKEND DELAY
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // 1. Tenta la registrazione sul Vercel Postgres reale
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
 
+    if (response.ok) {
+      const data = await response.json();
+      const sessionUser = {
+        ...data.user,
+        avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
+      };
+      setUser(sessionUser);
+      localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
+      return;
+    }
+
+    if (response.status === 409) {
+      throw new Error('Esiste già un account con questa email.');
+    }
+
+    // 2. Fallback: se l'API non è configurata andiamo in fallback locale
+    console.warn("API DB non disponibile, uso il LocalStorage di fallback.");
     const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
     
     if (usersDb.some((u: any) => u.email === email)) {
@@ -90,7 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       id: Math.random().toString(36).substring(2, 9),
       name,
       email,
-      password, // In un sistema reale, questa verrebbe hashiata (es. bcrypt)
+      password,
       favoriteTeamId: null,
       favoriteTeamName: null
     };
@@ -98,7 +142,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     usersDb.push(newUser);
     localStorage.setItem('serieA_db', JSON.stringify(usersDb));
 
-    // Auto-login after registration
     const sessionUser = {
       id: newUser.id,
       name: newUser.name,
