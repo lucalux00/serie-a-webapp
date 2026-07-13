@@ -8,10 +8,30 @@ import PlayerSheet from '@/components/domain/PlayerSheet';
 
 export default function TeamHubClient({ team, news, squadData }: any) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats'>('news');
+  const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei'>('news');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [selectedNews, setSelectedNews] = useState<any>(null);
+  const [fullArticleText, setFullArticleText] = useState<string>('');
+  const [loadingArticle, setLoadingArticle] = useState<boolean>(false);
+
+  // Fetch full article when selectedNews changes
+  React.useEffect(() => {
+    if (selectedNews && selectedNews.link) {
+      setLoadingArticle(true);
+      setFullArticleText('');
+      fetch(`/api/news/read?url=${encodeURIComponent(selectedNews.link)}`)
+        .then(res => res.json())
+        .then(data => {
+          setFullArticleText(data.content || "Testo non disponibile.");
+          setLoadingArticle(false);
+        })
+        .catch(() => {
+          setFullArticleText("Errore durante l'estrazione dell'articolo.");
+          setLoadingArticle(false);
+        });
+    }
+  }, [selectedNews]);
 
   const topNews = news.slice(0, 4);
   const otherNews = news.slice(4);
@@ -49,6 +69,9 @@ export default function TeamHubClient({ team, news, squadData }: any) {
         </button>
         <button onClick={() => setActiveTab('stats')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'stats' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
           STATISTICHE
+        </button>
+        <button onClick={() => setActiveTab('trofei')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'trofei' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
+          TROFEI
         </button>
       </div>
 
@@ -235,6 +258,54 @@ export default function TeamHubClient({ team, news, squadData }: any) {
               </div>
             </motion.div>
           )}
+
+          {/* TAB: TROFEI */}
+          {activeTab === 'trofei' && (
+            <motion.div key="trofei" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
+              <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#F59E0B]/30 rounded-2xl p-6 shadow-[0_0_20px_rgba(245,158,11,0.15)] relative overflow-hidden">
+                <div className="absolute -top-4 -right-4 opacity-5 text-9xl">🏆</div>
+                <h2 className="text-2xl font-black text-[#F59E0B] mb-2 uppercase tracking-widest drop-shadow-md">Hall of Fame</h2>
+                <p className="text-sm text-[#94A3B8] mb-6">Database Storico AI in espansione: componenti e statistiche chiave dell'ultimo grande trionfo.</p>
+                
+                {/* Esempio Scudetto Napoli 22/23 o Generico se altra squadra */}
+                <div className="bg-[#0F172A]/80 border border-[#334155] rounded-xl p-4 backdrop-blur-sm">
+                  <div className="flex items-center justify-between mb-4 border-b border-[#334155] pb-3">
+                    <div className="flex items-center">
+                      <div className="text-3xl mr-3">🇮🇹</div>
+                      <div>
+                        <div className="font-black text-lg text-white">Campionato Serie A</div>
+                        <div className="text-[#10B981] font-bold text-xs uppercase tracking-widest">Stagione 2022/2023</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-[10px] text-[#94A3B8] uppercase font-black tracking-widest mb-2">Allenatore Trionfatore</h4>
+                      <div className="text-white font-bold bg-[#1E293B] p-2 rounded-lg border border-[#334155]">Luciano Spalletti</div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-[10px] text-[#94A3B8] uppercase font-black tracking-widest mb-2">Formazione Tipo (Eroi)</h4>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#0EA5E9] font-bold mr-2">POR</span> Meret</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Di Lorenzo</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Kim Min-jae</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Rrahmani</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#10B981] font-bold mr-2">DIF</span> Mario Rui</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> Lobotka</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> Anguissa</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#F59E0B] font-bold mr-2">CEN</span> Zielinski</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#EF4444] font-bold mr-2">ATT</span> Kvaratskhelia</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155]"><span className="text-[#EF4444] font-bold mr-2">ATT</span> Politano</div>
+                        <div className="bg-[#1E293B] p-2 rounded-lg border border-[#334155] col-span-2"><span className="text-[#EF4444] font-bold mr-2">ATT</span> Victor Osimhen (Capocannoniere)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
@@ -266,18 +337,19 @@ export default function TeamHubClient({ team, news, squadData }: any) {
                 </button>
               </div>
 
-              <div className="p-6 overflow-y-auto no-scrollbar flex-1 text-[#94A3B8] text-sm leading-relaxed">
-                <p>{selectedNews.snippet}</p>
-                <div className="mt-8 mb-4">
-                  <a 
-                    href={selectedNews.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="block w-full py-4 bg-[#10B981] text-[#0F172A] text-center font-black rounded-xl active:scale-95 transition-transform"
-                  >
-                    Leggi Articolo Completo
-                  </a>
-                </div>
+              <div className="p-6 overflow-y-auto no-scrollbar flex-1 text-[#94A3B8] text-sm leading-relaxed relative">
+                {loadingArticle ? (
+                  <div className="flex flex-col items-center justify-center py-20">
+                    <div className="w-10 h-10 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-[#10B981] text-xs font-black uppercase mt-4 animate-pulse">Estrazione integrale...</span>
+                  </div>
+                ) : (
+                  <div className="prose prose-invert max-w-none">
+                    <p className="whitespace-pre-wrap font-medium text-[#F8FAFC] leading-loose text-[15px]">
+                      {fullArticleText}
+                    </p>
+                  </div>
+                )}
               </div>
             </motion.div>
           </>
