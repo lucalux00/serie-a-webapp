@@ -362,14 +362,17 @@ export default function TeamHubClient({ team, news, squadData }: any) {
                       {fullArticleText}
                     </p>
                     {selectedNews.link && (
-                      <a
-                        href={selectedNews.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full bg-[#1E293B] border border-[#334155] text-[#0EA5E9] font-bold text-sm py-3 rounded-xl mt-4"
-                      >
-                        Apri articolo originale →
-                      </a>
+                      <div className="mt-8 mb-4 border-t border-[#334155] pt-6 flex flex-col items-center">
+                        <span className="text-xs text-[#94A3B8] mb-3 text-center uppercase tracking-widest font-bold">Vuoi leggere l'articolo completo?</span>
+                        <a
+                          href={selectedNews.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center w-full max-w-sm bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white font-black text-base py-4 rounded-2xl shadow-[0_4px_20px_rgba(16,185,129,0.3)] hover:scale-105 active:scale-95 transition-all"
+                        >
+                          Apri Articolo Originale →
+                        </a>
+                      </div>
                     )}
                   </div>
                 )}
