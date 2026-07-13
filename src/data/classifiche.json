@@ -24,16 +24,11 @@
       { "pos": 20, "team": "Venezia", "points": 0, "played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0 }
     ],
     "calendar": [
-      { "round": 1, "home": "Inter", "away": "Genoa", "date": "16 Agosto 2026, 18:30" },
-      { "round": 1, "home": "Parma", "away": "Fiorentina", "date": "16 Agosto 2026, 20:45" },
-      { "round": 1, "home": "Milan", "away": "Torino", "date": "17 Agosto 2026, 20:45" },
-      { "round": 1, "home": "Juventus", "away": "Como", "date": "18 Agosto 2026, 20:45" },
-      { "round": 1, "home": "Napoli", "away": "Verona", "date": "18 Agosto 2026, 18:30" },
-      { "round": 1, "home": "Lecce", "away": "Atalanta", "date": "19 Agosto 2026, 18:30" },
-      { "round": 1, "home": "Roma", "away": "Cagliari", "date": "19 Agosto 2026, 20:45" },
-      { "round": 1, "home": "Bologna", "away": "Udinese", "date": "20 Agosto 2026, 18:30" },
-      { "round": 1, "home": "Lazio", "away": "Venezia", "date": "20 Agosto 2026, 20:45" },
-      { "round": 1, "home": "Empoli", "away": "Monza", "date": "20 Agosto 2026, 20:45" }
+      { "round": 1, "home": "Genoa", "away": "Napoli", "date": "22 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Inter", "away": "Lazio", "date": "22 Agosto 2026, 18:30" },
+      { "round": 1, "home": "Milan", "away": "Torino", "date": "23 Agosto 2026, 20:45" },
+      { "round": 1, "home": "Juventus", "away": "Como", "date": "23 Agosto 2026, 18:30" },
+      { "round": 1, "home": "Roma", "away": "Cagliari", "date": "24 Agosto 2026, 20:45" }
     ]
   },
   "serieB": {
