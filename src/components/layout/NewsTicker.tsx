@@ -32,7 +32,7 @@ export default function NewsTicker() {
   if (news.length === 0) return null;
 
   return (
-    <div className="fixed bottom-[60px] left-0 right-0 h-10 bg-[#1E293B] border-y border-[#334155] flex items-center overflow-hidden z-30 shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+    <div className="fixed bottom-[64px] left-0 right-0 h-10 bg-[#1E293B] border-y border-[#334155] flex items-center overflow-hidden z-30 shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
       {/* Badge Fisso "ULTIM'ORA" */}
       <div className="bg-[#EF4444] h-full flex items-center px-3 z-10 font-black text-[10px] text-white tracking-widest uppercase shrink-0 shadow-lg relative">
         ULTIM'ORA
