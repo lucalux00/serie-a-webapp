@@ -125,24 +125,27 @@ async function scrapeTeam(team) {
           if (roleRaw.includes('d') || roleRaw.includes('dif')) position = 'DIF';
           if (roleRaw.includes('a') || roleRaw.includes('att')) position = 'ATT';
 
-          const age = 18 + (hashString(name) % 18); // 18-35 anni
+          // Controlliamo lo status "In Prestito"
+          let isLoan = false;
+          for (let txt of colTexts) {
+            if (txt.toLowerCase().includes('prestito') || txt.toLowerCase().includes('dal ')) {
+              isLoan = true;
+            }
+          }
 
           if (name && name.length > 2 && !name.toLowerCase().includes('giocatore')) {
             players.push({
-              id: `wp_${hashString(name)}`,
+              id: `wp_${encodeURIComponent(name.toLowerCase().replace(/ /g, '_'))}`,
               name,
               position,
-              number: number || (hashString(name) % 99) + 1,
-              age,
-              height: 170 + (hashString(name) % 25),
-              weight: 65 + (hashString(name) % 20),
-              foot: (hashString(name) % 2 === 0) ? 'Destro' : 'Sinistro',
-              status: (hashString(name) % 10 > 8) ? 'In Prestito' : 'In Rosa',
-              stats: generateStatsForPlayer(name, position, age),
-              curiosities: {
-                diploma: 'Voto ' + (60 + (hashString(name) % 40)) + '/100',
-                hobby: ['PlayStation', 'Pesca', 'Padel', 'Lettura', 'Cucina', 'Moda', 'Scacchi', 'Cryptovalute'][hashString(name) % 8]
-              }
+              number: number || '-',
+              age: 'N/A',
+              height: 'N/A',
+              weight: 'N/A',
+              foot: 'N/A',
+              status: isLoan ? 'In Prestito' : 'In Rosa',
+              stats: null, // Verranno caricati On-Demand dall'API
+              curiosities: null
             });
           }
         }

@@ -83,30 +83,56 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
                 </div>
               )}
 
-              {/* Stats Grid */}
-              {!player.isStaff && player.stats && (
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Stagionali */}
-                  <div className="bg-[#0F172A] p-4 rounded-2xl border border-[#334155]">
-                    <div className="flex items-center text-[#94A3B8] mb-2 text-xs"><Activity size={14} className="mr-1"/> Presenze (Stagione)</div>
-                    <div className="text-3xl font-black">{player.stats.appearances}</div>
-                  </div>
-                  <div className="bg-[#0F172A] p-4 rounded-2xl border border-[#334155]">
-                    <div className="flex items-center text-[#10B981] mb-2 text-xs"><Goal size={14} className="mr-1"/> Gol (Stagione)</div>
-                    <div className="text-3xl font-black text-[#10B981]">{player.stats.goals}</div>
-                  </div>
-                  
-                  {/* Carriera */}
-                  <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#0EA5E9]/50 shadow-[0_0_15px_rgba(14,165,233,0.1)]">
-                    <div className="flex items-center text-[#0EA5E9] mb-2 text-xs font-bold uppercase tracking-wider"><Target size={14} className="mr-1"/> Gol Carriera</div>
-                    <div className="text-3xl font-black text-[#0EA5E9]">{player.stats.careerGoals || 0}</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#F59E0B]/50 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
-                    <div className="flex items-center text-[#F59E0B] mb-2 text-xs font-bold uppercase tracking-wider"><Star size={14} className="mr-1"/> Trofei Vinti</div>
-                    <div className="text-3xl font-black text-[#F59E0B]">{player.stats.trophies || 0}</div>
-                  </div>
+              {/* Status Banner */}
+              {player.status && (
+                <div className={`p-3 rounded-xl border flex items-center font-bold text-sm ${player.status === 'In Prestito' ? 'bg-[#F59E0B]/10 border-[#F59E0B]/50 text-[#F59E0B]' : 'bg-[#10B981]/10 border-[#10B981]/50 text-[#10B981]'}`}>
+                  <Activity size={16} className="mr-2" />
+                  {player.status === 'In Prestito' ? 'Giocatore in Prestito' : 'In Rosa Ufficiale'}
                 </div>
               )}
+
+              {loading ? (
+                <div className="flex flex-col items-center justify-center py-10">
+                  <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
+                  <span className="text-[#94A3B8] text-sm mt-4 font-bold animate-pulse">Estrazione dati reali da Wikipedia...</span>
+                </div>
+              ) : realData ? (
+                <>
+                  {/* Stats Reali */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#0EA5E9]/50 shadow-[0_0_15px_rgba(14,165,233,0.1)]">
+                      <div className="flex items-center text-[#0EA5E9] mb-2 text-[10px] font-black uppercase tracking-wider"><Activity size={14} className="mr-1"/> Presenze Club</div>
+                      <div className="text-2xl font-black text-white">{realData.stats?.presenze || '-'}</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#10B981]/50 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                      <div className="flex items-center text-[#10B981] mb-2 text-[10px] font-black uppercase tracking-wider"><Target size={14} className="mr-1"/> Reti Club</div>
+                      <div className="text-2xl font-black text-white">{realData.stats?.reti || '-'}</div>
+                    </div>
+                  </div>
+
+                  {/* Biografia Reale */}
+                  <div className="bg-[#0F172A] rounded-2xl border border-[#334155] overflow-hidden">
+                    <div className="bg-[#334155]/30 px-4 py-2 border-b border-[#334155] font-bold text-xs uppercase tracking-wider text-[#94A3B8]">
+                      Profilo e Biografia
+                    </div>
+                    <div className="p-4 text-sm text-[#94A3B8] leading-relaxed">
+                      {realData.biografia}
+                    </div>
+                  </div>
+
+                  {/* Caratteristiche Reali */}
+                  {realData.caratteristiche !== 'Nessuna caratteristica tecnica specificata.' && (
+                    <div className="bg-[#0F172A] rounded-2xl border border-[#334155] overflow-hidden">
+                      <div className="bg-[#334155]/30 px-4 py-2 border-b border-[#334155] font-bold text-xs uppercase tracking-wider text-[#94A3B8]">
+                        Caratteristiche Tecniche
+                      </div>
+                      <div className="p-4 text-sm text-[#94A3B8] leading-relaxed italic">
+                        "{realData.caratteristiche}"
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : null}
 
               {/* Curiosità e Diploma */}
               <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-5 rounded-2xl border border-[#334155]">
