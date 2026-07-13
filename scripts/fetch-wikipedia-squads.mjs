@@ -92,21 +92,42 @@ async function scrapeTeam(team) {
 
     if (rosaTable) {
       $(rosaTable).find('tr').each((i, row) => {
-        const cols = $(row).find('td');
-        if (cols.length >= 3) {
-          const numberText = $(cols[0]).text().trim();
+        const colTexts = [];
+        $(row).find('td, th').each((j, col) => {
+          colTexts.push($(col).text().replace(/\n/g, '').replace(/\[.*?\]/g, '').trim());
+        });
+        
+        if (colTexts.length >= 3) {
+          const numberText = colTexts[0];
           const number = parseInt(numberText) || 0;
           
-          let roleRaw = $(cols[1]).text().trim().toLowerCase();
+          let roleRaw = '';
+          let name = '';
+          
+          // Trova la colonna del ruolo
+          for (let j = 0; j < colTexts.length; j++) {
+            const txt = colTexts[j].toLowerCase();
+            if (['p', 'por', 'd', 'dif', 'c', 'cen', 'a', 'att'].includes(txt)) {
+              roleRaw = txt;
+              // Il nome è il primo testo non vuoto dopo il ruolo
+              for (let k = j + 1; k < colTexts.length; k++) {
+                if (colTexts[k].length > 2) {
+                  name = colTexts[k];
+                  break;
+                }
+              }
+              break;
+            }
+          }
+
           let position = 'CEN';
           if (roleRaw.includes('p') || roleRaw.includes('por')) position = 'POR';
           if (roleRaw.includes('d') || roleRaw.includes('dif')) position = 'DIF';
           if (roleRaw.includes('a') || roleRaw.includes('att')) position = 'ATT';
 
-          const name = $(cols[2]).text().replace(/\n/g, '').replace(/\[.*?\]/g, '').trim();
           const age = 18 + (hashString(name) % 18); // 18-35 anni
 
-          if (name && name.length > 2) {
+          if (name && name.length > 2 && !name.toLowerCase().includes('giocatore')) {
             players.push({
               id: `wp_${hashString(name)}`,
               name,

@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 async function test() {
-  const res = await fetch('https://it.wikipedia.org/wiki/Societ%C3%A0_Sportiva_Calcio_Napoli');
+  const res = await fetch('https://it.wikipedia.org/wiki/Atalanta_Bergamasca_Calcio');
   const html = await res.text();
   const $ = cheerio.load(html);
   
@@ -12,12 +12,18 @@ async function test() {
       const rows = $(table).find('tr');
       console.log(`Numero di righe: ${rows.length}`);
       
-      const firstRowCols = $(rows[1]).find('td, th');
-      console.log("Prima riga data: " + $(firstRowCols).text().replace(/\n/g, ' '));
-      found = true;
-      return false;
+      if (rows.length > 5) {
+        $(table).find('tr').each((i, row) => {
+          const cols = $(row).find('td, th');
+          if (cols.length >= 3 && i === 1) {
+            console.log("C0: " + $(cols[0]).text().trim());
+            console.log("C1: " + $(cols[1]).text().trim());
+            console.log("C2: " + $(cols[2]).text().trim());
+            console.log("C3: " + $(cols[3]).text().trim());
+          }
+        });
+      }
     }
   });
-  if (!found) console.log("Nessuna tabella trovata.");
 }
 test();
