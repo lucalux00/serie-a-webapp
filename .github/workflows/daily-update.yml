@@ -1,0 +1,35 @@
+name: Daily Squads Update
+
+on:
+  schedule:
+    # Esegui alle 08:00 e alle 20:00 (UTC) ogni giorno
+    - cron: '0 8,20 * * *'
+  workflow_dispatch: # Permette esecuzione manuale da GitHub
+
+jobs:
+  update-squads:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install cheerio
+
+      - name: Run Web Scraper (2026 Data)
+        run: node scripts/fetch-wikipedia-squads.mjs
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'GitHub Action Bot'
+          git config --global user.email 'action@github.com'
+          git add src/data/deepSquads.json
+          git commit -m "chore: auto-update squads data to 2026 via scraper" || exit 0
+          git push

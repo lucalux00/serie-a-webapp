@@ -86,21 +86,24 @@ export default function PlayerSheet({ player, onClose }: PlayerSheetProps) {
               {/* Stats Grid */}
               {!player.isStaff && player.stats && (
                 <div className="grid grid-cols-2 gap-4">
+                  {/* Stagionali */}
                   <div className="bg-[#0F172A] p-4 rounded-2xl border border-[#334155]">
-                    <div className="flex items-center text-[#94A3B8] mb-2"><Activity size={16} className="mr-2"/> Presenze</div>
+                    <div className="flex items-center text-[#94A3B8] mb-2 text-xs"><Activity size={14} className="mr-1"/> Presenze (Stagione)</div>
                     <div className="text-3xl font-black">{player.stats.appearances}</div>
                   </div>
                   <div className="bg-[#0F172A] p-4 rounded-2xl border border-[#334155]">
-                    <div className="flex items-center text-[#10B981] mb-2"><Goal size={16} className="mr-2"/> Gol</div>
+                    <div className="flex items-center text-[#10B981] mb-2 text-xs"><Goal size={14} className="mr-1"/> Gol (Stagione)</div>
                     <div className="text-3xl font-black text-[#10B981]">{player.stats.goals}</div>
                   </div>
-                  <div className="bg-[#0F172A] p-4 rounded-2xl border border-[#334155]">
-                    <div className="flex items-center text-[#0EA5E9] mb-2"><Target size={16} className="mr-2"/> xG</div>
-                    <div className="text-3xl font-black text-[#0EA5E9]">{player.stats.xG}</div>
+                  
+                  {/* Carriera */}
+                  <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#0EA5E9]/50 shadow-[0_0_15px_rgba(14,165,233,0.1)]">
+                    <div className="flex items-center text-[#0EA5E9] mb-2 text-xs font-bold uppercase tracking-wider"><Target size={14} className="mr-1"/> Gol Carriera</div>
+                    <div className="text-3xl font-black text-[#0EA5E9]">{player.stats.careerGoals || 0}</div>
                   </div>
-                  <div className="bg-[#0F172A] p-4 rounded-2xl border border-[#334155]">
-                    <div className="flex items-center text-[#F59E0B] mb-2"><Star size={16} className="mr-2"/> Passaggi</div>
-                    <div className="text-3xl font-black text-[#F59E0B]">{player.stats.passCompletion}%</div>
+                  <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] p-4 rounded-2xl border border-[#F59E0B]/50 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
+                    <div className="flex items-center text-[#F59E0B] mb-2 text-xs font-bold uppercase tracking-wider"><Star size={14} className="mr-1"/> Trofei Vinti</div>
+                    <div className="text-3xl font-black text-[#F59E0B]">{player.stats.trophies || 0}</div>
                   </div>
                 </div>
               )}
