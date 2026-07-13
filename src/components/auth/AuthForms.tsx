@@ -11,6 +11,29 @@ export default function AuthForms() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // DB Setup states
+  const [showDbPopup, setShowDbPopup] = useState(false);
+  const [dbLoading, setDbLoading] = useState(false);
+  const [dbStatus, setDbStatus] = useState<{ success: boolean; message: string } | null>(null);
+
+  const handleDbSetup = async () => {
+    setDbLoading(true);
+    setDbStatus(null);
+    try {
+      const res = await fetch('/api/auth/setup');
+      if (res.ok) {
+        setDbStatus({ success: true, message: 'Database Vercel inizializzato con successo! Ora puoi registrarti.' });
+      } else {
+        const data = await res.json();
+        setDbStatus({ success: false, message: data.error || 'Errore durante la creazione della tabella. Assicurati di aver configurato Vercel Postgres.' });
+      }
+    } catch (err: any) {
+      setDbStatus({ success: false, message: 'Impossibile connettersi al server.' });
+    } finally {
+      setDbLoading(false);
+    }
+  };
+
   // Form states
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -161,6 +184,76 @@ export default function AuthForms() {
           </motion.form>
         </AnimatePresence>
       </div>
+
+      {/* Pulsante Segreto/Setup DB */}
+      <div className="mt-8 text-center">
+        <button 
+          onClick={() => setShowDbPopup(true)}
+          className="text-xs text-[#64748B] hover:text-[#10B981] flex items-center justify-center mx-auto transition-colors font-medium tracking-wide"
+        >
+          <AlertCircle className="w-4 h-4 mr-1.5" />
+          Problemi? Inizializza Database Vercel
+        </button>
+      </div>
+
+      {/* POPUP MODAL SETUP DB */}
+      <AnimatePresence>
+        {showDbPopup && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-[#1E293B] rounded-3xl p-6 w-full max-w-sm border border-[#334155] shadow-2xl relative"
+            >
+              <h3 className="text-xl font-black text-white mb-2">Inizializza Database</h3>
+              
+              {!dbStatus ? (
+                <>
+                  <p className="text-[#94A3B8] text-sm mb-6">
+                    Questa operazione creerà la tabella `users` nel tuo Vercel Postgres. Da usare solo la prima volta o se ci sono errori di connessione.
+                  </p>
+                  <div className="flex flex-col space-y-3">
+                    <button
+                      onClick={handleDbSetup}
+                      disabled={dbLoading}
+                      className="w-full py-3 bg-[#10B981] text-[#0F172A] font-black rounded-xl hover:bg-[#059669] transition-colors flex items-center justify-center"
+                    >
+                      {dbLoading ? (
+                        <div className="w-5 h-5 border-2 border-[#0F172A] border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        'Avvia Inizializzazione'
+                      )}
+                    </button>
+                    <button
+                      onClick={() => setShowDbPopup(false)}
+                      disabled={dbLoading}
+                      className="w-full py-3 bg-transparent text-[#94A3B8] font-bold rounded-xl hover:text-white transition-colors"
+                    >
+                      Annulla
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={`p-4 rounded-xl mb-6 ${dbStatus.success ? 'bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/50' : 'bg-[#EF4444]/10 text-[#EF4444] border border-[#EF4444]/50'}`}>
+                    <p className="font-bold text-sm text-center">{dbStatus.message}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setShowDbPopup(false);
+                      setDbStatus(null);
+                    }}
+                    className="w-full py-3 bg-[#334155] text-white font-black rounded-xl hover:bg-[#475569] transition-colors"
+                  >
+                    Chiudi
+                  </button>
+                </>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
