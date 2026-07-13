@@ -1,0 +1,56 @@
+{
+  "napoli": {
+    "firstTeam": [
+      { "name": "Miguel Gutiérrez", "salary": "€2.3M netti", "marketValue": "€22.0M", "contractUntil": "2030", "biography": "Acquistato nell'estate 2025 dal Girona, si è confermato una colonna portante della difesa azzurra." },
+      { "name": "Khvicha Kvaratskhelia", "salary": "€6.5M netti", "marketValue": "€85.0M", "contractUntil": "2029" },
+      { "name": "Stanislav Lobotka", "salary": "€3.5M netti", "marketValue": "€25.0M", "contractUntil": "2027" },
+      { "name": "Giacomo Raspadori", "salary": "€2.5M netti", "marketValue": "€28.0M", "contractUntil": "2028" },
+      { "name": "Alessandro Buongiorno", "salary": "€2.5M netti", "marketValue": "€35.0M", "contractUntil": "2029" }
+    ]
+  },
+  "inter": {
+    "firstTeam": [
+      { "name": "Lautaro Martínez", "salary": "€9.0M netti", "marketValue": "€110.0M", "contractUntil": "2029" },
+      { "name": "Nicolò Barella", "salary": "€6.5M netti", "marketValue": "€80.0M", "contractUntil": "2029" },
+      { "name": "Alessandro Bastoni", "salary": "€5.5M netti", "marketValue": "€70.0M", "contractUntil": "2028" },
+      { "name": "Hakan Çalhanoğlu", "salary": "€6.0M netti", "marketValue": "€45.0M", "contractUntil": "2027" },
+      { "name": "Marcus Thuram", "salary": "€6.0M netti", "marketValue": "€65.0M", "contractUntil": "2028" }
+    ]
+  },
+  "juventus": {
+    "firstTeam": [
+      { "name": "Dušan Vlahović", "salary": "€12.0M netti", "marketValue": "€65.0M", "contractUntil": "2028" },
+      { "name": "Gleison Bremer", "salary": "€5.0M netti", "marketValue": "€60.0M", "contractUntil": "2028" },
+      { "name": "Douglas Luiz", "salary": "€5.0M netti", "marketValue": "€55.0M", "contractUntil": "2029" },
+      { "name": "Teun Koopmeiners", "salary": "€4.5M netti", "marketValue": "€50.0M", "contractUntil": "2029" },
+      { "name": "Kenan Yıldız", "salary": "€1.5M netti", "marketValue": "€40.0M", "contractUntil": "2029" }
+    ]
+  },
+  "milan": {
+    "firstTeam": [
+      { "name": "Rafael Leão", "salary": "€7.0M netti", "marketValue": "€90.0M", "contractUntil": "2028" },
+      { "name": "Theo Hernández", "salary": "€4.0M netti", "marketValue": "€60.0M", "contractUntil": "2026" },
+      { "name": "Mike Maignan", "salary": "€2.8M netti", "marketValue": "€38.0M", "contractUntil": "2026" },
+      { "name": "Christian Pulisic", "salary": "€4.0M netti", "marketValue": "€40.0M", "contractUntil": "2027" },
+      { "name": "Tijjani Reijnders", "salary": "€1.7M netti", "marketValue": "€30.0M", "contractUntil": "2028" }
+    ]
+  },
+  "roma": {
+    "firstTeam": [
+      { "name": "Paulo Dybala", "salary": "€6.0M netti", "marketValue": "€20.0M", "contractUntil": "2027" },
+      { "name": "Matias Soulé", "salary": "€2.0M netti", "marketValue": "€25.0M", "contractUntil": "2029" },
+      { "name": "Gianluca Mancini", "salary": "€3.0M netti", "marketValue": "€20.0M", "contractUntil": "2027" },
+      { "name": "Lorenzo Pellegrini", "salary": "€4.0M netti", "marketValue": "€25.0M", "contractUntil": "2026" },
+      { "name": "Artem Dovbyk", "salary": "€3.0M netti", "marketValue": "€35.0M", "contractUntil": "2029" }
+    ]
+  },
+  "lazio": {
+    "firstTeam": [
+      { "name": "Mattia Zaccagni", "salary": "€3.0M netti", "marketValue": "€20.0M", "contractUntil": "2029" },
+      { "name": "Taty Castellanos", "salary": "€1.8M netti", "marketValue": "€15.0M", "contractUntil": "2028" },
+      { "name": "Ivan Provedel", "salary": "€2.0M netti", "marketValue": "€14.0M", "contractUntil": "2027" },
+      { "name": "Nicolò Rovella", "salary": "€1.5M netti", "marketValue": "€18.0M", "contractUntil": "2028" },
+      { "name": "Alessio Romagnoli", "salary": "€3.0M netti", "marketValue": "€15.0M", "contractUntil": "2027" }
+    ]
+  }
+}

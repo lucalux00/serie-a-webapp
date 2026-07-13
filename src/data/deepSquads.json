@@ -80,9 +80,11 @@
             "goals": 12
           },
           "curiosities": null,
-          "marketValue": "€27.4M",
-          "salary": "€2.2M",
-          "biography": "Nicolò Rovella è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€18.0M",
+          "salary": "€1.5M netti",
+          "biography": "Nicolò Rovella è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2028",
+          "isVerified": true
         },
         {
           "id": "wp_fisayo_dele-bashiru",
@@ -118,9 +120,11 @@
             "goals": 14
           },
           "curiosities": null,
-          "marketValue": "€27.5M",
-          "salary": "€2.7M",
-          "biography": "Mattia Zaccagni (capitano) è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€20.0M",
+          "salary": "€3.0M netti",
+          "biography": "Mattia Zaccagni (capitano) è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2029",
+          "isVerified": true
         },
         {
           "id": "wp_alessio_romagnoli",
@@ -137,9 +141,11 @@
             "goals": 11
           },
           "curiosities": null,
-          "marketValue": "€4.0M",
-          "salary": "€1.3M",
-          "biography": "Alessio Romagnoli è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€15.0M",
+          "salary": "€3.0M netti",
+          "biography": "Alessio Romagnoli è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2027",
+          "isVerified": true
         },
         {
           "id": "wp_tijjani_noslin",
@@ -1534,9 +1540,11 @@
             "goals": 0
           },
           "curiosities": null,
-          "marketValue": "€50.2M",
-          "salary": "€2.2M",
-          "biography": "Miguel Gutiérrez è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€22.0M",
+          "salary": "€2.3M netti",
+          "biography": "Acquistato nell'estate 2025 dal Girona, si è confermato una colonna portante della difesa azzurra.",
+          "contractUntil": "2030",
+          "isVerified": true
         },
         {
           "id": "wp_alessandro_buongiorno",
@@ -1553,9 +1561,11 @@
             "goals": 13
           },
           "curiosities": null,
-          "marketValue": "€17.7M",
-          "salary": "€3.2M",
-          "biography": "Alessandro Buongiorno è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€35.0M",
+          "salary": "€2.5M netti",
+          "biography": "Alessandro Buongiorno è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2029",
+          "isVerified": true
         },
         {
           "id": "wp_billy_gilmour",
@@ -1933,9 +1943,11 @@
             "goals": 1
           },
           "curiosities": null,
-          "marketValue": "€43.1M",
-          "salary": "€3.6M",
-          "biography": "Stanislav Lobotka è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€25.0M",
+          "salary": "€3.5M netti",
+          "biography": "Stanislav Lobotka è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2027",
+          "isVerified": true
         },
         {
           "id": "wp_andr%C3%A9-frank_anguissa",
@@ -3589,9 +3601,11 @@
             "goals": 9
           },
           "curiosities": null,
-          "marketValue": "€44.4M",
-          "salary": "€2.2M",
-          "biography": "Teun Koopmeiners è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€50.0M",
+          "salary": "€4.5M netti",
+          "biography": "Teun Koopmeiners è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2029",
+          "isVerified": true
         },
         {
           "id": "wp_kenan_y%C4%B1ld%C4%B1z",
@@ -3608,9 +3622,11 @@
             "goals": 5
           },
           "curiosities": null,
-          "marketValue": "€18.4M",
-          "salary": "€3.1M",
-          "biography": "Kenan Yıldız è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€40.0M",
+          "salary": "€1.5M netti",
+          "biography": "Kenan Yıldız è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2029",
+          "isVerified": true
         },
         {
           "id": "wp_edon_zhegrova",
@@ -6997,9 +7013,11 @@
             "goals": 11
           },
           "curiosities": null,
-          "marketValue": "€49.5M",
-          "salary": "€3.3M",
-          "biography": "Marcus Thuram è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€65.0M",
+          "salary": "€6.0M netti",
+          "biography": "Marcus Thuram è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2028",
+          "isVerified": true
         },
         {
           "id": "wp_lautaro_mart%C3%ADnez_(capitano)",
@@ -7016,9 +7034,11 @@
             "goals": 6
           },
           "curiosities": null,
-          "marketValue": "€33.7M",
-          "salary": "€3.9M",
-          "biography": "Lautaro Martínez (capitano) è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€110.0M",
+          "salary": "€9.0M netti",
+          "biography": "Lautaro Martínez (capitano) è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2029",
+          "isVerified": true
         },
         {
           "id": "wp_luis_henrique",
@@ -7149,9 +7169,11 @@
             "goals": 3
           },
           "curiosities": null,
-          "marketValue": "€27.3M",
-          "salary": "€2.8M",
-          "biography": "Hakan Çalhanoğlu è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€45.0M",
+          "salary": "€6.0M netti",
+          "biography": "Hakan Çalhanoğlu è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2027",
+          "isVerified": true
         },
         {
           "id": "wp_henrix_mxit'aryan",
@@ -10642,9 +10664,11 @@
             "goals": 1
           },
           "curiosities": null,
-          "marketValue": "€19.9M",
-          "salary": "€2.2M",
-          "biography": "Rafael Leão (vice capitano) è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€90.0M",
+          "salary": "€7.0M netti",
+          "biography": "Rafael Leão (vice capitano) è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2028",
+          "isVerified": true
         },
         {
           "id": "wp_christian_pulisic",
@@ -10661,9 +10685,11 @@
             "goals": 7
           },
           "curiosities": null,
-          "marketValue": "€38.3M",
-          "salary": "€3.9M",
-          "biography": "Christian Pulisic è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€40.0M",
+          "salary": "€4.0M netti",
+          "biography": "Christian Pulisic è un cen professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2027",
+          "isVerified": true
         },
         {
           "id": "wp_adrien_rabiot",
@@ -10718,9 +10744,11 @@
             "goals": 14
           },
           "curiosities": null,
-          "marketValue": "€33.6M",
-          "salary": "€2.8M",
-          "biography": "Mike Maignan (capitano) è un por professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€38.0M",
+          "salary": "€2.8M netti",
+          "biography": "Mike Maignan (capitano) è un por professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2026",
+          "isVerified": true
         },
         {
           "id": "wp_christopher_nkunku",
@@ -10964,9 +10992,11 @@
             "goals": 1
           },
           "curiosities": null,
-          "marketValue": "€23.2M",
-          "salary": "€3.6M",
-          "biography": "Artem Dovbyk è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€35.0M",
+          "salary": "€3.0M netti",
+          "biography": "Artem Dovbyk è un att professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2029",
+          "isVerified": true
         },
         {
           "id": "wp_donyell_malen",
@@ -11059,9 +11089,11 @@
             "goals": 1
           },
           "curiosities": null,
-          "marketValue": "€45.9M",
-          "salary": "€3.1M",
-          "biography": "Gianluca Mancini (vice capitano) è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa."
+          "marketValue": "€20.0M",
+          "salary": "€3.0M netti",
+          "biography": "Gianluca Mancini (vice capitano) è un dif professionista. Nella stagione corrente si distingue per le sue qualità tecniche e il grande contributo alla rosa.",
+          "contractUntil": "2027",
+          "isVerified": true
         },
         {
           "id": "wp_jan_zi%C3%B3%C5%82kowski",
