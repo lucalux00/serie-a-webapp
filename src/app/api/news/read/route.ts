@@ -89,11 +89,11 @@ async function rewriteWithAI(text: string): Promise<string> {
   const isShortText = text.length < 150;
 
   const prompt = isShortText
-    ? `Sei un redattore sportivo professionista. Hai a disposizione solo questo titolo o breve frammento di una notizia di calciomercato o calcio giocato:
+    ? `Sei un redattore sportivo professionista. Hai a disposizione solo questo titolo o breve frammento di una notizia:
 "${text}"
 
-Il tuo compito è scrivere una breve "Flash News" (massimo 2 piccoli paragrafi) partendo da questo spunto. 
-Dato che non hai l'articolo completo, usa la tua conoscenza del mondo del calcio per contestualizzare la notizia (ad es. chi è il giocatore, la situazione della squadra, l'importanza della notizia, ecc.) restando sempre verosimile e professionale. Non inventare fatti non scritti nel titolo, ma arricchisci il contesto.
+Il tuo compito è scrivere una brevissima "Flash News" (1 o 2 paragrafi) basandoti ESCLUSIVAMENTE su questo titolo.
+REGOLA FONDAMENTALE: NON INVENTARE NIENTE. Non aggiungere dettagli di calciomercato, cifre, date o fatti che non sono esplicitamente scritti nel titolo. Puoi solo riformulare il titolo in modo più discorsivo ed elegante. Se il titolo è molto vago, limitati a riportarlo in veste formale. 
 Usa i tag HTML <p> e <strong> dove appropriato per evidenziare i nomi, ma NON usare i tag <html> o <body> o \`\`\`html. Restituisci SOLO il contenuto HTML puro del corpo del testo.`
     : `Sei un redattore sportivo professionista. Ho estratto questo frammento di testo da una notizia online.
 Il tuo compito è RISCRIVERE la notizia in modo completamente originale e con parole tue, per evitare il plagio, ma mantenendo la veridicità dei fatti sportivi al 100%. 
