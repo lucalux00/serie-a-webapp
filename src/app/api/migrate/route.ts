@@ -83,9 +83,10 @@ export async function GET(request: Request) {
         // Players
         if (Array.isArray(squadData.firstTeam.players)) {
           for (const player of squadData.firstTeam.players) {
+            const num = (player.number && player.number !== '-') ? parseInt(player.number) : null;
             await sql`
               INSERT INTO players (team_id, name, position, number, status, squad_type)
-              VALUES (${teamId}, ${player.name}, ${player.position}, ${player.number}, ${player.status || null}, 'first')
+              VALUES (${teamId}, ${player.name}, ${player.position}, ${num}, ${player.status || null}, 'first')
             `;
             playersCount++;
           }
@@ -103,9 +104,10 @@ export async function GET(request: Request) {
         }
         if (Array.isArray(squadData.primavera.players)) {
           for (const player of squadData.primavera.players) {
+            const num = (player.number && player.number !== '-') ? parseInt(player.number) : null;
             await sql`
               INSERT INTO players (team_id, name, position, number, status, squad_type)
-              VALUES (${teamId}, ${player.name}, ${player.position}, ${player.number}, ${player.status || null}, 'primavera')
+              VALUES (${teamId}, ${player.name}, ${player.position}, ${num}, ${player.status || null}, 'primavera')
             `;
             playersCount++;
           }
