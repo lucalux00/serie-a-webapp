@@ -178,13 +178,16 @@ export async function GET(request: Request) {
         const disclaimer = `<p style="font-size:0.75rem;color:#10B981;margin-bottom:1.5rem;padding:0.5rem;background:rgba(16,185,129,0.1);border-radius:0.5rem;border-left:3px solid #10B981;font-weight:bold;">✨ Flash News generata dalla nostra AI in base al titolo o alle ultime indiscrezioni.</p>`;
         return NextResponse.json({ content: disclaimer + rewrittenSnippet, resolvedUrl, source: 'ai-fallback' });
       } catch (e: any) {
-        // Fallback totale: mostra lo snippet o titolo
+        // Fallback totale (ad es. per Errore 429 Rate Limit a causa delle rose troppo pesanti)
+        // Mostriamo il testo estratto (snippet o titolo) in modo molto elegante, senza spaventare l'utente.
         const snippetContent = `
-          <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:0.75rem;padding:1rem;margin-bottom:1rem;">
-            <p style="color:#F59E0B;font-size:0.75rem;font-weight:bold;margin-bottom:0.5rem;">⚡ ANTEPRIMA — L'articolo completo è protetto da paywall o anti-bot e l'AI non è disponibile.</p>
-            <p style="color:#F59E0B;font-size:0.65rem;font-weight:normal;margin-bottom:0;">DEBUG ERROR: ${e.message}</p>
-          </div>
-          <p>${fallbackText}</p>
+          <p style="font-size:1.1rem;font-weight:bold;margin-bottom:1rem;color:#1F2937;">${title}</p>
+          <p style="font-size:1rem;line-height:1.6;color:#4B5563;margin-bottom:1.5rem;">
+            ${fallbackText}
+          </p>
+          <p style="font-size:0.75rem;color:#6B7280;font-style:italic;border-top:1px solid #E5E7EB;padding-top:0.75rem;">
+            Nota: La fonte originale ha bloccato l'estrazione completa dell'articolo (paywall/anti-bot). Abbiamo recuperato il frammento disponibile. Riprova più tardi per la generazione AI (limite richieste momentaneamente raggiunto).
+          </p>
         `;
         return NextResponse.json({ content: snippetContent, resolvedUrl, source: 'rss-snippet-fallback' });
       }
