@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { Readability } from '@mozilla/readability';
-import { JSDOM } from 'jsdom';
 import * as cheerio from 'cheerio';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -40,68 +38,6 @@ async function resolveGoogleNewsUrl(googleUrl: string): Promise<string> {
   } catch {
     return googleUrl;
   }
-}
-
-async function extractWithReadability(url: string): Promise<string> {
-  const userAgents = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    'Googlebot/2.1 (+http://www.google.com/bot.html)',
-  ];
-
-  let lastErr: any;
-  for (const ua of userAgents) {
-    try {
-      const res = await fetch(url, {
-        headers: {
-          'User-Agent': ua,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-          'Accept-Language': 'it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'Referer': 'https://www.google.com/',
-        }
-      });
-
-      if (!res.ok) { lastErr = new Error(`HTTP ${res.status}`); continue; }
-
-      const html = await res.text();
-      const doc = new JSDOM(html, { url });
-      const win = doc.window;
-
-      const selectorsToRemove = [
-        'script', 'style', 'nav', 'footer', 'aside', 'header',
-        '.cookie', '.gdpr', '.piano-modal', '.paywall', '.subscription',
-        '.ad', '.advertisement', '.pub', '[class*="advert"]',
-        '.social-share', '.related-articles', '.tag-list',
-      ];
-      selectorsToRemove.forEach(sel => {
-        win.document.querySelectorAll(sel).forEach(el => el.remove());
-      });
-
-      const reader = new Readability(win.document, { charThreshold: 200, keepClasses: false });
-      const article = reader.parse();
-      const content = article?.textContent || article?.content || '';
-
-      // Return plain text if possible, to save tokens and improve AI parsing
-      if (content.length > 300) return article?.textContent || content;
-
-      const paragraphs = Array.from(win.document.querySelectorAll('article p, .article p, .content p, [class*="article"] p, [class*="body"] p, p'));
-      const rawText = (paragraphs as any[])
-        .map((p: any) => p.textContent?.trim())
-        .filter((t: string) => t && t.length > 50)
-        .slice(0, 30)
-        .join('\n\n');
-
-      if (rawText.length > content.length) return rawText;
-      if (content.length > 0) return content;
-
-    } catch (err) {
-      lastErr = err;
-      continue;
-    }
-  }
-  throw lastErr || new Error('Tutti i tentativi falliti');
 }
 
 async function extractWithCheerio(url: string): Promise<string> {
@@ -184,13 +120,9 @@ export async function GET(request: Request) {
     const isStillGoogle = resolvedUrl.includes('google.com');
     if (!isStillGoogle) {
       try {
-        content = await extractWithReadability(resolvedUrl);
+        content = await extractWithCheerio(resolvedUrl);
       } catch {
-        try {
-          content = await extractWithCheerio(resolvedUrl);
-        } catch {
-          content = '';
-        }
+        content = '';
       }
     }
 
@@ -204,7 +136,7 @@ export async function GET(request: Request) {
         console.error("AI Error:", e);
         // Fallback: articolo estratto ma non riscritto
         const disclaimer = `<p style="font-size:0.75rem;color:#64748B;margin-bottom:1.5rem;padding:0.5rem;background:rgba(16,185,129,0.1);border-radius:0.5rem;border-left:3px solid #10B981;">Contenuto originale estratto da <strong>${new URL(resolvedUrl).hostname}</strong></p>`;
-        return NextResponse.json({ content: disclaimer + content.replace(/\n\n/g, '<br/><br/>'), resolvedUrl, source: 'readability-extractor' });
+        return NextResponse.json({ content: disclaimer + content.replace(/\n\n/g, '<br/><br/>'), resolvedUrl, source: 'cheerio-extractor' });
       }
     }
 
