@@ -30,24 +30,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Initialize from LocalStorage on mount
   useEffect(() => {
-    const checkAuth = () => {
-      const storedUser = localStorage.getItem('serieA_user');
-      if (storedUser) {
-        try {
-          const parsed = JSON.parse(storedUser);
-          setUser({
-            id: parsed.id || 'legacy-id',
-            name: parsed.name || parsed.username || 'Utente',
-            email: parsed.email || '',
-            favoriteTeamId: parsed.favoriteTeamId,
-            favoriteTeamName: parsed.favoriteTeamName,
-            avatar: parsed.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${parsed.name || parsed.username}`
-          });
-        } catch (e) {
-          // ignore
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.authenticated && data.user) {
+            setUser({
+              id: data.user.userId,
+              name: data.user.name,
+              email: data.user.email,
+              avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
+            });
+          }
         }
+      } catch (e) {
+        // ignore
+      } finally {
+        setIsLoaded(true);
       }
-      setIsLoaded(true);
     };
     checkAuth();
   }, []);
@@ -67,40 +68,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
       };
       setUser(sessionUser);
-      localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
       return;
     }
     
-    // Se il DB restituisce un errore specifico 401 (Credenziali errate) lo mostriamo
-    if (response.status === 401) {
-      const errData = await response.json();
-      throw new Error(errData.error || 'Credenziali non valide.');
-    }
-
-    // 2. Fallback: se l'API non è configurata (no POSTGRES_URL) andiamo in fallback locale
-    console.warn("API DB non disponibile, uso il LocalStorage di fallback.");
-    const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
-    const foundUser = usersDb.find((u: any) => u.email === email && u.password === password);
-
-    if (!foundUser) {
-      throw new Error('Credenziali non valide o utente inesistente.');
-    }
-
-    const sessionUser = {
-      id: foundUser.id,
-      name: foundUser.name,
-      email: foundUser.email,
-      favoriteTeamId: foundUser.favoriteTeamId,
-      favoriteTeamName: foundUser.favoriteTeamName,
-      avatar: foundUser.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${foundUser.name}`
-    };
-
-    setUser(sessionUser);
-    localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
+    const errData = await response.json();
+    throw new Error(errData.error || 'Credenziali non valide.');
   };
 
   const register = async (name: string, email: string, password: string) => {
-    // 1. Tenta la registrazione sul Vercel Postgres reale
     const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -114,48 +89,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
       };
       setUser(sessionUser);
-      localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
       return;
     }
-
-    if (response.status === 409) {
-      throw new Error('Esiste già un account con questa email.');
-    }
-
-    // 2. Fallback: se l'API non è configurata andiamo in fallback locale
-    console.warn("API DB non disponibile, uso il LocalStorage di fallback.");
-    const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
     
-    if (usersDb.some((u: any) => u.email === email)) {
-      throw new Error('Esiste già un account con questa email.');
-    }
-
-    const newUser = {
-      id: Math.random().toString(36).substring(2, 9),
-      name,
-      email,
-      password,
-      favoriteTeamId: null,
-      favoriteTeamName: null
-    };
-
-    usersDb.push(newUser);
-    localStorage.setItem('serieA_db', JSON.stringify(usersDb));
-
-    const sessionUser = {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${newUser.name}`
-    };
-
-    setUser(sessionUser);
-    localStorage.setItem('serieA_user', JSON.stringify(sessionUser));
+    const errData = await response.json();
+    throw new Error(errData.error || 'Errore durante la registrazione.');
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
     setUser(null);
-    localStorage.removeItem('serieA_user');
   };
 
   const updateUser = (updates: Partial<User>) => {

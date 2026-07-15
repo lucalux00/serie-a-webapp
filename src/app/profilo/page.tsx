@@ -29,9 +29,6 @@ export default function ProfiloPage() {
     );
   }
 
-  // Se l'utente è l'utente legacy (generato dal vecchio onboarding) non ha email.
-  const isLegacy = user.id === 'legacy-id';
-
   return (
     <div className="container mx-auto px-4 py-8 max-w-lg">
       <motion.div
