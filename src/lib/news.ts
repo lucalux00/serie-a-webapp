@@ -12,14 +12,17 @@ export interface NewsItem {
 
 const parser = new Parser({ timeout: 8000 });
 
-// Fonti RSS dirette per singola squadra — molte fonti aperte senza paywall
 const DIRECT_RSS_SOURCES: Record<string, string[]> = {
   // Feed RSS aperti sui principali portali di calcio italiano
   base: [
     'https://www.calciomercato.com/rss',
     'https://www.gianlucadimarzio.com/feed',
     'https://www.tuttomercatoweb.com/rss.xml',
-    'https://www.corrieredellosport.it/rss/calcio.xml',
+    'https://www.corrieredellosport.it/rss/calcio',
+    'https://sport.sky.it/rss/sport_calcio.xml',
+    'https://www.sportmediaset.mediaset.it/rss/calcio.xml',
+    'https://www.tuttosport.com/rss/calcio',
+    'https://www.alfredopedulla.com/feed/',
   ]
 };
 

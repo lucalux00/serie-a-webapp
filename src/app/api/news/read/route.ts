@@ -3,6 +3,7 @@ import * as cheerio from 'cheerio';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // Max allowed for Vercel Hobby tier
 
 async function resolveGoogleNewsUrl(googleUrl: string): Promise<string> {
   try {
@@ -159,7 +160,7 @@ export async function GET(request: Request) {
     }
 
     // Ultima spiaggia: iframe
-    if (!isStillGoogle && resolvedUrl !== rawUrl) {
+    if (!isStillGoogle) {
       const iframeContent = `
         <div style="background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.3);border-radius:0.75rem;padding:0.75rem;margin-bottom:0.75rem;font-size:0.75rem;color:#0EA5E9;font-weight:bold;">
           Modalità Web Originale
