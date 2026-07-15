@@ -17,7 +17,7 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
   const team = ALL_TEAMS.find(t => t.id === teamId) || { name: 'Squadra', logo: '?', league: 'A' };
   
   // Fetch delle news live (Google News RSS + Postgres Cache in futuro)
-  const news = await fetchNewsForTeam(team.name);
+  const news = await fetchNewsForTeam(team.name, team.league);
 
   let squadData = null;
   let trofeiData = null;

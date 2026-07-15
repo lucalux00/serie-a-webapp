@@ -5,8 +5,11 @@ import { ChevronLeft, ArrowRightLeft, CheckCircle2, XCircle, Clock } from 'lucid
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlayerSheet from '@/components/domain/PlayerSheet';
+import useSWR from 'swr';
 
-export default function TeamHubClient({ team, news, squadData, trofeiData }: any) {
+const fetcher = (url: string) => fetch(url).then(r => r.json());
+
+export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData }: any) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei'>('news');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
@@ -14,6 +17,15 @@ export default function TeamHubClient({ team, news, squadData, trofeiData }: any
   const [selectedNews, setSelectedNews] = useState<any>(null);
   const [selectedTrophyGroup, setSelectedTrophyGroup] = useState<any>(null);
   const [selectedTrophy, setSelectedTrophy] = useState<any>(null);
+
+  // Real-time news fetching with SWR
+  const { data: news = initialNews } = useSWR(
+    `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`,
+    fetcher,
+    { fallbackData: initialNews, refreshInterval: 60000 }
+  );
+
+  const [newsContent, setNewsContent] = useState<any>(null);
   const [fullArticleText, setFullArticleText] = useState<string>('');
   const [loadingArticle, setLoadingArticle] = useState<boolean>(false);
 
@@ -77,7 +89,9 @@ export default function TeamHubClient({ team, news, squadData, trofeiData }: any
           </div>
           <div className="ml-4">
             <h1 className="text-xl font-bold">{team.name}</h1>
-            <span className="text-xs font-semibold text-[#94A3B8] uppercase">Serie {team.league}</span>
+            <span className="text-xs font-semibold text-[#94A3B8] uppercase">
+              {team.league === 'A' ? 'Serie A' : team.league === 'B' ? 'Serie B' : team.league === 'PL' ? 'Premier League' : team.league === 'LL' ? 'La Liga' : team.league === 'BL' ? 'Bundesliga' : team.league === 'L1' ? 'Ligue 1' : team.league}
+            </span>
           </div>
         </div>
       </div>

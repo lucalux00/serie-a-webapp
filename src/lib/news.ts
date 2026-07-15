@@ -85,9 +85,11 @@ function itemToNewsItem(item: Parser.Item): NewsItem {
   };
 }
 
-export async function fetchNewsForTeam(teamName: string): Promise<NewsItem[]> {
+export async function fetchNewsForTeam(teamName: string, league: string = 'A'): Promise<NewsItem[]> {
   // Strategia 1: Google News RSS (più aggiornato)
-  const googleQuery = encodeURIComponent(`"${teamName}" calcio`);
+  const isItalian = league === 'A' || league === 'B' || league === 'C';
+  const searchTerm = isItalian ? `"${teamName}" calcio` : `"${teamName}"`;
+  const googleQuery = encodeURIComponent(searchTerm);
   const googleUrl = `https://news.google.com/rss/search?q=${googleQuery}&hl=it&gl=IT&ceid=IT:it&num=20`;
   
   // Strategia 2: Fonti dirette con filtro per squadra
