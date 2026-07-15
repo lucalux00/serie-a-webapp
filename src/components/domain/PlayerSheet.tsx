@@ -284,6 +284,33 @@ export default function PlayerSheet({ player, teamName, onClose }: PlayerSheetPr
                     </div>
                   )}
 
+                  {/* Palmares (Trofei) */}
+                  {aiData.palmares && aiData.palmares.length > 0 && (
+                    <div className="space-y-4 pt-4 border-t border-[#334155]">
+                      <h3 className="text-xs text-[#F59E0B] uppercase font-black tracking-widest flex items-center mb-4">
+                        <Award size={14} className="mr-2" /> Palmarès e Trofei ({aiData.palmares.length})
+                      </h3>
+                      <div className="flex flex-col gap-3">
+                        {aiData.palmares.map((trofeo: any, idx: number) => (
+                          <div key={idx} className="bg-gradient-to-r from-[#1E293B] to-[#0F172A] border border-[#334155] rounded-xl p-3 flex items-center shadow-md">
+                            <div className="w-10 h-10 rounded-full bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex flex-shrink-0 items-center justify-center mr-4">
+                              <Award size={18} className="text-[#F59E0B]" />
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="text-white font-black text-sm">{trofeo.nome}</h4>
+                              <p className="text-xs font-bold text-[#94A3B8]">{trofeo.squadra}</p>
+                            </div>
+                            <div className="text-right">
+                              <span className="bg-[#334155] text-[#E2E8F0] font-black text-[10px] px-2 py-1 rounded-md tracking-wider">
+                                {trofeo.anno}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Biografia e Caratteristiche */}
                   <div className="space-y-4 pt-4 border-t border-[#334155]">
                     {aiData.caratteristiche && (

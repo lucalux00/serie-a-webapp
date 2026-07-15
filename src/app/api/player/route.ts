@@ -53,6 +53,11 @@ La struttura del JSON deve essere ESATTAMENTE come questo template (riempi tutti
     "valoreMercato": "es. €35.0M",
     "scadenzaContratto": "es. 30 Giu 2027"
   },
+  "palmares": [
+    { "nome": "Campionato del Mondo", "anno": "2022", "squadra": "Argentina" },
+    { "nome": "Copa America", "anno": "2021", "squadra": "Argentina" },
+    { "nome": "Serie A", "anno": "2020/2021", "squadra": "Inter" }
+  ],
   "stats": {
     "isGoalkeeper": ${isGk},
     "carriera": { "presenze": 250, "gol": 45 },
