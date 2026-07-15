@@ -12,6 +12,7 @@ export default function TeamHubClient({ team, news, squadData, trofeiData }: any
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [selectedNews, setSelectedNews] = useState<any>(null);
+  const [selectedTrophyGroup, setSelectedTrophyGroup] = useState<any>(null);
   const [selectedTrophy, setSelectedTrophy] = useState<any>(null);
   const [fullArticleText, setFullArticleText] = useState<string>('');
   const [loadingArticle, setLoadingArticle] = useState<boolean>(false);
@@ -42,6 +43,26 @@ export default function TeamHubClient({ team, news, squadData, trofeiData }: any
   const otherNews = news.slice(4);
 
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
+
+  // Group trophies by name
+  const groupedTrofei = React.useMemo(() => {
+    if (!trofeiData) return [];
+    const groups = trofeiData.reduce((acc: any, t: any) => {
+      if (!acc[t.name]) acc[t.name] = { name: t.name, icon: t.icon, count: 0, items: [] };
+      acc[t.name].items.push(t);
+      acc[t.name].count++;
+      return acc;
+    }, {});
+    // Sort items inside groups by year descending
+    Object.values(groups).forEach((g: any) => {
+      g.items.sort((a: any, b: any) => {
+        const yA = parseInt(a.year.split('/')[0]);
+        const yB = parseInt(b.year.split('/')[0]);
+        return yB - yA;
+      });
+    });
+    return Object.values(groups);
+  }, [trofeiData]);
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-[#0B1120] text-white font-sans pb-28">
@@ -278,35 +299,69 @@ export default function TeamHubClient({ team, news, squadData, trofeiData }: any
                   Sincronizzazione Live Attiva
                 </div>
                 
-                {trofeiData && trofeiData.length > 0 ? (
-                  <div className="grid grid-cols-1 gap-4">
-                    {trofeiData.map((trofeo: any, idx: number) => (
+                {/* Visualizzazione Gruppi di Trofei */}
+                {!selectedTrophyGroup ? (
+                  groupedTrofei.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-4">
+                      {groupedTrofei.map((group: any, idx: number) => (
                         <button 
-                        key={idx} 
-                        onClick={() => trofeo.formation && setSelectedTrophy(trofeo)}
-                        className={`bg-[#0F172A]/80 border ${trofeo.formation ? 'border-[#10B981] hover:bg-[#1E293B] cursor-pointer active:scale-95' : 'border-[#334155] cursor-default'} rounded-xl p-4 backdrop-blur-sm flex items-center justify-between shadow-md transition-all text-left w-full`}
-                      >
-                        <div className="flex items-center">
-                          <div className="text-3xl mr-3">{trofeo.icon}</div>
-                          <div>
-                            <div className="font-black text-lg text-white">
-                              {trofeo.name}
-                            </div>
-                            <div className="text-[#10B981] font-bold text-xs uppercase tracking-widest">
-                              Trionfo: {trofeo.year}
+                          key={idx} 
+                          onClick={() => setSelectedTrophyGroup(group)}
+                          className="bg-[#0F172A]/80 border border-[#10B981] hover:bg-[#1E293B] cursor-pointer active:scale-95 rounded-xl p-4 backdrop-blur-sm flex items-center justify-between shadow-md transition-all text-left w-full"
+                        >
+                          <div className="flex items-center">
+                            <div className="text-3xl mr-3">{group.icon}</div>
+                            <div>
+                              <div className="font-black text-lg text-white">
+                                {group.name}
+                              </div>
+                              <div className="text-[#10B981] font-bold text-xs uppercase tracking-widest">
+                                {group.count} {group.count === 1 ? 'Vittoria' : 'Vittorie'}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        {trofeo.formation && (
                           <div className="text-[#94A3B8] opacity-50">
                             <ChevronLeft className="rotate-180" size={20} />
                           </div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center text-[#94A3B8] font-medium py-10">Nessun dato storico trovato o la squadra non ha trofei maggiori.</div>
+                  )
                 ) : (
-                  <div className="text-center text-[#94A3B8] font-medium py-10">Nessun dato storico trovato o la squadra non ha trofei maggiori.</div>
+                  /* Visualizzazione Annate per un Trofeo specifico */
+                  <div className="space-y-4">
+                    <button 
+                      onClick={() => setSelectedTrophyGroup(null)}
+                      className="flex items-center text-[#0EA5E9] font-bold text-sm mb-4 active:scale-95"
+                    >
+                      <ChevronLeft size={16} className="mr-1" /> Torna ai Trofei
+                    </button>
+                    
+                    <div className="flex items-center mb-6 border-b border-[#334155] pb-4">
+                      <div className="text-4xl mr-3">{selectedTrophyGroup.icon}</div>
+                      <div>
+                        <h3 className="text-xl font-black text-white">{selectedTrophyGroup.name}</h3>
+                        <p className="text-xs font-bold text-[#94A3B8] uppercase">Seleziona un'annata per i dettagli</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      {selectedTrophyGroup.items.map((trofeo: any, idx: number) => (
+                        <button
+                          key={idx}
+                          onClick={() => trofeo.formation && setSelectedTrophy(trofeo)}
+                          className={`bg-[#1E293B] border ${trofeo.formation ? 'border-[#10B981] cursor-pointer hover:bg-[#334155] active:scale-95' : 'border-[#334155] cursor-default opacity-60'} rounded-xl p-3 flex flex-col items-center justify-center transition-all`}
+                        >
+                          <span className="font-black text-lg text-white">{trofeo.year}</span>
+                          <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest mt-1">
+                            {trofeo.formation ? 'Vedi Dettagli' : 'Dati non disp.'}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             </motion.div>
