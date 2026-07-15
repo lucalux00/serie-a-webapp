@@ -86,7 +86,16 @@ async function rewriteWithAI(text: string): Promise<string> {
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-  const prompt = `Sei un redattore sportivo professionista. Ho estratto questo frammento di testo da una notizia online.
+  const isShortText = text.length < 150;
+
+  const prompt = isShortText
+    ? `Sei un redattore sportivo professionista. Hai a disposizione solo questo titolo o breve frammento di una notizia di calciomercato o calcio giocato:
+"${text}"
+
+Il tuo compito è scrivere una breve "Flash News" (massimo 2 piccoli paragrafi) partendo da questo spunto. 
+Dato che non hai l'articolo completo, usa la tua conoscenza del mondo del calcio per contestualizzare la notizia (ad es. chi è il giocatore, la situazione della squadra, l'importanza della notizia, ecc.) restando sempre verosimile e professionale. Non inventare fatti non scritti nel titolo, ma arricchisci il contesto.
+Usa i tag HTML <p> e <strong> dove appropriato per evidenziare i nomi, ma NON usare i tag <html> o <body> o \`\`\`html. Restituisci SOLO il contenuto HTML puro del corpo del testo.`
+    : `Sei un redattore sportivo professionista. Ho estratto questo frammento di testo da una notizia online.
 Il tuo compito è RISCRIVERE la notizia in modo completamente originale e con parole tue, per evitare il plagio, ma mantenendo la veridicità dei fatti sportivi al 100%. 
 Non copiare frasi, crea un piccolo articolo giornalistico originale di 2 o 3 paragrafi ben formattati.
 Usa i tag HTML <p> e <strong> dove appropriato per evidenziare i nomi, ma NON usare i tag <html> o <body> o \`\`\`html. Restituisci SOLO il contenuto HTML puro del corpo del testo.
