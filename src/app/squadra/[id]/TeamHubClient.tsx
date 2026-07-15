@@ -38,7 +38,8 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
       const snippetParam = selectedNews.snippet && selectedNews.snippet.length > 100 
         ? `&snippet=${encodeURIComponent(selectedNews.snippet)}` 
         : '';
-      fetch(`/api/news/read?url=${encodeURIComponent(selectedNews.link)}${snippetParam}`)
+      const titleParam = selectedNews.title ? `&title=${encodeURIComponent(selectedNews.title)}` : '';
+      fetch(`/api/news/read?url=${encodeURIComponent(selectedNews.link)}${snippetParam}${titleParam}`)
         .then(res => res.json())
         .then(data => {
           setFullArticleText(data.content || "Testo non disponibile.");

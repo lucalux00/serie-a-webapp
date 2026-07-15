@@ -141,19 +141,23 @@ export async function GET(request: Request) {
       }
     }
 
-    // Se l'estrazione fallisce (anti-bot) usiamo l'AI sullo snippet per generare un micro-articolo!
-    if (snippet && snippet.length > 50) {
+    const title = searchParams.get('title') || '';
+    
+    const fallbackText = (snippet && snippet.length > 30) ? snippet : title;
+
+    // Se l'estrazione fallisce (anti-bot) usiamo l'AI sul testo di fallback (snippet o titolo)
+    if (fallbackText && fallbackText.length > 10) {
       try {
-        const rewrittenSnippet = await rewriteWithAI(snippet);
-        const disclaimer = `<p style="font-size:0.75rem;color:#10B981;margin-bottom:1.5rem;padding:0.5rem;background:rgba(16,185,129,0.1);border-radius:0.5rem;border-left:3px solid #10B981;font-weight:bold;">✨ Flash News redatta dalla nostra AI sulla base delle ultime indiscrezioni.</p>`;
-        return NextResponse.json({ content: disclaimer + rewrittenSnippet, resolvedUrl, source: 'ai-snippet' });
+        const rewrittenSnippet = await rewriteWithAI(fallbackText);
+        const disclaimer = `<p style="font-size:0.75rem;color:#10B981;margin-bottom:1.5rem;padding:0.5rem;background:rgba(16,185,129,0.1);border-radius:0.5rem;border-left:3px solid #10B981;font-weight:bold;">✨ Flash News generata dalla nostra AI in base al titolo o alle ultime indiscrezioni.</p>`;
+        return NextResponse.json({ content: disclaimer + rewrittenSnippet, resolvedUrl, source: 'ai-fallback' });
       } catch (e) {
-        // Fallback totale: mostra lo snippet
+        // Fallback totale: mostra lo snippet o titolo
         const snippetContent = `
           <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:0.75rem;padding:1rem;margin-bottom:1rem;">
             <p style="color:#F59E0B;font-size:0.75rem;font-weight:bold;margin-bottom:0.5rem;">⚡ ANTEPRIMA — L'articolo completo è protetto da paywall o anti-bot e l'AI non è disponibile.</p>
           </div>
-          <p>${snippet}</p>
+          <p>${fallbackText}</p>
         `;
         return NextResponse.json({ content: snippetContent, resolvedUrl, source: 'rss-snippet-fallback' });
       }
@@ -172,7 +176,14 @@ export async function GET(request: Request) {
       return NextResponse.json({ content: iframeContent, resolvedUrl, source: 'iframe-fallback' });
     }
 
-    throw new Error('All fallbacks failed');
+    // Se è Google e non c'è iframe possibile, restituisci un avviso per aprire nel browser
+    const finalFallback = `
+      <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:0.75rem;padding:1rem;text-align:center;">
+        <p style="color:#F59E0B;font-weight:bold;margin-bottom:1rem;">Questo articolo è protetto o richiede l'apertura esterna.</p>
+        <a href="${resolvedUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#F59E0B;color:white;padding:0.5rem 1rem;border-radius:0.5rem;font-weight:bold;text-decoration:none;">Apri nel Browser</a>
+      </div>
+    `;
+    return NextResponse.json({ content: finalFallback, resolvedUrl, source: 'google-protected' });
   } catch (error) {
     return NextResponse.json({ 
       content: `<p style="color:#EF4444;">Impossibile recuperare l'articolo in questo momento.</p>${snippet ? `<p>${snippet}</p>` : ''}`,
