@@ -1,39 +1,56 @@
 import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 
-async function searchDDG(query: string): Promise<string[]> {
-  try {
-    const res = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+// Headers che simulano un browser reale
+const BROWSER_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7',
+  'Accept-Encoding': 'gzip, deflate, br',
+};
+
+// Tenta fetch Wikipedia prima in italiano, poi in inglese come fallback
+async function fetchWikipedia(name: string, isCoach: boolean): Promise<{ html: string; url: string } | null> {
+  const suffix = isCoach ? 'allenatore calcio' : 'calciatore';
+  
+  const urlsToTry = [
+    `https://it.wikipedia.org/w/index.php?search=${encodeURIComponent(name + ' ' + suffix)}`,
+    `https://it.wikipedia.org/w/index.php?search=${encodeURIComponent(name)}`,
+    `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(name + ' footballer')}`,
+  ];
+
+  for (const searchUrl of urlsToTry) {
+    try {
+      const res = await fetch(searchUrl, { headers: BROWSER_HEADERS });
+      if (!res.ok) continue;
+      const html = await res.text();
+      // Verifica che sia effettivamente una pagina articolo e non una pagina di ricerca vuota
+      if (html.includes('mw-content-text') && html.includes('sinottico')) {
+        return { html, url: res.url };
       }
-    });
-    const html = await res.text();
-    const $ = cheerio.load(html);
-    const snippets: string[] = [];
-    $('.result__snippet').each((i: any, el: any) => {
-      snippets.push($(el).text().trim());
-    });
-    return snippets;
-  } catch {
-    return [];
+      // Se è una redirect (la ricerca ha trovato un unico risultato diretto), lo usiamo comunque
+      if (html.includes('mw-content-text') && html.length > 5000) {
+        return { html, url: res.url };
+      }
+    } catch {
+      continue;
+    }
   }
+  return null;
 }
 
-// Parser corretto per la tabella statistiche di Wikipedia
-// La struttura è: Squadra | Anni | Presenze | (Reti)
-// Le reti tra parentesi per i portieri sono GETTONI (goal subiti), non gol segnati
-// Distinguiamo portieri (POR) da altri ruoli
-function parseWikipediaStats($: any, infobox: any, role: string) {
+function parseCareerStats($: any, infobox: any, role: string) {
   const stats = {
-    carriera:        { presenze: 0, gol: 0 },
-    squadraAttuale:  { presenze: 0, gol: 0, nome: '' },
-    nazionale:       { presenze: 0, gol: 0 }
+    carriera: { presenze: 0, gol: 0 },
+    squadraAttuale: { presenze: 0, gol: 0, nome: '' },
+    nazionale: { presenze: 0, gol: 0 },
+    nazionaleNome: '',
   };
 
-  const isGoalkeeper = role?.toUpperCase().includes('POR') || 
-                        role?.toLowerCase().includes('portiere') ||
-                        role?.toLowerCase().includes('goalkeeper');
+  const isGoalkeeper =
+    role?.toUpperCase().includes('POR') ||
+    role?.toLowerCase().includes('portiere') ||
+    role?.toLowerCase().includes('goalkeeper');
 
   let section: 'giovanili' | 'club' | 'nazionale' | 'none' = 'none';
   let lastClubPresenze = 0;
@@ -43,38 +60,32 @@ function parseWikipediaStats($: any, infobox: any, role: string) {
   infobox.find('tr').each((i: any, tr: any) => {
     const rowText = $(tr).text().replace(/\s+/g, ' ').trim().toLowerCase();
 
-    // Rileva intestazione sezione
     if (rowText.includes('giovanili') || rowText.includes('settore giovanile')) {
       section = 'giovanili';
       return;
     }
-    if (rowText.includes('squadre di club') || rowText.includes('club career')) {
+    if (rowText.includes('squadre di club') || rowText.includes('club career') || rowText.includes('carriera da club')) {
       section = 'club';
       return;
     }
-    if (rowText.includes('nazionale') || rowText.includes('national team')) {
+    if (rowText.includes('nazionale') || rowText.includes('national team') || rowText.includes('carriera da ct')) {
       section = 'nazionale';
       return;
     }
 
-    // Salta righe intestazione
     if ($(tr).find('th').length > 1) return;
 
     const tds = $(tr).find('td');
     if (tds.length < 2) return;
 
-    // Cerca celle con formato "NNN (MMM)" o solo numeri
-    // La penultima o ultima colonna tipicamente ha presenze (gol)
-    const allCells = tds.toArray().map((td: any) => $(td).text().trim());
-    
-    // Cerca il pattern presenze (gol) - es "154 (20)"
+    const allCells = tds.toArray().map((td: any) => $(td).text().replace(/\[\d+\]/g, '').trim());
+
     let presenzeVal = 0;
     let golVal = 0;
     let foundStats = false;
-    
+
     for (let c = allCells.length - 1; c >= 0; c--) {
       const cellText = allCells[c];
-      // Match "NNN (MMM)" con possibili spazi e segni
       const match = cellText.match(/^(\d+)\s*\(([+-]?\d+)\)$/);
       if (match) {
         presenzeVal = parseInt(match[1]);
@@ -82,8 +93,7 @@ function parseWikipediaStats($: any, infobox: any, role: string) {
         foundStats = true;
         break;
       }
-      // Match solo numeri
-      if (/^\d+$/.test(cellText) && parseInt(cellText) < 1000) {
+      if (/^\d+$/.test(cellText) && parseInt(cellText) < 2000) {
         presenzeVal = parseInt(cellText);
         foundStats = true;
         break;
@@ -92,10 +102,9 @@ function parseWikipediaStats($: any, infobox: any, role: string) {
 
     if (!foundStats) return;
 
-    // Recupera nome squadra (prima cella non numerica)
     let squadraNome = '';
     for (const cell of allCells) {
-      if (!/^\d/.test(cell) && !cell.match(/^\(/) && cell.length > 1) {
+      if (!/^\d/.test(cell) && !cell.match(/^\(/) && cell.length > 1 && !cell.includes('(')) {
         squadraNome = cell.replace(/\[\d+\]/g, '').trim();
         break;
       }
@@ -103,18 +112,14 @@ function parseWikipediaStats($: any, infobox: any, role: string) {
 
     if (section === 'club') {
       stats.carriera.presenze += presenzeVal;
-      // Per portieri i "gol" nella parentesi sono gol subiti - non li mostriamo come gol
-      if (!isGoalkeeper) {
-        stats.carriera.gol += golVal;
-      }
+      if (!isGoalkeeper) stats.carriera.gol += golVal;
       lastClubPresenze = presenzeVal;
       lastClubGol = isGoalkeeper ? 0 : golVal;
       lastClubNome = squadraNome;
     } else if (section === 'nazionale') {
       stats.nazionale.presenze += presenzeVal;
-      if (!isGoalkeeper) {
-        stats.nazionale.gol += golVal;
-      }
+      if (!isGoalkeeper) stats.nazionale.gol += golVal;
+      if (squadraNome && !stats.nazionaleNome) stats.nazionaleNome = squadraNome;
     }
   });
 
@@ -122,7 +127,7 @@ function parseWikipediaStats($: any, infobox: any, role: string) {
   stats.squadraAttuale.gol = lastClubGol;
   stats.squadraAttuale.nome = lastClubNome;
 
-  return stats;
+  return { ...stats, isGoalkeeper };
 }
 
 export async function GET(request: Request) {
@@ -134,120 +139,89 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }
 
-  try {
-    const searchUrl = `https://it.wikipedia.org/w/index.php?search=${encodeURIComponent(name + ' calciatore')}`;
-    const res = await fetch(searchUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; SerieAPortal/1.0)',
-        'Accept-Language': 'it-IT,it;q=0.9'
-      }
-    });
-    const html = await res.text();
-    const $ = cheerio.load(html);
+  // Determina se è un allenatore / staff
+  const isCoach =
+    role.toLowerCase().includes('allenator') ||
+    role.toLowerCase().includes('coach') ||
+    role.toLowerCase().includes('direttore') ||
+    role.toLowerCase().includes('preparatore') ||
+    role.toLowerCase().includes('staff');
 
+  try {
+    const wikiResult = await fetchWikipedia(name, isCoach);
+    
     let biografia = '';
     let caratteristiche = '';
-    let instagram = '';
-    let marketValue = 'Dato non disponibile';
-    let salary = 'Dato non pubblicato';
-    let dataNascita = 'Non disponibile';
-    let luogoNascita = 'Non disponibile';
-    let nazionalita = 'Non disponibile';
-
-    const infobox = $('.sinottico, .infobox, .wikitable.sinottico');
-    let parsedStats = {
-      carriera:       { presenze: 0, gol: 0 },
+    let dataNascita = '';
+    let luogoNascita = '';
+    let nazionalita = '';
+    let parsedStats: any = {
+      carriera: { presenze: 0, gol: 0 },
       squadraAttuale: { presenze: 0, gol: 0, nome: '' },
-      nazionale:      { presenze: 0, gol: 0 }
+      nazionale: { presenze: 0, gol: 0 },
+      nazionaleNome: '',
+      isGoalkeeper: false,
     };
 
-    if (infobox.length > 0) {
-      parsedStats = parseWikipediaStats($, infobox.first(), role);
+    if (wikiResult) {
+      const { html } = wikiResult;
+      const $ = cheerio.load(html);
 
-      // Dati anagrafici
-      infobox.find('tr').each((i: any, tr: any) => {
-        const thText = $(tr).find('th').text().toLowerCase();
-        const tdRaw  = $(tr).find('td').first();
-        const tdText = tdRaw.text().replace(/\[\d+\]/g, '').trim();
+      const infobox = $('.sinottico, .infobox, .wikitable.sinottico').first();
+      
+      if (infobox.length > 0) {
+        if (!isCoach) {
+          parsedStats = parseCareerStats($, infobox, role);
+        }
 
-        if (thText.includes('data di nascita') || thText.includes('nato il')) {
-          dataNascita = tdText.split('(')[0].trim();
-        } else if (thText.includes('luogo di nascita') || thText.includes('nato a')) {
-          luogoNascita = tdText.split('\n')[0].trim();
-        } else if (thText.includes('nazionalità') || thText.includes('national')) {
-          nazionalita = tdText.split('\n')[0].trim();
+        // Dati anagrafici
+        infobox.find('tr').each((i: any, tr: any) => {
+          const thText = $(tr).find('th').text().toLowerCase();
+          const tdText = $(tr).find('td').first().text().replace(/\[\d+\]/g, '').trim();
+
+          if (thText.includes('data di nascita') || thText.includes('nato il') || thText.includes('date of birth')) {
+            dataNascita = tdText.split('(')[0].split('\n')[0].trim();
+          } else if (thText.includes('luogo di nascita') || thText.includes('nato a') || thText.includes('place of birth')) {
+            luogoNascita = tdText.split('\n')[0].trim();
+          } else if (thText.includes('nazionalità') || thText.includes('national') || thText.includes('citizenship')) {
+            nazionalita = tdText.split('\n')[0].trim();
+          }
+        });
+      }
+
+      // Biografia: primo paragrafo significativo
+      const firstP = $('#mw-content-text .mw-parser-output > p')
+        .not('.mw-empty-elt')
+        .filter((i: any, el: any) => $(el).text().trim().length > 80)
+        .first()
+        .text()
+        .trim();
+      if (firstP) biografia = firstP;
+
+      // Caratteristiche tecniche
+      $('h2, h3').each((i: any, el: any) => {
+        const heading = $(el).text().toLowerCase();
+        if (heading.includes('caratteristiche') || heading.includes('stile di gioco')) {
+          const p = $(el).nextUntil('h2,h3', 'p').text().trim().substring(0, 700);
+          if (p) caratteristiche = p + '...';
         }
       });
     }
 
-    // Biografia - primo paragrafo significativo
-    const firstP = $('#mw-content-text .mw-parser-output > p').not('.mw-empty-elt').filter((i: any, el: any) => {
-      return $(el).text().trim().length > 80;
-    }).first().text().trim();
-    if (firstP) biografia = firstP;
-
-    // Caratteristiche tecniche
-    $('h2, h3').each((i: any, el: any) => {
-      const heading = $(el).text().toLowerCase();
-      if (heading.includes('caratteristiche')) {
-        const p = $(el).nextUntil('h2,h3', 'p').text().trim().substring(0, 600);
-        if (p) caratteristiche = p + '...';
-      }
-    });
-
-    // Instagram (nei link esterni wiki)
-    $('a[href*="instagram.com"]').each((i: any, el: any) => {
-      const href = $(el).attr('href');
-      if (href && !instagram) instagram = href;
-    });
-
-    // Valore di mercato tramite DDG
-    const [marketSnippets, salarySnippets] = await Promise.all([
-      searchDDG(`"${name}" valore mercato transfermarkt 2026`),
-      searchDDG(`"${name}" stipendio netto milioni 2026 calcio`)
-    ]);
-
-    if (marketSnippets.length > 0) {
-      const text = marketSnippets.slice(0, 3).join(' ');
-      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni|k)?\s*(?:€|euro))/i);
-      if (match) marketValue = match[1].trim();
-    }
-
-    if (salarySnippets.length > 0) {
-      const text = salarySnippets.slice(0, 3).join(' ');
-      const match = text.match(/([\d,.]+\s*(?:mln|m|mila|milioni|k)?\s*(?:di\s*)?(?:€|euro))/i);
-      if (match) salary = match[1].trim();
-    }
-
-    const isGoalkeeper = role?.toUpperCase().includes('POR') || role?.toLowerCase().includes('portiere');
-
     return NextResponse.json({
       name,
-      biografia: biografia || 'Nessuna biografia trovata su Wikipedia.',
+      isCoach,
+      biografia: biografia || '',
       caratteristiche: caratteristiche || '',
-      anagrafica: { dataNascita, luogoNascita, nazionalita },
-      stats: {
-        isGoalkeeper,
-        carriera: {
-          presenze: parsedStats.carriera.presenze || 0,
-          gol: parsedStats.carriera.gol || 0,
-        },
-        squadraAttuale: {
-          nome: parsedStats.squadraAttuale.nome || '',
-          presenze: parsedStats.squadraAttuale.presenze || 0,
-          gol: parsedStats.squadraAttuale.gol || 0,
-        },
-        nazionale: {
-          presenze: parsedStats.nazionale.presenze || 0,
-          gol: parsedStats.nazionale.gol || 0,
-        }
+      anagrafica: {
+        dataNascita: dataNascita || null,
+        luogoNascita: luogoNascita || null,
+        nazionalita: nazionalita || null,
       },
-      instagram: instagram || null,
-      marketValue,
-      salary
+      stats: parsedStats,
     });
-
   } catch (error) {
+    console.error('Player API error:', error);
     return NextResponse.json({ error: 'Failed to fetch player data' }, { status: 500 });
   }
 }

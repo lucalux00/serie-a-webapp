@@ -10,59 +10,130 @@ export interface NewsItem {
   snippet?: string;
 }
 
-const parser = new Parser();
+const parser = new Parser({ timeout: 8000 });
 
-export async function fetchNewsForTeam(teamName: string): Promise<NewsItem[]> {
-  // Aggiungiamo fonti affidabili e senza paywall stringenti
-  const query = encodeURIComponent(`${teamName} calcio (site:tuttomercatoweb.com OR site:gianlucadimarzio.com OR site:corrieredellosport.it)`);
-  const url = `https://news.google.com/rss/search?q=${query}&hl=it&gl=IT&ceid=IT:it&_t=${Date.now()}`;
-  
+// Fonti RSS dirette per singola squadra — molte fonti aperte senza paywall
+const DIRECT_RSS_SOURCES: Record<string, string[]> = {
+  // Feed RSS aperti sui principali portali di calcio italiano
+  base: [
+    'https://www.calciomercato.com/rss',
+    'https://www.gianlucadimarzio.com/feed',
+    'https://www.tuttomercatoweb.com/rss.xml',
+    'https://www.corrieredellosport.it/rss/calcio.xml',
+  ]
+};
+
+async function fetchFeed(url: string): Promise<Parser.Item[]> {
   try {
     const feed = await parser.parseURL(url);
-    const articles = feed.items.slice(0, 15).map(item => {
-      // Estrai orario e usa isoDate per un parsing più sicuro
-      const dateStr = item.isoDate || item.pubDate || new Date().toISOString();
-      const date = new Date(dateStr);
-      const time = date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-      
-      return {
-        title: item.title || '',
-        link: item.link || '',
-        pubDate: dateStr,
-        source: item.source || 'News',
-        cleanTitle: item.title?.split(' - ')[0] || item.title || '',
-        time,
-        snippet: item.contentSnippet || item.content || 'Nessuna anteprima disponibile.'
-      };
-    });
-    
-    // Sort server-side as well just to be sure
-    return articles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
-  } catch (error) {
-    console.error(`Errore fetch per ${teamName}:`, error);
+    return feed.items || [];
+  } catch {
     return [];
   }
 }
 
-export async function fetchGlobalNewsTicker(): Promise<NewsItem[]> {
-  // Prendiamo notizie generali sul calcio italiano per il ticker
-  const url = `https://news.google.com/rss/search?q=serie+a+calciomercato+(site:tuttomercatoweb.com OR site:gianlucadimarzio.com OR site:corrieredellosport.it)&hl=it&gl=IT&ceid=IT:it`;
+// Filtra per nome squadra negli articoli
+function filterByTeam(items: Parser.Item[], teamName: string): Parser.Item[] {
+  const lowerTeam = teamName.toLowerCase();
+  const words = lowerTeam.split(' ').filter(w => w.length > 2);
+  return items.filter(item => {
+    const text = ((item.title || '') + ' ' + (item.contentSnippet || '') + ' ' + (item.content || '')).toLowerCase();
+    return words.some(w => text.includes(w));
+  });
+}
+
+function itemToNewsItem(item: Parser.Item): NewsItem {
+  const dateStr = item.isoDate || item.pubDate || new Date().toISOString();
+  const date = new Date(dateStr);
+  const time = date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  
+  // Estrai uno snippet pulito
+  const rawSnippet = item.contentSnippet || item.content || '';
+  const snippet = rawSnippet.replace(/<[^>]*>/g, '').trim().substring(0, 600);
+
+  // Pulisci titolo
+  const rawTitle = item.title || '';
+  const cleanTitle = rawTitle.split(' - ')[0].split(' | ')[0].trim();
+
+  // Ricava la fonte dal link
+  let source = 'News';
   try {
-    const feed = await parser.parseURL(url);
-    const articles = feed.items.slice(0, 15).map(item => {
-      const dateStr = item.isoDate || item.pubDate || new Date().toISOString();
-      return {
-        title: item.title || '',
-        link: item.link || '',
-        pubDate: dateStr,
-        source: item.source || 'News',
-        cleanTitle: item.title?.split(' - ')[0] || item.title || '',
-        time: new Date(dateStr).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }),
-        snippet: item.contentSnippet || item.content || ''
-      };
-    });
-    return articles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
-  } catch (error) {
+    source = new URL(item.link || '').hostname.replace('www.', '').split('.')[0];
+    // Normalizza i nomi noti
+    const sourceMap: Record<string, string> = {
+      'gianlucadimarzio': 'Di Marzio',
+      'tuttomercatoweb': 'TMW',
+      'calciomercato': 'CM.com',
+      'corrieredellosport': 'CdS',
+      'gazzetta': 'Gazzetta',
+      'skysport': 'Sky Sport',
+      'sport': 'Sky Sport',
+    };
+    for (const [k, v] of Object.entries(sourceMap)) {
+      if (source.toLowerCase().includes(k)) { source = v; break; }
+    }
+  } catch { /* usa 'News' */ }
+
+  return {
+    title: rawTitle,
+    link: item.link || '',
+    pubDate: dateStr,
+    source,
+    cleanTitle,
+    time,
+    snippet,
+  };
+}
+
+export async function fetchNewsForTeam(teamName: string): Promise<NewsItem[]> {
+  // Strategia 1: Google News RSS (più aggiornato)
+  const googleQuery = encodeURIComponent(`"${teamName}" calcio`);
+  const googleUrl = `https://news.google.com/rss/search?q=${googleQuery}&hl=it&gl=IT&ceid=IT:it&num=20`;
+  
+  // Strategia 2: Fonti dirette con filtro per squadra
+  const directSources = DIRECT_RSS_SOURCES.base;
+
+  const [googleItems, ...directResults] = await Promise.all([
+    fetchFeed(googleUrl),
+    ...directSources.map(url => fetchFeed(url)),
+  ]);
+
+  // Unisci i risultati delle fonti dirette e filtra per squadra
+  const directItems = directResults.flat();
+  const filteredDirect = filterByTeam(directItems, teamName);
+
+  // Unisci Google News + fonti dirette
+  const allItems = [
+    ...googleItems.map(itemToNewsItem),
+    ...filteredDirect.map(itemToNewsItem),
+  ];
+
+  // Deduplica per titolo simile
+  const seen = new Set<string>();
+  const deduped = allItems.filter(item => {
+    const key = item.cleanTitle.toLowerCase().substring(0, 40);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  // Ordina per data decrescente
+  return deduped
+    .filter(item => item.title && item.link)
+    .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+    .slice(0, 20);
+}
+
+export async function fetchGlobalNewsTicker(): Promise<NewsItem[]> {
+  const url = `https://news.google.com/rss/search?q=serie+a+calcio+calciomercato&hl=it&gl=IT&ceid=IT:it&num=20`;
+  try {
+    const items = await fetchFeed(url);
+    return items
+      .map(itemToNewsItem)
+      .filter(item => item.title && item.link)
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+      .slice(0, 20);
+  } catch {
     return [];
   }
 }
