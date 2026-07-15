@@ -1,5 +1,1985 @@
 [
   {
+    "id": "juventus_campionato_serie_a_0",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1905",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_1",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1926",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_2",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1931",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_3",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1932",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_4",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1933",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_5",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1934",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_6",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1935",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_7",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1950",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_8",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1952",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_9",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1958",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_10",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1960",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_11",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1961",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_12",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1967",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_13",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1972",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_14",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1973",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_15",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1975",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_16",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1977",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_17",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1978",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_18",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1981",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_19",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1982",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_20",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1984",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_21",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1986",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_22",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1995",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_23",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1997",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_24",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "1998",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_25",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2002",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_26",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2003",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_27",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2012",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_28",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2013",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_29",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2014",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_30",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2015",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_31",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2016",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_32",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2017",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_33",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2018",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_34",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2019",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_campionato_serie_a_35",
+    "team": "juventus",
+    "name": "Campionato Serie A",
+    "year": "2020",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_0",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #15",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_1",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #14",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_2",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #13",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_3",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #12",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_4",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #11",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_5",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #10",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_6",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #9",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_7",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #8",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_8",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #7",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_9",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #6",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_10",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #5",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_11",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #4",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_12",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #3",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_13",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #2",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_italia_14",
+    "team": "juventus",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #1",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_0",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #9",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_1",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #8",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_2",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #7",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_3",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #6",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_4",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #5",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_5",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #4",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_6",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #3",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_7",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #2",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_italiana_8",
+    "team": "juventus",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #1",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_champions_league_0",
+    "team": "juventus",
+    "name": "Champions League",
+    "year": "1985",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_champions_league_1",
+    "team": "juventus",
+    "name": "Champions League",
+    "year": "1996",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_uefa_0",
+    "team": "juventus",
+    "name": "Coppa UEFA",
+    "year": "1977",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_uefa_1",
+    "team": "juventus",
+    "name": "Coppa UEFA",
+    "year": "1990",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_uefa_2",
+    "team": "juventus",
+    "name": "Coppa UEFA",
+    "year": "1993",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_delle_coppe_0",
+    "team": "juventus",
+    "name": "Coppa delle Coppe",
+    "year": "1984",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_uefa_0",
+    "team": "juventus",
+    "name": "Supercoppa UEFA",
+    "year": "1984",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_supercoppa_uefa_1",
+    "team": "juventus",
+    "name": "Supercoppa UEFA",
+    "year": "1996",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_intercontinentale_0",
+    "team": "juventus",
+    "name": "Coppa Intercontinentale",
+    "year": "1985",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "juventus_coppa_intercontinentale_1",
+    "team": "juventus",
+    "name": "Coppa Intercontinentale",
+    "year": "1996",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_0",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1901",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_1",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1906",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_2",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1907",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_3",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1951",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_4",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1955",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_5",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1957",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_6",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1959",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_7",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1962",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_8",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1968",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_9",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1979",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_10",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1988",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_11",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1992",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_12",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1993",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_13",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1994",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_14",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1996",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_15",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "1999",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_16",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "2004",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_17",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "2011",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_campionato_serie_a_18",
+    "team": "milan",
+    "name": "Campionato Serie A",
+    "year": "2022",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_italia_0",
+    "team": "milan",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #5",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_italia_1",
+    "team": "milan",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #4",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_italia_2",
+    "team": "milan",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #3",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_italia_3",
+    "team": "milan",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #2",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_italia_4",
+    "team": "milan",
+    "name": "Coppa Italia",
+    "year": "Vittoria Storica #1",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_0",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #7",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_1",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #6",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_2",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #5",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_3",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #4",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_4",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #3",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_5",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #2",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_italiana_6",
+    "team": "milan",
+    "name": "Supercoppa Italiana",
+    "year": "Vittoria Storica #1",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_0",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "1963",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_1",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "1969",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_2",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "1989",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_3",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "1990",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_4",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "1994",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_5",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "2003",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_champions_league_6",
+    "team": "milan",
+    "name": "Champions League",
+    "year": "2007",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_delle_coppe_0",
+    "team": "milan",
+    "name": "Coppa delle Coppe",
+    "year": "1968",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_delle_coppe_1",
+    "team": "milan",
+    "name": "Coppa delle Coppe",
+    "year": "1973",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_uefa_0",
+    "team": "milan",
+    "name": "Supercoppa UEFA",
+    "year": "Vittoria Storica #5",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_uefa_1",
+    "team": "milan",
+    "name": "Supercoppa UEFA",
+    "year": "Vittoria Storica #4",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_uefa_2",
+    "team": "milan",
+    "name": "Supercoppa UEFA",
+    "year": "Vittoria Storica #3",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_uefa_3",
+    "team": "milan",
+    "name": "Supercoppa UEFA",
+    "year": "Vittoria Storica #2",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_supercoppa_uefa_4",
+    "team": "milan",
+    "name": "Supercoppa UEFA",
+    "year": "Vittoria Storica #1",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_intercontinentale_/_mondiale_0",
+    "team": "milan",
+    "name": "Coppa Intercontinentale / Mondiale",
+    "year": "Vittoria Storica #4",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_intercontinentale_/_mondiale_1",
+    "team": "milan",
+    "name": "Coppa Intercontinentale / Mondiale",
+    "year": "Vittoria Storica #3",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_intercontinentale_/_mondiale_2",
+    "team": "milan",
+    "name": "Coppa Intercontinentale / Mondiale",
+    "year": "Vittoria Storica #2",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "milan_coppa_intercontinentale_/_mondiale_3",
+    "team": "milan",
+    "name": "Coppa Intercontinentale / Mondiale",
+    "year": "Vittoria Storica #1",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2023_2024_0",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2023/2024",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2020_2021_1",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2020/2021",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2009_2010_2",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2009/2010",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2008_2009_3",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2008/2009",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2007_2008_4",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2007/2008",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2006_2007_5",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2006/2007",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_2005_2006_6",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "2005/2006",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1988_1989_7",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1988/1989",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1979_1980_8",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1979/1980",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1970_1971_9",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1970/1971",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1965_1966_10",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1965/1966",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1964_1965_11",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1964/1965",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1962_1963_12",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1962/1963",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1953_1954_13",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1953/1954",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1952_1953_14",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1952/1953",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1939_1940_15",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1939/1940",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1937_1938_16",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1937/1938",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_serie_a_1929_1930_17",
+    "team": "inter",
+    "name": "Campionato Serie A",
+    "year": "1929/1930",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_prima_categoria_1919_1920_18",
+    "team": "inter",
+    "name": "Campionato Prima Categoria",
+    "year": "1919/1920",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_campionato_prima_categoria_1909_1910_19",
+    "team": "inter",
+    "name": "Campionato Prima Categoria",
+    "year": "1909/1910",
+    "icon": "🇮🇹",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_2022_2023_20",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "2022/2023",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_2021_2022_21",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "2021/2022",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_2010_2011_22",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "2010/2011",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_2009_2010_23",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "2009/2010",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_2005_2006_24",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "2005/2006",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_2004_2005_25",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "2004/2005",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_1981_1982_26",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "1981/1982",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_1977_1978_27",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "1977/1978",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_italia_1938_1939_28",
+    "team": "inter",
+    "name": "Coppa Italia",
+    "year": "1938/1939",
+    "icon": "🏆",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2023_29",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2023",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2022_30",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2022",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2021_31",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2021",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2010_32",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2010",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2008_33",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2008",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2006_34",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2006",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_2005_35",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "2005",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_supercoppa_italiana_1989_36",
+    "team": "inter",
+    "name": "Supercoppa Italiana",
+    "year": "1989",
+    "icon": "🥇",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_champions_league_2009_2010_37",
+    "team": "inter",
+    "name": "Champions League",
+    "year": "2009/2010",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_dei_campioni_1964_1965_38",
+    "team": "inter",
+    "name": "Coppa dei Campioni",
+    "year": "1964/1965",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_dei_campioni_1963_1964_39",
+    "team": "inter",
+    "name": "Coppa dei Campioni",
+    "year": "1963/1964",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_uefa_1997_1998_40",
+    "team": "inter",
+    "name": "Coppa UEFA",
+    "year": "1997/1998",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_uefa_1993_1994_41",
+    "team": "inter",
+    "name": "Coppa UEFA",
+    "year": "1993/1994",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_uefa_1990_1991_42",
+    "team": "inter",
+    "name": "Coppa UEFA",
+    "year": "1990/1991",
+    "icon": "🇪🇺",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_mondiale_per_club_2010_43",
+    "team": "inter",
+    "name": "Mondiale per Club",
+    "year": "2010",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_intercontinentale_1965_44",
+    "team": "inter",
+    "name": "Coppa Intercontinentale",
+    "year": "1965",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
+    "id": "inter_coppa_intercontinentale_1964_45",
+    "team": "inter",
+    "name": "Coppa Intercontinentale",
+    "year": "1964",
+    "icon": "🌍",
+    "coach": "Dato Storico",
+    "points": "Vittoria Storica",
+    "formation": [
+      "Formazione Storica"
+    ]
+  },
+  {
     "id": "nap_scudetto_26",
     "team": "napoli",
     "name": "Campionato Serie A",
@@ -283,402 +2263,6 @@
       "Tomeazzi",
       "Fraschini",
       "Tacchi"
-    ]
-  },
-  {
-    "id": "juv_coppaitalia_24",
-    "team": "juventus",
-    "name": "Coppa Italia",
-    "year": "2023/2024",
-    "icon": "🏆",
-    "coach": "Massimiliano Allegri",
-    "points": "1-0 in Finale",
-    "formation": [
-      "Perin",
-      "Gatti",
-      "Bremer",
-      "Danilo",
-      "McKennie",
-      "Cambiaso",
-      "Nicolussi Caviglia",
-      "Rabiot",
-      "Iling-Junior",
-      "Vlahovic",
-      "Chiesa"
-    ]
-  },
-  {
-    "id": "juv_scudetto_20",
-    "team": "juventus",
-    "name": "Campionato Serie A",
-    "year": "2019/2020",
-    "icon": "🇮🇹",
-    "coach": "Maurizio Sarri",
-    "points": 83,
-    "formation": [
-      "Szczesny",
-      "Cuadrado",
-      "De Ligt",
-      "Bonucci",
-      "Alex Sandro",
-      "Bentancur",
-      "Pjanic",
-      "Matuidi",
-      "Dybala",
-      "Higuain",
-      "Ronaldo"
-    ]
-  },
-  {
-    "id": "juv_scudetto_19",
-    "team": "juventus",
-    "name": "Campionato Serie A",
-    "year": "2018/2019",
-    "icon": "🇮🇹",
-    "coach": "Massimiliano Allegri",
-    "points": 90,
-    "formation": [
-      "Szczesny",
-      "Cancelo",
-      "Bonucci",
-      "Chiellini",
-      "Alex Sandro",
-      "Bentancur",
-      "Pjanic",
-      "Matuidi",
-      "Dybala",
-      "Mandzukic",
-      "Ronaldo"
-    ]
-  },
-  {
-    "id": "juv_scudetto_18",
-    "team": "juventus",
-    "name": "Campionato Serie A",
-    "year": "2017/2018",
-    "icon": "🇮🇹",
-    "coach": "Massimiliano Allegri",
-    "points": 95,
-    "formation": [
-      "Buffon",
-      "Lichtsteiner",
-      "Benatia",
-      "Chiellini",
-      "Alex Sandro",
-      "Khedira",
-      "Pjanic",
-      "Matuidi",
-      "Douglas Costa",
-      "Higuain",
-      "Dybala"
-    ]
-  },
-  {
-    "id": "juv_scudetto_17",
-    "team": "juventus",
-    "name": "Campionato Serie A",
-    "year": "2016/2017",
-    "icon": "🇮🇹",
-    "coach": "Massimiliano Allegri",
-    "points": 91,
-    "formation": [
-      "Buffon",
-      "Dani Alves",
-      "Bonucci",
-      "Chiellini",
-      "Alex Sandro",
-      "Khedira",
-      "Pjanic",
-      "Cuadrado",
-      "Dybala",
-      "Mandzukic",
-      "Higuain"
-    ]
-  },
-  {
-    "id": "juv_champions_96",
-    "team": "juventus",
-    "name": "Champions League",
-    "year": "1995/1996",
-    "icon": "🇪🇺",
-    "coach": "Marcello Lippi",
-    "points": "Vittoria ai Rigori",
-    "formation": [
-      "Peruzzi",
-      "Torricelli",
-      "Vierchowod",
-      "Ferrara",
-      "Pessotto",
-      "Conte",
-      "Paulo Sousa",
-      "Deschamps",
-      "Del Piero",
-      "Vialli",
-      "Ravanelli"
-    ]
-  },
-  {
-    "id": "juv_scudetto_95",
-    "team": "juventus",
-    "name": "Campionato Serie A",
-    "year": "1994/1995",
-    "icon": "🇮🇹",
-    "coach": "Marcello Lippi",
-    "points": 73,
-    "formation": [
-      "Peruzzi",
-      "Ferrara",
-      "Torricelli",
-      "Porrini",
-      "Paulo Sousa",
-      "Deschamps",
-      "Di Livio",
-      "Conte",
-      "Baggio",
-      "Vialli",
-      "Ravanelli"
-    ]
-  },
-  {
-    "id": "juv_champions_85",
-    "team": "juventus",
-    "name": "Coppa dei Campioni",
-    "year": "1984/1985",
-    "icon": "🇪🇺",
-    "coach": "Giovanni Trapattoni",
-    "points": "1-0 in Finale",
-    "formation": [
-      "Tacconi",
-      "Favero",
-      "Cabrini",
-      "Bonini",
-      "Brio",
-      "Scirea",
-      "Briaschi",
-      "Tardelli",
-      "Rossi",
-      "Platini",
-      "Boniek"
-    ]
-  },
-  {
-    "id": "int_scudetto_24",
-    "team": "inter",
-    "name": "Campionato Serie A",
-    "year": "2023/2024",
-    "icon": "🇮🇹",
-    "coach": "Simone Inzaghi",
-    "points": 94,
-    "formation": [
-      "Sommer",
-      "Pavard",
-      "Acerbi",
-      "Bastoni",
-      "Darmian",
-      "Barella",
-      "Calhanoglu",
-      "Mkhitaryan",
-      "Dimarco",
-      "Thuram",
-      "Martinez"
-    ]
-  },
-  {
-    "id": "int_scudetto_21",
-    "team": "inter",
-    "name": "Campionato Serie A",
-    "year": "2020/2021",
-    "icon": "🇮🇹",
-    "coach": "Antonio Conte",
-    "points": 91,
-    "formation": [
-      "Handanovic",
-      "Skriniar",
-      "De Vrij",
-      "Bastoni",
-      "Hakimi",
-      "Barella",
-      "Brozovic",
-      "Eriksen",
-      "Perisic",
-      "Lukaku",
-      "Martinez"
-    ]
-  },
-  {
-    "id": "int_champions_10",
-    "team": "inter",
-    "name": "Champions League",
-    "year": "2009/2010",
-    "icon": "🇪🇺",
-    "coach": "José Mourinho",
-    "points": "2-0 in Finale",
-    "formation": [
-      "Julio Cesar",
-      "Maicon",
-      "Lucio",
-      "Samuel",
-      "Chivu",
-      "Zanetti",
-      "Cambiasso",
-      "Sneijder",
-      "Pandev",
-      "Eto'o",
-      "Milito"
-    ]
-  },
-  {
-    "id": "int_scudetto_10",
-    "team": "inter",
-    "name": "Campionato Serie A",
-    "year": "2009/2010",
-    "icon": "🇮🇹",
-    "coach": "José Mourinho",
-    "points": 82,
-    "formation": [
-      "Julio Cesar",
-      "Maicon",
-      "Lucio",
-      "Samuel",
-      "Zanetti",
-      "Stankovic",
-      "Cambiasso",
-      "Sneijder",
-      "Pandev",
-      "Eto'o",
-      "Milito"
-    ]
-  },
-  {
-    "id": "int_scudetto_09",
-    "team": "inter",
-    "name": "Campionato Serie A",
-    "year": "2008/2009",
-    "icon": "🇮🇹",
-    "coach": "José Mourinho",
-    "points": 84,
-    "formation": [
-      "Julio Cesar",
-      "Maicon",
-      "Cordoba",
-      "Samuel",
-      "Zanetti",
-      "Muntari",
-      "Cambiasso",
-      "Stankovic",
-      "Figo",
-      "Ibrahimovic",
-      "Balotelli"
-    ]
-  },
-  {
-    "id": "mil_scudetto_22",
-    "team": "milan",
-    "name": "Campionato Serie A",
-    "year": "2021/2022",
-    "icon": "🇮🇹",
-    "coach": "Stefano Pioli",
-    "points": 86,
-    "formation": [
-      "Maignan",
-      "Calabria",
-      "Kalulu",
-      "Tomori",
-      "Theo Hernandez",
-      "Tonali",
-      "Bennacer",
-      "Saelemaekers",
-      "Kessie",
-      "Leao",
-      "Giroud"
-    ]
-  },
-  {
-    "id": "mil_scudetto_11",
-    "team": "milan",
-    "name": "Campionato Serie A",
-    "year": "2010/2011",
-    "icon": "🇮🇹",
-    "coach": "Massimiliano Allegri",
-    "points": 82,
-    "formation": [
-      "Abbiati",
-      "Abate",
-      "Nesta",
-      "Thiago Silva",
-      "Antonini",
-      "Gattuso",
-      "Van Bommel",
-      "Seedorf",
-      "Boateng",
-      "Ibrahimovic",
-      "Pato"
-    ]
-  },
-  {
-    "id": "mil_champions_07",
-    "team": "milan",
-    "name": "Champions League",
-    "year": "2006/2007",
-    "icon": "🇪🇺",
-    "coach": "Carlo Ancelotti",
-    "points": "2-1 in Finale",
-    "formation": [
-      "Dida",
-      "Oddo",
-      "Nesta",
-      "Maldini",
-      "Jankulovski",
-      "Gattuso",
-      "Pirlo",
-      "Ambrosini",
-      "Seedorf",
-      "Kaka",
-      "Inzaghi"
-    ]
-  },
-  {
-    "id": "mil_champions_03",
-    "team": "milan",
-    "name": "Champions League",
-    "year": "2002/2003",
-    "icon": "🇪🇺",
-    "coach": "Carlo Ancelotti",
-    "points": "Vittoria ai Rigori",
-    "formation": [
-      "Dida",
-      "Costacurta",
-      "Nesta",
-      "Maldini",
-      "Kaladze",
-      "Gattuso",
-      "Pirlo",
-      "Seedorf",
-      "Rui Costa",
-      "Shevchenko",
-      "Inzaghi"
-    ]
-  },
-  {
-    "id": "mil_champions_94",
-    "team": "milan",
-    "name": "Champions League",
-    "year": "1993/1994",
-    "icon": "🇪🇺",
-    "coach": "Fabio Capello",
-    "points": "4-0 in Finale",
-    "formation": [
-      "Rossi",
-      "Tassotti",
-      "Galli",
-      "Maldini",
-      "Panucci",
-      "Boban",
-      "Albertini",
-      "Desailly",
-      "Donadoni",
-      "Savićević",
-      "Massaro"
     ]
   },
   {
