@@ -383,7 +383,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
         </AnimatePresence>
       </div>
 
-      <PlayerSheet player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+      <PlayerSheet player={selectedPlayer} teamName={team.name} onClose={() => setSelectedPlayer(null)} />
 
       {/* News Sheet Modal */}
       <AnimatePresence>
