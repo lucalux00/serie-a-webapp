@@ -83,9 +83,6 @@ async function rewriteWithAI(text: string): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("Missing GEMINI API KEY");
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-
   const isShortText = text.length < 150;
 
   const prompt = isShortText
@@ -103,9 +100,29 @@ Usa i tag HTML <p> e <strong> dove appropriato per evidenziare i nomi, ma NON us
 Testo sorgente (potrebbe essere frammentato, riassumilo in modo logico):
 "${text.substring(0, 4000)}"`;
 
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  let rewritten = response.text();
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      contents: [{
+        parts: [{ text: prompt }]
+      }],
+      generationConfig: {
+        temperature: 0.3,
+      }
+    }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error('Gemini API Error (News):', errText);
+    throw new Error('Errore nella chiamata a Gemini: ' + res.status);
+  }
+
+  const data = await res.json();
+  let rewritten = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
   rewritten = rewritten.replace(/```html/g, '').replace(/```/g, '').trim();
   return rewritten;
 }
