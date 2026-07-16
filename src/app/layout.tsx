@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Serie A Portal",
+  title: "Tattica & Pronostici",
   description: "Il portale Mobile-First per il calcio italiano",
 };
 

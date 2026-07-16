@@ -55,7 +55,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             
             <div className="p-4 border-t border-[#334155] text-xs text-[#94A3B8] text-center">
-              © 2026 Serie A Portal<br/>Aggregatore RSS conforme al copyright.
+              © 2026 Tattica & Pronostici<br/>Aggregatore RSS conforme al copyright.
             </div>
           </motion.div>
         </>
