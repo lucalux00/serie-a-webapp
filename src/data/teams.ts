@@ -4,7 +4,7 @@ export const ALL_TEAMS = [
     "name": "Atalanta",
     "logo": "ATA",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/atalanta.it",
+    "logoUrl": "https://crests.football-data.org/102.png",
     "primaryColor": "#135c91",
     "secondaryColor": "#000000"
   },
@@ -13,7 +13,7 @@ export const ALL_TEAMS = [
     "name": "Bologna",
     "logo": "BOL",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/bolognafc.it",
+    "logoUrl": "https://crests.football-data.org/103.png",
     "primaryColor": "#0F2653",
     "secondaryColor": "#E71337"
   },
@@ -22,7 +22,7 @@ export const ALL_TEAMS = [
     "name": "Cagliari",
     "logo": "CAG",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/cagliaricalcio.com",
+    "logoUrl": "https://crests.football-data.org/104.png",
     "primaryColor": "#00254C",
     "secondaryColor": "#D6002A"
   },
@@ -31,7 +31,7 @@ export const ALL_TEAMS = [
     "name": "Como",
     "logo": "COM",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/comofootball.com",
+    "logoUrl": "https://crests.football-data.org/7397.png",
     "primaryColor": "#004A95",
     "secondaryColor": "#FFFFFF"
   },
@@ -40,7 +40,7 @@ export const ALL_TEAMS = [
     "name": "Fiorentina",
     "logo": "FIO",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/acffiorentina.com",
+    "logoUrl": "https://crests.football-data.org/99.png",
     "primaryColor": "#4F3585",
     "secondaryColor": "#FFFFFF"
   },
@@ -49,7 +49,7 @@ export const ALL_TEAMS = [
     "name": "Frosinone",
     "logo": "FRO",
     "league": "A",
-    "logoUrl": "https://ui-avatars.com/api/?name=Frosinone&background=f96897&color=fff",
+    "logoUrl": "https://crests.football-data.org/470.png",
     "primaryColor": "#f96897",
     "secondaryColor": "#FFFFFF"
   },
@@ -58,7 +58,7 @@ export const ALL_TEAMS = [
     "name": "Genoa",
     "logo": "GEN",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/genoacfc.it",
+    "logoUrl": "https://crests.football-data.org/107.png",
     "primaryColor": "#B91225",
     "secondaryColor": "#002F55"
   },
@@ -67,7 +67,7 @@ export const ALL_TEAMS = [
     "name": "Inter",
     "logo": "INT",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/inter.it",
+    "logoUrl": "https://crests.football-data.org/108.png",
     "primaryColor": "#00479E",
     "secondaryColor": "#000000"
   },
@@ -76,7 +76,7 @@ export const ALL_TEAMS = [
     "name": "Juventus",
     "logo": "JUV",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/juventus.com",
+    "logoUrl": "https://crests.football-data.org/109.png",
     "primaryColor": "#000000",
     "secondaryColor": "#FFFFFF"
   },
@@ -85,7 +85,7 @@ export const ALL_TEAMS = [
     "name": "Lazio",
     "logo": "LAZ",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/sslazio.it",
+    "logoUrl": "https://crests.football-data.org/110.png",
     "primaryColor": "#84BBE1",
     "secondaryColor": "#FFFFFF"
   },
@@ -94,7 +94,7 @@ export const ALL_TEAMS = [
     "name": "Lecce",
     "logo": "LEC",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/uslecce.it",
+    "logoUrl": "https://crests.football-data.org/5890.png",
     "primaryColor": "#FFD700",
     "secondaryColor": "#D50000"
   },
@@ -103,7 +103,7 @@ export const ALL_TEAMS = [
     "name": "Milan",
     "logo": "MIL",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/acmilan.com",
+    "logoUrl": "https://crests.football-data.org/98.png",
     "primaryColor": "#FB090B",
     "secondaryColor": "#000000"
   },
@@ -112,7 +112,7 @@ export const ALL_TEAMS = [
     "name": "Monza",
     "logo": "MON",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/acmonza.com",
+    "logoUrl": "https://crests.football-data.org/5911.png",
     "primaryColor": "#E11823",
     "secondaryColor": "#FFFFFF"
   },
@@ -121,7 +121,7 @@ export const ALL_TEAMS = [
     "name": "Napoli",
     "logo": "NAP",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/sscnapoli.it",
+    "logoUrl": "https://crests.football-data.org/113.png",
     "primaryColor": "#12A0D7",
     "secondaryColor": "#FFFFFF"
   },
@@ -130,7 +130,7 @@ export const ALL_TEAMS = [
     "name": "Parma",
     "logo": "PAR",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/parmacalcio1913.com",
+    "logoUrl": "https://crests.football-data.org/112.png",
     "primaryColor": "#FEE000",
     "secondaryColor": "#0026C1"
   },
@@ -139,7 +139,7 @@ export const ALL_TEAMS = [
     "name": "Roma",
     "logo": "ROM",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/asroma.com",
+    "logoUrl": "https://crests.football-data.org/100.png",
     "primaryColor": "#9A0B27",
     "secondaryColor": "#F4942A"
   },
@@ -148,7 +148,7 @@ export const ALL_TEAMS = [
     "name": "Sassuolo",
     "logo": "SAS",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/sassuolocalcio.it",
+    "logoUrl": "https://crests.football-data.org/471.png",
     "primaryColor": "#00A850",
     "secondaryColor": "#000000"
   },
@@ -157,7 +157,7 @@ export const ALL_TEAMS = [
     "name": "Torino",
     "logo": "TOR",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/torinofc.it",
+    "logoUrl": "https://crests.football-data.org/586.png",
     "primaryColor": "#891436",
     "secondaryColor": "#FFFFFF"
   },
@@ -166,7 +166,7 @@ export const ALL_TEAMS = [
     "name": "Udinese",
     "logo": "UDI",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/udinese.it",
+    "logoUrl": "https://crests.football-data.org/115.png",
     "primaryColor": "#000000",
     "secondaryColor": "#FFFFFF"
   },
@@ -175,7 +175,7 @@ export const ALL_TEAMS = [
     "name": "Venezia",
     "logo": "VEN",
     "league": "A",
-    "logoUrl": "https://logo.clearbit.com/veneziafc.it",
+    "logoUrl": "https://crests.football-data.org/454.png",
     "primaryColor": "#000000",
     "secondaryColor": "#F38118"
   },
@@ -364,7 +364,7 @@ export const ALL_TEAMS = [
     "name": "Arsenal",
     "logo": "ARS",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/arsenal.com",
+    "logoUrl": "https://crests.football-data.org/57.png",
     "primaryColor": "#EF0107",
     "secondaryColor": "#023474"
   },
@@ -373,7 +373,7 @@ export const ALL_TEAMS = [
     "name": "Aston Villa",
     "logo": "AVL",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/avfc.co.uk",
+    "logoUrl": "https://crests.football-data.org/58.png",
     "primaryColor": "#670E36",
     "secondaryColor": "#95BFE5"
   },
@@ -382,7 +382,7 @@ export const ALL_TEAMS = [
     "name": "Bournemouth",
     "logo": "BOU",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Bournemouth&background=5e6c5a&color=fff",
+    "logoUrl": "https://crests.football-data.org/bournemouth.png",
     "primaryColor": "#5e6c5a",
     "secondaryColor": "#FFFFFF"
   },
@@ -391,7 +391,7 @@ export const ALL_TEAMS = [
     "name": "Brentford",
     "logo": "BRE",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Brentford&background=5a6a5e&color=fff",
+    "logoUrl": "https://crests.football-data.org/402.png",
     "primaryColor": "#5a6a5e",
     "secondaryColor": "#FFFFFF"
   },
@@ -400,7 +400,7 @@ export const ALL_TEAMS = [
     "name": "Brighton",
     "logo": "BHA",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Brighton&background=bc2e65&color=fff",
+    "logoUrl": "https://crests.football-data.org/397.png",
     "primaryColor": "#bc2e65",
     "secondaryColor": "#FFFFFF"
   },
@@ -409,7 +409,7 @@ export const ALL_TEAMS = [
     "name": "Chelsea",
     "logo": "CHE",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/chelseafc.com",
+    "logoUrl": "https://crests.football-data.org/61.png",
     "primaryColor": "#034694",
     "secondaryColor": "#FFFFFF"
   },
@@ -418,7 +418,7 @@ export const ALL_TEAMS = [
     "name": "Crystal Palace",
     "logo": "CRY",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Crystal%20Palace&background=127d9c&color=fff",
+    "logoUrl": "https://crests.football-data.org/354.png",
     "primaryColor": "#127d9c",
     "secondaryColor": "#FFFFFF"
   },
@@ -427,7 +427,7 @@ export const ALL_TEAMS = [
     "name": "Everton",
     "logo": "EVE",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/evertonfc.com",
+    "logoUrl": "https://crests.football-data.org/62.png",
     "primaryColor": "#003399",
     "secondaryColor": "#FFFFFF"
   },
@@ -436,7 +436,7 @@ export const ALL_TEAMS = [
     "name": "Fulham",
     "logo": "FUL",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Fulham&background=4b4e48&color=fff",
+    "logoUrl": "https://crests.football-data.org/63.png",
     "primaryColor": "#4b4e48",
     "secondaryColor": "#FFFFFF"
   },
@@ -445,7 +445,7 @@ export const ALL_TEAMS = [
     "name": "Ipswich Town",
     "logo": "IPS",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Ipswich%20Town&background=146baa&color=fff",
+    "logoUrl": "https://crests.football-data.org/349.png",
     "primaryColor": "#146baa",
     "secondaryColor": "#FFFFFF"
   },
@@ -463,7 +463,7 @@ export const ALL_TEAMS = [
     "name": "Liverpool",
     "logo": "LIV",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/liverpoolfc.com",
+    "logoUrl": "https://crests.football-data.org/64.png",
     "primaryColor": "#C8102E",
     "secondaryColor": "#00B2A9"
   },
@@ -472,7 +472,7 @@ export const ALL_TEAMS = [
     "name": "Manchester City",
     "logo": "MCI",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/mancity.com",
+    "logoUrl": "https://crests.football-data.org/65.png",
     "primaryColor": "#6CABDD",
     "secondaryColor": "#1C2C5B"
   },
@@ -481,7 +481,7 @@ export const ALL_TEAMS = [
     "name": "Manchester United",
     "logo": "MUN",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/manutd.com",
+    "logoUrl": "https://crests.football-data.org/66.png",
     "primaryColor": "#DA291C",
     "secondaryColor": "#FBE122"
   },
@@ -490,7 +490,7 @@ export const ALL_TEAMS = [
     "name": "Newcastle",
     "logo": "NEW",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/nufc.co.uk",
+    "logoUrl": "https://crests.football-data.org/67.png",
     "primaryColor": "#000000",
     "secondaryColor": "#FFFFFF"
   },
@@ -499,7 +499,7 @@ export const ALL_TEAMS = [
     "name": "Nottingham F.",
     "logo": "NFO",
     "league": "PL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Nottingham%20F.&background=fafebd&color=fff",
+    "logoUrl": "https://crests.football-data.org/351.png",
     "primaryColor": "#fafebd",
     "secondaryColor": "#FFFFFF"
   },
@@ -517,7 +517,7 @@ export const ALL_TEAMS = [
     "name": "Tottenham",
     "logo": "TOT",
     "league": "PL",
-    "logoUrl": "https://logo.clearbit.com/tottenhamhotspur.com",
+    "logoUrl": "https://crests.football-data.org/73.png",
     "primaryColor": "#132257",
     "secondaryColor": "#FFFFFF"
   },
@@ -544,7 +544,7 @@ export const ALL_TEAMS = [
     "name": "Alavés",
     "logo": "ALA",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Alav%C3%A9s&background=545a21&color=fff",
+    "logoUrl": "https://crests.football-data.org/263.png",
     "primaryColor": "#545a21",
     "secondaryColor": "#FFFFFF"
   },
@@ -553,7 +553,7 @@ export const ALL_TEAMS = [
     "name": "Athletic Club",
     "logo": "ATH",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Athletic%20Club&background=a8e848&color=fff",
+    "logoUrl": "https://crests.football-data.org/77.png",
     "primaryColor": "#a8e848",
     "secondaryColor": "#FFFFFF"
   },
@@ -571,7 +571,7 @@ export const ALL_TEAMS = [
     "name": "Barcelona",
     "logo": "BAR",
     "league": "LL",
-    "logoUrl": "https://logo.clearbit.com/fcbarcelona.com",
+    "logoUrl": "https://crests.football-data.org/81.png",
     "primaryColor": "#A50044",
     "secondaryColor": "#004D98"
   },
@@ -580,7 +580,7 @@ export const ALL_TEAMS = [
     "name": "Celta Vigo",
     "logo": "CEL",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Celta%20Vigo&background=95103d&color=fff",
+    "logoUrl": "https://crests.football-data.org/558.png",
     "primaryColor": "#95103d",
     "secondaryColor": "#FFFFFF"
   },
@@ -598,7 +598,7 @@ export const ALL_TEAMS = [
     "name": "Getafe",
     "logo": "GET",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Getafe&background=4a775e&color=fff",
+    "logoUrl": "https://crests.football-data.org/82.png",
     "primaryColor": "#4a775e",
     "secondaryColor": "#FFFFFF"
   },
@@ -643,7 +643,7 @@ export const ALL_TEAMS = [
     "name": "Osasuna",
     "logo": "OSA",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Osasuna&background=b99df4&color=fff",
+    "logoUrl": "https://crests.football-data.org/79.png",
     "primaryColor": "#b99df4",
     "secondaryColor": "#FFFFFF"
   },
@@ -652,7 +652,7 @@ export const ALL_TEAMS = [
     "name": "Rayo Vallecano",
     "logo": "RAY",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Rayo%20Vallecano&background=2585e4&color=fff",
+    "logoUrl": "https://crests.football-data.org/87.png",
     "primaryColor": "#2585e4",
     "secondaryColor": "#FFFFFF"
   },
@@ -661,7 +661,7 @@ export const ALL_TEAMS = [
     "name": "Real Betis",
     "logo": "BET",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Real%20Betis&background=4785e8&color=fff",
+    "logoUrl": "https://crests.football-data.org/90.png",
     "primaryColor": "#4785e8",
     "secondaryColor": "#FFFFFF"
   },
@@ -670,7 +670,7 @@ export const ALL_TEAMS = [
     "name": "Real Madrid",
     "logo": "RMA",
     "league": "LL",
-    "logoUrl": "https://logo.clearbit.com/realmadrid.com",
+    "logoUrl": "https://crests.football-data.org/86.png",
     "primaryColor": "#FFFFFF",
     "secondaryColor": "#FEBE10"
   },
@@ -679,7 +679,7 @@ export const ALL_TEAMS = [
     "name": "Real Sociedad",
     "logo": "RSO",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Real%20Sociedad&background=11fbcb&color=fff",
+    "logoUrl": "https://crests.football-data.org/92.png",
     "primaryColor": "#11fbcb",
     "secondaryColor": "#FFFFFF"
   },
@@ -688,7 +688,7 @@ export const ALL_TEAMS = [
     "name": "Sevilla",
     "logo": "SEV",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Sevilla&background=767648&color=fff",
+    "logoUrl": "https://crests.football-data.org/559.png",
     "primaryColor": "#767648",
     "secondaryColor": "#FFFFFF"
   },
@@ -697,7 +697,7 @@ export const ALL_TEAMS = [
     "name": "Valencia",
     "logo": "VAL",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Valencia&background=54eab3&color=fff",
+    "logoUrl": "https://crests.football-data.org/95.png",
     "primaryColor": "#54eab3",
     "secondaryColor": "#FFFFFF"
   },
@@ -715,7 +715,7 @@ export const ALL_TEAMS = [
     "name": "Villarreal",
     "logo": "VIL",
     "league": "LL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Villarreal&background=3a0d7e&color=fff",
+    "logoUrl": "https://crests.football-data.org/94.png",
     "primaryColor": "#3a0d7e",
     "secondaryColor": "#FFFFFF"
   },
@@ -724,7 +724,7 @@ export const ALL_TEAMS = [
     "name": "Augsburg",
     "logo": "AUG",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Augsburg&background=3fd11d&color=fff",
+    "logoUrl": "https://crests.football-data.org/16.png",
     "primaryColor": "#3fd11d",
     "secondaryColor": "#FFFFFF"
   },
@@ -733,7 +733,7 @@ export const ALL_TEAMS = [
     "name": "Bayern Munich",
     "logo": "FCB",
     "league": "BL",
-    "logoUrl": "https://logo.clearbit.com/fcbayern.com",
+    "logoUrl": "https://crests.football-data.org/5.png",
     "primaryColor": "#DC052D",
     "secondaryColor": "#0066B2"
   },
@@ -751,7 +751,7 @@ export const ALL_TEAMS = [
     "name": "Werder Bremen",
     "logo": "SVW",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Werder%20Bremen&background=5df533&color=fff",
+    "logoUrl": "https://crests.football-data.org/12.png",
     "primaryColor": "#5df533",
     "secondaryColor": "#FFFFFF"
   },
@@ -760,7 +760,7 @@ export const ALL_TEAMS = [
     "name": "Dortmund",
     "logo": "BVB",
     "league": "BL",
-    "logoUrl": "https://logo.clearbit.com/bvb.de",
+    "logoUrl": "https://crests.football-data.org/4.png",
     "primaryColor": "#FDE100",
     "secondaryColor": "#000000"
   },
@@ -769,7 +769,7 @@ export const ALL_TEAMS = [
     "name": "E. Frankfurt",
     "logo": "SGE",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=E.%20Frankfurt&background=23d33b&color=fff",
+    "logoUrl": "https://crests.football-data.org/19.png",
     "primaryColor": "#23d33b",
     "secondaryColor": "#FFFFFF"
   },
@@ -778,7 +778,7 @@ export const ALL_TEAMS = [
     "name": "Freiburg",
     "logo": "SCF",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Freiburg&background=5b724f&color=fff",
+    "logoUrl": "https://crests.football-data.org/17.png",
     "primaryColor": "#5b724f",
     "secondaryColor": "#FFFFFF"
   },
@@ -796,7 +796,7 @@ export const ALL_TEAMS = [
     "name": "Hoffenheim",
     "logo": "TSG",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Hoffenheim&background=4e720e&color=fff",
+    "logoUrl": "https://crests.football-data.org/2.png",
     "primaryColor": "#4e720e",
     "secondaryColor": "#FFFFFF"
   },
@@ -814,7 +814,7 @@ export const ALL_TEAMS = [
     "name": "RB Leipzig",
     "logo": "RBL",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=RB%20Leipzig&background=2f0d63&color=fff",
+    "logoUrl": "https://crests.football-data.org/721.png",
     "primaryColor": "#2f0d63",
     "secondaryColor": "#FFFFFF"
   },
@@ -823,7 +823,7 @@ export const ALL_TEAMS = [
     "name": "Leverkusen",
     "logo": "B04",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Leverkusen&background=10df21&color=fff",
+    "logoUrl": "https://crests.football-data.org/3.png",
     "primaryColor": "#10df21",
     "secondaryColor": "#FFFFFF"
   },
@@ -832,7 +832,7 @@ export const ALL_TEAMS = [
     "name": "Mainz 05",
     "logo": "M05",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Mainz%2005&background=62db1e&color=fff",
+    "logoUrl": "https://crests.football-data.org/15.png",
     "primaryColor": "#62db1e",
     "secondaryColor": "#FFFFFF"
   },
@@ -841,7 +841,7 @@ export const ALL_TEAMS = [
     "name": "Mönchengladbach",
     "logo": "BMG",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=M%C3%B6nchengladbach&background=1678cc&color=fff",
+    "logoUrl": "https://crests.football-data.org/18.png",
     "primaryColor": "#1678cc",
     "secondaryColor": "#FFFFFF"
   },
@@ -859,7 +859,7 @@ export const ALL_TEAMS = [
     "name": "Stuttgart",
     "logo": "VFB",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Stuttgart&background=a68462&color=fff",
+    "logoUrl": "https://crests.football-data.org/10.png",
     "primaryColor": "#a68462",
     "secondaryColor": "#FFFFFF"
   },
@@ -868,7 +868,7 @@ export const ALL_TEAMS = [
     "name": "Union Berlin",
     "logo": "FCU",
     "league": "BL",
-    "logoUrl": "https://ui-avatars.com/api/?name=Union%20Berlin&background=6985bb&color=fff",
+    "logoUrl": "https://crests.football-data.org/28.png",
     "primaryColor": "#6985bb",
     "secondaryColor": "#FFFFFF"
   },
@@ -886,7 +886,7 @@ export const ALL_TEAMS = [
     "name": "Angers",
     "logo": "SCO",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Angers&background=543b76&color=fff",
+    "logoUrl": "https://crests.football-data.org/532.png",
     "primaryColor": "#543b76",
     "secondaryColor": "#FFFFFF"
   },
@@ -895,7 +895,7 @@ export const ALL_TEAMS = [
     "name": "Auxerre",
     "logo": "AJA",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Auxerre&background=2651e3&color=fff",
+    "logoUrl": "https://crests.football-data.org/519.png",
     "primaryColor": "#2651e3",
     "secondaryColor": "#FFFFFF"
   },
@@ -904,7 +904,7 @@ export const ALL_TEAMS = [
     "name": "Brest",
     "logo": "SB29",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Brest&background=59a5b3&color=fff",
+    "logoUrl": "https://crests.football-data.org/512.png",
     "primaryColor": "#59a5b3",
     "secondaryColor": "#FFFFFF"
   },
@@ -913,7 +913,7 @@ export const ALL_TEAMS = [
     "name": "Le Havre",
     "logo": "HAC",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Le%20Havre&background=485d03&color=fff",
+    "logoUrl": "https://crests.football-data.org/533.png",
     "primaryColor": "#485d03",
     "secondaryColor": "#FFFFFF"
   },
@@ -922,7 +922,7 @@ export const ALL_TEAMS = [
     "name": "Lens",
     "logo": "RCL",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Lens&background=32a0fe&color=fff",
+    "logoUrl": "https://crests.football-data.org/546.png",
     "primaryColor": "#32a0fe",
     "secondaryColor": "#FFFFFF"
   },
@@ -931,7 +931,7 @@ export const ALL_TEAMS = [
     "name": "Lille",
     "logo": "LOSC",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Lille&background=623484&color=fff",
+    "logoUrl": "https://crests.football-data.org/521.png",
     "primaryColor": "#623484",
     "secondaryColor": "#FFFFFF"
   },
@@ -940,7 +940,7 @@ export const ALL_TEAMS = [
     "name": "Lyon",
     "logo": "OL",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Lyon&background=32ec2c&color=fff",
+    "logoUrl": "https://crests.football-data.org/523.png",
     "primaryColor": "#32ec2c",
     "secondaryColor": "#FFFFFF"
   },
@@ -949,7 +949,7 @@ export const ALL_TEAMS = [
     "name": "Marseille",
     "logo": "OM",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Marseille&background=2a0665&color=fff",
+    "logoUrl": "https://crests.football-data.org/516.png",
     "primaryColor": "#2a0665",
     "secondaryColor": "#FFFFFF"
   },
@@ -958,7 +958,7 @@ export const ALL_TEAMS = [
     "name": "Monaco",
     "logo": "ASM",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Monaco&background=3fb019&color=fff",
+    "logoUrl": "https://crests.football-data.org/548.png",
     "primaryColor": "#3fb019",
     "secondaryColor": "#FFFFFF"
   },
@@ -985,7 +985,7 @@ export const ALL_TEAMS = [
     "name": "Nice",
     "logo": "OGCN",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Nice&background=33975d&color=fff",
+    "logoUrl": "https://crests.football-data.org/522.png",
     "primaryColor": "#33975d",
     "secondaryColor": "#FFFFFF"
   },
@@ -994,7 +994,7 @@ export const ALL_TEAMS = [
     "name": "PSG",
     "logo": "PSG",
     "league": "L1",
-    "logoUrl": "https://logo.clearbit.com/psg.fr",
+    "logoUrl": "https://crests.football-data.org/524.png",
     "primaryColor": "#004170",
     "secondaryColor": "#DA291C"
   },
@@ -1030,7 +1030,7 @@ export const ALL_TEAMS = [
     "name": "Strasbourg",
     "logo": "RCSA",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Strasbourg&background=fca6ea&color=fff",
+    "logoUrl": "https://crests.football-data.org/576.png",
     "primaryColor": "#fca6ea",
     "secondaryColor": "#FFFFFF"
   },
@@ -1039,7 +1039,7 @@ export const ALL_TEAMS = [
     "name": "Toulouse",
     "logo": "TFC",
     "league": "L1",
-    "logoUrl": "https://ui-avatars.com/api/?name=Toulouse&background=3056d3&color=fff",
+    "logoUrl": "https://crests.football-data.org/511.png",
     "primaryColor": "#3056d3",
     "secondaryColor": "#FFFFFF"
   }

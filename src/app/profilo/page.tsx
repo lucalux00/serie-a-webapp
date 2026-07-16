@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import AuthForms from '@/components/auth/AuthForms';
 import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing } from 'lucide-react';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
-
+import { ALL_TEAMS } from '@/data/teams';
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
   const { isSupported, isSubscribed, subscribe, testNotification } = usePushNotifications(user?.id);
@@ -52,7 +52,7 @@ export default function ProfiloPage() {
           </div>
         </div>
 
-        {user.favoriteTeamName && (
+        {user.favoriteTeamName ? (
           <div className="bg-[#0F172A] rounded-xl p-4 border border-[#334155] flex items-center justify-between">
             <div className="flex items-center">
               <Heart className="text-[#10B981] w-5 h-5 mr-3" />
@@ -61,6 +61,27 @@ export default function ProfiloPage() {
                 <p className="text-white font-bold">{user.favoriteTeamName}</p>
               </div>
             </div>
+            <button onClick={async () => {
+              await fetch('/api/auth/me', { method: 'POST', body: JSON.stringify({ favoriteTeamId: null }) });
+              window.location.reload();
+            }} className="text-xs text-[#64748B] underline hover:text-white transition-colors">Cambia</button>
+          </div>
+        ) : (
+          <div className="bg-[#0F172A] rounded-xl p-4 border border-[#334155]">
+             <p className="text-xs text-[#64748B] uppercase tracking-widest font-bold mb-2">Seleziona Squadra del Cuore</p>
+             <select 
+               className="w-full bg-[#1E293B] border border-[#334155] rounded-lg p-2 text-white text-sm outline-none focus:border-[#10B981]"
+               onChange={async (e) => {
+                 if (!e.target.value) return;
+                 await fetch('/api/auth/me', { method: 'POST', body: JSON.stringify({ favoriteTeamId: e.target.value }) });
+                 window.location.reload();
+               }}
+             >
+               <option value="">-- Seleziona una squadra --</option>
+               {ALL_TEAMS.filter(t => t.league === 'A').map(t => (
+                 <option key={t.id} value={t.id}>{t.name}</option>
+               ))}
+             </select>
           </div>
         )}
       </motion.div>
