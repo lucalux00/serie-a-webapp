@@ -4,10 +4,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import AuthForms from '@/components/auth/AuthForms';
-import { LogOut, User, Settings, Heart, Trophy } from 'lucide-react';
+import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing } from 'lucide-react';
+import { usePushNotifications } from '@/hooks/usePushNotifications';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
+  const { isSupported, isSubscribed, subscribe, testNotification } = usePushNotifications(user?.id);
 
   if (!user) {
     return (
@@ -71,6 +73,38 @@ export default function ProfiloPage() {
           </div>
           <div className="text-[#64748B] text-xs">Presto disponibile</div>
         </button>
+
+        {/* Notifiche Push Panel */}
+        <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-4">
+          <div className="flex items-center text-white font-bold mb-3">
+            <Bell className="w-5 h-5 mr-3 text-[#10B981]" />
+            Notifiche Push
+          </div>
+          {!isSupported ? (
+            <p className="text-xs text-[#EF4444]">Il tuo browser non supporta le notifiche Push.</p>
+          ) : !isSubscribed ? (
+            <div className="space-y-3">
+              <p className="text-xs text-[#94A3B8]">Attiva le notifiche per ricevere aggiornamenti sui match della tua squadra del cuore.</p>
+              <button 
+                onClick={subscribe}
+                className="w-full bg-[#10B981] text-[#0F172A] font-black rounded-lg py-2 flex items-center justify-center text-sm"
+              >
+                <BellRing className="w-4 h-4 mr-2" />
+                ATTIVA NOTIFICHE
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-xs text-[#10B981] font-bold">✓ Notifiche Attive</p>
+              <button 
+                onClick={testNotification}
+                className="w-full bg-[#0F172A] border border-[#334155] text-white hover:bg-[#334155] font-black rounded-lg py-2 flex items-center justify-center text-sm transition-colors"
+              >
+                Testa Notifica (Finto Gol)
+              </button>
+            </div>
+          )}
+        </div>
 
         <button className="w-full bg-[#1E293B] hover:bg-[#334155] border border-[#334155] rounded-xl p-4 flex items-center justify-between transition-colors">
           <div className="flex items-center text-white font-bold">
