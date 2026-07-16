@@ -36,7 +36,7 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      throw new Error(\`Errore API: \${response.status}\`);
+      throw new Error(`Errore API: ${response.status}`);
     }
 
     const data = await response.json();
