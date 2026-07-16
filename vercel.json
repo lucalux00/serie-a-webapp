@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/cron/mercato-tracker",
-      "schedule": "0 * * * *"
+      "schedule": "0 10 * * *"
     }
   ]
 }
