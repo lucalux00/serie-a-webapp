@@ -38,9 +38,6 @@ export default function ClassifichePage() {
 
   // History
   const [seasons, setSeasons] = useState<any[]>([]);
-  const [historicalStandings, setHistoricalStandings] = useState<any[]>([]);
-  const [historySeason, setHistorySeason] = useState('');
-  const [historyWinner, setHistoryWinner] = useState<any>(null);
   const [expandedTeam, setExpandedTeam] = useState<string | null>(null);
 
   const groupedHistory = useMemo(() => {
@@ -156,22 +153,12 @@ export default function ClassifichePage() {
     } catch { /* silent */ }
   }, [apiFetch, activeLeague]);
 
-  const fetchHistoricalStandings = useCallback(async (year: number) => {
-    setHistoryLoading(true);
-    try {
-      const res = await fetch(`/api/classifiche?league=${activeLeague}&type=standings&season=${year}`);
-      const data = await res.json();
-      setHistoricalStandings(data.standings || []);
-      setHistorySeason(data.season || '');
-      setHistoryWinner(data.winner || (data.standings?.[0] || null));
-    } catch { /* silent */ }
-    finally { setHistoryLoading(false); }
-  }, [activeLeague]);
+  // fetchHistoricalStandings removed
 
   // Reset on league change
   useEffect(() => {
     setStandings([]); setMatches([]); setScorers([]); setSeasons([]);
-    setHistoricalStandings([]); setSelectedHistorySeason(null); setExpandedTeam(null);
+    setExpandedTeam(null);
     setCurrentMatchday(1); setDisplayMatchday(1);
     setViewMode('standings');
     fetchStandings(activeLeague);
@@ -501,18 +488,12 @@ export default function ClassifichePage() {
                           <button
                             key={s.year}
                             onClick={() => {
-                              if (selectedHistorySeason === s.year) {
-                                setSelectedHistorySeason(null);
-                              } else {
-                                setSelectedHistorySeason(s.year);
-                                fetchHistoricalStandings(s.year);
-                              }
+                                const t = ALL_TEAMS.find(x => x.name.toLowerCase() === expandedTeam?.toLowerCase() || expandedTeam?.toLowerCase().includes(x.name.toLowerCase()));
+                                if (t) {
+                                  router.push(`/squadra/${t.id}?tab=trofei`);
+                                }
                             }}
-                            className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 ${
-                              selectedHistorySeason === s.year 
-                                ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white border-transparent shadow-lg' 
-                                : 'bg-[#0F172A] border-[#334155] text-[#94A3B8] hover:text-white hover:border-[#475569]'
-                            }`}
+                            className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 bg-[#0F172A] border-[#334155] text-[#94A3B8] hover:text-white hover:border-[#475569]`}
                           >
                             <span className="text-[10px] font-bold uppercase tracking-widest mb-0.5 opacity-70">Stagione</span>
                             <span className="text-sm font-black">{s.label}</span>
@@ -525,51 +506,7 @@ export default function ClassifichePage() {
               </div>
             </div>
 
-            {/* Classifica storica espansa */}
-            {selectedHistorySeason && (
-              <div className="bg-[#1E293B] rounded-2xl border border-[#334155] overflow-hidden shadow-xl mt-6 animate-fade-in">
-                <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Trophy size={16} className="text-[#F59E0B]" />
-                    <span className="text-xs font-black text-white uppercase tracking-widest">Classifica Finale · Stagione {selectedHistorySeason}</span>
-                  </div>
-                  <button onClick={() => setSelectedHistorySeason(null)} className="p-1 hover:bg-[#334155] rounded-full transition-colors">
-                    <ChevronDown size={18} className="text-[#94A3B8]" />
-                  </button>
-                </div>
-                
-                <div className="p-5 flex flex-col items-center border-b border-[#334155]/50 bg-gradient-to-b from-[#1E293B] to-[#0F172A]">
-                   <p className="text-sm text-[#94A3B8] text-center mb-4 max-w-md">
-                     Puoi visualizzare le statistiche dettagliate, l'allenatore e i giocatori storici di quell'annata nella bacheca trofei del club.
-                   </p>
-                   <button 
-                     onClick={() => {
-                        const t = ALL_TEAMS.find(x => x.name.toLowerCase() === expandedTeam?.toLowerCase() || expandedTeam?.toLowerCase().includes(x.name.toLowerCase()));
-                        if (t) {
-                          router.push(`/squadra/${t.id}?tab=trofei`);
-                        }
-                     }}
-                     className="px-6 py-3 bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white font-black text-xs uppercase tracking-widest rounded-xl hover:scale-105 transition-transform shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center gap-2"
-                   >
-                     <Crown size={16} /> Vedi Rosa e Trofeo Storico
-                   </button>
-                </div>
-
-                <div className="max-h-[500px] overflow-y-auto no-scrollbar">
-                  {historyLoading ? (
-                    <div className="p-8 space-y-3 animate-pulse">
-                      {[1,2,3,4,5].map(i => <div key={i} className="h-10 bg-[#334155]/30 rounded-lg" />)}
-                    </div>
-                  ) : historicalStandings.length > 0 ? (
-                    <StandingsTable rows={historicalStandings} compact={true} />
-                  ) : (
-                    <div className="text-center py-10 text-[#64748B] text-sm">
-                      Dettaglio classifica non disponibile per questa stagione nell'archivio europeo.
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
+            {/* Removed inline historical standings */}
           </div>
         )}
       </div>

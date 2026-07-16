@@ -888,11 +888,11 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                   <div className="text-lg font-bold text-[#F59E0B]">{selectedTrophy.points}</div>
                 </div>
                 <div>
-                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Formazione Tipo</h3>
-                  <div className="grid grid-cols-1 gap-2">
+                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Rosa Protagonista</h3>
+                  <div className="flex flex-wrap gap-2">
                     {selectedTrophy.formation?.map((player: string, i: number) => (
-                      <div key={i} className="bg-[#0F172A] border border-[#334155] rounded-lg p-3 text-sm font-bold text-[#E2E8F0] shadow-sm flex items-center">
-                        <span className="text-[#10B981] font-black w-6 text-xs">{i+1}.</span> {player}
+                      <div key={i} className="bg-[#0F172A] border border-[#334155] rounded-full px-4 py-2 text-sm font-bold text-[#E2E8F0] shadow-sm hover:border-[#10B981] hover:text-[#10B981] transition-colors cursor-default">
+                        {player}
                       </div>
                     ))}
                   </div>
