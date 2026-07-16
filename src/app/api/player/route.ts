@@ -1,4 +1,27 @@
 import { NextResponse } from 'next/server';
+import { sql } from '@vercel/postgres';
+
+export const maxDuration = 60; // Consenti fino a 60 secondi
+export const dynamic = 'force-dynamic';
+export const revalidate = 86400; // Cache 24 ore
+
+// Funzione helper per creare la tabella se non esiste
+async function ensureTableExists() {
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS player_stats_cache (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        team VARCHAR(255) NOT NULL,
+        data JSONB NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(name, team)
+      )
+    `;
+  } catch (e) {
+    console.error("Error creating table:", e);
+  }
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -19,6 +42,21 @@ export async function GET(request: Request) {
     role.toLowerCase().includes('ct');
 
   try {
+    // 1. Controlla la cache nel database Postgres
+    try {
+      const { rows } = await sql`SELECT data FROM player_stats_cache WHERE name = ${name} AND team = ${team}`;
+      if (rows && rows.length > 0) {
+        return NextResponse.json(rows[0].data);
+      }
+    } catch (dbError: any) {
+      // Se la tabella non esiste (errore 42P01 in Postgres), la creiamo per i prossimi inserimenti
+      if (dbError.code === '42P01') {
+        await ensureTableExists();
+      } else {
+        console.warn("DB Cache read error:", dbError);
+      }
+    }
+
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     if (!GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEY non configurata nel server.');
