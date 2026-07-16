@@ -94,8 +94,8 @@ export async function GET() {
         awayTeam,
         awayCrest: m.awayTeam.crest,
         date: m.utcDate,
-        ticketCost: \`Da \${ticketCost}€\`,
-        attendance: \`\${attendance.toLocaleString('it-IT')}\`,
+        ticketCost: `Da ${ticketCost}€`,
+        attendance: `${attendance.toLocaleString('it-IT')}`,
         markdownAnalysis
       };
     });
