@@ -1,15 +1,35 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import AuthForms from '@/components/auth/AuthForms';
-import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing } from 'lucide-react';
+import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X } from 'lucide-react';
+import Link from 'next/link';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
   const { isSupported, isSubscribed, subscribe, testNotification } = usePushNotifications(user?.id);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [editName, setEditName] = useState(user?.name || '');
+  const [editEmail, setEditEmail] = useState(user?.email || '');
+  const [isSaving, setIsSaving] = useState(false);
+
+  const saveSettings = async () => {
+    setIsSaving(true);
+    try {
+      await fetch('/api/auth/me', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: editName, email: editEmail })
+      });
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+      setIsSaving(false);
+    }
+  };
 
   if (!user) {
     return (
@@ -95,12 +115,19 @@ export default function ProfiloPage() {
       </motion.div>
 
       <div className="space-y-3">
-        <button className="w-full bg-[#1E293B] hover:bg-[#334155] border border-[#334155] rounded-xl p-4 flex items-center justify-between transition-colors">
+        <button 
+          onClick={() => {
+            setEditName(user.name || '');
+            setEditEmail(user.email || '');
+            setIsSettingsOpen(true);
+          }}
+          className="w-full bg-[#1E293B] hover:bg-[#334155] border border-[#334155] rounded-xl p-4 flex items-center justify-between transition-colors"
+        >
           <div className="flex items-center text-white font-bold">
             <Settings className="w-5 h-5 mr-3 text-[#64748B]" />
             Impostazioni Account
           </div>
-          <div className="text-[#64748B] text-xs">Presto disponibile</div>
+          <div className="text-[#64748B] text-xs">Modifica</div>
         </button>
 
         {/* Notifiche Push Panel */}
@@ -135,13 +162,13 @@ export default function ProfiloPage() {
           )}
         </div>
 
-        <button className="w-full bg-[#1E293B] hover:bg-[#334155] border border-[#334155] rounded-xl p-4 flex items-center justify-between transition-colors">
+        <Link href="/profilo/pronostici" className="w-full bg-[#1E293B] hover:bg-[#334155] border border-[#334155] rounded-xl p-4 flex items-center justify-between transition-colors block">
           <div className="flex items-center text-white font-bold">
             <Trophy className="w-5 h-5 mr-3 text-[#F59E0B]" />
             I Miei Pronostici
           </div>
-          <div className="text-[#64748B] text-xs">Presto disponibile</div>
-        </button>
+          <div className="text-[#64748B] text-xs">Storico Vinti</div>
+        </Link>
 
         <button 
           onClick={logout}
@@ -151,6 +178,63 @@ export default function ProfiloPage() {
           ESCI DALL'ACCOUNT
         </button>
       </div>
+
+      {/* Settings Modal */}
+      <AnimatePresence>
+        {isSettingsOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F172A]/80 backdrop-blur-sm p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-[#1E293B] border border-[#334155] rounded-3xl p-6 w-full max-w-sm shadow-2xl relative"
+            >
+              <button 
+                onClick={() => setIsSettingsOpen(false)}
+                className="absolute top-4 right-4 text-[#64748B] hover:text-white"
+              >
+                <X size={20} />
+              </button>
+              
+              <h2 className="text-xl font-black text-white mb-6">Impostazioni Account</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#94A3B8] uppercase tracking-wider mb-2">Nome Utente</label>
+                  <input 
+                    type="text" 
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                    className="w-full bg-[#0F172A] border border-[#334155] rounded-xl p-3 text-white focus:border-[#10B981] outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#94A3B8] uppercase tracking-wider mb-2">Email</label>
+                  <input 
+                    type="email" 
+                    value={editEmail}
+                    onChange={(e) => setEditEmail(e.target.value)}
+                    className="w-full bg-[#0F172A] border border-[#334155] rounded-xl p-3 text-white focus:border-[#10B981] outline-none transition-colors"
+                  />
+                </div>
+                
+                <button 
+                  onClick={saveSettings}
+                  disabled={isSaving}
+                  className="w-full mt-6 bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white font-black rounded-xl p-3 shadow-lg hover:shadow-xl transition-all"
+                >
+                  {isSaving ? 'Salvataggio...' : 'Salva Modifiche'}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

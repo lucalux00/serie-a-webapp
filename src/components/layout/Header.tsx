@@ -14,9 +14,7 @@ export default function Header() {
           </div>
           <span className="text-[7px] text-[#64748B] uppercase font-black tracking-widest mt-0.5">Created by Luca Pinelli</span>
         </div>
-        <button className="p-2 -mr-2 text-[#F8FAFC]">
-          <Search size={24} />
-        </button>
+        <div className="w-10"></div>
       </div>
     </header>
   );

@@ -37,8 +37,17 @@ export async function POST(request: Request) {
     const jwtUser = await getUserFromCookie();
     if (!jwtUser) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 });
 
-    const { favoriteTeamId } = await request.json();
-    await sql`UPDATE users SET favorite_team = ${favoriteTeamId} WHERE id = ${jwtUser.userId}`;
+    const body = await request.json();
+    
+    if (body.favoriteTeamId !== undefined) {
+      await sql`UPDATE users SET favorite_team = ${body.favoriteTeamId} WHERE id = ${jwtUser.userId}`;
+    }
+    if (body.name !== undefined) {
+      await sql`UPDATE users SET name = ${body.name} WHERE id = ${jwtUser.userId}`;
+    }
+    if (body.email !== undefined) {
+      await sql`UPDATE users SET email = ${body.email} WHERE id = ${jwtUser.userId}`;
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

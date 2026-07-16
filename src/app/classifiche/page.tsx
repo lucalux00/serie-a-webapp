@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { Trophy, Calendar as CalendarIcon, ChevronLeft, ChevronRight, AlertTriangle, Swords, Crown } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Trophy, Calendar as CalendarIcon, ChevronLeft, ChevronRight, AlertTriangle, Swords, Crown, ChevronDown } from 'lucide-react';
 
 const LEAGUES = [
   { id: 'A',  name: 'Serie A',        color: '#10B981', flag: '🇮🇹', short: 'SA' },
@@ -37,6 +37,17 @@ export default function ClassifichePage() {
   const [historicalStandings, setHistoricalStandings] = useState<any[]>([]);
   const [historySeason, setHistorySeason] = useState('');
   const [historyWinner, setHistoryWinner] = useState<any>(null);
+  const [expandedTeam, setExpandedTeam] = useState<string | null>(null);
+
+  const groupedHistory = useMemo(() => {
+    const map: Record<string, { crest: string, wins: any[] }> = {};
+    seasons.forEach(s => {
+      if (!s.winner) return;
+      if (!map[s.winner]) map[s.winner] = { crest: s.winnerCrest, wins: [] };
+      map[s.winner].wins.push(s);
+    });
+    return Object.entries(map).sort(([a], [b]) => a.localeCompare(b));
+  }, [seasons]);
 
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -128,7 +139,7 @@ export default function ClassifichePage() {
   // Reset on league change
   useEffect(() => {
     setStandings([]); setMatches([]); setScorers([]); setSeasons([]);
-    setHistoricalStandings([]); setSelectedHistorySeason(null);
+    setHistoricalStandings([]); setSelectedHistorySeason(null); setExpandedTeam(null);
     setCurrentMatchday(1); setDisplayMatchday(1);
     setViewMode('standings');
     fetchStandings(activeLeague);
@@ -435,31 +446,45 @@ export default function ClassifichePage() {
               <div className="p-3 space-y-2">
                 {seasons.length === 0 ? (
                   <div className="text-center py-8 text-[#94A3B8] text-sm animate-pulse">Caricamento storico...</div>
-                ) : seasons.map((s) => (
-                  <button
-                    key={s.year}
-                    onClick={() => {
-                      setSelectedHistorySeason(s.year);
-                      fetchHistoricalStandings(s.year);
-                    }}
-                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border transition-all active:scale-95 ${
-                      selectedHistorySeason === s.year
-                        ? 'border-transparent text-white'
-                        : 'bg-[#0F172A] border-[#334155] hover:border-[#475569]'
-                    }`}
-                    style={selectedHistorySeason === s.year ? { backgroundColor: league.color + '22', borderColor: league.color } : {}}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-black" style={selectedHistorySeason === s.year ? { color: league.color } : { color: '#64748B' }}>
-                        {s.label}
-                      </span>
-                      {s.winnerCrest && (
-                        <img src={s.winnerCrest} alt="" loading="lazy" className="w-5 h-5 object-contain" />
-                      )}
-                      <span className="font-bold text-sm text-white">{s.winner}</span>
-                    </div>
-                    <Crown size={14} className={selectedHistorySeason === s.year ? 'text-yellow-400' : 'text-[#334155]'} />
-                  </button>
+                ) : groupedHistory.map(([team, data]) => (
+                  <div key={team} className="bg-[#0F172A] border border-[#334155] rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => setExpandedTeam(expandedTeam === team ? null : team)}
+                      className="w-full flex items-center justify-between px-4 py-3 transition-colors hover:bg-[#334155]/20"
+                    >
+                      <div className="flex items-center gap-3">
+                        {data.crest && <img src={data.crest} alt="" loading="lazy" className="w-6 h-6 object-contain" />}
+                        <span className="font-black text-sm text-white">{team}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-bold text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded-full border border-[#F59E0B]/20">
+                          {data.wins.length} Titoli
+                        </span>
+                        <ChevronRight size={18} className={`text-[#64748B] transition-transform ${expandedTeam === team ? 'rotate-90' : ''}`} />
+                      </div>
+                    </button>
+                    {expandedTeam === team && (
+                      <div className="p-3 bg-[#1E293B] border-t border-[#334155] grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {data.wins.map(s => (
+                          <button
+                            key={s.year}
+                            onClick={() => {
+                              setSelectedHistorySeason(s.year);
+                              fetchHistoricalStandings(s.year);
+                            }}
+                            className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 ${
+                              selectedHistorySeason === s.year 
+                                ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white border-transparent shadow-lg' 
+                                : 'bg-[#0F172A] border-[#334155] text-[#94A3B8] hover:text-white hover:border-[#475569]'
+                            }`}
+                          >
+                            <span className="text-[10px] font-bold uppercase tracking-widest mb-0.5 opacity-70">Stagione</span>
+                            <span className="text-sm font-black">{s.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
