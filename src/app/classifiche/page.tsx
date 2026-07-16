@@ -472,7 +472,7 @@ export default function ClassifichePage() {
               <div className="p-3 space-y-2">
                 {seasons.length === 0 ? (
                   <div className="text-center py-8 text-[#94A3B8] text-sm animate-pulse">Caricamento storico...</div>
-                ) : groupedHistory.map(([team, data]) => (
+                ) : groupedHistory.map(([team, data]: any) => (
                   <div key={team} className="bg-[#0F172A] border border-[#334155] rounded-xl overflow-hidden">
                     <button
                       onClick={() => setExpandedTeam(expandedTeam === team ? null : team)}
