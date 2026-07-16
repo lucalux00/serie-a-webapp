@@ -37,9 +37,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const data = await response.json();
           if (data.authenticated && data.user) {
             setUser({
-              id: data.user.userId,
+              id: data.user.id,
               name: data.user.name,
               email: data.user.email,
+              favoriteTeamId: data.user.favoriteTeamId,
+              favoriteTeamName: data.user.favoriteTeamName,
               avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
             });
           }

@@ -62,7 +62,11 @@ export default function ProfiloPage() {
               </div>
             </div>
             <button onClick={async () => {
-              await fetch('/api/auth/me', { method: 'POST', body: JSON.stringify({ favoriteTeamId: null }) });
+              await fetch('/api/auth/me', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ favoriteTeamId: null }) 
+              });
               window.location.reload();
             }} className="text-xs text-[#64748B] underline hover:text-white transition-colors">Cambia</button>
           </div>
@@ -73,7 +77,11 @@ export default function ProfiloPage() {
                className="w-full bg-[#1E293B] border border-[#334155] rounded-lg p-2 text-white text-sm outline-none focus:border-[#10B981]"
                onChange={async (e) => {
                  if (!e.target.value) return;
-                 await fetch('/api/auth/me', { method: 'POST', body: JSON.stringify({ favoriteTeamId: e.target.value }) });
+                 await fetch('/api/auth/me', { 
+                   method: 'POST', 
+                   headers: { 'Content-Type': 'application/json' },
+                   body: JSON.stringify({ favoriteTeamId: e.target.value }) 
+                 });
                  window.location.reload();
                }}
              >
