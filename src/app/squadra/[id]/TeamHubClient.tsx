@@ -153,13 +153,18 @@ function PartiteTab({ team }: { team: any }) {
 
 export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData }: any) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>('news');
+  const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>('news');
   const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
-  const [selectedNews, setSelectedNews] = useState<any>(null);
   const [selectedTrophyGroup, setSelectedTrophyGroup] = useState<any>(null);
   const [selectedTrophy, setSelectedTrophy] = useState<any>(null);
+
+  const { data: analisiData } = useSWR(
+    `/api/analisi?teamId=${team.id}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
 
   // Real-time news fetching with SWR
   const { data: news = initialNews } = useSWR(
@@ -168,32 +173,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
     { fallbackData: initialNews, refreshInterval: 60000 }
   );
 
-  const [newsContent, setNewsContent] = useState<any>(null);
-  const [fullArticleText, setFullArticleText] = useState<string>('');
-  const [loadingArticle, setLoadingArticle] = useState<boolean>(false);
-
-  // Fetch full article when selectedNews changes
-  React.useEffect(() => {
-    if (selectedNews && selectedNews.link) {
-      setLoadingArticle(true);
-      setFullArticleText('');
-      // Passa anche lo snippet RSS - se disponibile e lungo abbastanza, viene usato direttamente senza scraping
-      const snippetParam = selectedNews.snippet && selectedNews.snippet.length > 100 
-        ? `&snippet=${encodeURIComponent(selectedNews.snippet)}` 
-        : '';
-      const titleParam = selectedNews.cleanTitle ? `&title=${encodeURIComponent(selectedNews.cleanTitle)}` : '';
-      fetch(`/api/news/read?url=${encodeURIComponent(selectedNews.link)}${snippetParam}${titleParam}`)
-        .then(res => res.json())
-        .then(data => {
-          setFullArticleText(data.content || "Testo non disponibile.");
-          setLoadingArticle(false);
-        })
-        .catch(() => {
-          setFullArticleText("Errore durante l'estrazione dell'articolo.");
-          setLoadingArticle(false);
-        });
-    }
-  }, [selectedNews]);
+  // Nessun fetch dell'articolo completo. Mostriamo solo le Pillole.
 
   const topNews = news.slice(0, 4);
   const otherNews = news.slice(4);
@@ -257,7 +237,14 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'news' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
           style={activeTab === 'news' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
         >
-          NEWS
+          NEWS (PILLOLE)
+        </button>
+        <button 
+          onClick={() => setActiveTab('analisi')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'analisi' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'analisi' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
+          ANALISI
         </button>
         <button 
           onClick={() => setActiveTab('partite')} 
@@ -300,11 +287,12 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
       <div className="p-4 flex-1">
         <AnimatePresence mode="wait">
           
-          {/* TAB: NEWS */}
+          {/* TAB: NEWS (PILLOLE) */}
           {activeTab === 'news' && (
             <motion.div key="news" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
               {news.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-3 relative">
+                  <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-[#334155]" />
                   {[...news]
                     .sort((a: any, b: any) => {
                        const tA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
@@ -318,34 +306,94 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                       const displayDate = item.pubDate 
                         ? new Date(item.pubDate).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
                         : '';
+                      const snippet = item.snippet && item.snippet.length > 30 ? item.snippet : "Nessun estratto testuale disponibile.";
 
                       return (
-                        <button 
-                          key={idx} 
-                          onClick={() => setSelectedNews(item)}
-                          className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm active:scale-95 transition-transform"
-                        >
-                          <div className="flex justify-between items-start mb-2">
-                            <span className="text-xs font-bold px-2 py-1 bg-[#0F172A] text-[#38BDF8] rounded">
-                              {item.source || 'News'}
-                            </span>
-                            <div className="flex items-center gap-2">
-                              {isNew && (
-                                <span className="text-[10px] font-black text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full uppercase">
-                                  Nuova
-                                </span>
-                              )}
-                              <span className="text-[10px] text-[#94A3B8] font-bold">{displayDate}</span>
+                        <div key={idx} className="relative pl-12">
+                          <div className="absolute left-[22px] top-4 w-3 h-3 bg-[#0EA5E9] rounded-full ring-4 ring-[#0F172A]" />
+                          <div className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
+                            <div className="flex justify-between items-start mb-2">
+                              <span className="text-xs font-bold px-2 py-1 bg-[#0F172A] text-[#38BDF8] rounded">
+                                {item.source || 'News'}
+                              </span>
+                              <div className="flex items-center gap-2">
+                                {isNew && (
+                                  <span className="text-[10px] font-black text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full uppercase tracking-widest animate-pulse">
+                                    Flash
+                                  </span>
+                                )}
+                                <span className="text-[10px] text-[#94A3B8] font-bold">{displayDate}</span>
+                              </div>
                             </div>
+                            <h3 className="text-sm font-bold leading-tight text-white mb-2">{displayTitle}</h3>
+                            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{snippet}</p>
                           </div>
-                          <h3 className="text-sm font-bold leading-tight text-[#F8FAFC]">{displayTitle}</h3>
-                        </button>
+                        </div>
                       );
                   })}
                 </div>
               ) : (
-                <div className="text-center text-[#94A3B8] font-medium py-10">Nessuna notizia disponibile.</div>
+                <div className="text-center text-[#94A3B8] font-medium py-10">Nessuna pillola disponibile.</div>
               )}
+            </motion.div>
+          )}
+
+          {/* TAB: ANALISI */}
+          {activeTab === 'analisi' && (
+            <motion.div key="analisi" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
+              
+              <div className="bg-[#1E293B] border-l-4 border-[#10B981] p-4 rounded-r-xl shadow-md flex items-center justify-between">
+                <div>
+                  <h3 className="text-[#94A3B8] text-[10px] font-black uppercase tracking-widest mb-1">Allenatore e Modulo</h3>
+                  <div className="text-white font-bold text-base">{activeSquad?.coach?.name || 'N/D'} <span className="text-[#10B981] text-sm ml-2">({activeSquad?.coach?.module || '4-3-3'})</span></div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#334155] p-5 rounded-2xl shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 px-3 py-1 bg-[#0EA5E9] rounded-bl-xl text-white font-black text-[10px] uppercase shadow-md">Next Match</div>
+                <h3 className="text-[#94A3B8] text-[10px] font-black uppercase tracking-widest mb-4">Prossimo Impegno</h3>
+                
+                <div className="flex justify-between items-center mb-6 bg-[#0F172A] p-4 rounded-xl border border-[#334155]">
+                   <div className="text-center w-[40%]">
+                     <div className="text-xs text-[#94A3B8] uppercase font-bold mb-1">Noi</div>
+                     <div className="font-black text-white truncate text-lg">{team.name}</div>
+                   </div>
+                   <div className="text-[#0EA5E9] font-black text-sm uppercase px-2">VS</div>
+                   <div className="text-center w-[40%]">
+                     <div className="text-xs text-[#94A3B8] uppercase font-bold mb-1">Avversario</div>
+                     <div className="font-black text-white truncate text-lg">{analisiData?.matchPreview?.nextOpponent || 'Caricamento...'}</div>
+                   </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div>
+                    <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-1">Fattore Campo</span>
+                    <span className="font-black text-sm text-[#F8FAFC]">
+                      {analisiData ? (analisiData.matchPreview.isHome ? 'IN CASA' : 'IN TRASFERTA') : '...'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-1">Stima Spettatori</span>
+                    <span className="font-black text-sm text-[#F8FAFC]">{analisiData?.matchPreview?.attendance || '...'}</span>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-1">Costo Medio Biglietti</span>
+                    <span className="font-black text-sm text-[#10B981]">{analisiData?.matchPreview?.ticketCost || '...'}</span>
+                  </div>
+                </div>
+
+                <div className="bg-[#0F172A] border border-[#334155] rounded-xl p-4">
+                  <h4 className="text-[#0EA5E9] text-[10px] font-black uppercase tracking-widest mb-2 flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-[#0EA5E9] animate-pulse mr-2" />
+                    AI Tactical Advice
+                  </h4>
+                  <p className="text-sm text-white font-medium leading-relaxed italic">
+                    {analisiData?.tacticalAdvice ? `"${analisiData.tacticalAdvice}"` : 'Elaborazione analisi tattica in corso...'}
+                  </p>
+                </div>
+
+              </div>
+
             </motion.div>
           )}
 
@@ -666,70 +714,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
 
       <PlayerSheet player={selectedPlayer} teamName={team.name} onClose={() => setSelectedPlayer(null)} />
 
-      {/* News Sheet Modal */}
-      <AnimatePresence>
-        {selectedNews && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setSelectedNews(null)}
-              className="fixed inset-0 bg-[#0F172A]/80 backdrop-blur-sm z-50"
-            />
-            <motion.div 
-              initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 max-h-[85vh] bg-[#1E293B] border-t border-[#334155] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-50 flex flex-col"
-            >
-              <div className="bg-[#1E293B] px-6 py-4 border-b border-[#334155] flex justify-between items-start rounded-t-3xl shrink-0">
-                <div className="w-12 h-1.5 bg-[#334155] rounded-full absolute top-2 left-1/2 -translate-x-1/2" />
-                <div className="pr-4 mt-2 flex-1">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">
-                    {selectedNews.source || 'Notizia'}
-                  </span>
-                  <span className="text-[10px] text-[#94A3B8] font-bold ml-2">
-                    {selectedNews.pubDate ? new Date(selectedNews.pubDate).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }) : ''}
-                  </span>
-                  <h2 className="text-base font-black mt-2 leading-tight">
-                    {selectedNews.cleanTitle || selectedNews.title || 'Notizia'}
-                  </h2>
-                </div>
-                <button onClick={() => setSelectedNews(null)} className="p-2 bg-[#334155] rounded-full text-white mt-2 shrink-0 ml-2">
-                  <XCircle size={20} />
-                </button>
-              </div>
-
-              <div className="p-6 overflow-y-auto no-scrollbar flex-1 text-[#94A3B8] text-sm leading-relaxed relative">
-                {loadingArticle ? (
-                  <div className="flex flex-col items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-[#10B981] text-xs font-black uppercase mt-4 animate-pulse">Estrazione articolo...</span>
-                  </div>
-                ) : (
-                  <div className="space-y-4 w-full">
-                    <div 
-                      className="whitespace-pre-wrap font-medium text-[#F8FAFC] leading-loose text-[15px] prose prose-invert max-w-none prose-img:rounded-xl prose-img:my-4 prose-a:text-[#0EA5E9] prose-p:mb-4"
-                      dangerouslySetInnerHTML={{ __html: fullArticleText }}
-                    />
-                    {selectedNews.link && (
-                      <div className="mt-8 mb-4 border-t border-[#334155] pt-6 flex flex-col items-center">
-                        <span className="text-xs text-[#94A3B8] mb-3 text-center uppercase tracking-widest font-bold">Vuoi aprire l'articolo nel browser?</span>
-                        <a
-                          href={selectedNews.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full max-w-sm bg-[#334155] hover:bg-[#475569] text-white font-bold text-sm py-3 rounded-2xl transition-all"
-                        >
-                          Apri nel Browser
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Nessun News Modal, rimossa completamente */}
 
       {/* Trophy Sheet Modal */}
       <AnimatePresence>
