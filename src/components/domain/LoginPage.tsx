@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-
+import { Outfit } from 'next/font/google';
 import { ShieldAlert, ArrowRight, UserCircle } from 'lucide-react';
+
+const outfit = Outfit({ subsets: ['latin'], weight: ['900'] });
 
 export default function LoginPage() {
   const { legacyLogin } = useAuth();
@@ -55,8 +57,8 @@ export default function LoginPage() {
           <div className="w-16 h-16 bg-gradient-to-br from-[#10B981] to-[#0EA5E9] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
             <ShieldAlert className="text-white w-8 h-8" />
           </div>
-          <h1 className="text-3xl font-black text-white tracking-widest leading-none uppercase italic" style={{ fontFamily: 'impact, sans-serif' }}>
-            Tattica <span className="text-[#10B981]">&</span> Pronostici
+          <h1 className={`text-3xl text-white tracking-widest leading-none uppercase italic ${outfit.className}`}>
+            TATTICA <span className="text-[#10B981]">&</span> PRONOSTICI
           </h1>
           <p className="text-sm text-[#94A3B8] font-semibold mt-2">L'Ecosistema Calcistico Definitivo</p>
         </div>

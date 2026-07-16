@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Eye } from 'lucide-react';
+import { Outfit } from 'next/font/google';
+
+const outfit = Outfit({ subsets: ['latin'], weight: ['900'] });
 
 export default function Header() {
   const [stats, setStats] = useState({ online: 0, total: 0 });
@@ -45,11 +48,11 @@ export default function Header() {
     <header className="fixed top-0 z-50 w-full bg-[#0F172A]/90 backdrop-blur-md border-b border-[#1E293B]">
       <div className="flex items-center justify-between px-4 h-14">
         <div className="w-20"></div> {/* Spacer for symmetry */}
-        <div className="flex flex-col items-center justify-center mt-1 absolute left-1/2 -translate-x-1/2">
-          <div className="text-2xl font-black text-[#F8FAFC] tracking-widest leading-none uppercase italic" style={{ fontFamily: 'impact, sans-serif' }}>
+        <div className="flex flex-col items-center justify-center mt-1 absolute left-1/2 -translate-x-1/2 w-[250px] text-center">
+          <div className={`text-xl sm:text-2xl text-[#F8FAFC] tracking-widest leading-none uppercase italic ${outfit.className}`}>
             TATTICA <span className="text-[#10B981]">&</span> PRONOSTICI
           </div>
-          <span className="text-[7px] text-[#64748B] uppercase font-black tracking-widest mt-0.5">Created by Luca Pinelli</span>
+          <span className="text-[8px] text-[#64748B] uppercase font-black tracking-widest mt-0.5">Created by Luca Pinelli</span>
         </div>
         
         {/* Stats Counter */}
