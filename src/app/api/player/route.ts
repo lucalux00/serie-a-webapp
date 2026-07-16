@@ -100,22 +100,16 @@ REGOLE:
     while (attempt < maxAttempts) {
       res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.2,
-            response_mime_type: "application/json",
-          }
+          generationConfig: { temperature: 0.2, response_mime_type: "application/json" }
         }),
       });
 
       if (res.status === 429) {
         attempt++;
         if (attempt >= maxAttempts) break;
-        // Wait 3 seconds before retrying
         await new Promise(r => setTimeout(r, 3000 * attempt));
         continue;
       }
@@ -126,7 +120,6 @@ REGOLE:
       const errText = res ? await res.text() : 'No response';
       console.error('Gemini API Error:', errText);
       
-      // Fallback Profile to avoid exposing limits
       const fallbackResult = {
         name,
         isCoach,
@@ -166,22 +159,29 @@ REGOLE:
           } : null
         }
       };
-      
       return NextResponse.json(fallbackResult);
     }
 
     const data = await res.json();
     let jsonText = data.candidates[0].content.parts[0].text;
-    
-    // In case the mime type enforcement fails slightly
     jsonText = jsonText.replace(/^```json\s*/, '').replace(/\s*```$/, '').trim();
 
     const result = JSON.parse(jsonText);
+
+    try {
+      await sql`
+        INSERT INTO player_stats_cache (name, team, data)
+        VALUES (${name}, ${team}, ${JSON.stringify(result)})
+        ON CONFLICT (name, team) DO UPDATE SET data = ${JSON.stringify(result)}
+      `;
+    } catch (dbInsertError) {
+      console.warn("Could not save to DB Cache:", dbInsertError);
+    }
+
     return NextResponse.json(result);
 
   } catch (error) {
     console.error('Player API error:', error);
-    // Extreme fallback
     return NextResponse.json({ 
       name: "Dati Temporaneamente Non Disponibili", 
       biografia: "Stiamo aggiornando i server per fornirti le statistiche più precise." 

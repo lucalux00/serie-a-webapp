@@ -12,6 +12,7 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData }: any) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei'>('news');
+  const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [selectedNews, setSelectedNews] = useState<any>(null);
@@ -237,31 +238,113 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
 
           {/* TAB: MERCATO */}
           {activeTab === 'mercato' && squadData && (
-            <motion.div key="mercato" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-4">
-              <h2 className="text-lg font-bold mb-4">Registro Operazioni</h2>
-              {squadData.transfers.map((tr: any) => {
-                let StatusIcon = Clock;
-                let statusColor = "text-[#F59E0B]";
-                if (tr.status === 'Conclusa') { StatusIcon = CheckCircle2; statusColor = "text-[#10B981]"; }
-                if (tr.status === 'Fallita') { StatusIcon = XCircle; statusColor = "text-[#EF4444]"; }
+            <motion.div key="mercato" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
+              
+              {/* Tabs Filtro Categoria */}
+              <div className="flex bg-[#0F172A] border-b border-[#334155] overflow-x-auto no-scrollbar">
+                {[
+                  { id: 'acquisti', label: 'Acquisti' },
+                  { id: 'cessioni', label: 'Cessioni' },
+                  { id: 'prestiti', label: 'Prestiti' },
+                  { id: 'trattative', label: 'Trattative' }
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setTeamMercatoFilter(tab.id as any)}
+                    className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${teamMercatoFilter === tab.id ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {(() => {
+                const acquisti = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('acquisto') && !t.type.toLowerCase().includes('prestito'));
+                const cessioni = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('cessione') && !t.type.toLowerCase().includes('prestito'));
+                const prestiti = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('prestito'));
+
+                const renderTransferCard = (tr: any, colorHex: string, icon: any) => {
+                  let StatusIcon = Clock;
+                  if (tr.status === 'Conclusa' || tr.status === 'ufficiale') StatusIcon = CheckCircle2;
+                  if (tr.status === 'Fallita') StatusIcon = XCircle;
+
+                  return (
+                    <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
+                      <div className={`absolute left-0 top-0 bottom-0 w-1 bg-[${colorHex}]`} style={{ backgroundColor: colorHex }} />
+                      <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
+                        <div className="flex items-center space-x-2">
+                          <span style={{ color: colorHex }}>{icon}</span>
+                          <span className="font-bold text-sm text-white uppercase tracking-wider">{tr.type}</span>
+                        </div>
+                        <span className={`text-[10px] font-black flex items-center uppercase text-[${colorHex}]`} style={{ color: colorHex }}>
+                          <StatusIcon size={12} className="mr-1" /> {tr.status || 'Ufficiale'}
+                        </span>
+                      </div>
+                      <div className="pl-2">
+                        <div className="font-black text-lg text-[#F8FAFC] leading-tight mb-1">{tr.player}</div>
+                        <div className="flex justify-between items-center mt-2 text-xs">
+                          <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{tr.otherTeam}</strong></span>
+                          <span className="font-black" style={{ color: colorHex }}>{tr.fee}</span>
+                        </div>
+                        <div className="text-[10px] mt-2 text-right text-[#64748B] uppercase font-bold tracking-widest">{tr.date}</div>
+                      </div>
+                    </div>
+                  );
+                };
 
                 return (
-                  <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md">
-                    <div className="flex justify-between items-start mb-2 border-b border-[#334155] pb-2">
-                      <span className="text-xs font-bold uppercase text-[#0EA5E9]">{tr.type}</span>
-                      <span className={`text-xs font-bold uppercase flex items-center ${statusColor}`}>
-                        <StatusIcon size={12} className="mr-1" /> {tr.status}
-                      </span>
-                    </div>
-                    <div className="font-bold text-lg mb-1">{tr.player}</div>
-                    <div className="flex justify-between items-center mt-2 text-sm text-[#94A3B8]">
-                      <span>Operazione con: <strong>{tr.otherTeam}</strong></span>
-                      <span className="font-black text-[#F8FAFC]">{tr.fee}</span>
-                    </div>
-                    <div className="text-[10px] mt-2 text-right">{tr.date}</div>
-                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div key={teamMercatoFilter} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
+                      
+                      {teamMercatoFilter === 'acquisti' && (
+                        <div className="grid grid-cols-1 gap-3">
+                          <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
+                            <CheckCircle2 size={16} className="mr-2" /> Acquisti Definitivi
+                          </h2>
+                          {acquisti.length > 0 ? acquisti.map((t:any) => renderTransferCard(t, '#10B981', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun acquisto definitivo registrato.</div>}
+                        </div>
+                      )}
+
+                      {teamMercatoFilter === 'cessioni' && (
+                        <div className="grid grid-cols-1 gap-3">
+                          <h2 className="flex items-center text-[#EF4444] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
+                            <XCircle size={16} className="mr-2" /> Cessioni Definitive
+                          </h2>
+                          {cessioni.length > 0 ? cessioni.map((t:any) => renderTransferCard(t, '#EF4444', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessuna cessione definitiva registrata.</div>}
+                        </div>
+                      )}
+
+                      {teamMercatoFilter === 'prestiti' && (
+                        <div className="grid grid-cols-1 gap-3">
+                          <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
+                            <ArrowRightLeft size={16} className="mr-2" /> Movimenti in Prestito
+                          </h2>
+                          {prestiti.length > 0 ? prestiti.map((t:any) => renderTransferCard(t, '#0EA5E9', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun prestito registrato.</div>}
+                        </div>
+                      )}
+
+                      {teamMercatoFilter === 'trattative' && (
+                        <div className="grid grid-cols-1 gap-3">
+                          <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
+                            <Clock size={16} className="mr-2" /> Live Rumors (Feed X)
+                          </h2>
+                          <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[500px] border border-[#334155] flex flex-col relative">
+                            <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
+                              Caricamento Rumors...
+                            </div>
+                            <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
+                              <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
+                              </a> 
+                              <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                    </motion.div>
+                  </AnimatePresence>
                 );
-              })}
+              })()}
             </motion.div>
           )}
 
