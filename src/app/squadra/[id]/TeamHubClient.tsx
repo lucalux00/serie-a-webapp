@@ -52,16 +52,31 @@ function PartiteTab({ team }: { team: any }) {
         </div>
 
         <div className="flex items-center justify-between pl-3">
-          {/* Team */}
+          {/* HOME TEAM */}
           <div className="flex flex-col items-center flex-1">
-            {team.logoUrl ? (
-              <img src={team.logoUrl} alt={team.name} loading="lazy" className="w-10 h-10 object-contain mb-1" />
+            {isHome ? (
+              <>
+                {team.logoUrl ? (
+                  <img src={team.logoUrl} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black mb-1" style={{ backgroundColor: team.primaryColor + '33', color: team.primaryColor }}>
+                    {team.logo || team.name?.slice(0, 3)}
+                  </div>
+                )}
+                <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate">{team.name}</span>
+              </>
             ) : (
-              <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black mb-1" style={{ backgroundColor: team.primaryColor + '33', color: team.primaryColor }}>
-                {team.logo || team.name?.slice(0, 3)}
-              </div>
+              <>
+                {match.home.crest ? (
+                  <img src={match.home.crest} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-[#0F172A] border border-[#334155] flex items-center justify-center text-[9px] font-black text-[#94A3B8] mb-1">
+                    {match.home.shortName?.slice(0, 3) || '?'}
+                  </div>
+                )}
+                <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate text-[#94A3B8]">{match.home.shortName || match.home.name}</span>
+              </>
             )}
-            <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate">{team.name}</span>
           </div>
 
           {/* Score / Date */}
@@ -69,7 +84,7 @@ function PartiteTab({ team }: { team: any }) {
             {isFinished && teamScore !== null ? (
               <>
                 <div className="text-2xl font-black tracking-wide" style={{ color: resultColor }}>
-                  {isHome ? `${match.score.home} - ${match.score.away}` : `${match.score.away} - ${match.score.home}`}
+                  {`${match.score.home} - ${match.score.away}`}
                 </div>
                 <span className="text-[9px] text-[#475569] font-bold uppercase mt-0.5">Finale</span>
               </>
@@ -83,16 +98,31 @@ function PartiteTab({ team }: { team: any }) {
             )}
           </div>
 
-          {/* Opponent */}
+          {/* AWAY TEAM */}
           <div className="flex flex-col items-center flex-1">
-            {oppCrest ? (
-              <img src={oppCrest} alt={opponent.name} loading="lazy" className="w-10 h-10 object-contain mb-1" />
+            {!isHome ? (
+              <>
+                {team.logoUrl ? (
+                  <img src={team.logoUrl} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black mb-1" style={{ backgroundColor: team.primaryColor + '33', color: team.primaryColor }}>
+                    {team.logo || team.name?.slice(0, 3)}
+                  </div>
+                )}
+                <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate">{team.name}</span>
+              </>
             ) : (
-              <div className="w-10 h-10 rounded-full bg-[#0F172A] border border-[#334155] flex items-center justify-center text-[9px] font-black text-[#94A3B8] mb-1">
-                {opponent.shortName?.slice(0, 3) || '?'}
-              </div>
+              <>
+                {match.away.crest ? (
+                  <img src={match.away.crest} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-[#0F172A] border border-[#334155] flex items-center justify-center text-[9px] font-black text-[#94A3B8] mb-1">
+                    {match.away.shortName?.slice(0, 3) || '?'}
+                  </div>
+                )}
+                <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate text-[#94A3B8]">{match.away.shortName || match.away.name}</span>
+              </>
             )}
-            <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate text-[#94A3B8]">{opponent.shortName || opponent.name}</span>
           </div>
         </div>
 
