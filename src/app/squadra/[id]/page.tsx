@@ -16,18 +16,30 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
   
   const team = ALL_TEAMS.find(t => t.id === teamId) || { name: 'Squadra', logo: '?', league: 'A' };
   
-  // Fetch delle news live (Google News RSS + Postgres Cache in futuro)
-  const news = await fetchNewsForTeam(team.name, team.league);
+  // Esecuzione parallela delle chiamate principali
+  const newsPromise = fetchNewsForTeam(team.name, team.league);
+  
+  let dbPlayersPromise: Promise<{ rows: any[] }> = Promise.resolve({ rows: [] });
+  let dbTransfersPromise: Promise<{ rows: any[] }> = Promise.resolve({ rows: [] });
+  if (process.env.POSTGRES_URL) {
+    dbPlayersPromise = sql`SELECT * FROM players WHERE team_id = ${teamId}`;
+    dbTransfersPromise = sql`SELECT * FROM transfers WHERE team_id = ${teamId} ORDER BY id DESC`;
+  }
+
+  // Risolvi tutto in parallelo!
+  const [news, { rows: players }, { rows: transfers }] = await Promise.all([
+    newsPromise,
+    dbPlayersPromise,
+    dbTransfersPromise
+  ]);
 
   let squadData = null;
   let trofeiData = null;
   
-  // 1. Prova a leggere da Postgres
+  // 1. Elabora i dati da Postgres
   let dbHasData = false;
   if (process.env.POSTGRES_URL) {
     try {
-      const { rows: players } = await sql`SELECT * FROM players WHERE team_id = ${teamId}`;
-      const { rows: transfers } = await sql`SELECT * FROM transfers WHERE team_id = ${teamId} ORDER BY id DESC`;
 
       if (players.length > 0) {
         dbHasData = true;

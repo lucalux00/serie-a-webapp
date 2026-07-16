@@ -52,9 +52,14 @@ export default function TeamSelector() {
             key={team.id}
             whileTap={{ scale: 0.95 }}
             onClick={() => router.push(`/squadra/${team.id}`)}
-            className="flex-shrink-0 snap-center w-24 h-24 bg-[#1E293B] rounded-2xl flex flex-col items-center justify-center border border-[#334155] shadow-lg cursor-pointer hover:border-[#10B981] transition-colors"
+            className="flex-shrink-0 snap-center w-24 h-24 bg-[#1E293B] rounded-2xl flex flex-col items-center justify-center border border-[#334155] shadow-lg cursor-pointer hover:border-[#10B981] transition-colors overflow-hidden relative"
           >
-            <div className="text-3xl font-black text-white mb-2 drop-shadow-md">{team.logo}</div>
+            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: team.primaryColor || '#1E293B' }}></div>
+            {team.logoUrl ? (
+              <img src={team.logoUrl} alt={team.name} loading="lazy" className="w-10 h-10 object-contain mb-2" />
+            ) : (
+              <div className="text-3xl font-black text-white mb-2 drop-shadow-md">{team.logo}</div>
+            )}
             <div className="text-xs font-semibold text-[#94A3B8] text-center px-1 truncate w-full">{team.name}</div>
           </motion.div>
         ))}

@@ -2,14 +2,16 @@ import { NextResponse } from 'next/server';
 import webpush from 'web-push';
 import { sql } from '@vercel/postgres';
 
-webpush.setVapidDetails(
-  'mailto:test@example.com',
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string,
-  process.env.VAPID_PRIVATE_KEY as string
-);
-
 export async function POST(request: Request) {
   try {
+    if (process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+      webpush.setVapidDetails(
+        'mailto:test@example.com',
+        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string,
+        process.env.VAPID_PRIVATE_KEY as string
+      );
+    }
+
     const { userId, title, body, icon, url } = await request.json();
 
     if (!userId) {
