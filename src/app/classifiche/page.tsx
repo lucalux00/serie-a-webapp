@@ -493,7 +493,7 @@ export default function ClassifichePage() {
                                   router.push(`/squadra/${t.id}?tab=trofei&year=${encodeURIComponent(s.label)}`);
                                 }
                             }}
-                            className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 bg-[#0F172A] border-[#334155] text-[#94A3B8] hover:text-white hover:border-[#475569]`}
+                            className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 bg-[#1E293B] border-[#0EA5E9]/30 text-white shadow-sm hover:bg-[#0EA5E9] hover:border-[#0EA5E9] hover:shadow-[0_0_10px_rgba(14,165,233,0.5)]`}
                           >
                             <span className="text-[10px] font-bold uppercase tracking-widest mb-0.5 opacity-70">Stagione</span>
                             <span className="text-sm font-black">{s.label}</span>

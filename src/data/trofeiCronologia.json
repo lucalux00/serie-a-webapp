@@ -415,8 +415,107 @@
     "icon": "🇮🇹",
     "coach": "Dato Storico",
     "points": "Vittoria Storica",
-    "formation": [
-      "Formazione Storica"
+    "roster": [
+      {
+        "name": "W. Szczesny",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "M. Perin",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "J. Cancelo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "L. Bonucci",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "G. Chiellini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alex Sandro",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "D. Rugani",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "A. Barzagli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. De Sciglio",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. Pjanic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "B. Matuidi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "E. Can",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "R. Bentancur",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "S. Khedira",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "M. Mandzukic",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "P. Dybala",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "D. Costa",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "F. Bernardeschi",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "M. Kean",
+        "role": "ATT",
+        "isStarter": false
+      }
     ]
   },
   {
@@ -427,8 +526,122 @@
     "icon": "🇮🇹",
     "coach": "Dato Storico",
     "points": "Vittoria Storica",
-    "formation": [
-      "Formazione Storica"
+    "roster": [
+      {
+        "name": "W. Szczesny",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "G. Buffon",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "C. Pinsoglio",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "J. Cuadrado",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "L. Bonucci",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "M. de Ligt",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alex Sandro",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "G. Chiellini",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "D. Rugani",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. Demiral",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Danilo",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. De Sciglio",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. Pjanic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "R. Bentancur",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "B. Matuidi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "A. Rabiot",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "A. Ramsey",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "S. Khedira",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "P. Dybala",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "G. Higuain",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "D. Costa",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "F. Bernardeschi",
+        "role": "ATT",
+        "isStarter": true
+      }
     ]
   },
   {
@@ -1063,8 +1276,122 @@
     "icon": "🇮🇹",
     "coach": "Dato Storico",
     "points": "Vittoria Storica",
-    "formation": [
-      "Formazione Storica"
+    "roster": [
+      {
+        "name": "M. Maignan",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "C. Tătărușanu",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "D. Calabria",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "P. Kalulu",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "F. Tomori",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "T. Hernández",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "A. Romagnoli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "S. Kjaer",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. Gabbia",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "A. Florenzi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "F. Ballo-Touré",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "S. Tonali",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "F. Kessié",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "I. Bennacer",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "B. Díaz",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "R. Krunić",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "T. Bakayoko",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "R. Leão",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "O. Giroud",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "A. Saelemaekers",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "J. Messias",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Z. Ibrahimović",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "A. Rebić",
+        "role": "ATT",
+        "isStarter": false
+      }
     ]
   },
   {
@@ -1436,30 +1763,126 @@
     "coach": "Simone Inzaghi",
     "points": "94 Punti (Scudetto della 2a Stella)",
     "roster": [
-      { "name": "Y. Sommer", "role": "POR", "isStarter": true },
-      { "name": "E. Audero", "role": "POR", "isStarter": false },
-      { "name": "R. Di Gennaro", "role": "POR", "isStarter": false },
-      { "name": "B. Pavard", "role": "DIF", "isStarter": true },
-      { "name": "F. Acerbi", "role": "DIF", "isStarter": true },
-      { "name": "A. Bastoni", "role": "DIF", "isStarter": true },
-      { "name": "M. Darmian", "role": "DIF", "isStarter": true },
-      { "name": "F. Dimarco", "role": "DIF", "isStarter": true },
-      { "name": "S. De Vrij", "role": "DIF", "isStarter": false },
-      { "name": "Y. Bisseck", "role": "DIF", "isStarter": false },
-      { "name": "D. Dumfries", "role": "DIF", "isStarter": false },
-      { "name": "Carlos Augusto", "role": "DIF", "isStarter": false },
-      { "name": "N. Barella", "role": "CEN", "isStarter": true },
-      { "name": "H. Calhanoglu", "role": "CEN", "isStarter": true },
-      { "name": "H. Mkhitaryan", "role": "CEN", "isStarter": true },
-      { "name": "D. Frattesi", "role": "CEN", "isStarter": false },
-      { "name": "K. Asllani", "role": "CEN", "isStarter": false },
-      { "name": "D. Klaassen", "role": "CEN", "isStarter": false },
-      { "name": "J. Cuadrado", "role": "CEN", "isStarter": false },
-      { "name": "T. Buchanan", "role": "CEN", "isStarter": false },
-      { "name": "L. Martinez", "role": "ATT", "isStarter": true },
-      { "name": "M. Thuram", "role": "ATT", "isStarter": true },
-      { "name": "M. Arnautovic", "role": "ATT", "isStarter": false },
-      { "name": "A. Sanchez", "role": "ATT", "isStarter": false }
+      {
+        "name": "Y. Sommer",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "E. Audero",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "R. Di Gennaro",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "B. Pavard",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "F. Acerbi",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "A. Bastoni",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "M. Darmian",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "F. Dimarco",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "S. De Vrij",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Y. Bisseck",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "D. Dumfries",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Carlos Augusto",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "N. Barella",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "H. Calhanoglu",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "H. Mkhitaryan",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "D. Frattesi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "K. Asllani",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "D. Klaassen",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "J. Cuadrado",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "T. Buchanan",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "L. Martinez",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "M. Thuram",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "M. Arnautovic",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "A. Sanchez",
+        "role": "ATT",
+        "isStarter": false
+      }
     ]
   },
   {
@@ -1470,8 +1893,117 @@
     "icon": "🇮🇹",
     "coach": "Dato Storico",
     "points": "Vittoria Storica",
-    "formation": [
-      "Formazione Storica"
+    "roster": [
+      {
+        "name": "S. Handanovic",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "I. Radu",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "M. Skriniar",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "S. De Vrij",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "A. Bastoni",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "A. Hakimi",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "A. Young",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "M. Darmian",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "D. D'Ambrosio",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "A. Ranocchia",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "A. Kolarov",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "N. Barella",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "M. Brozovic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "C. Eriksen",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "A. Vidal",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "I. Perisic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "R. Gagliardini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "M. Vecino",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "S. Sensi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "R. Lukaku",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "L. Martinez",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "A. Sanchez",
+        "role": "ATT",
+        "isStarter": false
+      }
     ]
   },
   {
@@ -2055,30 +2587,126 @@
     "coach": "Luciano Spalletti",
     "points": 90,
     "roster": [
-      { "name": "A. Meret", "role": "POR", "isStarter": true },
-      { "name": "P. Gollini", "role": "POR", "isStarter": false },
-      { "name": "G. Di Lorenzo", "role": "DIF", "isStarter": true },
-      { "name": "A. Rrahmani", "role": "DIF", "isStarter": true },
-      { "name": "Kim Min-jae", "role": "DIF", "isStarter": true },
-      { "name": "Mário Rui", "role": "DIF", "isStarter": true },
-      { "name": "M. Olivera", "role": "DIF", "isStarter": false },
-      { "name": "Juan Jesus", "role": "DIF", "isStarter": false },
-      { "name": "L. Østigård", "role": "DIF", "isStarter": false },
-      { "name": "B. Bereszyński", "role": "DIF", "isStarter": false },
-      { "name": "S. Lobotka", "role": "CEN", "isStarter": true },
-      { "name": "Zambo Anguissa", "role": "CEN", "isStarter": true },
-      { "name": "P. Zielinski", "role": "CEN", "isStarter": true },
-      { "name": "E. Elmas", "role": "CEN", "isStarter": false },
-      { "name": "T. Ndombélé", "role": "CEN", "isStarter": false },
-      { "name": "G. Gaetano", "role": "CEN", "isStarter": false },
-      { "name": "D. Demme", "role": "CEN", "isStarter": false },
-      { "name": "V. Osimhen", "role": "ATT", "isStarter": true },
-      { "name": "K. Kvaratskhelia", "role": "ATT", "isStarter": true },
-      { "name": "M. Politano", "role": "ATT", "isStarter": true },
-      { "name": "H. Lozano", "role": "ATT", "isStarter": false },
-      { "name": "G. Raspadori", "role": "ATT", "isStarter": false },
-      { "name": "G. Simeone", "role": "ATT", "isStarter": false },
-      { "name": "A. Zerbin", "role": "ATT", "isStarter": false }
+      {
+        "name": "A. Meret",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "P. Gollini",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "G. Di Lorenzo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "A. Rrahmani",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Kim Min-jae",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Mário Rui",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "M. Olivera",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Juan Jesus",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "L. Østigård",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "B. Bereszyński",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "S. Lobotka",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Zambo Anguissa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "P. Zielinski",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "E. Elmas",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "T. Ndombélé",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "G. Gaetano",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "D. Demme",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "V. Osimhen",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "K. Kvaratskhelia",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "M. Politano",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "H. Lozano",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "G. Raspadori",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "G. Simeone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "A. Zerbin",
+        "role": "ATT",
+        "isStarter": false
+      }
     ]
   },
   {

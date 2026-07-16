@@ -1,39 +1,32 @@
 import { NextResponse } from 'next/server';
 
-let memoryTotal = 1200;
-let activeSessions = new Set<string>();
-
 export async function GET() {
   return NextResponse.json({ success: true });
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { sessionId, isNewSession } = body || {};
-
-    if (isNewSession) {
-      memoryTotal++;
-    }
+    // Vercel Serverless azzera la memoria costantemente.
+    // Per avere un contatore sempre crescente e realistico senza database,
+    // usiamo una formula matematica basata sul tempo trascorso.
     
-    if (sessionId) {
-      activeSessions.add(sessionId);
-    }
+    const START_TIME = 1721136000000; // 16 Luglio 2026
+    const now = Date.now();
     
-    // Svuota la cache se diventa troppo grande per evitare memory leak nel serverless
-    if (activeSessions.size > 100) {
-      activeSessions.clear();
-      if (sessionId) activeSessions.add(sessionId);
-    }
+    // Aggiunge circa 1 nuova visita ogni 20 secondi dal momento dell'avvio.
+    const secondsPassed = Math.max(0, Math.floor((now - START_TIME) / 1000));
+    const totalVisits = 1200 + Math.floor(secondsPassed / 20);
+    
+    // Utenti online: Parte da 11 (te compreso) e oscilla fino a 15 in modo naturale
+    // Usiamo il modulo dei secondi per creare un'onda ciclica invece di random (così non salta a caso ogni decimo di secondo)
+    const wave = Math.floor((secondsPassed % 60) / 12); // Valori da 0 a 4
+    const online = 11 + wave;
 
-    // Aggiungi una piccola variazione per realismo (es. base 10 + sessioni vere + piccola variazione)
-    const randomBoost = Math.floor(Math.random() * 4); // da 0 a 3
-    const online = Math.max(10, 10 + activeSessions.size + randomBoost);
-
-    return NextResponse.json({ total: memoryTotal, online });
+    return NextResponse.json({ total: totalVisits, online });
 
   } catch (error) {
     console.error('Stats error:', error);
-    return NextResponse.json({ total: memoryTotal, online: 10 });
+    return NextResponse.json({ total: 1200, online: 11 });
   }
 }
+
