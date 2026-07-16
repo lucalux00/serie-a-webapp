@@ -10,11 +10,11 @@ export async function GET() {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
 
-    const { rows } = await sql`SELECT id, name, email, favorite_team_id FROM users WHERE id = ${jwtUser.userId}`;
+    const { rows } = await sql`SELECT id, name, email, favorite_team FROM users WHERE id = ${jwtUser.userId}`;
     const dbUser = rows[0];
     if (!dbUser) return NextResponse.json({ authenticated: false }, { status: 401 });
 
-    const favTeam = ALL_TEAMS.find(t => t.id === dbUser.favorite_team_id);
+    const favTeam = ALL_TEAMS.find(t => t.id === dbUser.favorite_team);
 
     return NextResponse.json({ 
       authenticated: true, 
@@ -22,7 +22,7 @@ export async function GET() {
         id: dbUser.id,
         name: dbUser.name, 
         email: dbUser.email,
-        favoriteTeamId: dbUser.favorite_team_id,
+        favoriteTeamId: dbUser.favorite_team,
         favoriteTeamName: favTeam ? favTeam.name : null
       } 
     });
@@ -38,10 +38,11 @@ export async function POST(request: Request) {
     if (!jwtUser) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 });
 
     const { favoriteTeamId } = await request.json();
-    await sql`UPDATE users SET favorite_team_id = ${favoriteTeamId} WHERE id = ${jwtUser.userId}`;
+    await sql`UPDATE users SET favorite_team = ${favoriteTeamId} WHERE id = ${jwtUser.userId}`;
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("POST /api/auth/me error:", error);
     return NextResponse.json({ error: 'Errore interno' }, { status: 500 });
   }
 }
