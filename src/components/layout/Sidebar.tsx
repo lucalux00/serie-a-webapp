@@ -32,7 +32,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           >
             <div className="flex items-center justify-between p-4 border-b border-[#334155]">
               <div className="font-bold text-lg text-[#F8FAFC]">
-                <span className="text-[#10B981]">SERIE A</span> MENU
+                <span className="text-[#10B981]">TATTICA</span> MENU
               </div>
               <button onClick={onClose} className="p-2 text-[#94A3B8]">
                 <X size={24} />
