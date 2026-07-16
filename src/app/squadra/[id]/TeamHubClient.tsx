@@ -9,6 +9,50 @@ import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
+const TEAM_RUMORS: Record<string, any[]> = {
+  "Como": [ { player: "Trevoh Chalobah", from: "Chelsea", fee: "Trattativa in corso, cifra non riportata" } ],
+  "Genoa": [ { player: "Brooke Norton-Cuffy", from: "Arsenal", fee: "Circa 20 milioni di euro" } ],
+  "Inter": [
+    { player: "Guéla Doué", from: "Strasburgo", fee: "Non riportato" },
+    { player: "Djed Spence", from: "Tottenham", fee: "Non riportato" },
+    { player: "Vanderson", from: "Monaco", fee: "Non riportato" },
+    { player: "Nahuel Molina", from: "Atletico Madrid", fee: "Non riportato" },
+    { player: "Julian Ryerson", from: "Borussia Dortmund", fee: "Non riportato" },
+    { player: "Curtis Jones", from: "Liverpool", fee: "Non riportato" }
+  ],
+  "Juventus": [
+    { player: "Randal Kolo Muani", from: "Paris Saint-Germain", fee: "Valutato oltre 45 milioni di euro" },
+    { player: "Jhon Lucumí", from: "Bologna", fee: "28 milioni (clausola)" },
+    { player: "Emiliano \"Dibu\" Martinez", from: "Aston Villa", fee: "Non riportato" },
+    { player: "Guglielmo Vicario", from: "Tottenham", fee: "Non riportato" },
+    { player: "Franck Kessié", from: "Al-Ahli", fee: "Non riportato" },
+    { player: "Mateo Pellegrino", from: "Parma", fee: "Non riportato" }
+  ],
+  "Lazio": [
+    { player: "John Kennedy", from: "Fluminense", fee: "Offerta presentata, cifra esatta non riportata" },
+    { player: "Sergi Dominguez", from: "Dinamo Zagabria", fee: "Non riportato" }
+  ],
+  "Milan": [
+    { player: "Luka Modric", from: "Real Madrid", fee: "Trattativa per accordo diretto/svincolo" },
+    { player: "Noussair Mazraoui", from: "Manchester United", fee: "Non riportato" },
+    { player: "Konstantinos Karetsas", from: "Genk", fee: "Non riportato" },
+    { player: "Kerim Alajbegovic", from: "Bayer Leverkusen", fee: "Non riportato" }
+  ],
+  "Napoli": [
+    { player: "Exequiel Zeballos", from: "Boca Juniors", fee: "Non riportato" }
+  ],
+  "Roma": [
+    { player: "Crysencio Summerville", from: "West Ham", fee: "Pronta un'offerta da 45 milioni di euro" },
+    { player: "Endrick", from: "Real Madrid", fee: "Operazione impostata sul prestito" }
+  ],
+  "Sassuolo": [
+    { player: "Takehiro Tomiyasu", from: "Arsenal", fee: "Non riportato" },
+    { player: "Akor Adams", from: "Siviglia", fee: "Non riportato" },
+    { player: "Francesco Acerbi", from: "Svincolato", fee: "Parametro zero" },
+    { player: "Pietro Comuzzo", from: "Fiorentina", fee: "Non riportato" }
+  ]
+};
+
 // Componente Partite con dati reali da football-data.org
 function PartiteTab({ team }: { team: any }) {
   const { data, error, isLoading } = useSWR(
@@ -604,10 +648,45 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                         </div>
                       )}
 
-                      {teamMercatoFilter === 'trattative' && (
+                      {teamMercatoFilter === 'trattative' && (() => {
+                        const teamKey = Object.keys(TEAM_RUMORS).find(k => team.name?.toLowerCase().includes(k.toLowerCase()));
+                        const rumors = teamKey ? TEAM_RUMORS[teamKey] : [];
+
+                        return (
                         <div className="grid grid-cols-1 gap-3">
-                          <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <Clock size={16} className="mr-2" /> Live Rumors (Feed X)
+                          {rumors.length > 0 && (
+                            <>
+                              <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
+                                <Clock size={16} className="mr-2" /> Calciomercato {teamKey}
+                              </h2>
+                              {rumors.map((r, idx) => (
+                                <div key={idx} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
+                                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
+                                  <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
+                                    <div className="flex items-center space-x-2">
+                                      <Clock size={14} className="text-[#F59E0B]" />
+                                      <span className="font-bold text-sm text-white uppercase tracking-wider">Trattativa</span>
+                                    </div>
+                                    <span className="text-[10px] font-black flex items-center uppercase text-[#F59E0B]">
+                                      Rumor Live
+                                    </span>
+                                  </div>
+                                  <div className="pl-2">
+                                    <div className="font-black text-lg text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
+                                    <div className="flex justify-between items-center mt-2 text-xs">
+                                      <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{r.from}</strong></span>
+                                    </div>
+                                    <div className="flex justify-between items-center mt-1 text-xs border-t border-[#334155] pt-1">
+                                      <span className="text-[#94A3B8] font-medium">Valutazione:</span>
+                                      <span className="font-black text-[#F59E0B] text-right">{r.fee}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </>
+                          )}
+                          <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2 mt-4">
+                            <ArrowRightLeft size={16} className="mr-2" /> Mercato Globale (Feed X)
                           </h2>
                           <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[500px] border border-[#334155] flex flex-col relative">
                             <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
@@ -620,7 +699,8 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                             </div>
                           </div>
                         </div>
-                      )}
+                        );
+                      })()}
 
                     </motion.div>
                   </AnimatePresence>
