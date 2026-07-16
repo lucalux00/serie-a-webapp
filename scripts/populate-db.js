@@ -32,34 +32,34 @@ async function run() {
     process.exit(1);
   }
 
-  const squadsPath = path.join(__dirname, '..', 'src', 'data', 'deepSquads.json');
-  const allSquads = JSON.parse(fs.readFileSync(squadsPath, 'utf8'));
+  // Invece di leggere dal JSON locale, ora leggiamo la VERA lista dei giocatori scaricati da Transfermarkt
+  console.log("Recupero giocatori dalla tabella 'players'...");
+  let playersList = [];
+  try {
+    const res = await sql`SELECT * FROM players ORDER BY team_id, name`;
+    playersList = res.rows;
+    console.log(`Trovati ${playersList.length} giocatori nel Database.`);
+  } catch (e) {
+    console.error("Errore lettura tabella players:", e);
+    process.exit(1);
+  }
 
   let count = 0;
   
-  for (const teamId of Object.keys(allSquads)) {
-    const team = allSquads[teamId];
-    console.log(`\n=== Inizio elaborazione squadra: ${teamId} ===`);
+  for (const player of playersList) {
+    const teamId = player.team_id;
+    if (!player.name) continue;
 
-    const playersToProcess = [
-      ...team.firstTeam.players,
-      ...team.firstTeam.staff,
-      team.firstTeam.coach,
-    ].filter(Boolean); // rimuove null/undefined
-
-    for (const player of playersToProcess) {
-      if (!player.name) continue;
-
-      // Check se esiste già
-      try {
-        const { rows } = await sql`SELECT id FROM player_stats_cache WHERE name = ${player.name} AND team = ${teamId}`;
-        if (rows.length > 0) {
-          console.log(`[SKIP] ${player.name} (${teamId}) - Già nel DB`);
-          continue;
-        }
-      } catch (e) {
-        console.error("DB Check error:", e);
+    // Check se esiste già in player_stats_cache
+    try {
+      const { rows } = await sql`SELECT id FROM player_stats_cache WHERE name = ${player.name} AND team = ${teamId}`;
+      if (rows.length > 0) {
+        console.log(`[SKIP] ${player.name} (${teamId}) - Già nel DB Cache`);
+        continue;
       }
+    } catch (e) {
+      console.error("DB Check error:", e);
+    }
 
       console.log(`[FETCH] Generazione dati per ${player.name} (${teamId})...`);
       
@@ -134,7 +134,6 @@ async function run() {
         await delay(2000);
       }
     }
-  }
 
   console.log(`\nFinito! Inseriti/Aggiornati ${count} giocatori nel Database.`);
   process.exit(0);

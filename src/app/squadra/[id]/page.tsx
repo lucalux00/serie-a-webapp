@@ -31,6 +31,28 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
 
       if (players.length > 0) {
         dbHasData = true;
+        
+        let finalTransfers = transfers.map(t => ({
+          id: t.id,
+          type: t.type,
+          player: t.player,
+          otherTeam: t.other_team,
+          fee: t.fee,
+          date: t.date,
+          status: t.status
+        }));
+
+        // Se non ci sono trasferimenti nel DB, proviamo a pescarli dal vecchio deepSquads.json come fallback
+        if (finalTransfers.length === 0) {
+          try {
+            const squadsPath = path.join(process.cwd(), 'src', 'data', 'deepSquads.json');
+            const allSquads = JSON.parse(fs.readFileSync(squadsPath, 'utf8'));
+            if (allSquads[teamId] && allSquads[teamId].transfers) {
+              finalTransfers = allSquads[teamId].transfers;
+            }
+          } catch (e) {}
+        }
+
         squadData = {
           firstTeam: {
             coach: players.find(p => p.squad_type === 'first' && p.is_coach) || { name: "Non Assegnato", role: "Allenatore" },
@@ -42,15 +64,7 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
             staff: players.filter(p => p.squad_type === 'primavera' && p.is_staff),
             players: players.filter(p => p.squad_type === 'primavera' && !p.is_coach && !p.is_staff)
           },
-          transfers: transfers.map(t => ({
-            id: t.id,
-            type: t.type,
-            player: t.player,
-            otherTeam: t.other_team,
-            fee: t.fee,
-            date: t.date,
-            status: t.status
-          }))
+          transfers: finalTransfers
         };
       }
     } catch (e) {
@@ -58,7 +72,7 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
     }
   }
 
-  // 2. Fallback al JSON locale se il DB è vuoto o fallisce
+  // 2. Fallback totale al JSON locale se il DB è vuoto per questa squadra
   if (!dbHasData) {
     try {
       const squadsPath = path.join(process.cwd(), 'src', 'data', 'deepSquads.json');
