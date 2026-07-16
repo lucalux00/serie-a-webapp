@@ -159,9 +159,10 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [selectedTrophyGroup, setSelectedTrophyGroup] = useState<any>(null);
   const [selectedTrophy, setSelectedTrophy] = useState<any>(null);
+  const [selectedMatchAnalysis, setSelectedMatchAnalysis] = useState<any>(null);
 
-  const { data: analisiData } = useSWR(
-    `/api/analisi?teamId=${team.id}`,
+  const { data: matchdayData, isLoading: isLoadingMatchday } = useSWR(
+    `/api/analisi/matchday`,
     fetcher,
     { revalidateOnFocus: false }
   );
@@ -342,58 +343,57 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           {activeTab === 'analisi' && (
             <motion.div key="analisi" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
               
-              <div className="bg-[#1E293B] border-l-4 border-[#10B981] p-4 rounded-r-xl shadow-md flex items-center justify-between">
+              <div className="bg-[#1E293B] border-l-4 border-[#10B981] p-4 rounded-r-xl shadow-md flex items-center justify-between mb-2">
                 <div>
-                  <h3 className="text-[#94A3B8] text-[10px] font-black uppercase tracking-widest mb-1">Allenatore e Modulo</h3>
-                  <div className="text-white font-bold text-base">{activeSquad?.coach?.name || 'N/D'} <span className="text-[#10B981] text-sm ml-2">({activeSquad?.coach?.module || '4-3-3'})</span></div>
+                  <h3 className="text-[#94A3B8] text-[10px] font-black uppercase tracking-widest mb-1">Hub Analisi Tattica</h3>
+                  <div className="text-white font-bold text-base">
+                    Giornata {matchdayData?.matchday || '...'} <span className="text-[#10B981] text-sm ml-2">(Serie A 26/27)</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#334155] p-5 rounded-2xl shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 px-3 py-1 bg-[#0EA5E9] rounded-bl-xl text-white font-black text-[10px] uppercase shadow-md">Next Match</div>
-                <h3 className="text-[#94A3B8] text-[10px] font-black uppercase tracking-widest mb-4">Prossimo Impegno</h3>
-                
-                <div className="flex justify-between items-center mb-6 bg-[#0F172A] p-4 rounded-xl border border-[#334155]">
-                   <div className="text-center w-[40%]">
-                     <div className="text-xs text-[#94A3B8] uppercase font-bold mb-1">Noi</div>
-                     <div className="font-black text-white truncate text-lg">{team.name}</div>
-                   </div>
-                   <div className="text-[#0EA5E9] font-black text-sm uppercase px-2">VS</div>
-                   <div className="text-center w-[40%]">
-                     <div className="text-xs text-[#94A3B8] uppercase font-bold mb-1">Avversario</div>
-                     <div className="font-black text-white truncate text-lg">{analisiData?.matchPreview?.nextOpponent || 'Caricamento...'}</div>
-                   </div>
+              {isLoadingMatchday ? (
+                <div className="flex flex-col items-center justify-center py-10">
+                  <div className="w-8 h-8 border-4 border-[#0EA5E9] border-t-transparent rounded-full animate-spin"></div>
+                  <span className="text-[#0EA5E9] text-[10px] font-black uppercase mt-4 animate-pulse">Caricamento Matchday...</span>
                 </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-1">Fattore Campo</span>
-                    <span className="font-black text-sm text-[#F8FAFC]">
-                      {analisiData ? (analisiData.matchPreview.isHome ? 'IN CASA' : 'IN TRASFERTA') : '...'}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-1">Stima Spettatori</span>
-                    <span className="font-black text-sm text-[#F8FAFC]">{analisiData?.matchPreview?.attendance || '...'}</span>
-                  </div>
-                  <div className="col-span-2">
-                    <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-1">Costo Medio Biglietti</span>
-                    <span className="font-black text-sm text-[#10B981]">{analisiData?.matchPreview?.ticketCost || '...'}</span>
-                  </div>
+              ) : (
+                <div className="space-y-3">
+                  {matchdayData?.matches?.map((match: any, idx: number) => {
+                    const isMyTeam = match.homeTeam.includes(team.name?.slice(0,4)) || match.awayTeam.includes(team.name?.slice(0,4));
+                    return (
+                      <button 
+                        key={match.id}
+                        onClick={() => setSelectedMatchAnalysis(match)}
+                        className={`w-full bg-[#0F172A] border ${isMyTeam ? 'border-[#0EA5E9]' : 'border-[#334155]'} rounded-xl p-4 shadow-sm active:scale-95 transition-transform relative overflow-hidden`}
+                      >
+                        {isMyTeam && <div className="absolute top-0 right-0 px-2 py-0.5 bg-[#0EA5E9] rounded-bl-lg text-white font-black text-[9px] uppercase">Il tuo Match</div>}
+                        
+                        <div className="flex justify-between items-center w-full">
+                          <div className="flex flex-col items-center w-[40%]">
+                            {match.homeCrest ? <img src={match.homeCrest} className="w-10 h-10 object-contain mb-1" /> : <div className="w-10 h-10 rounded-full bg-[#1E293B] mb-1" />}
+                            <span className="text-xs font-bold text-white truncate w-full text-center">{match.homeTeam}</span>
+                          </div>
+                          <div className="flex flex-col items-center w-[20%]">
+                            <span className="text-[#0EA5E9] font-black text-xs uppercase mb-1">VS</span>
+                            <span className="text-[9px] text-[#64748B] font-bold uppercase">{new Date(match.date).toLocaleTimeString('it-IT', {hour: '2-digit', minute:'2-digit'})}</span>
+                          </div>
+                          <div className="flex flex-col items-center w-[40%]">
+                            {match.awayCrest ? <img src={match.awayCrest} className="w-10 h-10 object-contain mb-1" /> : <div className="w-10 h-10 rounded-full bg-[#1E293B] mb-1" />}
+                            <span className="text-xs font-bold text-white truncate w-full text-center">{match.awayTeam}</span>
+                          </div>
+                        </div>
+                        <div className="mt-3 pt-3 border-t border-[#334155] flex justify-between items-center">
+                          <span className="text-[10px] text-[#94A3B8] font-bold">Clicca per l'analisi tattica</span>
+                          <span className="text-[10px] text-[#10B981] font-black uppercase tracking-widest flex items-center">
+                            Apri <ArrowRightLeft size={10} className="ml-1" />
+                          </span>
+                        </div>
+                      </button>
+                    )
+                  })}
                 </div>
-
-                <div className="bg-[#0F172A] border border-[#334155] rounded-xl p-4">
-                  <h4 className="text-[#0EA5E9] text-[10px] font-black uppercase tracking-widest mb-2 flex items-center">
-                    <span className="w-2 h-2 rounded-full bg-[#0EA5E9] animate-pulse mr-2" />
-                    AI Tactical Advice
-                  </h4>
-                  <p className="text-sm text-white font-medium leading-relaxed italic">
-                    {analisiData?.tacticalAdvice ? `"${analisiData.tacticalAdvice}"` : 'Elaborazione analisi tattica in corso...'}
-                  </p>
-                </div>
-
-              </div>
-
+              )}
             </motion.div>
           )}
 
@@ -714,7 +714,67 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
 
       <PlayerSheet player={selectedPlayer} teamName={team.name} onClose={() => setSelectedPlayer(null)} />
 
-      {/* Nessun News Modal, rimossa completamente */}
+      {/* Match Analysis Modal */}
+      <AnimatePresence>
+        {selectedMatchAnalysis && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setSelectedMatchAnalysis(null)}
+              className="fixed inset-0 bg-[#0F172A]/80 backdrop-blur-sm z-50"
+            />
+            <motion.div 
+              initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed bottom-0 left-0 right-0 h-[85vh] bg-[#1E293B] border-t border-[#334155] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-50 flex flex-col"
+            >
+              <div className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] px-6 py-5 border-b border-[#334155] rounded-t-3xl shrink-0 relative overflow-hidden">
+                <div className="w-12 h-1.5 bg-[#334155] rounded-full absolute top-2 left-1/2 -translate-x-1/2" />
+                
+                <div className="flex justify-between items-center mt-3">
+                  <div className="flex items-center gap-3">
+                    {selectedMatchAnalysis.homeCrest && <img src={selectedMatchAnalysis.homeCrest} className="w-10 h-10 object-contain drop-shadow-md" />}
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-[#94A3B8] font-bold uppercase tracking-widest">Casa</span>
+                      <span className="text-sm font-black text-white">{selectedMatchAnalysis.homeTeam}</span>
+                    </div>
+                  </div>
+                  <span className="text-[#0EA5E9] font-black text-xl italic px-2">VS</span>
+                  <div className="flex items-center gap-3 text-right">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-[#94A3B8] font-bold uppercase tracking-widest">Trasferta</span>
+                      <span className="text-sm font-black text-white">{selectedMatchAnalysis.awayTeam}</span>
+                    </div>
+                    {selectedMatchAnalysis.awayCrest && <img src={selectedMatchAnalysis.awayCrest} className="w-10 h-10 object-contain drop-shadow-md" />}
+                  </div>
+                </div>
+
+                <button onClick={() => setSelectedMatchAnalysis(null)} className="absolute top-4 right-4 p-2 bg-[#334155]/50 hover:bg-[#334155] rounded-full text-white transition-colors">
+                  <XCircle size={20} />
+                </button>
+              </div>
+
+              <div className="p-6 overflow-y-auto no-scrollbar flex-1 text-[#E2E8F0] text-[15px] leading-relaxed relative">
+                <div className="flex justify-around mb-6 bg-[#0F172A] p-3 rounded-xl border border-[#334155]">
+                  <div className="text-center">
+                    <div className="text-[10px] text-[#64748B] font-bold uppercase">Spettatori</div>
+                    <div className="font-black text-[#10B981]">{selectedMatchAnalysis.attendance}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-[10px] text-[#64748B] font-bold uppercase">Biglietti</div>
+                    <div className="font-black text-[#0EA5E9]">{selectedMatchAnalysis.ticketCost}</div>
+                  </div>
+                </div>
+
+                <div 
+                  className="whitespace-pre-wrap font-medium leading-loose prose prose-invert max-w-none prose-headings:text-[#0EA5E9] prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-6 prose-li:my-1 prose-ul:my-2"
+                  dangerouslySetInnerHTML={{ __html: selectedMatchAnalysis.markdownAnalysis.replace(/\n/g, '<br/>') }}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Trophy Sheet Modal */}
       <AnimatePresence>
