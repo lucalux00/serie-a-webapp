@@ -107,7 +107,7 @@ export async function GET(request: Request) {
       // Ritorna le stagioni disponibili per il campionato
       const data = await fetchFromApi(`/competitions/${leagueCode}`);
       const seasons = (data.seasons || [])
-        .filter((s: any) => s.startDate && new Date(s.startDate).getFullYear() >= 2010)
+        .filter((s: any) => s.startDate)
         .sort((a: any, b: any) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
         .map((s: any) => {
           const startYear = new Date(s.startDate).getFullYear();

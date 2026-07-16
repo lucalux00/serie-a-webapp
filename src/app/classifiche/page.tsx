@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Trophy, Calendar as CalendarIcon, ChevronLeft, ChevronRight, AlertTriangle, Swords, Crown, ChevronDown } from 'lucide-react';
+import { HISTORY_DATA } from '@/data/history';
 
 const LEAGUES = [
   { id: 'A',  name: 'Serie A',        color: '#10B981', flag: '🇮🇹', short: 'SA' },
@@ -40,6 +41,24 @@ export default function ClassifichePage() {
   const [expandedTeam, setExpandedTeam] = useState<string | null>(null);
 
   const groupedHistory = useMemo(() => {
+    // Se abbiamo dati storici statici completi (es. Serie A dal 1898), usiamo quelli.
+    if (HISTORY_DATA[activeLeague]) {
+      return HISTORY_DATA[activeLeague].map(teamData => {
+        return [
+          teamData.team,
+          {
+            crest: teamData.crest,
+            wins: teamData.wins.map(yearLabel => ({
+              year: parseInt(yearLabel.split('/')[0]),
+              label: yearLabel,
+              isStatic: true
+            }))
+          }
+        ];
+      });
+    }
+
+    // Altrimenti usiamo il raggruppamento dinamico dalle stagioni restituite dall'API
     const map: Record<string, { crest: string, wins: any[] }> = {};
     seasons.forEach(s => {
       if (!s.winner) return;
@@ -47,7 +66,7 @@ export default function ClassifichePage() {
       map[s.winner].wins.push(s);
     });
     return Object.entries(map).sort(([a], [b]) => a.localeCompare(b));
-  }, [seasons]);
+  }, [seasons, activeLeague]);
 
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -116,13 +135,20 @@ export default function ClassifichePage() {
   }, [apiFetch]);
 
   const fetchSeasons = useCallback(async () => {
+    if (HISTORY_DATA[activeLeague]) {
+      // Se abbiamo i dati storici hardcoded, non serve attendere l'API per l'Albo d'oro,
+      // ma possiamo comunque fetchare per altri motivi, oppure impostiamo 'seasons' a qualcosa di finto
+      // per bypassare il loading
+      setSeasons([{ dummy: true }]); 
+      return;
+    }
     try {
       const data = await apiFetch('&type=seasons');
       // Esclude la stagione corrente (non ancora finita / 0 punti)
       const pastSeasons = (data.seasons || []).filter((s: any) => s.winner);
       setSeasons(pastSeasons);
     } catch { /* silent */ }
-  }, [apiFetch]);
+  }, [apiFetch, activeLeague]);
 
   const fetchHistoricalStandings = useCallback(async (year: number) => {
     setHistoryLoading(true);
