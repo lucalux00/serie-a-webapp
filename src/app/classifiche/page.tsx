@@ -80,13 +80,16 @@ export default function ClassifichePage() {
     return res.json();
   }, [activeLeague]);
 
-  // Fetch classifica corrente (con fallback a stagione precedente se non iniziata)
-  const fetchStandings = useCallback(async (lkey?: string) => {
+  // Fetch classifica corrente (con fallback a stagione precedente se non iniziata, oppure specifica un anno)
+  const fetchStandings = useCallback(async (lkey?: string, forceYear?: number) => {
     setLoading(true);
     setError(null);
     setSeasonNotStarted(false);
     try {
-      const res = await fetch(`/api/classifiche?league=${lkey || activeLeague}&type=standings`);
+      const url = forceYear 
+        ? `/api/classifiche?league=${lkey || activeLeague}&type=standings&season=${forceYear}`
+        : `/api/classifiche?league=${lkey || activeLeague}&type=standings`;
+      const res = await fetch(url);
       const data = await res.json();
       
       if (data.error === 'season_not_started') {
@@ -495,8 +498,8 @@ export default function ClassifichePage() {
                           <button
                             key={s.year}
                             onClick={() => {
-                              setSelectedHistorySeason(s.year);
-                              fetchHistoricalStandings(s.year);
+                              setViewMode('standings');
+                              fetchStandings(activeLeague, s.year);
                             }}
                             className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 ${
                               selectedHistorySeason === s.year 
@@ -515,23 +518,7 @@ export default function ClassifichePage() {
               </div>
             </div>
 
-            {/* Classifica storica espansa */}
-            {selectedHistorySeason && (
-              <div className="bg-[#1E293B] rounded-2xl border border-[#334155] overflow-hidden shadow-xl">
-                <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
-                  <span className="text-xs font-black text-white uppercase tracking-widest">
-                    Classifica Finale {historySeason}
-                  </span>
-                  {historyWinner && (
-                    <div className="flex items-center gap-1.5">
-                      {historyWinner.crest && <img src={historyWinner.crest} alt="" className="w-5 h-5 object-contain" />}
-                      <span className="text-[10px] font-black text-yellow-400">👑 {historyWinner.team}</span>
-                    </div>
-                  )}
-                </div>
-                {historyLoading ? <Skeleton /> : <StandingsTable rows={historicalStandings} compact />}
-              </div>
-            )}
+            {/* Classifica storica espansa (rimossa poiché ora reindirizza alla tab principale) */}
           </div>
         )}
       </div>
