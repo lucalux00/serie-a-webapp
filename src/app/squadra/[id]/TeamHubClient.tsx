@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ArrowRightLeft, CheckCircle2, XCircle, Clock } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlayerSheet from '@/components/domain/PlayerSheet';
 import useSWR from 'swr';
@@ -185,6 +185,8 @@ function PartiteTab({ team }: { team: any }) {
 
 export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData, initialTab = 'news' }: any) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const yearParam = searchParams.get('year');
   const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>(initialTab as any);
   const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
@@ -232,6 +234,20 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
     });
     return Object.values(groups);
   }, [trofeiData]);
+
+  // Gestione apertura automatica del trofeo tramite parametro URL
+  useEffect(() => {
+    if (activeTab === 'trofei' && yearParam && trofeiData && groupedTrofei.length > 0) {
+      const foundTrophy = trofeiData.find((t: any) => t.year === yearParam);
+      if (foundTrophy) {
+        const group = groupedTrofei.find((g: any) => g.name === foundTrophy.name);
+        if (group) {
+          setSelectedTrophyGroup(group);
+          setSelectedTrophy(foundTrophy);
+        }
+      }
+    }
+  }, [activeTab, yearParam, trofeiData, groupedTrofei]);
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-[#0B1120] text-white font-sans pb-28">
@@ -888,7 +904,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                   <div className="text-lg font-bold text-[#F59E0B]">{selectedTrophy.points}</div>
                 </div>
                 <div>
-                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Rosa Protagonista</h3>
+                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Formazione Tipo</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedTrophy.formation?.map((player: string, i: number) => (
                       <div key={i} className="bg-[#0F172A] border border-[#334155] rounded-full px-4 py-2 text-sm font-bold text-[#E2E8F0] shadow-sm hover:border-[#10B981] hover:text-[#10B981] transition-colors cursor-default">
@@ -897,6 +913,19 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                     ))}
                   </div>
                 </div>
+                
+                {selectedTrophy.roster && selectedTrophy.roster.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Altri giocatori della rosa</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedTrophy.roster.map((player: string, i: number) => (
+                        <div key={`r-${i}`} className="bg-[#0F172A] border border-[#334155] rounded-full px-3 py-1.5 text-xs font-medium text-[#94A3B8] shadow-sm hover:border-[#0EA5E9] hover:text-[#0EA5E9] transition-colors cursor-default">
+                          {player}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </>

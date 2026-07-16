@@ -490,7 +490,7 @@ export default function ClassifichePage() {
                             onClick={() => {
                                 const t = ALL_TEAMS.find(x => x.name.toLowerCase() === expandedTeam?.toLowerCase() || expandedTeam?.toLowerCase().includes(x.name.toLowerCase()));
                                 if (t) {
-                                  router.push(`/squadra/${t.id}?tab=trofei`);
+                                  router.push(`/squadra/${t.id}?tab=trofei&year=${encodeURIComponent(s.label)}`);
                                 }
                             }}
                             className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg border transition-all active:scale-95 bg-[#0F172A] border-[#334155] text-[#94A3B8] hover:text-white hover:border-[#475569]`}

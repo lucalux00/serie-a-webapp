@@ -1432,11 +1432,14 @@
     "team": "inter",
     "name": "Campionato Serie A",
     "year": "2023/2024",
-    "icon": "🇮🇹",
-    "coach": "Dato Storico",
-    "points": "Vittoria Storica",
+    "icon": "🏆",
+    "coach": "Simone Inzaghi",
+    "points": "94 Punti (Scudetto della 2a Stella)",
     "formation": [
-      "Formazione Storica"
+      "Sommer", "Pavard", "Acerbi", "Bastoni", "Darmian", "Barella", "Calhanoglu", "Mkhitaryan", "Dimarco", "Thuram", "L. Martinez"
+    ],
+    "roster": [
+      "Audero", "De Vrij", "Bisseck", "Dumfries", "Carlos Augusto", "Frattesi", "Asllani", "Klaassen", "Cuadrado", "Buchanan", "Arnautovic", "Sanchez"
     ]
   },
   {
