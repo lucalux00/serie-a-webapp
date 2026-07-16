@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-let memoryTotal = 15342;
+let memoryTotal = 1200;
 let activeSessions = new Set<string>();
 
 export async function GET() {
@@ -26,14 +26,14 @@ export async function POST(request: Request) {
       if (sessionId) activeSessions.add(sessionId);
     }
 
-    // Aggiungi una piccola variazione per realismo
-    const randomBoost = Math.floor(Math.random() * 8);
-    const online = Math.max(1, activeSessions.size + randomBoost);
+    // Aggiungi una piccola variazione per realismo (es. base 10 + sessioni vere + piccola variazione)
+    const randomBoost = Math.floor(Math.random() * 4); // da 0 a 3
+    const online = Math.max(10, 10 + activeSessions.size + randomBoost);
 
     return NextResponse.json({ total: memoryTotal, online });
 
   } catch (error) {
     console.error('Stats error:', error);
-    return NextResponse.json({ total: memoryTotal, online: 1 });
+    return NextResponse.json({ total: memoryTotal, online: 10 });
   }
 }
