@@ -2,9 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Eye } from 'lucide-react';
-import { Kanit } from 'next/font/google';
-
-const kanit = Kanit({ weight: ['800'], subsets: ['latin'], style: ['italic'] });
 
 export default function Header() {
   const [stats, setStats] = useState({ online: 0, total: 0 });
@@ -49,7 +46,7 @@ export default function Header() {
       <div className="flex items-center justify-between px-4 h-14">
         <div className="w-20"></div> {/* Spacer for symmetry */}
         <div className="flex flex-col items-center justify-center mt-1 absolute left-1/2 -translate-x-1/2">
-          <div className={`${kanit.className} text-2xl text-[#F8FAFC] tracking-wide leading-none`}>
+          <div className="text-2xl font-black text-[#F8FAFC] tracking-widest leading-none uppercase italic" style={{ fontFamily: 'impact, sans-serif' }}>
             TATTICA <span className="text-[#10B981]">&</span> PRONOSTICI
           </div>
           <span className="text-[7px] text-[#64748B] uppercase font-black tracking-widest mt-0.5">Created by Luca Pinelli</span>
