@@ -27,8 +27,9 @@ async function fetchFromApi(endpoint: string) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const leagueKey = searchParams.get('league') || 'A';
-  const type = searchParams.get('type') || 'standings'; // 'standings' | 'matches'
+  const type = searchParams.get('type') || 'standings';
   const matchday = searchParams.get('matchday');
+  const season = searchParams.get('season'); // es. "2024" per stagione 2024/25
 
   const leagueCode = LEAGUE_CODES[leagueKey];
   if (!leagueCode) {
@@ -37,9 +38,15 @@ export async function GET(request: Request) {
 
   try {
     if (type === 'standings') {
-      const data = await fetchFromApi(`/competitions/${leagueCode}/standings`);
-      
-      const standings = data.standings?.[0]?.table?.map((t: any) => ({
+      const seasonParam = season ? `?season=${season}` : '';
+      const data = await fetchFromApi(`/competitions/${leagueCode}/standings${seasonParam}`);
+
+      const allStandings = data.standings?.[0]?.table || [];
+      const totalPoints = allStandings.reduce((sum: number, t: any) => sum + t.points, 0);
+      // Se tutti hanno 0 punti (stagione non iniziata) e non è una stagione storica, segnalalo
+      const seasonNotStarted = !season && totalPoints === 0;
+
+      const standings = allStandings.map((t: any) => ({
         pos: t.position,
         team: t.team.name,
         teamId: t.team.id,
@@ -53,17 +60,71 @@ export async function GET(request: Request) {
         ga: t.goalsAgainst,
         gd: t.goalDifference,
         form: t.form || null,
-      })) || [];
+      }));
+
+      const currentSeason = data.season?.startDate 
+        ? `${new Date(data.season.startDate).getFullYear()}/${String(new Date(data.season.endDate).getFullYear()).slice(2)}`
+        : '2025/26';
+
+      // Se stagione non iniziata torna errore esplicito
+      if (seasonNotStarted) {
+        return NextResponse.json({
+          error: 'season_not_started',
+          message: 'La stagione non è ancora iniziata. Seleziona una stagione precedente.',
+          season: currentSeason,
+          standings: [],
+        });
+      }
 
       return NextResponse.json({
-        season: data.season?.startDate ? `${new Date(data.season.startDate).getFullYear()}/${new Date(data.season.endDate).getFullYear()}` : '2024/25',
+        season: currentSeason,
         currentMatchday: data.season?.currentMatchday,
+        winner: standings[0] || null,
         standings,
       });
     }
 
+    if (type === 'scorers') {
+      const seasonParam = season ? `?season=${season}&limit=20` : '?limit=20';
+      const data = await fetchFromApi(`/competitions/${leagueCode}/scorers${seasonParam}`);
+
+      const scorers = (data.scorers || []).map((s: any, idx: number) => ({
+        pos: idx + 1,
+        name: s.player.name,
+        nationality: s.player.nationality,
+        teamName: s.team.name,
+        teamCrest: s.team.crest,
+        goals: s.goals ?? 0,
+        assists: s.assists ?? null,
+        penalties: s.penalties ?? null,
+        playedMatches: s.playedMatches ?? null,
+      }));
+
+      return NextResponse.json({ scorers });
+    }
+
+    if (type === 'seasons') {
+      // Ritorna le stagioni disponibili per il campionato
+      const data = await fetchFromApi(`/competitions/${leagueCode}`);
+      const seasons = (data.seasons || [])
+        .filter((s: any) => s.startDate && new Date(s.startDate).getFullYear() >= 2010)
+        .sort((a: any, b: any) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+        .map((s: any) => {
+          const startYear = new Date(s.startDate).getFullYear();
+          const endYear = new Date(s.endDate).getFullYear();
+          return {
+            year: startYear,
+            label: `${startYear}/${String(endYear).slice(2)}`,
+            winner: s.winner?.name || null,
+            winnerCrest: s.winner?.crest || null,
+            currentSeason: s.currentSeason || false,
+          };
+        });
+
+      return NextResponse.json({ seasons });
+    }
+
     if (type === 'matches') {
-      // Recupera partite per giornata specifica o le prossime/ultime
       let endpoint = `/competitions/${leagueCode}/matches`;
       if (matchday) {
         endpoint += `?matchday=${matchday}`;

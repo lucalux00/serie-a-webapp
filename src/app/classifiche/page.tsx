@@ -1,126 +1,232 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Trophy, Calendar as CalendarIcon, ChevronLeft, ChevronRight, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Trophy, Calendar as CalendarIcon, ChevronLeft, ChevronRight, AlertTriangle, Swords, Crown } from 'lucide-react';
 
 const LEAGUES = [
-  { id: 'A',  name: 'Serie A',        color: '#10B981', flag: '🇮🇹' },
-  { id: 'B',  name: 'Serie B',        color: '#0EA5E9', flag: '🇮🇹' },
-  { id: 'PL', name: 'Premier League', color: '#3B82F6', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-  { id: 'LL', name: 'La Liga',        color: '#F59E0B', flag: '🇪🇸' },
-  { id: 'BL', name: 'Bundesliga',     color: '#EF4444', flag: '🇩🇪' },
-  { id: 'L1', name: 'Ligue 1',        color: '#8B5CF6', flag: '🇫🇷' },
+  { id: 'A',  name: 'Serie A',        color: '#10B981', flag: '🇮🇹', short: 'SA' },
+  { id: 'B',  name: 'Serie B',        color: '#0EA5E9', flag: '🇮🇹', short: 'SB' },
+  { id: 'PL', name: 'Premier League', color: '#3B82F6', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', short: 'PL' },
+  { id: 'LL', name: 'La Liga',        color: '#F59E0B', flag: '🇪🇸', short: 'LL' },
+  { id: 'BL', name: 'Bundesliga',     color: '#EF4444', flag: '🇩🇪', short: 'BL' },
+  { id: 'L1', name: 'Ligue 1',        color: '#8B5CF6', flag: '🇫🇷', short: 'L1' },
 ];
 
-type ViewMode = 'standings' | 'calendar';
+type ViewMode = 'standings' | 'scorers' | 'calendar' | 'history';
 
 export default function ClassifichePage() {
   const [activeLeague, setActiveLeague] = useState('A');
   const [viewMode, setViewMode] = useState<ViewMode>('standings');
+
+  // Standings
   const [standings, setStandings] = useState<any[]>([]);
+  const [season, setSeason] = useState('');
+  const [seasonNotStarted, setSeasonNotStarted] = useState(false);
+  const [selectedHistorySeason, setSelectedHistorySeason] = useState<number | null>(null);
+  
+  // Calendar
   const [matches, setMatches] = useState<any[]>([]);
   const [currentMatchday, setCurrentMatchday] = useState(1);
   const [displayMatchday, setDisplayMatchday] = useState(1);
-  const [season, setSeason] = useState('');
+
+  // Scorers
+  const [scorers, setScorers] = useState<any[]>([]);
+
+  // History
+  const [seasons, setSeasons] = useState<any[]>([]);
+  const [historicalStandings, setHistoricalStandings] = useState<any[]>([]);
+  const [historySeason, setHistorySeason] = useState('');
+  const [historyWinner, setHistoryWinner] = useState<any>(null);
+
   const [loading, setLoading] = useState(false);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const league = LEAGUES.find(l => l.id === activeLeague) || LEAGUES[0];
 
-  // Fetch classifica
-  const fetchStandings = useCallback(async (lkey: string) => {
+  const apiFetch = useCallback(async (params: string) => {
+    const res = await fetch(`/api/classifiche?league=${activeLeague}${params}`);
+    if (!res.ok) throw new Error(`Errore ${res.status}`);
+    return res.json();
+  }, [activeLeague]);
+
+  // Fetch classifica corrente (con fallback a stagione precedente se non iniziata)
+  const fetchStandings = useCallback(async (lkey?: string) => {
     setLoading(true);
     setError(null);
+    setSeasonNotStarted(false);
     try {
-      const res = await fetch(`/api/classifiche?league=${lkey}&type=standings`);
-      if (!res.ok) throw new Error(`Errore ${res.status}`);
+      const res = await fetch(`/api/classifiche?league=${lkey || activeLeague}&type=standings`);
       const data = await res.json();
-      setStandings(data.standings || []);
-      setSeason(data.season || '');
-      if (data.currentMatchday) {
-        setCurrentMatchday(data.currentMatchday);
-        setDisplayMatchday(data.currentMatchday);
+      
+      if (data.error === 'season_not_started') {
+        setSeasonNotStarted(true);
+        setSeason(data.season || '');
+        // Auto-load la stagione precedente
+        const prevYear = parseInt(data.season?.split('/')[0] || '2025') - 1;
+        const prevRes = await fetch(`/api/classifiche?league=${lkey || activeLeague}&type=standings&season=${prevYear}`);
+        const prevData = await prevRes.json();
+        setStandings(prevData.standings || []);
+        setSeason(prevData.season || '');
+        if (prevData.currentMatchday) setCurrentMatchday(prevData.currentMatchday);
+      } else {
+        setStandings(data.standings || []);
+        setSeason(data.season || '');
+        if (data.currentMatchday) {
+          setCurrentMatchday(data.currentMatchday);
+          setDisplayMatchday(data.currentMatchday);
+        }
       }
     } catch (e: any) {
-      setError('Impossibile caricare la classifica. Riprova tra poco.');
+      setError('Impossibile caricare la classifica.');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [activeLeague]);
 
-  // Fetch calendario per giornata
-  const fetchMatches = useCallback(async (lkey: string, matchday: number) => {
+  const fetchMatches = useCallback(async (matchday: number) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/classifiche?league=${lkey}&type=matches&matchday=${matchday}`);
-      if (!res.ok) throw new Error(`Errore ${res.status}`);
-      const data = await res.json();
+      const data = await apiFetch(`&type=matches&matchday=${matchday}`);
       setMatches(data.matches || []);
-    } catch (e: any) {
-      setError('Impossibile caricare il calendario. Riprova tra poco.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    } catch { setError('Impossibile caricare il calendario.'); }
+    finally { setLoading(false); }
+  }, [apiFetch]);
 
-  // Quando cambia campionato
+  const fetchScorers = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await apiFetch('&type=scorers');
+      setScorers(data.scorers || []);
+    } catch { setError('Impossibile caricare la classifica marcatori.'); }
+    finally { setLoading(false); }
+  }, [apiFetch]);
+
+  const fetchSeasons = useCallback(async () => {
+    try {
+      const data = await apiFetch('&type=seasons');
+      // Esclude la stagione corrente (non ancora finita / 0 punti)
+      const pastSeasons = (data.seasons || []).filter((s: any) => s.winner);
+      setSeasons(pastSeasons);
+    } catch { /* silent */ }
+  }, [apiFetch]);
+
+  const fetchHistoricalStandings = useCallback(async (year: number) => {
+    setHistoryLoading(true);
+    try {
+      const res = await fetch(`/api/classifiche?league=${activeLeague}&type=standings&season=${year}`);
+      const data = await res.json();
+      setHistoricalStandings(data.standings || []);
+      setHistorySeason(data.season || '');
+      setHistoryWinner(data.winner || (data.standings?.[0] || null));
+    } catch { /* silent */ }
+    finally { setHistoryLoading(false); }
+  }, [activeLeague]);
+
+  // Reset on league change
   useEffect(() => {
-    setStandings([]);
-    setMatches([]);
-    setCurrentMatchday(1);
-    setDisplayMatchday(1);
+    setStandings([]); setMatches([]); setScorers([]); setSeasons([]);
+    setHistoricalStandings([]); setSelectedHistorySeason(null);
+    setCurrentMatchday(1); setDisplayMatchday(1);
+    setViewMode('standings');
     fetchStandings(activeLeague);
-  }, [activeLeague, fetchStandings]);
+  }, [activeLeague]);
 
-  // Quando cambia view o giornata
+  // View changes
   useEffect(() => {
-    if (viewMode === 'calendar') {
-      fetchMatches(activeLeague, displayMatchday);
-    }
-  }, [viewMode, displayMatchday, activeLeague, fetchMatches]);
+    if (viewMode === 'calendar') fetchMatches(displayMatchday);
+    if (viewMode === 'scorers' && scorers.length === 0) fetchScorers();
+    if (viewMode === 'history' && seasons.length === 0) fetchSeasons();
+  }, [viewMode]);
 
-  const handlePrev = () => setDisplayMatchday(d => Math.max(1, d - 1));
-  const handleNext = () => setDisplayMatchday(d => Math.min(38, d + 1));
+  useEffect(() => {
+    if (viewMode === 'calendar') fetchMatches(displayMatchday);
+  }, [displayMatchday]);
 
-  const getZoneColor = (pos: number, leagueId: string) => {
-    if (leagueId === 'A') {
-      if (pos <= 4) return { bg: 'bg-[#10B981]/8', text: 'text-[#10B981]', dot: '#10B981' };
-      if (pos <= 6) return { bg: '', text: 'text-[#0EA5E9]', dot: '#0EA5E9' };
-      if (pos >= 18) return { bg: 'bg-[#EF4444]/8', text: 'text-[#EF4444]', dot: '#EF4444' };
-    }
-    if (leagueId === 'B') {
-      if (pos <= 2) return { bg: 'bg-[#10B981]/8', text: 'text-[#10B981]', dot: '#10B981' };
-      if (pos <= 8) return { bg: '', text: 'text-[#0EA5E9]', dot: '#0EA5E9' };
-      if (pos >= 16) return { bg: 'bg-[#EF4444]/8', text: 'text-[#EF4444]', dot: '#EF4444' };
-    }
-    if (['PL','LL','BL','L1'].includes(leagueId)) {
-      if (pos <= 4) return { bg: 'bg-[#10B981]/8', text: 'text-[#10B981]', dot: '#10B981' };
-      if (pos <= 6) return { bg: '', text: 'text-[#0EA5E9]', dot: '#0EA5E9' };
-      if (pos >= 18) return { bg: 'bg-[#EF4444]/8', text: 'text-[#EF4444]', dot: '#EF4444' };
-    }
+  const getZoneColor = (pos: number) => {
+    if (pos <= 4) return { bg: 'bg-[#10B981]/8', text: 'text-[#10B981]', dot: '#10B981' };
+    if (pos <= 6) return { bg: '', text: 'text-[#0EA5E9]', dot: '#0EA5E9' };
+    if (pos >= 18) return { bg: 'bg-[#EF4444]/8', text: 'text-[#EF4444]', dot: '#EF4444' };
     return { bg: '', text: 'text-[#94A3B8]', dot: '#334155' };
   };
 
-  const getStatusLabel = (status: string, homeScore: number | null, awayScore: number | null) => {
-    if (status === 'FINISHED' && homeScore !== null) return `${homeScore} - ${awayScore}`;
+  const getStatusLabel = (status: string, h: number | null, a: number | null) => {
+    if (status === 'FINISHED' && h !== null) return `${h} - ${a}`;
     if (status === 'IN_PLAY' || status === 'PAUSED') return '🔴 LIVE';
-    if (status === 'SCHEDULED') return 'VS';
     if (status === 'POSTPONED') return 'POSTICIPATA';
-    if (status === 'CANCELLED') return 'ANNULLATA';
     return 'VS';
   };
 
-  const getStatusColor = (status: string) => {
-    if (status === 'FINISHED') return 'text-[#10B981] bg-[#10B981]/10';
-    if (status === 'IN_PLAY' || status === 'PAUSED') return 'text-white bg-red-500 animate-pulse';
-    if (status === 'POSTPONED' || status === 'CANCELLED') return 'text-[#EF4444] bg-[#EF4444]/10';
-    return 'text-[#94A3B8] bg-[#0F172A]';
-  };
+  const ViewBtn = ({ mode, icon, label }: { mode: ViewMode, icon: React.ReactNode, label: string }) => (
+    <button
+      onClick={() => setViewMode(mode)}
+      className={`flex-1 py-2 text-[10px] font-black rounded-lg transition-colors flex items-center justify-center gap-1 ${viewMode === mode ? 'text-white' : 'text-[#94A3B8]'}`}
+      style={viewMode === mode ? { backgroundColor: league.color } : {}}
+    >
+      {icon} {label}
+    </button>
+  );
+
+  const StandingsTable = ({ rows, compact }: { rows: any[], compact?: boolean }) => (
+    <table className="w-full text-sm text-left">
+      <thead className="text-[10px] text-[#94A3B8] uppercase bg-[#0F172A]/50 border-b border-[#334155]">
+        <tr>
+          <th className="px-3 py-2 font-black text-center w-8">#</th>
+          <th className="px-2 py-2 font-black">Squadra</th>
+          <th className="px-2 py-2 font-black text-center" style={{ color: league.color }}>Pt</th>
+          <th className="px-2 py-2 font-bold text-center text-[#64748B]">G</th>
+          {!compact && <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">V</th>}
+          {!compact && <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">N</th>}
+          {!compact && <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">P</th>}
+          <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden md:table-cell">GD</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((team) => {
+          const zone = getZoneColor(team.pos);
+          return (
+            <tr key={team.teamId || team.pos} className={`border-b border-[#334155]/30 ${zone.bg} hover:bg-[#334155]/20 transition-colors`}>
+              <td className="px-3 py-2.5 text-center">
+                <div className="flex items-center justify-center gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: zone.dot }} />
+                  <span className={`text-xs font-black ${zone.text}`}>{team.pos}</span>
+                </div>
+              </td>
+              <td className="px-2 py-2.5">
+                <div className="flex items-center gap-2">
+                  {team.crest && <img src={team.crest} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />}
+                  <span className="font-bold text-white text-xs truncate max-w-[120px]">{team.team}</span>
+                  {team.pos === 1 && <span className="text-yellow-400 text-xs">👑</span>}
+                </div>
+              </td>
+              <td className="px-2 py-2.5 text-center font-black" style={{ color: league.color }}>{team.points}</td>
+              <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium">{team.played}</td>
+              {!compact && <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium hidden sm:table-cell">{team.w}</td>}
+              {!compact && <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium hidden sm:table-cell">{team.d}</td>}
+              {!compact && <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium hidden sm:table-cell">{team.l}</td>}
+              <td className={`px-2 py-2.5 text-center text-xs font-bold hidden md:table-cell ${team.gd > 0 ? 'text-[#10B981]' : team.gd < 0 ? 'text-[#EF4444]' : 'text-[#94A3B8]'}`}>
+                {team.gd > 0 ? '+' : ''}{team.gd}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+
+  const Skeleton = () => (
+    <div className="space-y-2 animate-pulse">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="h-12 bg-[#1E293B] rounded-xl border border-[#334155]" />
+      ))}
+    </div>
+  );
 
   return (
     <div className="flex flex-col w-full min-h-screen pb-24 bg-[#0B1120] text-white">
-      {/* Header */}
+      {/* Sticky Header */}
       <div className="sticky top-[56px] z-20 bg-[#0B1120] px-4 pt-4 pb-2">
         <div className="flex items-center mb-4">
           <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3" style={{ backgroundColor: league.color + '22', color: league.color }}>
@@ -128,7 +234,11 @@ export default function ClassifichePage() {
           </div>
           <div>
             <h1 className="text-2xl font-black">Campionati</h1>
-            {season && <p className="text-xs font-bold uppercase tracking-widest" style={{ color: league.color }}>Stagione {season}</p>}
+            {season && (
+              <p className="text-xs font-bold uppercase tracking-widest" style={{ color: league.color }}>
+                {seasonNotStarted ? `Stagione ${season} – Ultima disponibile` : `Stagione ${season}`}
+              </p>
+            )}
           </div>
         </div>
 
@@ -139,9 +249,9 @@ export default function ClassifichePage() {
               key={l.id}
               onClick={() => setActiveLeague(l.id)}
               className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-black transition-all border ${
-                activeLeague === l.id 
+                activeLeague === l.id
                   ? 'text-white border-transparent shadow-lg scale-105'
-                  : 'bg-[#1E293B] text-[#94A3B8] border-[#334155] hover:border-[#475569]'
+                  : 'bg-[#1E293B] text-[#94A3B8] border-[#334155]'
               }`}
               style={activeLeague === l.id ? { backgroundColor: l.color, borderColor: l.color } : {}}
             >
@@ -150,183 +260,228 @@ export default function ClassifichePage() {
           ))}
         </div>
 
-        {/* View Toggle */}
-        <div className="flex bg-[#1E293B] p-1 rounded-xl border border-[#334155] mt-3">
-          <button
-            onClick={() => setViewMode('standings')}
-            className={`flex-1 py-2 text-xs font-black rounded-lg transition-colors flex items-center justify-center gap-1 ${viewMode === 'standings' ? 'text-white' : 'text-[#94A3B8]'}`}
-            style={viewMode === 'standings' ? { backgroundColor: league.color } : {}}
-          >
-            <Trophy size={12} /> CLASSIFICA
-          </button>
-          <button
-            onClick={() => { setViewMode('calendar'); fetchMatches(activeLeague, displayMatchday || currentMatchday); }}
-            className={`flex-1 py-2 text-xs font-black rounded-lg transition-colors flex items-center justify-center gap-1 ${viewMode === 'calendar' ? 'text-white' : 'text-[#94A3B8]'}`}
-            style={viewMode === 'calendar' ? { backgroundColor: league.color } : {}}
-          >
-            <CalendarIcon size={12} /> CALENDARIO
-          </button>
+        {/* View Toggle — 4 tabs */}
+        <div className="flex bg-[#1E293B] p-1 rounded-xl border border-[#334155] mt-3 gap-0.5">
+          <ViewBtn mode="standings" icon={<Trophy size={11} />} label="CLASSIFICA" />
+          <ViewBtn mode="scorers"   icon={<Swords size={11} />}  label="MARCATORI" />
+          <ViewBtn mode="calendar"  icon={<CalendarIcon size={11} />} label="CALENDARIO" />
+          <ViewBtn mode="history"   icon={<Crown size={11} />}   label="STORIA" />
         </div>
       </div>
 
       <div className="px-4 pt-3">
-        {/* Error state */}
         {error && (
           <div className="bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-xl p-4 mb-4 flex items-start gap-3">
             <AlertTriangle size={18} className="text-[#EF4444] shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm font-bold text-[#EF4444]">Errore di caricamento</p>
-              <p className="text-xs text-[#94A3B8] mt-1">{error}</p>
-            </div>
+            <p className="text-sm text-[#94A3B8]">{error}</p>
           </div>
         )}
 
-        {/* Loading skeleton */}
-        {loading && (
-          <div className="space-y-2 animate-pulse">
-            {Array.from({length: 8}).map((_, i) => (
-              <div key={i} className="h-12 bg-[#1E293B] rounded-xl border border-[#334155]" />
-            ))}
-          </div>
-        )}
-
-        {/* STANDINGS VIEW */}
-        {!loading && viewMode === 'standings' && standings.length > 0 && (
-          <div className="bg-[#1E293B] rounded-2xl overflow-hidden border border-[#334155] shadow-xl">
-            {/* Header row */}
-            <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
-              <span className="text-xs font-black text-[#94A3B8] uppercase tracking-widest">Classifica {league.name}</span>
-              <div className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full" style={{ color: league.color, backgroundColor: league.color + '15' }}>
-                <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: league.color }} />
-                DATI REALI
-              </div>
-            </div>
-
-            {/* Legend */}
-            <div className="px-4 py-2 border-b border-[#334155]/50 flex gap-4 text-[9px] font-bold uppercase text-[#64748B]">
-              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#10B981]" /> Champions</div>
-              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#0EA5E9]" /> Europa</div>
-              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#EF4444]" /> Retrocessione</div>
-            </div>
-
-            <table className="w-full text-sm text-left">
-              <thead className="text-[10px] text-[#94A3B8] uppercase bg-[#0F172A]/50 border-b border-[#334155]">
-                <tr>
-                  <th className="px-3 py-2 font-black text-center w-8">#</th>
-                  <th className="px-2 py-2 font-black">Squadra</th>
-                  <th className="px-2 py-2 font-black text-center" style={{ color: league.color }}>Pt</th>
-                  <th className="px-2 py-2 font-bold text-center text-[#64748B]">G</th>
-                  <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">V</th>
-                  <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">N</th>
-                  <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">P</th>
-                  <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden md:table-cell">GD</th>
-                </tr>
-              </thead>
-              <tbody>
-                {standings.map((team) => {
-                  const zone = getZoneColor(team.pos, activeLeague);
-                  return (
-                    <tr key={team.teamId} className={`border-b border-[#334155]/30 ${zone.bg} hover:bg-[#334155]/20 transition-colors`}>
-                      <td className="px-3 py-2.5 text-center">
-                        <div className="flex items-center justify-center gap-1">
-                          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: zone.dot }} />
-                          <span className={`text-xs font-black ${zone.text}`}>{team.pos}</span>
-                        </div>
-                      </td>
-                      <td className="px-2 py-2.5">
-                        <div className="flex items-center gap-2">
-                          {team.crest && (
-                            <img src={team.crest} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />
-                          )}
-                          <span className="font-bold text-white text-xs truncate max-w-[120px]">{team.team}</span>
-                        </div>
-                      </td>
-                      <td className="px-2 py-2.5 text-center font-black" style={{ color: league.color }}>{team.points}</td>
-                      <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium">{team.played}</td>
-                      <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium hidden sm:table-cell">{team.w}</td>
-                      <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium hidden sm:table-cell">{team.d}</td>
-                      <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] font-medium hidden sm:table-cell">{team.l}</td>
-                      <td className={`px-2 py-2.5 text-center text-xs font-bold hidden md:table-cell ${team.gd > 0 ? 'text-[#10B981]' : team.gd < 0 ? 'text-[#EF4444]' : 'text-[#94A3B8]'}`}>
-                        {team.gd > 0 ? '+' : ''}{team.gd}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* CALENDAR VIEW */}
-        {!loading && viewMode === 'calendar' && (
+        {/* ── CLASSIFICA ── */}
+        {viewMode === 'standings' && (
           <>
-            {/* Matchday navigator */}
-            <div className="flex items-center justify-between bg-[#1E293B] border border-[#334155] rounded-xl p-2 mb-4 shadow-md">
-              <button
-                onClick={handlePrev}
-                disabled={displayMatchday <= 1}
-                className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#0F172A] border border-[#334155] disabled:opacity-40 active:scale-95 transition-transform"
-              >
+            {loading ? <Skeleton /> : standings.length > 0 ? (
+              <div className="bg-[#1E293B] rounded-2xl overflow-hidden border border-[#334155] shadow-xl">
+                <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
+                  <span className="text-xs font-black text-[#94A3B8] uppercase tracking-widest">{league.name} · {season}</span>
+                  <div className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full" style={{ color: league.color, backgroundColor: league.color + '15' }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: league.color }} />
+                    DATI REALI
+                  </div>
+                </div>
+
+                {/* Legend */}
+                <div className="px-4 py-2 border-b border-[#334155]/50 flex gap-4 text-[9px] font-bold uppercase text-[#64748B]">
+                  <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#10B981]" /> Champions</div>
+                  <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#0EA5E9]" /> Europa</div>
+                  <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#EF4444]" /> Retrocessione</div>
+                </div>
+
+                <StandingsTable rows={standings} />
+              </div>
+            ) : (
+              <div className="text-center py-16 text-[#94A3B8]">
+                <Trophy size={40} className="mx-auto mb-3 opacity-20" />
+                <p className="font-bold">Classifica non disponibile</p>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ── MARCATORI ── */}
+        {viewMode === 'scorers' && (
+          <>
+            {loading ? <Skeleton /> : (
+              <div className="bg-[#1E293B] rounded-2xl overflow-hidden border border-[#334155] shadow-xl">
+                <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
+                  <span className="text-xs font-black text-[#94A3B8] uppercase tracking-widest">Classifica Marcatori · {season}</span>
+                  <div className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full" style={{ color: league.color, backgroundColor: league.color + '15' }}>
+                    <Swords size={10} /> TOP 20
+                  </div>
+                </div>
+
+                {scorers.length === 0 ? (
+                  <div className="text-center py-12 text-[#94A3B8]">
+                    <Swords size={36} className="mx-auto mb-3 opacity-20" />
+                    <p className="font-bold text-sm">Dati marcatori non ancora disponibili</p>
+                    <p className="text-xs mt-1 opacity-60">Saranno aggiornati all'inizio della stagione</p>
+                  </div>
+                ) : (
+                  <table className="w-full text-sm">
+                    <thead className="text-[10px] text-[#94A3B8] uppercase bg-[#0F172A]/50 border-b border-[#334155]">
+                      <tr>
+                        <th className="px-3 py-2 text-center">#</th>
+                        <th className="px-2 py-2 text-left">Giocatore</th>
+                        <th className="px-2 py-2 text-center" style={{ color: league.color }}>⚽</th>
+                        <th className="px-2 py-2 text-center text-[#64748B] hidden sm:table-cell">ASS</th>
+                        <th className="px-2 py-2 text-center text-[#64748B] hidden sm:table-cell">RIG</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {scorers.map((s) => (
+                        <tr key={s.pos} className="border-b border-[#334155]/30 hover:bg-[#334155]/20 transition-colors">
+                          <td className="px-3 py-2.5 text-center">
+                            <span className={`text-xs font-black ${s.pos <= 3 ? '' : 'text-[#94A3B8]'}`}
+                              style={s.pos <= 3 ? { color: ['#F59E0B','#94A3B8','#CD7F32'][s.pos-1] } : {}}>
+                              {s.pos <= 3 ? ['🥇','🥈','🥉'][s.pos-1] : s.pos}
+                            </span>
+                          </td>
+                          <td className="px-2 py-2.5">
+                            <div className="flex items-center gap-2">
+                              {s.teamCrest && <img src={s.teamCrest} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />}
+                              <div>
+                                <div className="font-bold text-white text-xs">{s.name}</div>
+                                <div className="text-[10px] text-[#64748B]">{s.teamName}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-2 py-2.5 text-center font-black text-lg" style={{ color: league.color }}>{s.goals}</td>
+                          <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] hidden sm:table-cell">{s.assists ?? '-'}</td>
+                          <td className="px-2 py-2.5 text-center text-xs text-[#94A3B8] hidden sm:table-cell">{s.penalties ?? '-'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ── CALENDARIO ── */}
+        {viewMode === 'calendar' && (
+          <>
+            <div className="flex items-center justify-between bg-[#1E293B] border border-[#334155] rounded-xl p-2 mb-4">
+              <button onClick={() => setDisplayMatchday(d => Math.max(1, d - 1))} disabled={displayMatchday <= 1}
+                className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#0F172A] border border-[#334155] disabled:opacity-40 active:scale-95 transition-transform">
                 <ChevronLeft size={20} />
               </button>
               <div className="font-black text-lg tracking-widest uppercase flex items-center gap-2">
                 {displayMatchday === currentMatchday && <div className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />}
                 {displayMatchday}ª Giornata
               </div>
-              <button
-                onClick={handleNext}
-                disabled={displayMatchday >= 38}
-                className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#0F172A] border border-[#334155] disabled:opacity-40 active:scale-95 transition-transform"
-              >
+              <button onClick={() => setDisplayMatchday(d => Math.min(38, d + 1))} disabled={displayMatchday >= 38}
+                className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#0F172A] border border-[#334155] disabled:opacity-40 active:scale-95 transition-transform">
                 <ChevronRight size={20} />
               </button>
             </div>
 
-            {matches.length === 0 && !loading && (
-              <div className="text-center text-[#94A3B8] py-12">
-                <CalendarIcon size={40} className="mx-auto mb-3 opacity-30" />
-                <p className="font-bold">Nessuna partita trovata per questa giornata.</p>
-                <p className="text-xs mt-1 opacity-60">Prova a navigare su un'altra giornata.</p>
+            {loading ? <Skeleton /> : (
+              <div className="space-y-3">
+                {matches.length === 0 ? (
+                  <div className="text-center py-12 text-[#94A3B8]">
+                    <CalendarIcon size={40} className="mx-auto mb-3 opacity-20" />
+                    <p className="font-bold">Nessuna partita trovata</p>
+                  </div>
+                ) : matches.map((match) => {
+                  const isFinished = match.status === 'FINISHED';
+                  const isLive = match.status === 'IN_PLAY' || match.status === 'PAUSED';
+                  return (
+                    <div key={match.id} className={`bg-[#1E293B] border rounded-xl p-4 ${isLive ? 'border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.15)]' : 'border-[#334155]'}`}>
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-[10px] font-bold text-[#64748B]">{match.date}</span>
+                        {isLive && <span className="text-[10px] font-black text-white bg-red-500 px-2 py-0.5 rounded-full animate-pulse">LIVE</span>}
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div className="flex-1 flex items-center justify-end gap-2">
+                          <span className={`font-black text-sm text-right ${isFinished && match.homeScore > match.awayScore ? 'text-white' : 'text-[#94A3B8]'}`}>{match.home}</span>
+                          {match.homeCrest && <img src={match.homeCrest} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />}
+                        </div>
+                        <div className={`mx-3 min-w-[52px] text-center font-black text-sm px-3 py-1.5 rounded-lg border ${isFinished ? 'text-white bg-[#10B981]/10 border-[#10B981]/30' : isLive ? 'text-white bg-red-500 border-red-500/50 animate-pulse' : 'text-[#94A3B8] bg-[#0F172A] border-[#334155]'}`}>
+                          {getStatusLabel(match.status, match.homeScore, match.awayScore)}
+                        </div>
+                        <div className="flex-1 flex items-center justify-start gap-2">
+                          {match.awayCrest && <img src={match.awayCrest} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />}
+                          <span className={`font-black text-sm ${isFinished && match.awayScore > match.homeScore ? 'text-white' : 'text-[#94A3B8]'}`}>{match.away}</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
-
-            <div className="space-y-3">
-              {matches.map((match) => {
-                const isFinished = match.status === 'FINISHED';
-                const isLive = match.status === 'IN_PLAY' || match.status === 'PAUSED';
-                return (
-                  <div key={match.id} className={`bg-[#1E293B] border rounded-xl p-4 transition-all ${isLive ? 'border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.15)]' : 'border-[#334155]'}`}>
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="text-[10px] font-bold text-[#64748B] uppercase">{match.date}</span>
-                      {isLive && <span className="text-[10px] font-black text-white bg-red-500 px-2 py-0.5 rounded-full animate-pulse">LIVE</span>}
-                    </div>
-                    <div className="flex justify-between items-center">
-                      {/* Home */}
-                      <div className="flex-1 flex items-center justify-end gap-2">
-                        <span className={`font-black text-sm text-right ${isFinished && match.homeScore > match.awayScore ? 'text-white' : 'text-[#94A3B8]'}`}>
-                          {match.home}
-                        </span>
-                        {match.homeCrest && <img src={match.homeCrest} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />}
-                      </div>
-
-                      {/* Score / VS */}
-                      <div className={`mx-3 min-w-[52px] text-center font-black text-sm px-3 py-1.5 rounded-lg border ${getStatusColor(match.status)} ${isLive ? 'border-red-500/50' : 'border-[#334155]'}`}>
-                        {getStatusLabel(match.status, match.homeScore, match.awayScore)}
-                      </div>
-
-                      {/* Away */}
-                      <div className="flex-1 flex items-center justify-start gap-2">
-                        {match.awayCrest && <img src={match.awayCrest} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />}
-                        <span className={`font-black text-sm text-left ${isFinished && match.awayScore > match.homeScore ? 'text-white' : 'text-[#94A3B8]'}`}>
-                          {match.away}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           </>
+        )}
+
+        {/* ── STORIA ── */}
+        {viewMode === 'history' && (
+          <div className="space-y-5">
+            {/* Timeline scudetti */}
+            <div className="bg-[#1E293B] rounded-2xl border border-[#334155] overflow-hidden shadow-xl">
+              <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center gap-2">
+                <Crown size={16} style={{ color: league.color }} />
+                <span className="text-xs font-black text-white uppercase tracking-widest">Albo d'Oro · {league.name}</span>
+              </div>
+              <div className="p-3 space-y-2">
+                {seasons.length === 0 ? (
+                  <div className="text-center py-8 text-[#94A3B8] text-sm animate-pulse">Caricamento storico...</div>
+                ) : seasons.map((s) => (
+                  <button
+                    key={s.year}
+                    onClick={() => {
+                      setSelectedHistorySeason(s.year);
+                      fetchHistoricalStandings(s.year);
+                    }}
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border transition-all active:scale-95 ${
+                      selectedHistorySeason === s.year
+                        ? 'border-transparent text-white'
+                        : 'bg-[#0F172A] border-[#334155] hover:border-[#475569]'
+                    }`}
+                    style={selectedHistorySeason === s.year ? { backgroundColor: league.color + '22', borderColor: league.color } : {}}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-black" style={selectedHistorySeason === s.year ? { color: league.color } : { color: '#64748B' }}>
+                        {s.label}
+                      </span>
+                      {s.winnerCrest && (
+                        <img src={s.winnerCrest} alt="" loading="lazy" className="w-5 h-5 object-contain" />
+                      )}
+                      <span className="font-bold text-sm text-white">{s.winner}</span>
+                    </div>
+                    <Crown size={14} className={selectedHistorySeason === s.year ? 'text-yellow-400' : 'text-[#334155]'} />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Classifica storica espansa */}
+            {selectedHistorySeason && (
+              <div className="bg-[#1E293B] rounded-2xl border border-[#334155] overflow-hidden shadow-xl">
+                <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
+                  <span className="text-xs font-black text-white uppercase tracking-widest">
+                    Classifica Finale {historySeason}
+                  </span>
+                  {historyWinner && (
+                    <div className="flex items-center gap-1.5">
+                      {historyWinner.crest && <img src={historyWinner.crest} alt="" className="w-5 h-5 object-contain" />}
+                      <span className="text-[10px] font-black text-yellow-400">👑 {historyWinner.team}</span>
+                    </div>
+                  )}
+                </div>
+                {historyLoading ? <Skeleton /> : <StandingsTable rows={historicalStandings} compact />}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
