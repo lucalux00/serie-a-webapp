@@ -281,7 +281,7 @@ export default function MarketFeed() {
               </div>
             </section>
             );
-          })}
+          })()}
         </motion.div>
       </AnimatePresence>
       
