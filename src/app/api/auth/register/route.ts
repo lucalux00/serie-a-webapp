@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, password, favoriteTeam } = await request.json();
 
     if (!name || !email || !password) {
       return NextResponse.json({ error: 'Tutti i campi sono obbligatori' }, { status: 400 });
@@ -36,9 +36,9 @@ export async function POST(request: Request) {
 
     // Inserimento utente
     const result = await sql`
-      INSERT INTO users (name, email, password_hash)
-      VALUES (${name}, ${email}, ${passwordHash})
-      RETURNING id, name, email;
+      INSERT INTO users (name, email, password_hash, favorite_team)
+      VALUES (${name}, ${email}, ${passwordHash}, ${favoriteTeam || null})
+      RETURNING id, name, email, favorite_team;
     `;
 
     const newUser = result.rows[0];

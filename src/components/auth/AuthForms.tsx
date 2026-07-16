@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, User, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, AlertCircle, Heart } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { ALL_TEAMS } from '@/data/teams';
 
 export default function AuthForms() {
   const { login, register } = useAuth();
@@ -18,6 +19,7 @@ export default function AuthForms() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [favoriteTeam, setFavoriteTeam] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ export default function AuthForms() {
         if (!name || !email || !password || !confirmPassword) throw new Error('Compila tutti i campi.');
         if (password.length < 6) throw new Error('La password deve essere di almeno 6 caratteri.');
         if (password !== confirmPassword) throw new Error('Le password non coincidono.');
-        await register(name, email, password);
+        await register(name, email, password, favoriteTeam);
       }
     } catch (err: any) {
       setError(err.message);
@@ -130,19 +132,37 @@ export default function AuthForms() {
             </div>
 
             {!isLogin && (
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-[#64748B]" />
+              <>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-[#64748B]" />
+                  </div>
+                  <input
+                    type="password"
+                    placeholder="Conferma Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    disabled={loading}
+                    className="w-full pl-10 pr-4 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white placeholder-[#64748B] focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
+                  />
                 </div>
-                <input
-                  type="password"
-                  placeholder="Conferma Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  disabled={loading}
-                  className="w-full pl-10 pr-4 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white placeholder-[#64748B] focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
-                />
-              </div>
+                <div className="relative mt-4">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Heart className="h-5 w-5 text-[#64748B]" />
+                  </div>
+                  <select
+                    value={favoriteTeam}
+                    onChange={(e) => setFavoriteTeam(e.target.value)}
+                    disabled={loading}
+                    className="w-full pl-10 pr-4 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white appearance-none focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
+                  >
+                    <option value="">Nessuna squadra del cuore (Opzionale)</option>
+                    {ALL_TEAMS.map((team: any) => (
+                      <option key={team.id} value={team.id}>{team.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </>
             )}
 
             <button

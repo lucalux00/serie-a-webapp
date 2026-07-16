@@ -15,7 +15,7 @@ interface AuthContextType {
   user: User | null;
   isLoaded: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string, favoriteTeam?: string) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Partial<User>) => void;
   // Legacy method per supportare l'onboarding iniziale se usato
@@ -75,11 +75,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     throw new Error(errData.error || 'Credenziali non valide.');
   };
 
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (name: string, email: string, password: string, favoriteTeam?: string) => {
     const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name, email, password, favoriteTeam }),
     });
 
     if (response.ok) {
