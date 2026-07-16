@@ -8,9 +8,9 @@ function generateMatchAnalysis(homeTeam: string, awayTeam: string, matchId: numb
 ### 📊 Panoramica del Match
 Questa si preannuncia come una sfida cruciale per entrambe le formazioni. Il **${homeTeam}** cercherà di sfruttare il calore del proprio pubblico per imporre il gioco, mentre il **${awayTeam}** proverà ad arginare le offensive avversarie e ripartire. ${isDerby ? "Trattandosi di un derby, la tensione agonistica e l'aspetto mentale saranno determinanti." : "I punti in palio pesano notevolmente per i rispettivi obiettivi stagionali."}
 
-### ⏱️ Dati in Aggiornamento (a -3gg dal match)
+### ⏱️ Analisi in Arrivo
 > [!NOTE]
-> Poiché manca ancora molto al fischio d'inizio, i dati reali non sono ancora disponibili. Questa sezione verrà aggiornata automaticamente **3 giorni prima della partita** con:
+> Torna a trovarci a ridosso dell'incontro! Aggiorneremo l'analisi dettagliata di questo match **3 giorni prima della partita** con:
 
 - **Formazioni Ufficiali/Probabili**
 - **Arbitro Designato e Statistiche Cartellini**
