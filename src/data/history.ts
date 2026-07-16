@@ -1,84 +1,86 @@
 export const HISTORY_DATA: Record<string, { team: string, crest: string, wins: string[] }[]> = {
   'A': [
-    {
-      team: 'Juventus',
-      crest: 'https://crests.football-data.org/109.png',
-      wins: ['2019/20', '2018/19', '2017/18', '2016/17', '2015/16', '2014/15', '2013/14', '2012/13', '2011/12', '2002/03', '2001/02', '1997/98', '1996/97', '1994/95', '1985/86', '1983/84', '1981/82', '1980/81', '1977/78', '1976/77', '1974/75', '1972/73', '1971/72', '1966/67', '1960/61', '1959/60', '1957/58', '1951/52', '1949/50', '1934/35', '1933/34', '1932/33', '1931/32', '1930/31', '1925/26', '1905']
-    },
-    {
-      team: 'Inter',
-      crest: 'https://crests.football-data.org/108.png',
-      wins: ['2023/24', '2020/21', '2009/10', '2008/09', '2007/08', '2006/07', '2005/06', '1988/89', '1979/80', '1970/71', '1965/66', '1964/65', '1962/63', '1953/54', '1952/53', '1939/40', '1937/38', '1929/30', '1919/20', '1909/10']
-    },
-    {
-      team: 'Milan',
-      crest: 'https://crests.football-data.org/98.svg',
-      wins: ['2021/22', '2010/11', '2003/04', '1998/99', '1995/96', '1993/94', '1992/93', '1991/92', '1987/88', '1978/79', '1967/68', '1961/62', '1958/59', '1956/57', '1954/55', '1950/51', '1907', '1906', '1901']
-    },
-    {
-      team: 'Genoa',
-      crest: 'https://crests.football-data.org/107.svg',
-      wins: ['1923/24', '1922/23', '1914/15', '1904', '1903', '1902', '1900', '1899', '1898']
-    },
-    {
-      team: 'Bologna',
-      crest: 'https://crests.football-data.org/103.svg',
-      wins: ['1963/64', '1940/41', '1938/39', '1936/37', '1935/36', '1928/29', '1924/25']
-    },
-    {
-      team: 'Pro Vercelli',
-      crest: 'https://upload.wikimedia.org/wikipedia/it/1/14/FC_Pro_Vercelli_1892.png',
-      wins: ['1921/22', '1920/21', '1912/13', '1911/12', '1910/11', '1909', '1908']
-    },
-    {
-      team: 'Torino',
-      crest: 'https://crests.football-data.org/586.svg',
-      wins: ['1975/76', '1948/49', '1947/48', '1946/47', '1945/46', '1942/43', '1927/28']
-    },
-    {
-      team: 'Roma',
-      crest: 'https://crests.football-data.org/100.svg',
-      wins: ['2000/01', '1982/83', '1941/42']
-    },
-    {
-      team: 'Napoli',
-      crest: 'https://crests.football-data.org/113.svg',
-      wins: ['2022/23', '1989/90', '1986/87']
-    },
-    {
-      team: 'Lazio',
-      crest: 'https://crests.football-data.org/110.svg',
-      wins: ['1999/00', '1973/74']
-    },
-    {
-      team: 'Fiorentina',
-      crest: 'https://crests.football-data.org/99.svg',
-      wins: ['1968/69', '1955/56']
-    },
-    {
-      team: 'Cagliari',
-      crest: 'https://crests.football-data.org/104.svg',
-      wins: ['1969/70']
-    },
-    {
-      team: 'Casale',
-      crest: 'https://upload.wikimedia.org/wikipedia/it/9/9d/Casale_Fbc_logo.png',
-      wins: ['1913/14']
-    },
-    {
-      team: 'Novese',
-      crest: 'https://upload.wikimedia.org/wikipedia/it/6/69/Novese_logo.png',
-      wins: ['1921/22']
-    },
-    {
-      team: 'Sampdoria',
-      crest: 'https://crests.football-data.org/584.svg',
-      wins: ['1990/91']
-    },
-    {
-      team: 'Verona',
-      crest: 'https://crests.football-data.org/450.png',
-      wins: ['1984/85']
-    }
+    { team: 'Juventus', crest: 'https://crests.football-data.org/109.png', wins: ['2019/20', '2018/19', '2017/18', '2016/17', '2015/16', '2014/15', '2013/14', '2012/13', '2011/12', '2002/03', '2001/02', '1997/98', '1996/97', '1994/95', '1985/86', '1983/84', '1981/82', '1980/81', '1977/78', '1976/77', '1974/75', '1972/73', '1971/72', '1966/67', '1960/61', '1959/60', '1957/58', '1951/52', '1949/50', '1934/35', '1933/34', '1932/33', '1931/32', '1930/31', '1925/26', '1905'] },
+    { team: 'Inter', crest: 'https://crests.football-data.org/108.png', wins: ['2023/24', '2020/21', '2009/10', '2008/09', '2007/08', '2006/07', '2005/06', '1988/89', '1979/80', '1970/71', '1965/66', '1964/65', '1962/63', '1953/54', '1952/53', '1939/40', '1937/38', '1929/30', '1919/20', '1909/10'] },
+    { team: 'Milan', crest: 'https://crests.football-data.org/98.svg', wins: ['2021/22', '2010/11', '2003/04', '1998/99', '1995/96', '1993/94', '1992/93', '1991/92', '1987/88', '1978/79', '1967/68', '1961/62', '1958/59', '1956/57', '1954/55', '1950/51', '1907', '1906', '1901'] },
+    { team: 'Genoa', crest: 'https://crests.football-data.org/107.svg', wins: ['1923/24', '1922/23', '1914/15', '1904', '1903', '1902', '1900', '1899', '1898'] },
+    { team: 'Bologna', crest: 'https://crests.football-data.org/103.svg', wins: ['1963/64', '1940/41', '1938/39', '1936/37', '1935/36', '1928/29', '1924/25'] },
+    { team: 'Pro Vercelli', crest: 'https://upload.wikimedia.org/wikipedia/it/1/14/FC_Pro_Vercelli_1892.png', wins: ['1921/22', '1920/21', '1912/13', '1911/12', '1910/11', '1909', '1908'] },
+    { team: 'Torino', crest: 'https://crests.football-data.org/586.svg', wins: ['1975/76', '1948/49', '1947/48', '1946/47', '1945/46', '1942/43', '1927/28'] },
+    { team: 'Roma', crest: 'https://crests.football-data.org/100.svg', wins: ['2000/01', '1982/83', '1941/42'] },
+    { team: 'Napoli', crest: 'https://crests.football-data.org/113.svg', wins: ['2022/23', '1989/90', '1986/87'] },
+    { team: 'Lazio', crest: 'https://crests.football-data.org/110.svg', wins: ['1999/00', '1973/74'] },
+    { team: 'Fiorentina', crest: 'https://crests.football-data.org/99.svg', wins: ['1968/69', '1955/56'] },
+    { team: 'Cagliari', crest: 'https://crests.football-data.org/104.svg', wins: ['1969/70'] },
+    { team: 'Casale', crest: 'https://upload.wikimedia.org/wikipedia/it/9/9d/Casale_Fbc_logo.png', wins: ['1913/14'] },
+    { team: 'Novese', crest: 'https://upload.wikimedia.org/wikipedia/it/6/69/Novese_logo.png', wins: ['1921/22'] },
+    { team: 'Sampdoria', crest: 'https://crests.football-data.org/584.svg', wins: ['1990/91'] },
+    { team: 'Verona', crest: 'https://crests.football-data.org/450.png', wins: ['1984/85'] }
+  ],
+  'LL': [
+    { team: 'Real Madrid', crest: 'https://crests.football-data.org/86.png', wins: ['2023/24', '2021/22', '2019/20', '2016/17', '2011/12', '2007/08', '2006/07', '2002/03', '2000/01', '1996/97', '1994/95', '1989/90', '1988/89', '1987/88', '1986/87', '1985/86', '1979/80', '1978/79', '1977/78', '1975/76', '1974/75', '1971/72', '1968/69', '1967/68', '1966/67', '1964/65', '1963/64', '1962/63', '1961/62', '1960/61', '1957/58', '1956/57', '1954/55', '1953/54', '1932/33', '1931/32'] },
+    { team: 'Barcelona', crest: 'https://crests.football-data.org/81.svg', wins: ['2022/23', '2018/19', '2017/18', '2015/16', '2014/15', '2012/13', '2010/11', '2009/10', '2008/09', '2005/06', '2004/05', '1998/99', '1997/98', '1993/94', '1992/93', '1991/92', '1990/91', '1984/85', '1973/74', '1959/60', '1958/59', '1952/53', '1951/52', '1948/49', '1947/48', '1944/45', '1929/30'] },
+    { team: 'Atletico Madrid', crest: 'https://crests.football-data.org/78.svg', wins: ['2020/21', '2013/14', '1995/96', '1976/77', '1972/73', '1969/70', '1965/66', '1950/51', '1949/50', '1940/41', '1939/40'] },
+    { team: 'Athletic Club', crest: 'https://crests.football-data.org/77.png', wins: ['1983/84', '1982/83', '1955/56', '1942/43', '1935/36', '1933/34', '1930/31', '1929/30'] },
+    { team: 'Valencia', crest: 'https://crests.football-data.org/95.svg', wins: ['2003/04', '2001/02', '1970/71', '1946/47', '1943/44', '1941/42'] },
+    { team: 'Real Sociedad', crest: 'https://crests.football-data.org/92.svg', wins: ['1981/82', '1980/81'] },
+    { team: 'Deportivo La Coruña', crest: 'https://crests.football-data.org/560.png', wins: ['1999/00'] },
+    { team: 'Sevilla', crest: 'https://crests.football-data.org/559.svg', wins: ['1945/46'] },
+    { team: 'Real Betis', crest: 'https://crests.football-data.org/90.png', wins: ['1934/35'] }
+  ],
+  'PL': [
+    { team: 'Manchester United', crest: 'https://crests.football-data.org/66.png', wins: ['2012/13', '2010/11', '2008/09', '2007/08', '2006/07', '2002/03', '2000/01', '1999/00', '1998/99', '1996/97', '1995/96', '1992/93', '1966/67', '1964/65', '1956/57', '1955/56', '1951/52', '1910/11', '1907/08'] },
+    { team: 'Liverpool', crest: 'https://crests.football-data.org/64.png', wins: ['2019/20', '1989/90', '1987/88', '1985/86', '1983/84', '1982/83', '1981/82', '1979/80', '1978/79', '1976/77', '1975/76', '1972/73', '1965/66', '1963/64', '1946/47', '1922/23', '1921/22', '1905/06', '1900/01'] },
+    { team: 'Arsenal', crest: 'https://crests.football-data.org/57.png', wins: ['2003/04', '2001/02', '1997/98', '1990/91', '1988/89', '1970/71', '1952/53', '1947/48', '1937/38', '1934/35', '1933/34', '1932/33', '1930/31'] },
+    { team: 'Manchester City', crest: 'https://crests.football-data.org/65.png', wins: ['2023/24', '2022/23', '2021/22', '2020/21', '2018/19', '2017/18', '2013/14', '2011/12', '1967/68', '1936/37'] },
+    { team: 'Everton', crest: 'https://crests.football-data.org/62.png', wins: ['1986/87', '1984/85', '1969/70', '1962/63', '1938/39', '1931/32', '1927/28', '1914/15', '1890/91'] },
+    { team: 'Aston Villa', crest: 'https://crests.football-data.org/58.png', wins: ['1980/81', '1909/10', '1899/00', '1898/99', '1896/97', '1895/96', '1893/94'] },
+    { team: 'Sunderland', crest: 'https://crests.football-data.org/71.png', wins: ['1935/36', '1912/13', '1901/02', '1894/95', '1892/93', '1891/92'] },
+    { team: 'Chelsea', crest: 'https://crests.football-data.org/61.png', wins: ['2016/17', '2014/15', '2009/10', '2005/06', '2004/05', '1954/55'] },
+    { team: 'Newcastle United', crest: 'https://crests.football-data.org/67.png', wins: ['1926/27', '1908/09', '1906/07', '1904/05'] },
+    { team: 'Sheffield Wednesday', crest: 'https://crests.football-data.org/343.png', wins: ['1929/30', '1928/29', '1903/04', '1902/03'] },
+    { team: 'Wolverhampton', crest: 'https://crests.football-data.org/76.png', wins: ['1958/59', '1957/58', '1953/54'] },
+    { team: 'Leeds United', crest: 'https://crests.football-data.org/341.png', wins: ['1991/92', '1973/74', '1968/69'] },
+    { team: 'Huddersfield Town', crest: 'https://crests.football-data.org/394.png', wins: ['1925/26', '1924/25', '1923/24'] },
+    { team: 'Blackburn Rovers', crest: 'https://crests.football-data.org/59.png', wins: ['1994/95', '1913/14', '1911/12'] },
+    { team: 'Preston North End', crest: 'https://crests.football-data.org/302.png', wins: ['1889/90', '1888/89'] },
+    { team: 'Tottenham Hotspur', crest: 'https://crests.football-data.org/73.png', wins: ['1960/61', '1950/51'] },
+    { team: 'Derby County', crest: 'https://crests.football-data.org/342.png', wins: ['1974/75', '1971/72'] },
+    { team: 'Burnley', crest: 'https://crests.football-data.org/328.png', wins: ['1959/60', '1920/21'] },
+    { team: 'Portsmouth', crest: 'https://crests.football-data.org/68.png', wins: ['1949/50', '1948/49'] },
+    { team: 'Leicester City', crest: 'https://crests.football-data.org/338.png', wins: ['2015/16'] },
+    { team: 'Nottingham Forest', crest: 'https://crests.football-data.org/351.png', wins: ['1977/78'] },
+    { team: 'Ipswich Town', crest: 'https://crests.football-data.org/349.png', wins: ['1961/62'] },
+    { team: 'Sheffield United', crest: 'https://crests.football-data.org/356.png', wins: ['1897/98'] },
+    { team: 'West Bromwich Albion', crest: 'https://crests.football-data.org/74.png', wins: ['1919/20'] }
+  ],
+  'BL': [
+    { team: 'Bayern Munich', crest: 'https://crests.football-data.org/5.svg', wins: ['2022/23', '2021/22', '2020/21', '2019/20', '2018/19', '2017/18', '2016/17', '2015/16', '2014/15', '2013/14', '2012/13', '2009/10', '2007/08', '2005/06', '2004/05', '2002/03', '2000/01', '1999/00', '1998/99', '1996/97', '1993/94', '1989/90', '1988/89', '1986/87', '1985/86', '1984/85', '1980/81', '1979/80', '1973/74', '1972/73', '1971/72', '1968/69', '1931/32'] },
+    { team: 'Nürnberg', crest: 'https://crests.football-data.org/14.png', wins: ['1967/68', '1960/61', '1947/48', '1935/36', '1926/27', '1924/25', '1923/24', '1920/21', '1919/20'] },
+    { team: 'Borussia Dortmund', crest: 'https://crests.football-data.org/4.png', wins: ['2011/12', '2010/11', '2001/02', '1995/96', '1994/95', '1962/63', '1956/57', '1955/56'] },
+    { team: 'Schalke 04', crest: 'https://crests.football-data.org/9.png', wins: ['1957/58', '1941/42', '1939/40', '1938/39', '1936/37', '1934/35', '1933/34'] },
+    { team: 'Hamburger SV', crest: 'https://crests.football-data.org/12.png', wins: ['1982/83', '1981/82', '1978/79', '1959/60', '1927/28', '1922/23'] },
+    { team: 'VfB Stuttgart', crest: 'https://crests.football-data.org/10.png', wins: ['2006/07', '1991/92', '1983/84', '1951/52', '1949/50'] },
+    { team: 'Borussia M.Gladbach', crest: 'https://crests.football-data.org/18.png', wins: ['1976/77', '1975/76', '1974/75', '1970/71', '1969/70'] },
+    { team: 'Werder Bremen', crest: 'https://crests.football-data.org/12.png', wins: ['2003/04', '1992/93', '1987/88', '1964/65'] },
+    { team: 'Kaiserslautern', crest: 'https://crests.football-data.org/20.png', wins: ['1997/98', '1990/91', '1952/53', '1950/51'] },
+    { team: 'Köln', crest: 'https://crests.football-data.org/1.png', wins: ['1977/78', '1963/64', '1961/62'] },
+    { team: 'Bayer Leverkusen', crest: 'https://crests.football-data.org/3.png', wins: ['2023/24'] },
+    { team: 'Wolfsburg', crest: 'https://crests.football-data.org/11.png', wins: ['2008/09'] }
+  ],
+  'L1': [
+    { team: 'PSG', crest: 'https://crests.football-data.org/524.png', wins: ['2023/24', '2022/23', '2021/22', '2019/20', '2018/19', '2017/18', '2015/16', '2014/15', '2013/14', '2012/13', '1993/94', '1985/86'] },
+    { team: 'Saint-Étienne', crest: 'https://crests.football-data.org/527.svg', wins: ['1980/81', '1975/76', '1974/75', '1973/74', '1969/70', '1968/69', '1967/68', '1966/67', '1963/64', '1956/57'] },
+    { team: 'Marseille', crest: 'https://crests.football-data.org/516.png', wins: ['2009/10', '1991/92', '1990/91', '1989/90', '1988/89', '1971/72', '1970/71', '1947/48', '1936/37'] },
+    { team: 'Monaco', crest: 'https://crests.football-data.org/548.png', wins: ['2016/17', '1999/00', '1996/97', '1987/88', '1981/82', '1977/78', '1962/63', '1960/61'] },
+    { team: 'Nantes', crest: 'https://crests.football-data.org/543.png', wins: ['2000/01', '1994/95', '1982/83', '1979/80', '1976/77', '1972/73', '1965/66', '1964/65'] },
+    { team: 'Lyon', crest: 'https://crests.football-data.org/523.svg', wins: ['2007/08', '2006/07', '2005/06', '2004/05', '2003/04', '2002/03', '2001/02'] },
+    { team: 'Bordeaux', crest: 'https://crests.football-data.org/526.png', wins: ['2008/09', '1998/99', '1986/87', '1984/85', '1983/84', '1949/50'] },
+    { team: 'Reims', crest: 'https://crests.football-data.org/547.png', wins: ['1961/62', '1959/60', '1957/58', '1954/55', '1952/53', '1948/49'] },
+    { team: 'Lille', crest: 'https://crests.football-data.org/521.svg', wins: ['2020/21', '2010/11', '1953/54', '1945/46'] },
+    { team: 'Nice', crest: 'https://crests.football-data.org/522.png', wins: ['1958/59', '1955/56', '1951/52', '1950/51'] },
+    { team: 'Montpellier', crest: 'https://crests.football-data.org/518.png', wins: ['2011/12'] },
+    { team: 'Lens', crest: 'https://crests.football-data.org/546.png', wins: ['1997/98'] },
+    { team: 'Auxerre', crest: 'https://crests.football-data.org/525.png', wins: ['1995/96'] }
   ]
 };
