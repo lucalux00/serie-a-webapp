@@ -1,48 +1,23 @@
 import { NextResponse } from 'next/server';
 
-// Generatore algoritmico di testo per l'analisi
+// Generatore algoritmico di testo per l'analisi preliminare
 function generateMatchAnalysis(homeTeam: string, awayTeam: string, matchId: number) {
-  // Usiamo il matchId per randomizzazione deterministica (così i nomi e le stat rimangono uguali tra i refresh)
-  const seed = matchId;
   const isDerby = homeTeam.slice(0, 3) === awayTeam.slice(0, 3);
   
-  const referees = ["Orsato", "Guida", "Maresca", "Mariani", "Doveri", "Chiffi", "Pairetto", "Fabbri"];
-  const referee = referees[seed % referees.length];
-  
-  const cardsAvg = 4 + (seed % 4); // Tra 4 e 7 cartellini medi
-  
-  const formations = ["4-3-3", "3-5-2", "4-2-3-1", "4-4-2", "3-4-2-1"];
-  const homeFormation = formations[seed % formations.length];
-  const awayFormation = formations[(seed + 1) % formations.length];
-
-  const keyDuels = [
-    "Fasce laterali: La spinta offensiva dei terzini sarà la chiave del match.",
-    "Centrocampo: Chi vince la battaglia in mediana avrà il controllo del gioco.",
-    "Fase di transizione: Entrambe le squadre eccellono nelle ripartenze veloci.",
-    "Palle inattive: Molti gol stagionali sono arrivati da corner, massima attenzione."
-  ];
-  const keyDuel = keyDuels[seed % keyDuels.length];
-
   return `
 ### 📊 Panoramica del Match
-Questa si preannuncia come una sfida cruciale. Il **${homeTeam}** arriva con la necessità di sfruttare il fattore campo, schierandosi con un collaudato **${homeFormation}**. Dall'altra parte, il **${awayTeam}** risponderà con un **${awayFormation}** per cercare di arginare le sortite offensive e colpire in ripartenza. ${isDerby ? "Trattandosi di un derby, la tensione sarà alle stelle e i valori tattici potrebbero passare in secondo piano rispetto alla carica emotiva." : ""}
+Questa si preannuncia come una sfida cruciale per entrambe le formazioni. Il **${homeTeam}** cercherà di sfruttare il calore del proprio pubblico per imporre il gioco, mentre il **${awayTeam}** proverà ad arginare le offensive avversarie e ripartire. ${isDerby ? "Trattandosi di un derby, la tensione agonistica e l'aspetto mentale saranno determinanti." : "I punti in palio pesano notevolmente per i rispettivi obiettivi stagionali."}
 
-### ⚖️ L'Arbitro: ${referee}
-La direzione di gara è stata affidata a **${referee}**, un arbitro che statisticamente mantiene un metro di giudizio molto europeo. 
-- **Media cartellini:** ${cardsAvg.toFixed(1)} a partita.
-- **Tendenza:** Lascia correre molto sui contatti lievi.
-*Attenzione ai cartellini per i difensori centrali del ${homeTeam}, spesso in difficoltà negli uno-contro-uno rapidi.*
+### ⏱️ Dati in Aggiornamento (a -3gg dal match)
+> [!NOTE]
+> Poiché manca ancora molto al fischio d'inizio, i dati reali non sono ancora disponibili. Questa sezione verrà aggiornata automaticamente **3 giorni prima della partita** con:
 
-### ⚔️ Scontri Tattici e Variabili
-${keyDuel}
-L'algoritmo rileva un calo di rendimento del ${awayTeam} negli ultimi 15 minuti del secondo tempo (74'-90'), un frangente in cui le ammonizioni (soprattutto a centrocampo) costringono ad abbassare l'intensità del pressing. Il rientro di giocatori chiave dalla squalifica darà però linfa vitale nelle rotazioni offensive.
+- **Formazioni Ufficiali/Probabili**
+- **Arbitro Designato e Statistiche Cartellini**
+- **Indisponibili, Diffidati e Squalificati**
+- **Costo Biglietti e Presenze allo Stadio**
 
-### 🔮 Il Verdetto dell'Algoritmo
-Per portare a casa i 3 punti:
-1. **Per il ${homeTeam}:** Sfruttare gli inserimenti delle mezzali dietro la linea difensiva.
-2. **Per il ${awayTeam}:** Compattare i reparti e forzare l'avversario a giocare esternamente per poi recuperare palla e innescare i contropiedi.
-
-**Stima Gol:** Previsti almeno 2.5 gol totali viste le difese alte e gli Expected Goals (xG) cumulativi superiori a 3.10.
+*Torna a visitare questa pagina a ridosso dell'incontro per leggere l'analisi tattica completa incrociata con i dati ufficiali di gara.*
   `.trim();
 }
 
@@ -61,7 +36,7 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      throw new Error(`Errore API: ${response.status}`);
+      throw new Error(\`Errore API: \${response.status}\`);
     }
 
     const data = await response.json();
@@ -80,11 +55,6 @@ export async function GET() {
       const awayTeam = m.awayTeam.shortName || m.awayTeam.name;
       const matchId = m.id;
 
-      // Costi biglietti simulati (tra 25 e 120 euro)
-      const ticketCost = Math.floor((matchId % 95) + 25);
-      // Spettatori (tra 20000 e 70000)
-      const attendance = Math.floor((matchId % 50000) + 20000);
-
       const markdownAnalysis = generateMatchAnalysis(homeTeam, awayTeam, matchId);
 
       return {
@@ -94,8 +64,8 @@ export async function GET() {
         awayTeam,
         awayCrest: m.awayTeam.crest,
         date: m.utcDate,
-        ticketCost: `Da ${ticketCost}€`,
-        attendance: `${attendance.toLocaleString('it-IT')}`,
+        ticketCost: "Aggiornamento a -3gg",
+        attendance: "In attesa",
         markdownAnalysis
       };
     });
