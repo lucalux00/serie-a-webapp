@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Target, ExternalLink, Calculator, AlertTriangle, Info } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Target, ExternalLink, Calculator, AlertTriangle, Info, Loader2 } from 'lucide-react';
 
 export default function PronosticiPage() {
   // Variabili di affiliazione (da compilare)
@@ -10,15 +10,37 @@ export default function PronosticiPage() {
 
   const baseBetAmount = 10; // Importo base per il calcolo della stima di vincita
 
-  const weeklyPredictions = [
-    { id: 1, match: "Juventus - Napoli", pick: "1X + Under 3.5", odds: 1.65 },
-    { id: 2, match: "Milan - Inter", pick: "Gol", odds: 1.70 },
-    { id: 3, match: "Roma - Lazio", pick: "Over 2.5", odds: 1.95 },
-    { id: 4, match: "Atalanta - Fiorentina", pick: "1", odds: 1.80 },
-  ];
+  const [weeklyPredictions, setWeeklyPredictions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadPredictions() {
+      try {
+        const res = await fetch('/api/pronostici');
+        if (res.ok) {
+          const data = await res.json();
+          setWeeklyPredictions(data.predictions || []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch real predictions", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPredictions();
+  }, []);
 
   const totalOdds = weeklyPredictions.reduce((acc, curr) => acc * curr.odds, 1);
   const potentialWin = totalOdds * baseBetAmount;
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full min-h-[60vh] p-4 text-[#94A3B8]">
+        <Loader2 className="animate-spin mb-4 text-[#0EA5E9]" size={40} />
+        <p className="font-bold uppercase tracking-widest text-xs">Calcolo pronostici sui match reali...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col w-full min-h-screen pb-24 p-4">
@@ -34,12 +56,12 @@ export default function PronosticiPage() {
       </div>
       
       <p className="text-sm text-[#cbd5e1] mb-6 bg-[#1E293B] p-4 rounded-xl border border-[#334155] shadow-sm">
-        Scopri le selezioni esclusive del nostro algoritmo basate sulle statistiche più recenti, gli stati di forma e i dati avanzati della Serie A.
+        Scopri le selezioni esclusive del nostro algoritmo basate sulle statistiche reali dei prossimi incontri di Serie A.
       </p>
 
       {/* Lista Pronostici */}
       <div className="mb-8 space-y-3">
-        {weeklyPredictions.map(pred => (
+        {weeklyPredictions.length > 0 ? weeklyPredictions.map(pred => (
           <div key={pred.id} className="bg-[#1E293B] rounded-xl p-4 flex justify-between items-center border border-[#334155] shadow-sm relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#0EA5E9]" />
             <div className="pl-2">
@@ -51,10 +73,13 @@ export default function PronosticiPage() {
               <span className="font-black text-white">{pred.odds.toFixed(2)}</span>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="bg-[#1E293B] p-4 text-center rounded-xl border border-[#334155] text-white">Nessuna partita in programma trovata.</div>
+        )}
       </div>
 
       {/* La Bolletta */}
+      {weeklyPredictions.length > 0 && (
       <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#334155] p-5 rounded-2xl shadow-xl relative overflow-hidden mb-6">
         <div className="flex items-center mb-4 border-b border-[#334155] pb-3">
           <Calculator className="text-[#0EA5E9] mr-2" size={20} />
@@ -85,6 +110,7 @@ export default function PronosticiPage() {
           <ExternalLink size={18} className="ml-2 opacity-70 group-hover:opacity-100 transition-opacity" />
         </a>
       </div>
+      )}
 
       {/* Sezione Legale / Decreto Dignità */}
       <div className="bg-[#0F172A] border border-[#334155]/50 p-4 rounded-xl text-center flex flex-col items-center">
