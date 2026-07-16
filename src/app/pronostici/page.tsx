@@ -1,61 +1,103 @@
 "use client";
 
-import React from 'react';
-import MatchCard from '@/components/domain/MatchCard';
-import predictionsData from '@/data/worldCupPredictions.json';
-import { Copy, BrainCircuit } from 'lucide-react';
+import React, { useState } from 'react';
+import { Target, ExternalLink, Calculator, AlertTriangle, Info } from 'lucide-react';
 
 export default function PronosticiPage() {
-  const { matches, accumulator } = predictionsData;
+  // Variabili di affiliazione (da compilare)
+  const bookmakerName = "SNAI"; // Es. "SNAI", "Bet365", "Eurobet"
+  const affiliateLink = ""; // Es. "https://..."
+
+  const baseBetAmount = 10; // Importo base per il calcolo della stima di vincita
+
+  const weeklyPredictions = [
+    { id: 1, match: "Juventus - Napoli", pick: "1X + Under 3.5", odds: 1.65 },
+    { id: 2, match: "Milan - Inter", pick: "Gol", odds: 1.70 },
+    { id: 3, match: "Roma - Lazio", pick: "Over 2.5", odds: 1.95 },
+    { id: 4, match: "Atalanta - Fiorentina", pick: "1", odds: 1.80 },
+  ];
+
+  const totalOdds = weeklyPredictions.reduce((acc, curr) => acc * curr.odds, 1);
+  const potentialWin = totalOdds * baseBetAmount;
 
   return (
     <div className="flex flex-col w-full min-h-screen pb-24 p-4">
-      <div className="flex items-center mb-6 mt-2">
-        <div className="w-10 h-10 rounded-full bg-[#10B981]/20 flex items-center justify-center text-[#10B981] mr-3">
-          <BrainCircuit size={24} />
+      {/* Intestazione */}
+      <div className="flex items-center mb-4 mt-2">
+        <div className="w-10 h-10 rounded-full bg-[#0EA5E9]/20 flex items-center justify-center text-[#0EA5E9] mr-3">
+          <Target size={24} />
         </div>
         <div>
-          <h1 className="text-2xl font-black">AI Data Scientist</h1>
-          <p className="text-xs text-[#0EA5E9] font-bold uppercase tracking-widest">Simulatore Predittivo 2026</p>
+          <h1 className="text-2xl font-black text-white">I Pronostici del Weekend</h1>
+          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Match Analysis & Dati</p>
         </div>
       </div>
       
-      {/* Disclaimer / Intro */}
-      <div className="bg-[#1E293B] border-l-4 border-[#0EA5E9] p-3 rounded-r-xl mb-6 text-xs text-[#94A3B8] shadow-md">
-        In attesa della Serie A, il network neurale sta analizzando miliardi di datapoint sul Mondiale 2026. L'algoritmo valuta lo storico, le variabili ambientali, gli arbitri e il mercato scommesse.
-      </div>
+      <p className="text-sm text-[#cbd5e1] mb-6 bg-[#1E293B] p-4 rounded-xl border border-[#334155] shadow-sm">
+        Scopri le selezioni esclusive del nostro algoritmo basate sulle statistiche più recenti, gli stati di forma e i dati avanzati della Serie A.
+      </p>
 
-      <div className="mb-8">
-        <h2 className="text-sm font-black text-[#94A3B8] uppercase mb-3">Semifinali Mondiali</h2>
-        {matches.map(m => (
-          <MatchCard key={m.id} match={m} />
+      {/* Lista Pronostici */}
+      <div className="mb-8 space-y-3">
+        {weeklyPredictions.map(pred => (
+          <div key={pred.id} className="bg-[#1E293B] rounded-xl p-4 flex justify-between items-center border border-[#334155] shadow-sm relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#0EA5E9]" />
+            <div className="pl-2">
+              <div className="font-black text-[#F8FAFC] text-sm mb-1">{pred.match}</div>
+              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-widest">Pronostico: <span className="text-[#10B981]">{pred.pick}</span></div>
+            </div>
+            <div className="bg-[#0F172A] px-3 py-2 rounded-lg border border-[#334155] min-w-[60px] text-center">
+              <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-0.5">Quota</span>
+              <span className="font-black text-white">{pred.odds.toFixed(2)}</span>
+            </div>
+          </div>
         ))}
       </div>
 
-      <div className="bg-gradient-to-br from-[#10B981]/20 to-[#0EA5E9]/20 border border-[#10B981]/50 p-5 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.15)] relative overflow-hidden">
-        <div className="absolute top-0 right-0 px-3 py-1 bg-[#10B981] rounded-bl-xl text-[#0F172A] font-black text-[10px] uppercase shadow-md">Algoritmo Ottimizzato</div>
-        <h2 className="text-xl font-black mb-5">{accumulator.title}</h2>
+      {/* La Bolletta */}
+      <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#334155] p-5 rounded-2xl shadow-xl relative overflow-hidden mb-6">
+        <div className="flex items-center mb-4 border-b border-[#334155] pb-3">
+          <Calculator className="text-[#0EA5E9] mr-2" size={20} />
+          <h2 className="text-lg font-black text-white">La Bolletta</h2>
+        </div>
         
-        <div className="space-y-3 mb-6">
-          {accumulator.bets.map((bet, idx) => (
-            <div key={idx} className="flex justify-between items-center text-sm border-b border-[#334155]/50 pb-2">
-              <span className="font-bold text-[#F8FAFC]">{bet.match}</span>
-              <div className="text-right">
-                <span className="block text-[10px] text-[#94A3B8] uppercase">Pronostico</span>
-                <span className="font-black text-[#10B981]">{bet.pick} <span className="text-xs text-white">({bet.odds})</span></span>
-              </div>
-            </div>
-          ))}
-
-          <div className="flex justify-between items-end pt-3">
-            <span className="text-[#94A3B8] font-bold uppercase text-[10px] tracking-widest">Quota Combinata</span>
-            <span className="font-black text-3xl text-[#0EA5E9] drop-shadow-md">{accumulator.totalOdds}</span>
-          </div>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-[#94A3B8] font-bold">Quota Totale</span>
+          <span className="font-black text-xl text-[#0EA5E9]">{totalOdds.toFixed(2)}</span>
+        </div>
+        
+        <div className="flex justify-between items-center mb-5">
+          <span className="text-sm text-[#94A3B8] font-bold flex items-center">
+            Moltiplicatore con {baseBetAmount}€
+            <Info size={12} className="ml-1 text-[#64748B]" />
+          </span>
+          <span className="font-black text-2xl text-[#10B981]">~ {potentialWin.toFixed(2)}€</span>
         </div>
 
-        <button className="w-full flex items-center justify-center bg-[#10B981] hover:bg-[#059669] text-[#0F172A] font-black py-4 rounded-xl active:scale-95 transition-transform shadow-lg">
-          <Copy size={20} className="mr-2" /> COPIA E GIOCA
-        </button>
+        {/* Bottone di Affiliazione Neutro (Decreto Dignità compliance) */}
+        <a 
+          href={affiliateLink || '#'} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center bg-[#0EA5E9] hover:bg-[#0284c7] text-white font-black py-4 rounded-xl active:scale-95 transition-transform shadow-lg group"
+        >
+          {bookmakerName ? `COMPARA LA BOLLETTA SU ${bookmakerName.toUpperCase()}` : "COMPARA LA BOLLETTA SUL SITO"}
+          <ExternalLink size={18} className="ml-2 opacity-70 group-hover:opacity-100 transition-opacity" />
+        </a>
+      </div>
+
+      {/* Sezione Legale / Decreto Dignità */}
+      <div className="bg-[#0F172A] border border-[#334155]/50 p-4 rounded-xl text-center flex flex-col items-center">
+        <div className="flex items-center space-x-3 mb-2">
+          <div className="w-8 h-8 rounded-full border-2 border-[#64748B] flex items-center justify-center">
+            <span className="text-[#64748B] font-black text-xs">+18</span>
+          </div>
+          <AlertTriangle className="text-[#64748B]" size={20} />
+        </div>
+        <p className="text-[10px] text-[#64748B] font-medium leading-relaxed max-w-[90%] uppercase tracking-wide">
+          Riservato ai maggiori di 18 anni. Il gioco può causare dipendenza patologica. 
+          Le quote indicate sono soggette a variazioni. Consulta le probabilità di vincita sul sito del concessionario ufficiale.
+        </p>
       </div>
     </div>
   );
