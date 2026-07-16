@@ -491,7 +491,7 @@ export default function ClassifichePage() {
                     </button>
                     {expandedTeam === team && (
                       <div className="p-3 bg-[#1E293B] border-t border-[#334155] grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {data.wins.map(s => (
+                        {data.wins.map((s: any) => (
                           <button
                             key={s.year}
                             onClick={() => {
