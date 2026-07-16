@@ -10,9 +10,11 @@ import { sql } from '@vercel/postgres';
 // ISR: Rigenera la pagina ogni 30 minuti (1800 secondi) in produzione
 export const revalidate = 1800;
 
-export default async function SquadraPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function SquadraPage({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ tab?: string }> }) {
   const resolvedParams = await params;
+  const resolvedSearch = await searchParams;
   const teamId = resolvedParams.id;
+  const initialTab = resolvedSearch.tab || 'news';
   
   const team = ALL_TEAMS.find(t => t.id === teamId) || { name: 'Squadra', logo: '?', league: 'A' };
   
@@ -133,5 +135,5 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
     console.error('Error loading trofei:', e);
   }
 
-  return <TeamHubClient team={team} news={news} squadData={squadData} trofeiData={trofeiData} />;
+  return <TeamHubClient team={team} news={news} squadData={squadData} trofeiData={trofeiData} initialTab={initialTab} />;
 }

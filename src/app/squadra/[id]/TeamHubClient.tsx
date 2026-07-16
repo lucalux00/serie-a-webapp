@@ -183,9 +183,9 @@ function PartiteTab({ team }: { team: any }) {
   );
 }
 
-export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData }: any) {
+export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData, initialTab = 'news' }: any) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>('news');
+  const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>(initialTab as any);
   const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
