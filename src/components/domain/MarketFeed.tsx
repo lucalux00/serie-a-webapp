@@ -8,7 +8,8 @@ import Script from 'next/script';
 const ADVANCED_MARKET_DATA: any[] = []; // Rimossi i dati finti
 
 export default function MarketFeed() {
-  const [leagueTab, setLeagueTab] = useState<'A' | 'B'>('A');
+  const [leagueTab, setLeagueTab] = useState<'A' | 'B' | 'PL' | 'LL'>('A');
+  const [filterTab, setFilterTab] = useState<'acquisti' | 'prestiti' | 'svincolati' | 'trattative'>('acquisti');
   const [searchQuery, setSearchQuery] = useState('');
   const [liveData, setLiveData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,14 +33,16 @@ export default function MarketFeed() {
     d.team.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const ufficiali = currentData.filter(d => d.status === 'ufficiale');
-  const trattative = currentData.filter(d => d.status === 'trattativa');
+  const acquisti = currentData.filter(d => d.type === 'acquisto');
+  const prestiti = currentData.filter(d => d.type === 'prestito');
+  const svincolati = currentData.filter(d => d.type === 'svincolato');
 
   const getIconForType = (type: string) => {
     switch (type) {
       case 'acquisto': return <ArrowRight className="text-[#10B981] w-4 h-4" />;
       case 'cessione': return <ArrowLeft className="text-[#EF4444] w-4 h-4" />;
       case 'prestito': return <ArrowRightLeft className="text-[#0EA5E9] w-4 h-4" />;
+      case 'svincolato': return <CheckCircle2 className="text-[#94A3B8] w-4 h-4" />;
       case 'trattativa': return <RefreshCw className="text-[#F59E0B] w-4 h-4 animate-spin-slow" />;
       default: return null;
     }
@@ -50,15 +53,16 @@ export default function MarketFeed() {
       case 'acquisto': return 'bg-[#10B981]/20 text-[#10B981] border-[#10B981]/50';
       case 'cessione': return 'bg-[#EF4444]/20 text-[#EF4444] border-[#EF4444]/50';
       case 'prestito': return 'bg-[#0EA5E9]/20 text-[#0EA5E9] border-[#0EA5E9]/50';
+      case 'svincolato': return 'bg-[#94A3B8]/20 text-[#E2E8F0] border-[#94A3B8]/50';
       case 'trattativa': return 'bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/50';
       default: return 'bg-[#334155] text-white';
     }
   };
 
-  const renderTransferCard = (tr: typeof ADVANCED_MARKET_DATA[0]) => (
+  const renderTransferCard = (tr: any) => (
     <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
       {/* Indicatore visivo laterale */}
-      <div className={`absolute left-0 top-0 bottom-0 w-1 ${tr.type === 'acquisto' ? 'bg-[#10B981]' : tr.type === 'cessione' ? 'bg-[#EF4444]' : tr.type === 'prestito' ? 'bg-[#0EA5E9]' : 'bg-[#F59E0B]'}`} />
+      <div className={`absolute left-0 top-0 bottom-0 w-1 ${tr.type === 'acquisto' ? 'bg-[#10B981]' : tr.type === 'cessione' ? 'bg-[#EF4444]' : tr.type === 'prestito' ? 'bg-[#0EA5E9]' : tr.type === 'svincolato' ? 'bg-[#94A3B8]' : 'bg-[#F59E0B]'}`} />
       
       <div className="flex justify-between items-start mb-2 pl-2">
         <div className="flex items-center space-x-2">
@@ -97,61 +101,106 @@ export default function MarketFeed() {
       </div>
 
       {/* Tabs Lega */}
-      <div className="flex bg-[#1E293B] p-1 rounded-full border border-[#334155]">
-        <button 
-          onClick={() => setLeagueTab('A')} 
-          className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-full transition-colors ${leagueTab === 'A' ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8]'}`}
-        >
-          Serie A
-        </button>
-        <button 
-          onClick={() => setLeagueTab('B')} 
-          className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-full transition-colors ${leagueTab === 'B' ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8]'}`}
-        >
-          Serie B
-        </button>
+      <div className="flex bg-[#1E293B] p-1 rounded-2xl border border-[#334155] mb-2">
+        {['A', 'B', 'PL', 'LL'].map((l) => (
+          <button 
+            key={l}
+            onClick={() => setLeagueTab(l as any)} 
+            className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-colors ${leagueTab === l ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
+          >
+            {l === 'A' ? 'Serie A' : l === 'B' ? 'Serie B' : l === 'PL' ? 'Premier' : 'La Liga'}
+          </button>
+        ))}
+      </div>
+
+      {/* Tabs Filtro Categoria */}
+      <div className="flex bg-[#0F172A] border-b border-[#334155] overflow-x-auto no-scrollbar">
+        {[
+          { id: 'acquisti', label: 'Acquisti' },
+          { id: 'prestiti', label: 'Prestiti' },
+          { id: 'svincolati', label: 'Svincolati' },
+          { id: 'trattative', label: 'Trattative' }
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setFilterTab(tab.id as any)}
+            className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${filterTab === tab.id ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div 
-          key={leagueTab}
+          key={`${leagueTab}-${filterTab}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="space-y-8"
+          className="space-y-6"
         >
-          {/* Sezione Ufficiali */}
-          <section>
-            <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-              <CheckCircle2 size={16} className="mr-2" /> Ufficialità Live
-            </h2>
-            {loading ? (
-              <div className="flex justify-center py-10">
-                <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-3">
-                {ufficiali.length > 0 ? ufficiali.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessuna ufficialità trovata nelle ultime ore.</div>}
-              </div>
-            )}
-          </section>
+          {filterTab === 'acquisti' && (
+            <section>
+              <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                <CheckCircle2 size={16} className="mr-2" /> Acquisti a Titolo Definitivo
+              </h2>
+              {loading ? (
+                <div className="flex justify-center py-10"><div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div></div>
+              ) : (
+                <div className="grid grid-cols-1 gap-3">
+                  {acquisti.length > 0 ? acquisti.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessun acquisto definitivo recente trovato.</div>}
+                </div>
+              )}
+            </section>
+          )}
 
-          {/* Sezione Trattative */}
-          <section>
-            <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-              <RefreshCw size={16} className="mr-2" /> Rumors & Trattative (Live Feed X)
-            </h2>
-            <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[600px] border border-[#334155] flex flex-col relative">
-              <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
-                Connessione al Feed di Fabrizio Romano...
+          {filterTab === 'prestiti' && (
+            <section>
+              <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                <ArrowRightLeft size={16} className="mr-2" /> Movimenti in Prestito
+              </h2>
+              {loading ? (
+                <div className="flex justify-center py-10"><div className="w-8 h-8 border-4 border-[#0EA5E9] border-t-transparent rounded-full animate-spin"></div></div>
+              ) : (
+                <div className="grid grid-cols-1 gap-3">
+                  {prestiti.length > 0 ? prestiti.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessun prestito recente trovato.</div>}
+                </div>
+              )}
+            </section>
+          )}
+
+          {filterTab === 'svincolati' && (
+            <section>
+              <h2 className="flex items-center text-[#94A3B8] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                <CheckCircle2 size={16} className="mr-2" /> Mercato Svincolati
+              </h2>
+              {loading ? (
+                <div className="flex justify-center py-10"><div className="w-8 h-8 border-4 border-[#94A3B8] border-t-transparent rounded-full animate-spin"></div></div>
+              ) : (
+                <div className="grid grid-cols-1 gap-3">
+                  {svincolati.length > 0 ? svincolati.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessuno svincolato trovato di recente.</div>}
+                </div>
+              )}
+            </section>
+          )}
+
+          {filterTab === 'trattative' && (
+            <section>
+              <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                <RefreshCw size={16} className="mr-2" /> Rumors & Trattative (Live Feed X)
+              </h2>
+              <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[600px] border border-[#334155] flex flex-col relative">
+                <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
+                  Connessione al Feed di Fabrizio Romano...
+                </div>
+                <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
+                  <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
+                  </a> 
+                  <Script async src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" />
+                </div>
               </div>
-              <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
-                <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
-                </a> 
-                <Script async src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" />
-              </div>
-            </div>
-          </section>
+            </section>
+          )}
         </motion.div>
       </AnimatePresence>
       

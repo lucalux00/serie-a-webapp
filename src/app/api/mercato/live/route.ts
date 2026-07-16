@@ -8,9 +8,14 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const league = searchParams.get('league') || 'A';
   
-  const tmUrl = league === 'A' 
-    ? 'https://www.transfermarkt.it/serie-a/letztetransfers/wettbewerb/IT1'
-    : 'https://www.transfermarkt.it/serie-b/letztetransfers/wettbewerb/IT2';
+  const leagueMap: Record<string, string> = {
+    'A': 'https://www.transfermarkt.it/serie-a/letztetransfers/wettbewerb/IT1',
+    'B': 'https://www.transfermarkt.it/serie-b/letztetransfers/wettbewerb/IT2',
+    'PL': 'https://www.transfermarkt.it/premier-league/letztetransfers/wettbewerb/GB1',
+    'LL': 'https://www.transfermarkt.it/laliga/letztetransfers/wettbewerb/ES1'
+  };
+
+  const tmUrl = leagueMap[league] || leagueMap['A'];
 
   try {
     const response = await fetch(tmUrl, {
@@ -33,7 +38,6 @@ export async function GET(request: Request) {
     let idCounter = 1;
 
     $('.items tbody tr').each((i, el) => {
-      // Transfermarkt rows Alternate between odd and even, some are empty separator rows
       const cols = $(el).children('td');
       if (cols.length < 5) return;
 
@@ -41,15 +45,6 @@ export async function GET(request: Request) {
         const playerName = $(cols[0]).find('.hauptlink a').text().trim();
         if (!playerName) return;
 
-        // In Transfermarkt's letztetransfers table:
-        // Col 0: Player
-        // Col 1: Age
-        // Col 2: Nat
-        // Col 3: Left (table with image and hauptlink)
-        // Col 4: Joined (table with image and hauptlink)
-        // Col 5: Date
-        // Col 6: Market Value
-        // Col 7: Fee
         const leftTeam = $(cols[3]).find('.hauptlink a').text().trim() || 'Svincolato';
         const joinedTeam = $(cols[4]).find('.hauptlink a').text().trim() || 'Svincolato';
         const fee = $(cols[7]).text().trim() || '?';
@@ -59,8 +54,13 @@ export async function GET(request: Request) {
         let teamToDisplay = joinedTeam;
         let fromToDisplay = `da ${leftTeam}`;
 
-        // Determina se è un prestito
-        if (fee.toLowerCase().includes('prestito')) {
+        const feeLower = fee.toLowerCase();
+        const isSvincolato = feeLower.includes('gratuito') || feeLower.includes('svincolato') || leftTeam === 'Svincolato' || joinedTeam === 'Svincolato';
+        const isPrestito = feeLower.includes('prestito');
+
+        if (isSvincolato) {
+          type = 'svincolato';
+        } else if (isPrestito) {
           type = 'prestito';
         }
 
@@ -80,7 +80,9 @@ export async function GET(request: Request) {
       }
     });
 
-    return NextResponse.json({ transfers: transfers.slice(0, 30) });
+    // Filtriamo i risultati per evitare doppioni di prestiti strani se serve,
+    // ma in questa API manteniamo tutto. Il frontend farà il sorting.
+    return NextResponse.json({ transfers: transfers.slice(0, 50) });
 
   } catch (error: any) {
     console.error("Live Mercato Error:", error);
