@@ -10,7 +10,7 @@ export async function GET() {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
 
-    const { rows } = await sql`SELECT id, name, email, favorite_team_id, avatar_url FROM users WHERE id = ${jwtUser.userId}`;
+    const { rows } = await sql`SELECT id, name, email, favorite_team_id FROM users WHERE id = ${jwtUser.userId}`;
     const dbUser = rows[0];
     if (!dbUser) return NextResponse.json({ authenticated: false }, { status: 401 });
 
@@ -23,11 +23,11 @@ export async function GET() {
         name: dbUser.name, 
         email: dbUser.email,
         favoriteTeamId: dbUser.favorite_team_id,
-        favoriteTeamName: favTeam ? favTeam.name : null,
-        avatar: dbUser.avatar_url
+        favoriteTeamName: favTeam ? favTeam.name : null
       } 
     });
   } catch (error) {
+    console.error("GET /api/auth/me error:", error);
     return NextResponse.json({ authenticated: false }, { status: 401 });
   }
 }
