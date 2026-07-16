@@ -9,49 +9,7 @@ import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
-const TEAM_RUMORS: Record<string, any[]> = {
-  "Como": [ { player: "Trevoh Chalobah", from: "Chelsea", fee: "Trattativa in corso, cifra non riportata" } ],
-  "Genoa": [ { player: "Brooke Norton-Cuffy", from: "Arsenal", fee: "Circa 20 milioni di euro" } ],
-  "Inter": [
-    { player: "Guéla Doué", from: "Strasburgo", fee: "Non riportato" },
-    { player: "Djed Spence", from: "Tottenham", fee: "Non riportato" },
-    { player: "Vanderson", from: "Monaco", fee: "Non riportato" },
-    { player: "Nahuel Molina", from: "Atletico Madrid", fee: "Non riportato" },
-    { player: "Julian Ryerson", from: "Borussia Dortmund", fee: "Non riportato" },
-    { player: "Curtis Jones", from: "Liverpool", fee: "Non riportato" }
-  ],
-  "Juventus": [
-    { player: "Randal Kolo Muani", from: "Paris Saint-Germain", fee: "Valutato oltre 45 milioni di euro" },
-    { player: "Jhon Lucumí", from: "Bologna", fee: "28 milioni (clausola)" },
-    { player: "Emiliano \"Dibu\" Martinez", from: "Aston Villa", fee: "Non riportato" },
-    { player: "Guglielmo Vicario", from: "Tottenham", fee: "Non riportato" },
-    { player: "Franck Kessié", from: "Al-Ahli", fee: "Non riportato" },
-    { player: "Mateo Pellegrino", from: "Parma", fee: "Non riportato" }
-  ],
-  "Lazio": [
-    { player: "John Kennedy", from: "Fluminense", fee: "Offerta presentata, cifra esatta non riportata" },
-    { player: "Sergi Dominguez", from: "Dinamo Zagabria", fee: "Non riportato" }
-  ],
-  "Milan": [
-    { player: "Luka Modric", from: "Real Madrid", fee: "Trattativa per accordo diretto/svincolo" },
-    { player: "Noussair Mazraoui", from: "Manchester United", fee: "Non riportato" },
-    { player: "Konstantinos Karetsas", from: "Genk", fee: "Non riportato" },
-    { player: "Kerim Alajbegovic", from: "Bayer Leverkusen", fee: "Non riportato" }
-  ],
-  "Napoli": [
-    { player: "Exequiel Zeballos", from: "Boca Juniors", fee: "Non riportato" }
-  ],
-  "Roma": [
-    { player: "Crysencio Summerville", from: "West Ham", fee: "Pronta un'offerta da 45 milioni di euro" },
-    { player: "Endrick", from: "Real Madrid", fee: "Operazione impostata sul prestito" }
-  ],
-  "Sassuolo": [
-    { player: "Takehiro Tomiyasu", from: "Arsenal", fee: "Non riportato" },
-    { player: "Akor Adams", from: "Siviglia", fee: "Non riportato" },
-    { player: "Francesco Acerbi", from: "Svincolato", fee: "Parametro zero" },
-    { player: "Pietro Comuzzo", from: "Fiorentina", fee: "Non riportato" }
-  ]
-};
+import { TEAM_RUMORS } from '@/data/rumors';
 
 // Componente Partite con dati reali da football-data.org
 function PartiteTab({ team }: { team: any }) {

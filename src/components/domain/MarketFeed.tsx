@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw, CheckCircle2, Search } from 'lucide-react';
+import { ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw, CheckCircle2, Search, Clock, Star } from 'lucide-react';
 import Script from 'next/script';
-
-const ADVANCED_MARKET_DATA: any[] = []; // Rimossi i dati finti
+import { TEAM_RUMORS } from '@/data/rumors';
 
 export default function MarketFeed() {
   const [leagueTab, setLeagueTab] = useState<'A' | 'B' | 'PL' | 'LL'>('A');
@@ -61,7 +60,6 @@ export default function MarketFeed() {
 
   const renderTransferCard = (tr: any) => (
     <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
-      {/* Indicatore visivo laterale */}
       <div className={`absolute left-0 top-0 bottom-0 w-1 ${tr.type === 'acquisto' ? 'bg-[#10B981]' : tr.type === 'cessione' ? 'bg-[#EF4444]' : tr.type === 'prestito' ? 'bg-[#0EA5E9]' : tr.type === 'svincolato' ? 'bg-[#94A3B8]' : 'bg-[#F59E0B]'}`} />
       
       <div className="flex justify-between items-start mb-2 pl-2">
@@ -101,14 +99,14 @@ export default function MarketFeed() {
       </div>
 
       {/* Tabs Lega */}
-      <div className="flex bg-[#1E293B] p-1 rounded-2xl border border-[#334155] mb-2">
-        {['A', 'B', 'PL', 'LL'].map((l) => (
+      <div className="flex bg-[#1E293B] p-1 rounded-2xl border border-[#334155] mb-2 overflow-x-auto no-scrollbar">
+        {['A', 'B', 'PL', 'LL', 'BL', 'L1'].map((l) => (
           <button 
             key={l}
             onClick={() => setLeagueTab(l as any)} 
-            className={`flex-1 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-colors ${leagueTab === l ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
+            className={`flex-1 py-3 px-2 text-[10px] sm:text-xs font-black uppercase tracking-widest rounded-xl transition-colors whitespace-nowrap ${leagueTab === l ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
           >
-            {l === 'A' ? 'Serie A' : l === 'B' ? 'Serie B' : l === 'PL' ? 'Premier' : 'La Liga'}
+            {l === 'A' ? 'Serie A' : l === 'B' ? 'Serie B' : l === 'PL' ? 'Premier' : l === 'LL' ? 'La Liga' : l === 'BL' ? 'Bundesliga' : 'Ligue 1'}
           </button>
         ))}
       </div>
@@ -184,10 +182,92 @@ export default function MarketFeed() {
             </section>
           )}
 
-          {filterTab === 'trattative' && (
-            <section>
-              <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-                <RefreshCw size={16} className="mr-2" /> Rumors & Trattative (Live Feed X)
+          {filterTab === 'trattative' && (() => {
+            const topRumors = Object.entries(TEAM_RUMORS).flatMap(([teamName, rumors]) => 
+              rumors.filter(r => r.isTop).map(r => ({ ...r, team: teamName }))
+            );
+            
+            const tabRumors = Object.entries(TEAM_RUMORS).filter(([teamName, rumors]) => 
+              rumors.some(r => r.league === leagueTab)
+            );
+
+            return (
+            <section className="space-y-6">
+              
+              {/* TOP RUMORS GLOBALI */}
+              {topRumors.length > 0 && (
+                <div className="mb-8">
+                  <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                    <Star size={16} className="mr-2" /> Top Rumors & Operazioni
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {topRumors.map((r, idx) => (
+                      <div key={`top-${idx}`} className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] border border-[#10B981]/50 rounded-xl p-4 shadow-lg relative overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#10B981]" />
+                        <div className="flex justify-between items-start mb-2 pl-2">
+                          <div className="flex items-center space-x-2">
+                            <Star size={14} className="text-[#10B981] fill-[#10B981]" />
+                            <span className="font-bold text-sm text-white">{r.team}</span>
+                          </div>
+                          <span className="text-[10px] font-black px-2 py-0.5 rounded uppercase border bg-[#10B981]/20 text-[#10B981] border-[#10B981]/50">
+                            Top
+                          </span>
+                        </div>
+                        <div className="pl-2">
+                          <div className="text-xl font-black text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
+                          <div className="flex justify-between items-center text-xs mt-2">
+                            <span className="text-[#94A3B8] font-medium">Da/A: <span className="text-white font-bold">{r.from}</span></span>
+                            <span className="font-black text-[#10B981]">{r.fee}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                {tabRumors.map(([teamName, rumors]) => {
+                  const leagueRumors = rumors.filter(r => r.league === leagueTab);
+                  if (searchQuery && !teamName.toLowerCase().includes(searchQuery.toLowerCase()) && !leagueRumors.some(r => r.player.toLowerCase().includes(searchQuery.toLowerCase()))) {
+                    return null;
+                  }
+                  if (leagueRumors.length === 0) return null;
+                  return (
+                    <div key={teamName} className="mb-6">
+                      <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">
+                        <Clock size={16} className="mr-2" /> Trattative {teamName}
+                      </h2>
+                      <div className="grid grid-cols-1 gap-3">
+                        {leagueRumors.map((r, idx) => (
+                          <div key={idx} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
+                            <div className="flex justify-between items-start mb-2 pl-2">
+                              <div className="flex items-center space-x-2">
+                                <Clock size={14} className="text-[#F59E0B]" />
+                                <span className="font-bold text-sm text-white">{teamName}</span>
+                              </div>
+                              <span className="text-[10px] font-black px-2 py-0.5 rounded uppercase border bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/50">
+                                Rumor
+                              </span>
+                            </div>
+                            <div className="pl-2">
+                              <div className="text-lg font-black text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
+                              <div className="flex justify-between items-center text-xs">
+                                <span className="text-[#94A3B8] font-medium">Da/A: {r.from}</span>
+                                <span className="font-bold text-[#F59E0B]">{r.fee}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2 mt-8">
+                <RefreshCw size={16} className="mr-2" /> Rumors & Trattative Globali (Feed X)
               </h2>
               <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[600px] border border-[#334155] flex flex-col relative">
                 <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
@@ -200,7 +280,8 @@ export default function MarketFeed() {
                 </div>
               </div>
             </section>
-          )}
+            );
+          })}
         </motion.div>
       </AnimatePresence>
       
