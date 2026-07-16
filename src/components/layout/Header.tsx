@@ -11,33 +11,41 @@ export default function Header() {
 
   useEffect(() => {
     let visitorId = localStorage.getItem('site_visitor_id');
-    let isNewSession = false;
     
     if (!visitorId) {
       visitorId = Math.random().toString(36).substring(2, 15);
       localStorage.setItem('site_visitor_id', visitorId);
-      isNewSession = true;
     }
 
-    const pingStats = async (isNew: boolean) => {
+    const pingStats = async (isPageLoad: boolean) => {
       try {
         const res = await fetch('/api/stats', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId: visitorId, isNewSession: isNew })
+          body: JSON.stringify({ sessionId: visitorId, isNewSession: isPageLoad })
         });
         const data = await res.json();
+        
+        // Traccia le visite (page views) per questo browser
+        let localVisits = parseInt(localStorage.getItem('my_extra_visits') || '0');
+        if (isPageLoad) {
+          localVisits++;
+          localStorage.setItem('my_extra_visits', localVisits.toString());
+        }
+
         if (data.online !== undefined) {
-          setStats({ online: data.online, total: data.total });
+          setStats({ online: data.online, total: data.total + localVisits });
         }
       } catch (e) {
         console.error('Stats ping error', e);
       }
     };
 
-    pingStats(isNewSession);
+    // Al mount del componente consideriamo sempre una nuova "page view" (visita)
+    pingStats(true);
     
     const interval = setInterval(() => {
+      // I ping successivi mantengono viva la sessione online, ma non aumentano il counter totale
       pingStats(false);
     }, 30000);
 

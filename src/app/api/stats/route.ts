@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
-// Queste variabili tengono in memoria i dati reali del server
-let memoryTotal = 1200;
+const START_DATE = new Date("2026-07-16T12:00:00Z").getTime();
+
+// Variabili per la sessione corrente del server
+let sessionExtraVisits = 0;
 let activeSessions = new Set<string>();
 
 export async function GET() {
@@ -13,29 +15,35 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { sessionId, isNewSession } = body || {};
 
-    // Ad ogni nuova visita di chiunque, aumenta di 1 il totale in modo reale
     if (isNewSession) {
-      memoryTotal++;
+      sessionExtraVisits++;
     }
     
-    // Registra le persone reali attualmente online
     if (sessionId) {
       activeSessions.add(sessionId);
     }
     
-    // Manutenzione cache serverless
+    // Pulizia
     if (activeSessions.size > 1000) {
       activeSessions.clear();
       if (sessionId) activeSessions.add(sessionId);
     }
 
-    // Gli online sono le tue 10 visite base + le persone REALI attualmente connesse
-    const online = 10 + activeSessions.size;
+    // Calcolo visite totali globali: 1200 + (visite naturali stimate dal lancio) + (visite extra registrate in questa istanza)
+    const now = Date.now();
+    const minutesSinceStart = Math.max(0, (now - START_DATE) / 60000);
+    const simulatedGlobal = Math.floor(minutesSinceStart * 0.5); // Circa 1 visita ogni 2 minuti
+    
+    const total = 1200 + simulatedGlobal + sessionExtraVisits;
 
-    return NextResponse.json({ total: memoryTotal, online });
+    // Per gli online, prendiamo la base (10) + una fluttuazione naturale + le sessioni reali attive nel server
+    const baseOnline = 10;
+    const fluctuation = Math.floor(Math.random() * 4); // 0-3
+    const online = baseOnline + fluctuation + activeSessions.size;
+
+    return NextResponse.json({ total, online });
 
   } catch (error) {
-    console.error('Stats error:', error);
-    return NextResponse.json({ total: memoryTotal, online: 11 });
+    return NextResponse.json({ total: 1200, online: 11 });
   }
 }
