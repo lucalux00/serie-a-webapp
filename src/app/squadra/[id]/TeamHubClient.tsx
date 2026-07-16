@@ -10,6 +10,7 @@ import useSWR from 'swr';
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 import { TEAM_RUMORS } from '@/data/rumors';
+import { getTeamLogoUrl } from '@/utils/teamLogos';
 
 // Componente Partite con dati reali da football-data.org
 function PartiteTab({ team }: { team: any }) {
@@ -33,7 +34,6 @@ function PartiteTab({ team }: { team: any }) {
     const resultColor = won ? '#10B981' : lost ? '#EF4444' : drew ? '#F59E0B' : team.primaryColor || '#334155';
     const resultLabel = won ? 'V' : lost ? 'P' : drew ? 'N' : null;
 
-    const opponent = isHome ? match.away : match.home;
     const oppCrest = isHome ? match.away.crest : match.home.crest;
 
     return (
@@ -69,13 +69,7 @@ function PartiteTab({ team }: { team: any }) {
               </>
             ) : (
               <>
-                {match.home.crest ? (
-                  <img src={match.home.crest} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-[#0F172A] border border-[#334155] flex items-center justify-center text-[9px] font-black text-[#94A3B8] mb-1">
-                    {match.home.shortName?.slice(0, 3) || '?'}
-                  </div>
-                )}
+                <img src={getTeamLogoUrl(match.home.shortName || match.home.name, match.home.crest)} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
                 <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate text-[#94A3B8]">{match.home.shortName || match.home.name}</span>
               </>
             )}
@@ -115,13 +109,7 @@ function PartiteTab({ team }: { team: any }) {
               </>
             ) : (
               <>
-                {match.away.crest ? (
-                  <img src={match.away.crest} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-[#0F172A] border border-[#334155] flex items-center justify-center text-[9px] font-black text-[#94A3B8] mb-1">
-                    {match.away.shortName?.slice(0, 3) || '?'}
-                  </div>
-                )}
+                <img src={getTeamLogoUrl(match.away.shortName || match.away.name, match.away.crest)} alt="" loading="lazy" className="w-10 h-10 object-contain mb-1" />
                 <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate text-[#94A3B8]">{match.away.shortName || match.away.name}</span>
               </>
             )}

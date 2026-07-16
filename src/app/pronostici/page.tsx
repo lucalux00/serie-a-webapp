@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Target, ExternalLink, Calculator, AlertTriangle, Info, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getTeamLogoUrl } from '@/utils/teamLogos';
 
 export default function PronosticiPage() {
   const bookmakerName = "SNAI";
@@ -75,7 +76,11 @@ export default function PronosticiPage() {
           <div key={pred.id || i} className="bg-[#1E293B] rounded-xl p-4 flex justify-between items-center border border-[#334155] shadow-sm relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#10B981]" />
             <div className="pl-2">
-              <div className="font-black text-[#F8FAFC] text-sm mb-1">{pred.match}</div>
+              <div className="flex items-center gap-2 mb-1.5">
+                <img src={getTeamLogoUrl(pred.match.split(' - ')[0])} alt="" loading="lazy" className="w-5 h-5 object-contain" />
+                <span className="font-black text-[#F8FAFC] text-sm">{pred.match}</span>
+                {pred.match.split(' - ')[1] && <img src={getTeamLogoUrl(pred.match.split(' - ')[1])} alt="" loading="lazy" className="w-5 h-5 object-contain" />}
+              </div>
               <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-widest">Esito: <span className="text-[#10B981]">{pred.pick}</span></div>
             </div>
             <div className="bg-[#0F172A] px-3 py-2 rounded-lg border border-[#334155] min-w-[60px] text-center">
@@ -118,7 +123,11 @@ export default function PronosticiPage() {
                     {bolletta.matches.map((m: any, idx: number) => (
                       <div key={idx} className="flex justify-between items-center bg-[#0F172A] p-3 rounded-lg border border-[#334155]/50">
                         <div>
-                          <div className="text-xs text-[#94A3B8] mb-1">{m.match}</div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <img src={getTeamLogoUrl(m.match.split(' - ')[0])} alt="" loading="lazy" className="w-4 h-4 object-contain" />
+                            <span className="text-xs font-bold text-[#94A3B8]">{m.match}</span>
+                            {m.match.split(' - ')[1] && <img src={getTeamLogoUrl(m.match.split(' - ')[1])} alt="" loading="lazy" className="w-4 h-4 object-contain" />}
+                          </div>
                           <div className="font-bold text-white text-sm">{m.pick}</div>
                         </div>
                         <div className="font-black text-[#10B981]">{m.odds.toFixed(2)}</div>

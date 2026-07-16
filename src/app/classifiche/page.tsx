@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Trophy, Calendar as CalendarIcon, ChevronLeft, ChevronRight, AlertTriangle, Swords, Crown, ChevronDown } from 'lucide-react';
 import { HISTORY_DATA } from '@/data/history';
 import { ALL_TEAMS } from '@/data/teams';
+import { getTeamLogoUrl } from '@/utils/teamLogos';
 import { useRouter } from 'next/navigation';
 
 const LEAGUES = [
@@ -226,7 +227,7 @@ export default function ClassifichePage() {
               </td>
               <td className="px-2 py-2.5">
                 <div className="flex items-center gap-2">
-                  {team.crest && <img src={team.crest} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />}
+                  <img src={getTeamLogoUrl(team.team, team.crest)} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />
                   <span className="font-bold text-white text-xs truncate max-w-[120px]">{team.team}</span>
                   {team.pos === 1 && <span className="text-yellow-400 text-xs">👑</span>}
                 </div>
@@ -378,7 +379,7 @@ export default function ClassifichePage() {
                           </td>
                           <td className="px-2 py-2.5">
                             <div className="flex items-center gap-2">
-                              {s.teamCrest && <img src={s.teamCrest} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />}
+                              <img src={getTeamLogoUrl(s.name, s.teamCrest)} alt="" loading="lazy" className="w-5 h-5 object-contain shrink-0" />
                               <div>
                                 <div className="font-bold text-white text-xs">{s.name}</div>
                                 <div className="text-[10px] text-[#64748B]">{s.teamName}</div>
@@ -433,17 +434,17 @@ export default function ClassifichePage() {
                         {isLive && <span className="text-[10px] font-black text-white bg-red-500 px-2 py-0.5 rounded-full animate-pulse">LIVE</span>}
                       </div>
                       <div className="flex justify-between items-center">
-                        <div className="flex-1 flex items-center justify-end gap-2">
-                          <span className={`font-black text-sm text-right ${isFinished && match.homeScore > match.awayScore ? 'text-white' : 'text-[#94A3B8]'}`}>{match.home}</span>
-                          {match.homeCrest && <img src={match.homeCrest} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />}
-                        </div>
+                          <div className="flex-1 flex items-center justify-end gap-2">
+                            <span className={`font-black text-sm text-right ${isFinished && match.homeScore > match.awayScore ? 'text-white' : 'text-[#94A3B8]'}`}>{match.home}</span>
+                            <img src={getTeamLogoUrl(match.home, match.homeCrest)} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />
+                          </div>
                         <div className={`mx-3 min-w-[52px] text-center font-black text-sm px-3 py-1.5 rounded-lg border ${isFinished ? 'text-white bg-[#10B981]/10 border-[#10B981]/30' : isLive ? 'text-white bg-red-500 border-red-500/50 animate-pulse' : 'text-[#94A3B8] bg-[#0F172A] border-[#334155]'}`}>
                           {getStatusLabel(match.status, match.homeScore, match.awayScore)}
                         </div>
-                        <div className="flex-1 flex items-center justify-start gap-2">
-                          {match.awayCrest && <img src={match.awayCrest} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />}
-                          <span className={`font-black text-sm ${isFinished && match.awayScore > match.homeScore ? 'text-white' : 'text-[#94A3B8]'}`}>{match.away}</span>
-                        </div>
+                          <div className="flex-1 flex items-center justify-start gap-2">
+                            <img src={getTeamLogoUrl(match.away, match.awayCrest)} alt="" loading="lazy" className="w-7 h-7 object-contain shrink-0" />
+                            <span className={`font-black text-sm ${isFinished && match.awayScore > match.homeScore ? 'text-white' : 'text-[#94A3B8]'}`}>{match.away}</span>
+                          </div>
                       </div>
                     </div>
                   );
