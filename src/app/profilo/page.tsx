@@ -81,14 +81,7 @@ export default function ProfiloPage() {
                 <p className="text-white font-bold">{user.favoriteTeamName}</p>
               </div>
             </div>
-            <button onClick={async () => {
-              await fetch('/api/auth/me', { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ favoriteTeamId: null }) 
-              });
-              window.location.reload();
-            }} className="text-xs text-[#64748B] underline hover:text-white transition-colors">Cambia</button>
+            <div className="text-xs text-[#10B981] font-black uppercase tracking-widest bg-[#10B981]/10 px-3 py-1.5 rounded-full">Selezionata</div>
           </div>
         ) : (
           <div className="bg-[#0F172A] rounded-xl p-4 border border-[#334155]">
