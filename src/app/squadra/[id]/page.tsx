@@ -49,6 +49,7 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
           player: t.player,
           otherTeam: t.other_team,
           fee: t.fee,
+          salary: t.salary || null,
           date: t.date,
           status: t.status
         }));

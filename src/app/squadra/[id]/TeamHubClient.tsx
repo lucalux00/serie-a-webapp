@@ -197,12 +197,6 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
     { revalidateOnFocus: false }
   );
 
-  const { data: liveMercato, isLoading: isLoadingMercato } = useSWR(
-    activeTab === 'mercato' ? `/api/mercato/team-news?team=${encodeURIComponent(team.name)}` : null,
-    fetcher,
-    { revalidateOnFocus: false }
-  );
-
   // Real-time news fetching with SWR
   const { data: news = initialNews } = useSWR(
     `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`,
@@ -518,7 +512,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           )}
 
           {/* TAB: MERCATO */}
-          {activeTab === 'mercato' && (
+          {activeTab === 'mercato' && squadData && (
             <motion.div key="mercato" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
               
               {/* Tabs Filtro Categoria */}
@@ -539,25 +533,18 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                 ))}
               </div>
 
-              {isLoadingMercato ? (
-                <div className="flex flex-col items-center justify-center py-10">
-                  <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
-                  <span className="text-[#10B981] text-[10px] font-black uppercase mt-4 animate-pulse">Caricamento Mercato Live...</span>
-                </div>
-              ) : (() => {
-                const transfersList = liveMercato?.transfers || [];
-                const acquisti = transfersList.filter((t: any) => t.type.toLowerCase().includes('acquisto') && !t.type.toLowerCase().includes('prestito'));
-                const cessioni = transfersList.filter((t: any) => t.type.toLowerCase().includes('cessione') && !t.type.toLowerCase().includes('prestito'));
-                const prestiti = transfersList.filter((t: any) => t.type.toLowerCase().includes('prestito'));
-                const trattative = transfersList.filter((t: any) => t.type.toLowerCase().includes('trattativa'));
+              {(() => {
+                const acquisti = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('acquisto') && !t.type.toLowerCase().includes('prestito'));
+                const cessioni = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('cessione') && !t.type.toLowerCase().includes('prestito'));
+                const prestiti = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('prestito'));
 
                 const renderTransferCard = (tr: any, colorHex: string, icon: any) => {
                   let StatusIcon = Clock;
-                  if (tr.status === 'Ufficiale' || tr.status === 'Conclusa' || tr.status === 'ufficiale') StatusIcon = CheckCircle2;
+                  if (tr.status === 'Conclusa' || tr.status === 'Ufficiale' || tr.status === 'ufficiale') StatusIcon = CheckCircle2;
                   if (tr.status === 'Fallita') StatusIcon = XCircle;
 
                   return (
-                    <a href={tr.link || '#'} target="_blank" rel="noopener noreferrer" key={tr.id} className="bg-[#1E293B] border border-[#334155] hover:border-[#10B981] rounded-xl p-4 shadow-sm relative overflow-hidden block transition-colors active:scale-95">
+                    <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
                       <div className={`absolute left-0 top-0 bottom-0 w-1 bg-[${colorHex}]`} style={{ backgroundColor: colorHex }} />
                       <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
                         <div className="flex items-center space-x-2">
@@ -568,15 +555,21 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                           <StatusIcon size={12} className="mr-1" /> {tr.status || 'Ufficiale'}
                         </span>
                       </div>
-                      <div className="pl-2 mt-3">
-                        <div className="font-bold text-sm text-[#F8FAFC] leading-snug mb-1">{tr.player}</div>
-                        <div className="flex justify-between items-center mt-3 text-xs">
-                          <span className="text-[#94A3B8] font-medium flex items-center gap-1">Fonte: <strong className="text-white">Google News</strong></span>
-                          <span className="font-black text-[10px]" style={{ color: colorHex }}>APRI <ArrowRightLeft size={10} className="inline ml-1"/></span>
+                      <div className="pl-2">
+                        <div className="font-black text-lg text-[#F8FAFC] leading-tight mb-1">{tr.player}</div>
+                        <div className="flex justify-between items-center mt-2 text-xs">
+                          <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{tr.otherTeam}</strong></span>
+                          <span className="font-black" style={{ color: colorHex }}>{tr.fee}</span>
                         </div>
+                        {tr.salary && (
+                          <div className="flex justify-between items-center mt-1 text-xs border-t border-[#334155] pt-1">
+                            <span className="text-[#94A3B8] font-medium">Stipendio:</span>
+                            <span className="font-black text-[#0EA5E9]">{tr.salary}</span>
+                          </div>
+                        )}
                         <div className="text-[10px] mt-2 text-right text-[#64748B] uppercase font-bold tracking-widest">{tr.date}</div>
                       </div>
-                    </a>
+                    </div>
                   );
                 };
 
@@ -587,18 +580,18 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                       {teamMercatoFilter === 'acquisti' && (
                         <div className="grid grid-cols-1 gap-3">
                           <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <CheckCircle2 size={16} className="mr-2" /> Acquisti Live
+                            <CheckCircle2 size={16} className="mr-2" /> Acquisti Definitivi
                           </h2>
-                          {acquisti.length > 0 ? acquisti.map((t:any) => renderTransferCard(t, '#10B981', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun acquisto trovato nelle ultime ore.</div>}
+                          {acquisti.length > 0 ? acquisti.map((t:any) => renderTransferCard(t, '#10B981', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun acquisto definitivo registrato.</div>}
                         </div>
                       )}
 
                       {teamMercatoFilter === 'cessioni' && (
                         <div className="grid grid-cols-1 gap-3">
                           <h2 className="flex items-center text-[#EF4444] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <XCircle size={16} className="mr-2" /> Cessioni Live
+                            <XCircle size={16} className="mr-2" /> Cessioni Definitive
                           </h2>
-                          {cessioni.length > 0 ? cessioni.map((t:any) => renderTransferCard(t, '#EF4444', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessuna cessione trovata nelle ultime ore.</div>}
+                          {cessioni.length > 0 ? cessioni.map((t:any) => renderTransferCard(t, '#EF4444', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessuna cessione definitiva registrata.</div>}
                         </div>
                       )}
 
@@ -607,16 +600,25 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                           <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
                             <ArrowRightLeft size={16} className="mr-2" /> Movimenti in Prestito
                           </h2>
-                          {prestiti.length > 0 ? prestiti.map((t:any) => renderTransferCard(t, '#0EA5E9', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">La categoria prestiti è inclusa nelle sezioni acquisti/cessioni.</div>}
+                          {prestiti.length > 0 ? prestiti.map((t:any) => renderTransferCard(t, '#0EA5E9', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun prestito registrato.</div>}
                         </div>
                       )}
 
                       {teamMercatoFilter === 'trattative' && (
                         <div className="grid grid-cols-1 gap-3">
                           <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <Clock size={16} className="mr-2" /> Rumors & Trattative
+                            <Clock size={16} className="mr-2" /> Live Rumors (Feed X)
                           </h2>
-                          {trattative.length > 0 ? trattative.map((t:any) => renderTransferCard(t, '#F59E0B', <Clock size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessuna trattativa trovata.</div>}
+                          <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[500px] border border-[#334155] flex flex-col relative">
+                            <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
+                              Caricamento Rumors...
+                            </div>
+                            <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
+                              <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
+                              </a> 
+                              <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+                            </div>
+                          </div>
                         </div>
                       )}
 

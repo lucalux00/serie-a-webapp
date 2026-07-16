@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/squads",
       "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/mercato-tracker",
+      "schedule": "0 * * * *"
     }
   ]
 }
