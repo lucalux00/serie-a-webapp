@@ -40,11 +40,10 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
   let dbHasData = false;
   if (process.env.POSTGRES_URL) {
     try {
-
       if (players.length > 0) {
         dbHasData = true;
-        
-        let finalTransfers = transfers.map(t => ({
+
+        let finalTransfers = transfers.map((t: any) => ({
           id: t.id,
           type: t.type,
           player: t.player,
@@ -54,7 +53,6 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
           status: t.status
         }));
 
-        // Se non ci sono trasferimenti nel DB, proviamo a pescarli dal vecchio deepSquads.json come fallback
         if (finalTransfers.length === 0) {
           try {
             const squadsPath = path.join(process.cwd(), 'src', 'data', 'deepSquads.json');
@@ -65,16 +63,42 @@ export default async function SquadraPage({ params }: { params: Promise<{ id: st
           } catch (e) {}
         }
 
+        // Mappa i ruoli italiani di Transfermarkt in 4 categorie UI
+        const mapRole = (role: string): string => {
+          if (!role) return 'CEN';
+          const r = role.toLowerCase();
+          if (r.includes('portiere') || r.includes('keeper')) return 'POR';
+          if (r.includes('difensore') || r.includes('terzino') || r.includes('libero') || r.includes('stopper') || r.includes('back')) return 'DIF';
+          if (r.includes('attaccante') || r.includes('ala') || r.includes('centravanti') || r.includes('punta') || r.includes('striker') || r.includes('winger') || r.includes('forward')) return 'ATT';
+          return 'CEN';
+        };
+
+        // Normalizza tutti i giocatori dal DB
+        const normalizedPlayers = players
+          .filter((p: any) => !p.is_coach && !p.is_staff)
+          .map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            number: p.number || '?',
+            position: mapRole(p.role),
+            roleLabel: p.role || 'Calciatore',
+            status: null,
+            squad_type: p.squad_type || 'first',
+          }));
+
+        const coach = players.find((p: any) => p.is_coach) || { name: 'Allenatore N/D', role: 'Allenatore', module: '4-3-3' };
+        const staff = players.filter((p: any) => p.is_staff).map((s: any) => ({ name: s.name, role: s.role || 'Staff' }));
+
         squadData = {
           firstTeam: {
-            coach: players.find(p => p.squad_type === 'first' && p.is_coach) || { name: "Non Assegnato", role: "Allenatore" },
-            staff: players.filter(p => p.squad_type === 'first' && p.is_staff),
-            players: players.filter(p => p.squad_type === 'first' && !p.is_coach && !p.is_staff)
+            coach: { name: coach.name, role: coach.role || 'Allenatore', module: coach.module || '4-3-3' },
+            staff: staff,
+            players: normalizedPlayers
           },
           primavera: {
-            coach: players.find(p => p.squad_type === 'primavera' && p.is_coach) || { name: "Non Assegnato", role: "Allenatore" },
-            staff: players.filter(p => p.squad_type === 'primavera' && p.is_staff),
-            players: players.filter(p => p.squad_type === 'primavera' && !p.is_coach && !p.is_staff)
+            coach: { name: 'N/D', role: 'Allenatore Primavera', module: '4-3-3' },
+            staff: [],
+            players: []
           },
           transfers: finalTransfers
         };

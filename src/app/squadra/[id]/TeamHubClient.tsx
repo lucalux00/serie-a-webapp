@@ -366,31 +366,38 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
               </div>
 
               {['POR', 'DIF', 'CEN', 'ATT'].map(pos => {
+                const posLabels: Record<string,string> = { POR: '🧤 Portieri', DIF: '🛡️ Difensori', CEN: '⚙️ Centrocampisti', ATT: '⚡ Attaccanti' };
+                const posColors: Record<string,string> = { POR: '#F59E0B', DIF: '#3B82F6', CEN: '#10B981', ATT: '#EF4444' };
                 const playersInPos = activeSquad.players.filter((p: any) => p.position === pos);
                 if (playersInPos.length === 0) return null;
                 return (
                   <div key={pos} className="mb-6">
-                    <h3 className="text-[#0EA5E9] font-black text-lg mb-3 border-b border-[#334155] pb-2">{pos}</h3>
+                    <h3 className="font-black text-base mb-3 border-b border-[#334155] pb-2 flex items-center gap-2" style={{ color: posColors[pos] }}>
+                      {posLabels[pos]}
+                      <span className="text-[10px] text-[#94A3B8] font-bold ml-1">({playersInPos.length})</span>
+                    </h3>
                     <div className="grid grid-cols-2 gap-3">
                       {playersInPos.map((player: any) => (
                         <div 
                           key={player.id} 
                           onClick={() => setSelectedPlayer(player)}
-                          className={`bg-[#1E293B] border rounded-lg p-3 flex flex-col justify-center active:scale-95 cursor-pointer ${player.status === 'In Prestito' ? 'border-[#F59E0B]/50 opacity-80' : 'border-[#334155]'}`}
+                          className="bg-[#1E293B] border border-[#334155] rounded-xl p-3 flex flex-col justify-center active:scale-95 cursor-pointer hover:border-[#334155]/80 transition-all relative overflow-hidden"
                         >
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 rounded bg-[#0F172A] text-white flex items-center justify-center font-bold text-sm mr-3 shrink-0">
-                              {player.number}
+                          <div className="absolute top-0 left-0 w-1 h-full" style={{ backgroundColor: posColors[pos] }}></div>
+                          <div className="flex items-center pl-2">
+                            <div 
+                              className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs mr-3 shrink-0 text-white"
+                              style={{ backgroundColor: posColors[pos] + '33', border: `1px solid ${posColors[pos]}55`, color: posColors[pos] }}
+                            >
+                              {player.number || '?'}
                             </div>
                             <div className="truncate flex-1">
-                              <div className="text-sm font-bold truncate">{player.name}</div>
+                              <div className="text-sm font-bold truncate leading-tight">{player.name}</div>
+                              {player.roleLabel && (
+                                <div className="text-[10px] text-[#64748B] truncate mt-0.5">{player.roleLabel}</div>
+                              )}
                             </div>
                           </div>
-                          {player.status === 'In Prestito' && (
-                            <div className="text-[10px] text-[#F59E0B] font-bold mt-2 uppercase flex items-center">
-                              <ArrowRightLeft size={10} className="mr-1" /> Prestito
-                            </div>
-                          )}
                         </div>
                       ))}
                     </div>
