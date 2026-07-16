@@ -6,7 +6,7 @@ export const revalidate = 0;
 
 async function fetchGoogleNews(query: string, limit: number = 5) {
   try {
-    const url = \`https://news.google.com/rss/search?q=\${encodeURIComponent(query)}&hl=it&gl=IT&ceid=IT:it\`;
+    const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=it&gl=IT&ceid=IT:it`;
     const res = await fetch(url, { next: { revalidate: 3600 } });
     if (!res.ok) return [];
     
@@ -19,7 +19,7 @@ async function fetchGoogleNews(query: string, limit: number = 5) {
       // Format as "Oggi", "Ieri", or "X giorni fa"
       const diffTime = Math.abs(new Date().getTime() - pubDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-      let dateLabel = diffDays === 1 ? 'Oggi' : diffDays === 2 ? 'Ieri' : \`\${diffDays - 1} giorni fa\`;
+      let dateLabel = diffDays === 1 ? 'Oggi' : diffDays === 2 ? 'Ieri' : `${diffDays - 1} giorni fa`;
 
       let title = item.title?.[0] || '';
       // Remove the source from the title (usually after " - ")
@@ -48,9 +48,9 @@ export async function GET(request: Request) {
 
   // Costruiamo le query per Google News
   // Vogliamo trovare notizie ufficiali per Acquisti e Cessioni, e rumors per le Trattative
-  const acquistiQuery = \`"ufficiale" (acquisto OR arriva OR firma) \${team} calciomercato\`;
-  const cessioniQuery = \`"ufficiale" (cessione OR addio OR venduto) \${team} calciomercato\`;
-  const trattativeQuery = \`(trattativa OR interesse OR vicino) \${team} calciomercato\`;
+  const acquistiQuery = `"ufficiale" (acquisto OR arriva OR firma) ${team} calciomercato`;
+  const cessioniQuery = `"ufficiale" (cessione OR addio OR venduto) ${team} calciomercato`;
+  const trattativeQuery = `(trattativa OR interesse OR vicino) ${team} calciomercato`;
 
   const [acquistiNews, cessioniNews, trattativeNews] = await Promise.all([
     fetchGoogleNews(acquistiQuery, 10),
