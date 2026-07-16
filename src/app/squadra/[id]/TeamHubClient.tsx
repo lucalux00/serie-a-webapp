@@ -9,6 +9,148 @@ import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
+// Componente Partite con dati reali da football-data.org
+function PartiteTab({ team }: { team: any }) {
+  const { data, error, isLoading } = useSWR(
+    `/api/team-matches?teamId=${team.id}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  const MatchCard = ({ match, isFinished }: { match: any, isFinished: boolean }) => {
+    const isHome = match.home.id && team.id && 
+      (match.home.shortName?.toLowerCase().includes(team.name?.toLowerCase().slice(0, 4)) ||
+       match.home.name?.toLowerCase().includes(team.name?.toLowerCase().slice(0, 4)));
+    
+    const teamScore = isFinished ? (isHome ? match.score.home : match.score.away) : null;
+    const oppScore = isFinished ? (isHome ? match.score.away : match.score.home) : null;
+    const won = teamScore !== null && oppScore !== null && teamScore > oppScore;
+    const drew = teamScore !== null && oppScore !== null && teamScore === oppScore;
+    const lost = teamScore !== null && oppScore !== null && teamScore < oppScore;
+    
+    const resultColor = won ? '#10B981' : lost ? '#EF4444' : drew ? '#F59E0B' : team.primaryColor || '#334155';
+    const resultLabel = won ? 'V' : lost ? 'P' : drew ? 'N' : null;
+
+    const opponent = isHome ? match.away : match.home;
+    const oppCrest = isHome ? match.away.crest : match.home.crest;
+
+    return (
+      <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-1 h-full" style={{ backgroundColor: resultColor }} />
+        
+        <div className="flex items-center justify-between mb-2 pl-3">
+          <div className="flex items-center gap-1.5">
+            {match.competitionEmblem && <img src={match.competitionEmblem} alt="" className="w-4 h-4 object-contain" loading="lazy" />}
+            <span className="text-[10px] font-bold text-[#64748B] uppercase">{match.competition}</span>
+            {match.matchday && <span className="text-[9px] text-[#475569]">· G{match.matchday}</span>}
+          </div>
+          {resultLabel && (
+            <span className="text-[10px] font-black px-2 py-0.5 rounded" style={{ backgroundColor: resultColor + '22', color: resultColor }}>
+              {resultLabel}
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between pl-3">
+          {/* Team */}
+          <div className="flex flex-col items-center flex-1">
+            {team.logoUrl ? (
+              <img src={team.logoUrl} alt={team.name} loading="lazy" className="w-10 h-10 object-contain mb-1" />
+            ) : (
+              <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black mb-1" style={{ backgroundColor: team.primaryColor + '33', color: team.primaryColor }}>
+                {team.logo || team.name?.slice(0, 3)}
+              </div>
+            )}
+            <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate">{team.name}</span>
+          </div>
+
+          {/* Score / Date */}
+          <div className="flex flex-col items-center px-3 min-w-[80px]">
+            {isFinished && teamScore !== null ? (
+              <>
+                <div className="text-2xl font-black tracking-wide" style={{ color: resultColor }}>
+                  {isHome ? `${match.score.home} - ${match.score.away}` : `${match.score.away} - ${match.score.home}`}
+                </div>
+                <span className="text-[9px] text-[#475569] font-bold uppercase mt-0.5">Finale</span>
+              </>
+            ) : (
+              <>
+                <div className="text-sm font-black text-[#94A3B8]">{match.timeLabel || 'TBD'}</div>
+                <div className="text-[9px] text-[#475569] font-bold">
+                  {match.dateLabel}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Opponent */}
+          <div className="flex flex-col items-center flex-1">
+            {oppCrest ? (
+              <img src={oppCrest} alt={opponent.name} loading="lazy" className="w-10 h-10 object-contain mb-1" />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-[#0F172A] border border-[#334155] flex items-center justify-center text-[9px] font-black text-[#94A3B8] mb-1">
+                {opponent.shortName?.slice(0, 3) || '?'}
+              </div>
+            )}
+            <span className="text-[10px] font-bold text-center leading-tight max-w-[70px] truncate text-[#94A3B8]">{opponent.shortName || opponent.name}</span>
+          </div>
+        </div>
+
+        {isFinished && <div className="text-[9px] text-[#475569] text-center mt-2 pl-3">{match.dateLabel}</div>}
+      </div>
+    );
+  };
+
+  if (isLoading) return (
+    <div className="space-y-3 animate-pulse">
+      {[1,2,3].map(i => <div key={i} className="h-24 bg-[#1E293B] rounded-xl border border-[#334155]" />)}
+    </div>
+  );
+
+  if (error || data?.error) return (
+    <div className="text-center py-12">
+      <div className="text-3xl mb-3">⚽</div>
+      <p className="font-bold text-[#94A3B8]">Partite non disponibili</p>
+      <p className="text-xs text-[#475569] mt-1">Squadra non ancora mappata nell'archivio europeo</p>
+    </div>
+  );
+
+  const { finished = [], scheduled = [] } = data || {};
+
+  return (
+    <motion.div key="partite" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+      {scheduled.length > 0 && (
+        <div>
+          <h3 className="text-sm font-black uppercase text-[#94A3B8] mb-3 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse inline-block" />
+            Prossime Partite
+          </h3>
+          <div className="space-y-3">
+            {scheduled.map((m: any) => <MatchCard key={m.id} match={m} isFinished={false} />)}
+          </div>
+        </div>
+      )}
+
+      {finished.length > 0 && (
+        <div>
+          <h3 className="text-sm font-black uppercase text-[#94A3B8] mb-3">Ultimi Risultati</h3>
+          <div className="space-y-3">
+            {finished.map((m: any) => <MatchCard key={m.id} match={m} isFinished={true} />)}
+          </div>
+        </div>
+      )}
+
+      {finished.length === 0 && scheduled.length === 0 && (
+        <div className="text-center py-16">
+          <div className="text-4xl mb-3">📅</div>
+          <p className="font-bold text-[#94A3B8]">Nessuna partita disponibile al momento</p>
+          <p className="text-xs text-[#475569] mt-1">Torna a controllare quando la stagione inizierà</p>
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
 export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData }: any) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>('news');
@@ -207,125 +349,9 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
             </motion.div>
           )}
 
-          {/* TAB: PARTITE (MATCH CENTER) */}
+          {/* TAB: PARTITE - DATI REALI */}
           {activeTab === 'partite' && (
-            <motion.div key="partite" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
-              
-              {/* Scoreboard Mock */}
-              <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-6 text-center shadow-lg relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: team.primaryColor || '#10B981' }}></div>
-                <div className="text-xs text-[#94A3B8] font-bold uppercase mb-4 tracking-wider">Campionato - 12ª Giornata</div>
-                
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex flex-col items-center flex-1">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-2 overflow-hidden border-2" style={{ borderColor: team.secondaryColor || '#334155' }}>
-                      {team.logoUrl ? <img src={team.logoUrl} alt={team.name} className="w-12 h-12 object-contain" /> : <div className="text-black font-bold text-xl">{team.logo}</div>}
-                    </div>
-                    <span className="font-bold text-sm">{team.name}</span>
-                  </div>
-                  
-                  <div className="flex flex-col items-center justify-center px-4">
-                    <div className="text-4xl font-black mb-1">2 - 1</div>
-                    <div className="text-[10px] bg-red-500 text-white font-bold px-2 py-0.5 rounded animate-pulse">FINALE</div>
-                  </div>
-                  
-                  <div className="flex flex-col items-center flex-1">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-2 overflow-hidden border-2 border-gray-300">
-                      <img src="https://ui-avatars.com/api/?name=RIV&background=FFF&color=000" alt="Avversario" className="w-12 h-12 object-contain" />
-                    </div>
-                    <span className="font-bold text-sm">Avversario FC</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Statistiche Mock */}
-              <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-5">
-                <h3 className="text-sm font-black uppercase text-[#94A3B8] mb-4">Statistiche Match</h3>
-                
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-xs font-bold mb-1">
-                      <span>55%</span>
-                      <span className="text-[#94A3B8]">Possesso Palla</span>
-                      <span>45%</span>
-                    </div>
-                    <div className="w-full bg-[#0F172A] rounded-full h-2 flex">
-                      <div className="h-2 rounded-l-full" style={{ width: '55%', backgroundColor: team.primaryColor || '#10B981' }}></div>
-                      <div className="h-2 bg-gray-600 rounded-r-full" style={{ width: '45%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-xs font-bold mb-1">
-                      <span>12</span>
-                      <span className="text-[#94A3B8]">Tiri Totali</span>
-                      <span>8</span>
-                    </div>
-                    <div className="w-full bg-[#0F172A] rounded-full h-2 flex">
-                      <div className="h-2 rounded-l-full" style={{ width: '60%', backgroundColor: team.primaryColor || '#10B981' }}></div>
-                      <div className="h-2 bg-gray-600 rounded-r-full" style={{ width: '40%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-xs font-bold mb-1">
-                      <span>5</span>
-                      <span className="text-[#94A3B8]">Tiri in Porta</span>
-                      <span>3</span>
-                    </div>
-                    <div className="w-full bg-[#0F172A] rounded-full h-2 flex">
-                      <div className="h-2 rounded-l-full" style={{ width: '62%', backgroundColor: team.primaryColor || '#10B981' }}></div>
-                      <div className="h-2 bg-gray-600 rounded-r-full" style={{ width: '38%' }}></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Timeline Eventi Mock */}
-              <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-5">
-                <h3 className="text-sm font-black uppercase text-[#94A3B8] mb-4">Cronaca (Timeline)</h3>
-                <div className="space-y-4 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-[#334155]">
-                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-[#10B981] text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">⚽</div>
-                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
-                      <div className="flex justify-between mb-1">
-                        <span className="font-bold text-[#10B981] text-xs">Gol!</span>
-                        <span className="font-bold text-[#94A3B8] text-xs">88'</span>
-                      </div>
-                      <p className="text-sm font-medium">Attaccante ({team.name}) segna il gol vittoria con un tiro al volo!</p>
-                    </div>
-                  </div>
-                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-yellow-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">🟨</div>
-                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
-                      <div className="flex justify-between mb-1">
-                        <span className="font-bold text-yellow-500 text-xs">Ammonizione</span>
-                        <span className="font-bold text-[#94A3B8] text-xs">64'</span>
-                      </div>
-                      <p className="text-sm font-medium">Fallo tattico a centrocampo.</p>
-                    </div>
-                  </div>
-                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-[#38BDF8] text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">🔄</div>
-                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
-                      <div className="flex justify-between mb-1">
-                        <span className="font-bold text-[#38BDF8] text-xs">Sostituzione</span>
-                        <span className="font-bold text-[#94A3B8] text-xs">45'</span>
-                      </div>
-                      <p className="text-sm font-medium">Fuori il centrocampista, dentro una punta.</p>
-                    </div>
-                  </div>
-                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-[#10B981] text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">⚽</div>
-                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
-                      <div className="flex justify-between mb-1">
-                        <span className="font-bold text-[#10B981] text-xs">Gol!</span>
-                        <span className="font-bold text-[#94A3B8] text-xs">12'</span>
-                      </div>
-                      <p className="text-sm font-medium">Vantaggio iniziale degli avversari.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <PartiteTab team={team} />
           )}
 
           {/* TAB: ROSA */}

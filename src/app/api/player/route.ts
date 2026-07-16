@@ -65,7 +65,10 @@ export async function GET(request: Request) {
     const isGk = role.toUpperCase().includes('POR') || role.toLowerCase().includes('portiere');
 
     const prompt = `Sei l'assistente IA esperto mondiale di calcio per un'app di statistiche avanzate in stile Football Manager.
-Devi restituire un JSON perfetto contenente dati iper-dettagliati e realistici (aggiornati o plausibili per la stagione corrente 2025/2026) per la seguente figura calcistica:
+Devi restituire un JSON perfetto contenente dati iper-dettagliati e REALISTICI aggiornati al 16 Luglio 2026 per la seguente figura calcistica.
+IMPORTANTE: Usa SOLO dati reali che conosci. Aggiornamenti di calciomercato estivo 2026 inclusi. Non inventare ruoli errati.
+Data di riferimento: 16 LUGLIO 2026
+
 Nome: ${name}
 Ruolo: ${role}
 Squadra Attuale: ${team}
