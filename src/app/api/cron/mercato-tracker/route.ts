@@ -37,7 +37,7 @@ function normalizeTeamId(teamName: string): string | null {
 export async function GET(request: Request) {
   // Verifica se è una chiamata Vercel Cron (opzionale per test locale)
   const authHeader = request.headers.get('authorization');
-  if (process.env.VERCEL_ENV === 'production' && authHeader !== \`Bearer \${process.env.CRON_SECRET}\`) {
+  if (process.env.VERCEL_ENV === 'production' && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     // return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -47,7 +47,7 @@ export async function GET(request: Request) {
 
   try {
     // 1. Fetch delle notizie RSS (Google News)
-    const url = \`https://news.google.com/rss/search?q=\${encodeURIComponent('"ufficiale" calciomercato serie a')}&hl=it&gl=IT&ceid=IT:it\`;
+    const url = `https://news.google.com/rss/search?q=${encodeURIComponent('"ufficiale" calciomercato serie a')}&hl=it&gl=IT&ceid=IT:it`;
     const res = await fetch(url, { next: { revalidate: 0 } });
     if (!res.ok) throw new Error("Errore fetch RSS");
     
@@ -65,7 +65,7 @@ export async function GET(request: Request) {
     // 2. Chiamata a Gemini per estrarre i trasferimenti
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     
-    const prompt = \`
+    const prompt = `
       Sei un esperto giornalista di calciomercato. Leggi i seguenti titoli di giornale e identifica SOLO i trasferimenti UFFICIALI e CONCLUSI tra squadre di Serie A o verso la Serie A per la stagione estiva.
       
       Regole:
@@ -86,8 +86,8 @@ export async function GET(request: Request) {
       ]
 
       Titoli di oggi:
-      - \${newsTexts}
-    \`;
+      - ${newsTexts}
+    `;
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
@@ -96,8 +96,8 @@ export async function GET(request: Request) {
 
     let rawJson = response.text || "[]";
     // Pulizia JSON da backticks Markdown se presenti
-    if (rawJson.includes('\`\`\`')) {
-      rawJson = rawJson.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
+    if (rawJson.includes('```')) {
+      rawJson = rawJson.replace(/```json/g, '').replace(/```/g, '').trim();
     }
     
     const transfersExtracted = JSON.parse(rawJson);
@@ -117,24 +117,24 @@ export async function GET(request: Request) {
       // Insert per il BUYER (Acquisto)
       if (buyerId) {
         // Controllo duplicato (se c'è già un acquisto per questo giocatore e questo team)
-        const checkBuyer = await sql\`SELECT id FROM transfers WHERE team_id = \${buyerId} AND player ILIKE \${'%' + t.player + '%'} AND type = 'acquisto'\`;
+        const checkBuyer = await sql`SELECT id FROM transfers WHERE team_id = ${buyerId} AND player ILIKE ${'%' + t.player + '%'} AND type = 'acquisto'`;
         if (checkBuyer.rowCount === 0) {
-          await sql\`
+          await sql`
             INSERT INTO transfers (team_id, type, player, other_team, fee, salary, date, status)
-            VALUES (\${buyerId}, 'acquisto', \${t.player}, \${t.selling_team || 'Svincolato'}, \${fee}, \${salary}, \${dateLabel}, 'Ufficiale')
-          \`;
+            VALUES (${buyerId}, 'acquisto', ${t.player}, ${t.selling_team || 'Svincolato'}, ${fee}, ${salary}, ${dateLabel}, 'Ufficiale')
+          `;
           insertedCount++;
         }
       }
 
       // Insert per il SELLER (Cessione)
       if (sellerId) {
-        const checkSeller = await sql\`SELECT id FROM transfers WHERE team_id = \${sellerId} AND player ILIKE \${'%' + t.player + '%'} AND type = 'cessione'\`;
+        const checkSeller = await sql`SELECT id FROM transfers WHERE team_id = ${sellerId} AND player ILIKE ${'%' + t.player + '%'} AND type = 'cessione'`;
         if (checkSeller.rowCount === 0) {
-          await sql\`
+          await sql`
             INSERT INTO transfers (team_id, type, player, other_team, fee, salary, date, status)
-            VALUES (\${sellerId}, 'cessione', \${t.player}, \${t.buying_team || 'Svincolato'}, \${fee}, \${salary}, \${dateLabel}, 'Ufficiale')
-          \`;
+            VALUES (${sellerId}, 'cessione', ${t.player}, ${t.buying_team || 'Svincolato'}, ${fee}, ${salary}, ${dateLabel}, 'Ufficiale')
+          `;
           insertedCount++;
         }
       }
@@ -142,7 +142,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ 
       success: true, 
-      message: \`Processato con successo. Righe inserite: \${insertedCount}\`,
+      message: `Processato con successo. Righe inserite: ${insertedCount}`,
       data: transfersExtracted 
     });
 
