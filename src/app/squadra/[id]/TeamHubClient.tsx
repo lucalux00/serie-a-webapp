@@ -11,7 +11,7 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default function TeamHubClient({ team, news: initialNews, squadData, trofeiData }: any) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei'>('news');
+  const [activeTab, setActiveTab] = useState<'news' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>('news');
   const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
@@ -81,17 +81,27 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   return (
     <div className="flex flex-col w-full min-h-screen bg-[#0B1120] text-white font-sans pb-28">
       {/* Header Immagine */}
-      <div className="sticky top-[56px] z-30 bg-[#1E293B] border-b border-[#334155] p-4 flex items-center shadow-lg">
-        <button onClick={() => router.push('/')} className="p-2 -ml-2 text-[#94A3B8]">
+      <div 
+        className="sticky top-[56px] z-30 border-b p-4 flex items-center shadow-lg"
+        style={{ backgroundColor: team.primaryColor || '#1E293B', borderColor: team.secondaryColor || '#334155' }}
+      >
+        <button onClick={() => router.push('/')} className="p-2 -ml-2 text-white/90">
           <ChevronLeft size={28} />
         </button>
         <div className="ml-2 flex items-center">
-          <div className="w-12 h-12 bg-[#0F172A] rounded-full flex items-center justify-center text-xl font-black text-white border-2 border-[#10B981]">
-            {team.logo}
+          <div 
+            className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl font-black text-[#0B1120] border-2 overflow-hidden shrink-0"
+            style={{ borderColor: team.secondaryColor || '#10B981' }}
+          >
+            {team.logoUrl ? (
+              <img src={team.logoUrl} alt={team.name} loading="lazy" className="w-full h-full object-contain p-1" />
+            ) : (
+              <span>{team.logo}</span>
+            )}
           </div>
-          <div className="ml-4">
-            <h1 className="text-xl font-bold">{team.name}</h1>
-            <span className="text-xs font-semibold text-[#94A3B8] uppercase">
+          <div className="ml-4 text-white">
+            <h1 className="text-xl font-bold" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>{team.name}</h1>
+            <span className="text-xs font-semibold uppercase opacity-90" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
               {team.league === 'A' ? 'Serie A' : team.league === 'B' ? 'Serie B' : team.league === 'PL' ? 'Premier League' : team.league === 'LL' ? 'La Liga' : team.league === 'BL' ? 'Bundesliga' : team.league === 'L1' ? 'Ligue 1' : team.league}
             </span>
           </div>
@@ -99,20 +109,47 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-[#334155] bg-[#1E293B] sticky top-[136px] z-20 overflow-x-auto no-scrollbar">
-        <button onClick={() => setActiveTab('news')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'news' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
+      <div className="flex border-b border-[#334155] bg-[#1E293B] sticky top-[136px] z-20 overflow-x-auto no-scrollbar shadow-md">
+        <button 
+          onClick={() => setActiveTab('news')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'news' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'news' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
           NEWS
         </button>
-        <button onClick={() => setActiveTab('rosa')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'rosa' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
+        <button 
+          onClick={() => setActiveTab('partite')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'partite' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'partite' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
+          PARTITE
+        </button>
+        <button 
+          onClick={() => setActiveTab('rosa')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'rosa' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'rosa' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
           ROSA
         </button>
-        <button onClick={() => setActiveTab('mercato')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'mercato' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
+        <button 
+          onClick={() => setActiveTab('mercato')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'mercato' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'mercato' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
           MERCATO
         </button>
-        <button onClick={() => setActiveTab('stats')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'stats' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
+        <button 
+          onClick={() => setActiveTab('stats')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'stats' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'stats' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
           STATISTICHE
         </button>
-        <button onClick={() => setActiveTab('trofei')} className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'trofei' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}>
+        <button 
+          onClick={() => setActiveTab('trofei')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'trofei' ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'trofei' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
+        >
           TROFEI
         </button>
       </div>
@@ -141,12 +178,18 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                         : '';
 
                       return (
-                        <button key={idx} onClick={() => setSelectedNews(item)} className="w-full bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-md flex flex-col active:scale-95 transition-transform text-left">
-                          <div className="flex justify-between items-start mb-2 w-full">
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] uppercase">{item.source || 'News'}</span>
-                            <div className="flex items-center space-x-2">
+                        <button 
+                          key={idx} 
+                          onClick={() => setSelectedNews(item)}
+                          className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm active:scale-95 transition-transform"
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <span className="text-xs font-bold px-2 py-1 bg-[#0F172A] text-[#38BDF8] rounded">
+                              {item.source || 'News'}
+                            </span>
+                            <div className="flex items-center gap-2">
                               {isNew && (
-                                <span className="bg-[#EF4444] text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]">
+                                <span className="text-[10px] font-black text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full uppercase">
                                   Nuova
                                 </span>
                               )}
@@ -161,6 +204,127 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
               ) : (
                 <div className="text-center text-[#94A3B8] font-medium py-10">Nessuna notizia disponibile.</div>
               )}
+            </motion.div>
+          )}
+
+          {/* TAB: PARTITE (MATCH CENTER) */}
+          {activeTab === 'partite' && (
+            <motion.div key="partite" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
+              
+              {/* Scoreboard Mock */}
+              <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-6 text-center shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: team.primaryColor || '#10B981' }}></div>
+                <div className="text-xs text-[#94A3B8] font-bold uppercase mb-4 tracking-wider">Campionato - 12ª Giornata</div>
+                
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-2 overflow-hidden border-2" style={{ borderColor: team.secondaryColor || '#334155' }}>
+                      {team.logoUrl ? <img src={team.logoUrl} alt={team.name} className="w-12 h-12 object-contain" /> : <div className="text-black font-bold text-xl">{team.logo}</div>}
+                    </div>
+                    <span className="font-bold text-sm">{team.name}</span>
+                  </div>
+                  
+                  <div className="flex flex-col items-center justify-center px-4">
+                    <div className="text-4xl font-black mb-1">2 - 1</div>
+                    <div className="text-[10px] bg-red-500 text-white font-bold px-2 py-0.5 rounded animate-pulse">FINALE</div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-2 overflow-hidden border-2 border-gray-300">
+                      <img src="https://ui-avatars.com/api/?name=RIV&background=FFF&color=000" alt="Avversario" className="w-12 h-12 object-contain" />
+                    </div>
+                    <span className="font-bold text-sm">Avversario FC</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Statistiche Mock */}
+              <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-5">
+                <h3 className="text-sm font-black uppercase text-[#94A3B8] mb-4">Statistiche Match</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span>55%</span>
+                      <span className="text-[#94A3B8]">Possesso Palla</span>
+                      <span>45%</span>
+                    </div>
+                    <div className="w-full bg-[#0F172A] rounded-full h-2 flex">
+                      <div className="h-2 rounded-l-full" style={{ width: '55%', backgroundColor: team.primaryColor || '#10B981' }}></div>
+                      <div className="h-2 bg-gray-600 rounded-r-full" style={{ width: '45%' }}></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span>12</span>
+                      <span className="text-[#94A3B8]">Tiri Totali</span>
+                      <span>8</span>
+                    </div>
+                    <div className="w-full bg-[#0F172A] rounded-full h-2 flex">
+                      <div className="h-2 rounded-l-full" style={{ width: '60%', backgroundColor: team.primaryColor || '#10B981' }}></div>
+                      <div className="h-2 bg-gray-600 rounded-r-full" style={{ width: '40%' }}></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span>5</span>
+                      <span className="text-[#94A3B8]">Tiri in Porta</span>
+                      <span>3</span>
+                    </div>
+                    <div className="w-full bg-[#0F172A] rounded-full h-2 flex">
+                      <div className="h-2 rounded-l-full" style={{ width: '62%', backgroundColor: team.primaryColor || '#10B981' }}></div>
+                      <div className="h-2 bg-gray-600 rounded-r-full" style={{ width: '38%' }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Timeline Eventi Mock */}
+              <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-5">
+                <h3 className="text-sm font-black uppercase text-[#94A3B8] mb-4">Cronaca (Timeline)</h3>
+                <div className="space-y-4 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-[#334155]">
+                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-[#10B981] text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">⚽</div>
+                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
+                      <div className="flex justify-between mb-1">
+                        <span className="font-bold text-[#10B981] text-xs">Gol!</span>
+                        <span className="font-bold text-[#94A3B8] text-xs">88'</span>
+                      </div>
+                      <p className="text-sm font-medium">Attaccante ({team.name}) segna il gol vittoria con un tiro al volo!</p>
+                    </div>
+                  </div>
+                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-yellow-500 text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">🟨</div>
+                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
+                      <div className="flex justify-between mb-1">
+                        <span className="font-bold text-yellow-500 text-xs">Ammonizione</span>
+                        <span className="font-bold text-[#94A3B8] text-xs">64'</span>
+                      </div>
+                      <p className="text-sm font-medium">Fallo tattico a centrocampo.</p>
+                    </div>
+                  </div>
+                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-[#38BDF8] text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">🔄</div>
+                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
+                      <div className="flex justify-between mb-1">
+                        <span className="font-bold text-[#38BDF8] text-xs">Sostituzione</span>
+                        <span className="font-bold text-[#94A3B8] text-xs">45'</span>
+                      </div>
+                      <p className="text-sm font-medium">Fuori il centrocampista, dentro una punta.</p>
+                    </div>
+                  </div>
+                  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#1E293B] bg-[#10B981] text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow absolute left-2 md:left-1/2 md:-ml-3">⚽</div>
+                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-lg bg-[#0F172A] border border-[#334155] ml-10 md:ml-0">
+                      <div className="flex justify-between mb-1">
+                        <span className="font-bold text-[#10B981] text-xs">Gol!</span>
+                        <span className="font-bold text-[#94A3B8] text-xs">12'</span>
+                      </div>
+                      <p className="text-sm font-medium">Vantaggio iniziale degli avversari.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
 
