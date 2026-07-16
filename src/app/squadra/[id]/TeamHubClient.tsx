@@ -784,12 +784,12 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                       {selectedTrophyGroup.items.map((trofeo: any, idx: number) => (
                         <button
                           key={idx}
-                          onClick={() => trofeo.formation && setSelectedTrophy(trofeo)}
-                          className={`bg-[#1E293B] border ${trofeo.formation ? 'border-[#10B981] cursor-pointer hover:bg-[#334155] active:scale-95' : 'border-[#334155] cursor-default opacity-60'} rounded-xl p-3 flex flex-col items-center justify-center transition-all`}
+                          onClick={() => (trofeo.formation || (trofeo.roster && trofeo.roster.length > 0)) && setSelectedTrophy(trofeo)}
+                          className={`bg-[#1E293B] border ${(trofeo.formation || (trofeo.roster && trofeo.roster.length > 0)) ? 'border-[#10B981] cursor-pointer hover:bg-[#334155] active:scale-95' : 'border-[#334155] cursor-default opacity-60'} rounded-xl p-3 flex flex-col items-center justify-center transition-all`}
                         >
                           <span className="font-black text-lg text-white">{trofeo.year}</span>
                           <span className="text-[10px] text-[#94A3B8] uppercase tracking-widest mt-1">
-                            {trofeo.formation ? 'Vedi Dettagli' : 'Dati non disp.'}
+                            {(trofeo.formation || (trofeo.roster && trofeo.roster.length > 0)) ? 'Vedi Dettagli' : 'Dati non disp.'}
                           </span>
                         </button>
                       ))}
