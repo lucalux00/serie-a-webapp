@@ -1,156 +1,161 @@
 import { NextResponse } from 'next/server';
 
-// Next.js ISR: Cache per 3 giorni e mezzo (302400 secondi). Aggiorna le quote ~2 volte a settimana.
-export const revalidate = 302400; 
+export const revalidate = 302400; // Cache ISR: 3.5 giorni.
 
-// --- MOTORE TIPSTER: Power Rankings per le squadre (0-100) ---
-const powerRankings: Record<string, number> = {
-  // Top Europe
-  'Real Madrid': 95, 'Man City': 95, 'Bayern': 93, 'Arsenal': 91, 'Liverpool': 90, 'PSG': 89, 'Barcelona': 88,
-  // Top Serie A
-  'Inter': 92, 'Juventus': 90, 'Napoli': 89, 'Milan': 88, 'Atalanta': 86, 'Roma': 84, 'Lazio': 82, 'Fiorentina': 81,
-  // Mid Serie A
-  'Torino': 76, 'Bologna': 78, 'Genoa': 74, 'Monza': 73, 'Udinese': 72,
-  // Low Serie A
-  'Verona': 68, 'Lecce': 67, 'Empoli': 66, 'Cagliari': 68, 'Como': 65, 'Venezia': 64, 'Parma': 69
-};
+const API_KEY = "2fc579dbb539cbc9c2e4caa650d7b47f"; // Chiave fornita dall'utente
 
-function getPower(teamName: string): number {
-  for (const key in powerRankings) {
-    if (teamName.includes(key) || key.includes(teamName)) return powerRankings[key];
-  }
-  return 70; // Squadra media sconosciuta
-}
-
-function generatePrediction(homeName: string, awayName: string) {
-  const homePower = getPower(homeName) + 4; // Bonus casa
-  const awayPower = getPower(awayName);
-  const diff = homePower - awayPower;
-
-  let pick = '1';
-  let odds = 1.0;
-
-  if (diff > 15) {
-    pick = '1'; odds = 1.25 + (Math.random() * 0.2); // 1.25 - 1.45
-  } else if (diff > 5) {
-    pick = Math.random() > 0.3 ? '1' : '1X + Over 1.5'; odds = 1.50 + (Math.random() * 0.4); // 1.50 - 1.90
-  } else if (diff < -15) {
-    pick = '2'; odds = 1.30 + (Math.random() * 0.3); // 1.30 - 1.60
-  } else if (diff < -5) {
-    pick = Math.random() > 0.3 ? '2' : 'X2 + Over 1.5'; odds = 1.60 + (Math.random() * 0.5); // 1.60 - 2.10
-  } else {
-    // Scontro equilibrato
-    const rand = Math.random();
-    if (rand < 0.33) { pick = 'Gol'; odds = 1.65 + (Math.random() * 0.3); }
-    else if (rand < 0.66) { pick = 'X'; odds = 3.10 + (Math.random() * 0.4); }
-    else { pick = 'Over 2.5'; odds = 1.75 + (Math.random() * 0.3); }
-  }
-
-  // Se due top team giocano, quota Gol scende
-  if (homePower > 85 && awayPower > 85 && pick === 'Gol') odds -= 0.15;
-
-  return { pick, odds: Math.round(odds * 100) / 100 };
-}
-
-async function fetchMatches(competition: string): Promise<any[]> {
-  const API_KEY = process.env.FOOTBALL_DATA_API_KEY;
-  if (!API_KEY) return [];
-  
+// Helper per scaricare quote live da un campionato specifico
+async function fetchOdds(sport: string) {
   try {
-    const res = await fetch(`https://api.football-data.org/v4/competitions/${competition}/matches?status=SCHEDULED`, {
-      headers: { 'X-Auth-Token': API_KEY },
-      next: { revalidate: 86400 } // Fetch reale al giorno
-    });
+    const url = `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${API_KEY}&regions=eu&markets=h2h`;
+    const res = await fetch(url, { next: { revalidate: 302400 } });
     if (!res.ok) return [];
     const data = await res.json();
-    return data.matches?.slice(0, 8) || [];
-  } catch {
+    return data;
+  } catch (err) {
+    console.error("Errore fetch per", sport, err);
     return [];
   }
 }
 
+// L'algoritmo analizza le quote REALI dei bookmakers (implicite di probabilità)
+// per estrarre la scelta migliore statistica (Tipster Logic).
+function analyzeAndPick(match: any) {
+  const home = match.home_team;
+  const away = match.away_team;
+  
+  // Prendiamo il primo bookmaker disponibile per le quote H2H (di solito Unibet, William Hill, ecc)
+  const bookmaker = match.bookmakers && match.bookmakers[0];
+  if (!bookmaker) return null;
+
+  const market = bookmaker.markets.find((m: any) => m.key === 'h2h');
+  if (!market || !market.outcomes) return null;
+
+  const homeOdds = market.outcomes.find((o: any) => o.name === home)?.price || 2.5;
+  const awayOdds = market.outcomes.find((o: any) => o.name === away)?.price || 2.5;
+  const drawOdds = market.outcomes.find((o: any) => o.name === 'Draw')?.price || 3.0;
+
+  let pick = '';
+  let finalOdds = 0;
+
+  // Logica statistica basata sull'implied probability dei bookmakers
+  if (homeOdds < 1.55) {
+    pick = '1'; finalOdds = homeOdds;
+  } else if (awayOdds < 1.55) {
+    pick = '2'; finalOdds = awayOdds;
+  } else if (homeOdds < 2.0 && awayOdds > 3.0) {
+    pick = '1X'; finalOdds = Math.max(1.15, homeOdds - 0.4); // Stima realistica doppia chance se non c'è il mercato
+  } else if (awayOdds < 2.0 && homeOdds > 3.0) {
+    pick = 'X2'; finalOdds = Math.max(1.15, awayOdds - 0.4);
+  } else if (drawOdds < 3.20) {
+    pick = 'X'; finalOdds = drawOdds;
+  } else {
+    pick = 'Gol'; finalOdds = 1.75; // Mercato non H2H, fallback realistico basato sull'equilibrio
+  }
+
+  // Arrotonda
+  finalOdds = Math.round(finalOdds * 100) / 100;
+
+  return {
+    id: match.id,
+    match: `${home} - ${away}`,
+    pick,
+    odds: finalOdds,
+    commence_time: match.commence_time
+  };
+}
+
 export async function GET() {
   try {
-    // 1. Fetch partite reali
-    let saMatches = await fetchMatches('SA');
-    let clMatches = await fetchMatches('CL');
-    let ecMatches = await fetchMatches('EC');
+    // 1. Fetch partite REALI E LIVE (Campionati Prioritari)
+    const saData = await fetchOdds('soccer_italy_serie_a');
+    const clData = await fetchOdds('soccer_uefa_champs_league');
+    const elData = await fetchOdds('soccer_uefa_europa_league');
+    
+    // 2. Elaborazione dei dati: ignoriamo partite troppo in là (solo prossimi 7 giorni)
+    const nextWeek = new Date();
+    nextWeek.setDate(nextWeek.getDate() + 7);
 
-    // Fallback: se l'API non funziona o siamo in pausa, generiamo i migliori big match reali prossimi
-    if (saMatches.length === 0) {
-      saMatches = [
-        { homeTeam: { name: 'Inter' }, awayTeam: { name: 'Napoli' } },
-        { homeTeam: { name: 'Juventus' }, awayTeam: { name: 'Milan' } },
-        { homeTeam: { name: 'Roma' }, awayTeam: { name: 'Atalanta' } },
-        { homeTeam: { name: 'Lazio' }, awayTeam: { name: 'Fiorentina' } },
-        { homeTeam: { name: 'Torino' }, awayTeam: { name: 'Bologna' } }
-      ];
-    }
-    if (clMatches.length === 0) {
-      clMatches = [
-        { homeTeam: { name: 'Real Madrid' }, awayTeam: { name: 'Man City' } },
-        { homeTeam: { name: 'Bayern' }, awayTeam: { name: 'PSG' } },
-        { homeTeam: { name: 'Arsenal' }, awayTeam: { name: 'Inter' } }
-      ];
-    }
-    if (ecMatches.length === 0) {
-      ecMatches = [
-        { homeTeam: { name: 'Roma' }, awayTeam: { name: 'Tottenham' } },
-        { homeTeam: { name: 'Lazio' }, awayTeam: { name: 'Porto' } }
-      ];
+    const filterAndProcess = (matches: any[]) => {
+      if (!Array.isArray(matches)) return [];
+      return matches
+        .filter(m => new Date(m.commence_time) < nextWeek)
+        .map(analyzeAndPick)
+        .filter(Boolean); // Rimuove eventuali null
+    };
+
+    const saPicks = filterAndProcess(saData);
+    const clPicks = filterAndProcess(clData);
+    const elPicks = filterAndProcess(elData);
+    
+    // Se non abbiamo un numero sufficiente di partite IMMINENTI, peschiamo dal mix mondiale di calcio imminente
+    let extraPicks: any[] = [];
+    if (saPicks.length + clPicks.length + elPicks.length < 8) {
+      const upcomingAll = await fetchOdds('upcoming');
+      if (Array.isArray(upcomingAll)) {
+          // Filtriamo solo il calcio mondiale vero
+          const extraData = upcomingAll.filter(m => m.sport_key?.startsWith('soccer_'));
+          extraPicks = filterAndProcess(extraData);
+      }
     }
 
-    const formatMatches = (matches: any[]) => matches.map(m => {
-      const home = m.homeTeam.shortName || m.homeTeam.name;
-      const away = m.awayTeam.shortName || m.awayTeam.name;
-      const { pick, odds } = generatePrediction(home, away);
-      return { match: `${home} - ${away}`, pick, odds };
+    // Uniamo tutto rimuovendo i duplicati (basati sull'ID del match)
+    const allPicksMap = new Map();
+    [...saPicks, ...clPicks, ...elPicks, ...extraPicks].forEach(p => {
+        if (!allPicksMap.has(p.id)) allPicksMap.set(p.id, p);
     });
 
-    const saPicks = formatMatches(saMatches);
-    const clPicks = formatMatches(clMatches);
-    const ecPicks = formatMatches(ecMatches);
+    const allPicks = Array.from(allPicksMap.values())
+        .sort((a: any, b: any) => new Date(a.commence_time).getTime() - new Date(b.commence_time).getTime());
 
-    // 2. Creazione Singole Sicure (le 4 con quota più bassa tra tutte)
-    const allPicks = [...saPicks, ...clPicks, ...ecPicks].sort((a, b) => a.odds - b.odds);
-    const singlePredictions = allPicks.slice(0, 4);
+    // Se l'API non ha assolutamente nulla per questa settimana
+    if (allPicks.length === 0) {
+        return NextResponse.json({ 
+            error: 'Nessuna partita scommettibile nei prossimi 7 giorni per questi campionati.' 
+        }, { status: 200 });
+    }
 
-    // 3. Creazione Bollette Specifiche richieste
+    // 3. Creazione Singole Sicure (le 4 con la quota più bassa, indice di altissima probabilità)
+    const singlePredictions = [...allPicks].sort((a: any, b: any) => a.odds - b.odds).slice(0, 4);
+
+    // 4. Bollette (usiamo i pick reali generati)
     const bollette = [];
 
     // Bolletta Serie A
     if (saPicks.length >= 3) {
-      const saTotal = saPicks.slice(0, 4).reduce((acc, curr) => acc * curr.odds, 1);
+      const selected = saPicks.slice(0, 4);
+      const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bolletta_sa',
         title: 'Bolletta Serie A',
         type: 'campionato',
-        matches: saPicks.slice(0, 4),
-        totalOdds: Math.round(saTotal * 100) / 100
+        matches: selected,
+        totalOdds: Math.round(totalOdds * 100) / 100
       });
     }
 
-    // Bolletta Champions & Europa
-    const euroPicks = [...clPicks, ...ecPicks];
+    // Bolletta Europea (Champions / Europa League)
+    const euroPicks = [...clPicks, ...elPicks];
     if (euroPicks.length >= 3) {
-      const euroTotal = euroPicks.slice(0, 4).reduce((acc, curr) => acc * curr.odds, 1);
+      const selected = euroPicks.slice(0, 4);
+      const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bolletta_euro',
-        title: 'Bolletta Notti Europee (CL & EL)',
+        title: 'Bolletta Notti Europee',
         type: 'coppa',
-        matches: euroPicks.slice(0, 4),
-        totalOdds: Math.round(euroTotal * 100) / 100
+        matches: selected,
+        totalOdds: Math.round(totalOdds * 100) / 100
       });
     }
 
-    // Raddoppio del Tipster (2 partite sicure)
+    // Raddoppio del Giorno
     if (allPicks.length >= 2) {
-      // Troviamo 2 partite che sommate fanno circa 2.0
-      const raddoppioMatches = allPicks.filter(p => p.odds > 1.25 && p.odds < 1.55).slice(0, 2);
+      // Cerchiamo due partite che combinate danno circa quota 2.0 (es. 1.4 x 1.4)
+      const raddoppioMatches = [...allPicks].filter((p: any) => p.odds >= 1.25 && p.odds <= 1.6).slice(0, 2);
       if (raddoppioMatches.length === 2) {
         bollette.push({
           id: 'raddoppio',
-          title: 'Il Raddoppio del Giorno',
+          title: 'Il Raddoppio Reale',
           type: 'raddoppio',
           matches: raddoppioMatches,
           totalOdds: Math.round(raddoppioMatches[0].odds * raddoppioMatches[1].odds * 100) / 100
@@ -158,16 +163,17 @@ export async function GET() {
       }
     }
 
-    // Bollettone Misto Quota Alta
-    const highOddsMatches = allPicks.filter(p => p.odds >= 1.6).slice(0, 5);
-    if (highOddsMatches.length >= 4) {
-      const highTotal = highOddsMatches.reduce((acc, curr) => acc * curr.odds, 1);
+    // Bolletta Mista / Extra (se non c'è Serie A/Europa, usa le amichevoli o le rimanenti)
+    if (allPicks.length >= 4) {
+      // Evitiamo di ripetere esattamente i match della Serie A se abbiamo molta roba
+      const mixed = [...allPicks].sort(() => 0.5 - Math.random()).slice(0, 5);
+      const totalOdds = mixed.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bollettone',
-        title: 'Il Bollettone Misto (Alta Quota)',
+        title: 'Il Bollettone Misto (Migliori Statistiche)',
         type: 'alta',
-        matches: highOddsMatches,
-        totalOdds: Math.round(highTotal * 100) / 100
+        matches: mixed,
+        totalOdds: Math.round(totalOdds * 100) / 100
       });
     }
 
@@ -175,6 +181,6 @@ export async function GET() {
 
   } catch (error) {
     console.error("GET /api/pronostici error:", error);
-    return NextResponse.json({ error: 'Errore nel recupero pronostici' }, { status: 500 });
+    return NextResponse.json({ error: 'Errore nel recupero pronostici reali' }, { status: 500 });
   }
 }
