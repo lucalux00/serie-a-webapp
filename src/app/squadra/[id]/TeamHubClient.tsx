@@ -903,29 +903,82 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                   <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">Risultato / Punti</h3>
                   <div className="text-lg font-bold text-[#F59E0B]">{selectedTrophy.points}</div>
                 </div>
-                <div>
-                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Formazione Tipo</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedTrophy.formation?.map((player: string, i: number) => (
-                      <div key={i} className="bg-[#0F172A] border border-[#334155] rounded-full px-4 py-2 text-sm font-bold text-[#E2E8F0] shadow-sm hover:border-[#10B981] hover:text-[#10B981] transition-colors cursor-default">
-                        {player}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {selectedTrophy.roster && selectedTrophy.roster.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">Altri giocatori della rosa</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedTrophy.roster.map((player: string, i: number) => (
-                        <div key={`r-${i}`} className="bg-[#0F172A] border border-[#334155] rounded-full px-3 py-1.5 text-xs font-medium text-[#94A3B8] shadow-sm hover:border-[#0EA5E9] hover:text-[#0EA5E9] transition-colors cursor-default">
-                          {player}
-                        </div>
-                      ))}
+                <div className="mt-4">
+                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                    Rosa Completa
+                  </h3>
+                  
+                  {/* NUOVO FORMATO (Oggetti con ruolo e isStarter) */}
+                  {selectedTrophy.roster && selectedTrophy.roster.length > 0 && typeof selectedTrophy.roster[0] === 'object' ? (
+                    <div className="flex flex-col space-y-4">
+                      {['POR', 'DIF', 'CEN', 'ATT'].map(role => {
+                        const playersInRole = selectedTrophy.roster.filter((p: any) => p.role === role);
+                        if (playersInRole.length === 0) return null;
+                        
+                        return (
+                          <div key={role}>
+                            <h4 className="text-[10px] text-[#64748B] font-bold uppercase tracking-widest mb-2 flex items-center">
+                              <span className="w-6 h-px bg-[#334155] inline-block mr-2"></span>
+                              {role === 'POR' ? 'Portieri' : role === 'DIF' ? 'Difensori' : role === 'CEN' ? 'Centrocampisti' : 'Attaccanti'}
+                            </h4>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {playersInRole.map((player: any, idx: number) => (
+                                <div key={idx} className={`flex items-center justify-between p-2.5 rounded-lg border transition-all ${player.isStarter ? 'bg-[#1E293B] border-[#10B981] shadow-[0_0_10px_rgba(16,185,129,0.05)]' : 'bg-[#0F172A] border-[#334155] opacity-80 hover:opacity-100'}`}>
+                                  <div className="flex items-center">
+                                    <div className={`text-[9px] font-black w-8 text-center rounded mr-3 py-1 ${player.isStarter ? 'bg-[#10B981] text-[#0F172A]' : 'bg-[#334155] text-[#94A3B8]'}`}>
+                                      {player.role}
+                                    </div>
+                                    <span className={`text-[13px] ${player.isStarter ? 'text-white font-black' : 'text-[#E2E8F0] font-semibold'}`}>
+                                      {player.name}
+                                    </span>
+                                  </div>
+                                  {player.isStarter && (
+                                    <div className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_5px_#10B981]" title="Titolare"></div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    /* VECCHIO FORMATO / FALLBACK */
+                    <>
+                      {selectedTrophy.formation && selectedTrophy.formation.length > 0 && (
+                        <div>
+                          <h4 className="text-[10px] text-[#64748B] font-bold uppercase tracking-widest mb-2 flex items-center">
+                            <span className="w-6 h-px bg-[#334155] inline-block mr-2"></span>
+                            Formazione Tipo (Storico)
+                          </h4>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {selectedTrophy.formation.map((player: string, i: number) => (
+                              <div key={i} className="bg-[#1E293B] border border-[#10B981] rounded-full px-4 py-2 text-sm font-bold text-white shadow-sm cursor-default">
+                                {player}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {selectedTrophy.roster && selectedTrophy.roster.length > 0 && typeof selectedTrophy.roster[0] === 'string' && (
+                        <div>
+                          <h4 className="text-[10px] text-[#64748B] font-bold uppercase tracking-widest mb-2 flex items-center">
+                            <span className="w-6 h-px bg-[#334155] inline-block mr-2"></span>
+                            Altri giocatori
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedTrophy.roster.map((player: string, i: number) => (
+                              <div key={`r-${i}`} className="bg-[#0F172A] border border-[#334155] rounded-full px-3 py-1.5 text-xs font-medium text-[#94A3B8] cursor-default">
+                                {player}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </motion.div>
           </>
