@@ -1,12 +1,21 @@
 import { NextResponse } from 'next/server';
 
 // Generatore algoritmico di testo per l'analisi preliminare
-function generateMatchAnalysis(homeTeam: string, awayTeam: string, matchId: number) {
+function generateMatchAnalysis(homeTeam: string, awayTeam: string, matchId: number, matchday: number) {
   const isDerby = homeTeam.slice(0, 3) === awayTeam.slice(0, 3);
   
+  let matchContext = "I punti in palio sono importanti per definire le gerarchie in classifica.";
+  if (matchday <= 3) {
+    matchContext = "Siamo solo alle battute iniziali della stagione: c'è ancora da oliare i meccanismi e l'entusiasmo è alle stelle.";
+  } else if (matchday > 30) {
+    matchContext = "In questa fase finale del campionato, ogni punto pesa come un macigno per gli obiettivi stagionali.";
+  } else if (isDerby) {
+    matchContext = "Trattandosi di un derby, la tensione agonistica e l'aspetto mentale saranno determinanti.";
+  }
+
   return `
 ### 📊 Panoramica del Match
-Questa si preannuncia come una sfida cruciale per entrambe le formazioni. Il **${homeTeam}** cercherà di sfruttare il calore del proprio pubblico per imporre il gioco, mentre il **${awayTeam}** proverà ad arginare le offensive avversarie e ripartire. ${isDerby ? "Trattandosi di un derby, la tensione agonistica e l'aspetto mentale saranno determinanti." : "I punti in palio pesano notevolmente per i rispettivi obiettivi stagionali."}
+La sfida tra **${homeTeam}** e **${awayTeam}** (Giornata ${matchday}) rappresenta uno snodo interessante per entrambe le formazioni. Il **${homeTeam}** cercherà di far valere il fattore campo per imporre i propri ritmi, mentre il **${awayTeam}** dovrà essere bravo a non scoprirsi, sfruttando eventuali ripartenze. ${matchContext}
 
 ### ⏱️ Analisi in Arrivo
 > [!NOTE]
@@ -55,7 +64,7 @@ export async function GET() {
       const awayTeam = m.awayTeam.shortName || m.awayTeam.name;
       const matchId = m.id;
 
-      const markdownAnalysis = generateMatchAnalysis(homeTeam, awayTeam, matchId);
+      const markdownAnalysis = generateMatchAnalysis(homeTeam, awayTeam, matchId, currentMatchday);
 
       return {
         id: matchId,
