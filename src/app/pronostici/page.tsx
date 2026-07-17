@@ -77,8 +77,15 @@ export default function PronosticiPage() {
         </div>
       </div>
       
+      <div className="bg-[#f59e0b]/10 border border-[#f59e0b]/20 p-3 rounded-lg flex items-start sm:items-center mb-6">
+        <Info size={18} className="text-[#f59e0b] mr-3 mt-0.5 sm:mt-0 shrink-0" />
+        <p className="text-xs text-[#f59e0b] font-medium leading-relaxed">
+          <strong>Attenzione:</strong> Le analisi presenti in questa pagina sono prodotte da modelli matematici a solo scopo statistico e di studio. Non rappresentano in alcun modo un invito o un incitamento al gioco d'azzardo.
+        </p>
+      </div>
+
       <p className="text-sm text-[#cbd5e1] mb-6 bg-[#1E293B] p-4 rounded-xl border border-[#334155] shadow-sm">
-        Scopri le analisi statistiche esclusive generate dal nostro MLOps. Naviga tra i maggiori campionati europei per trovare le singole di maggior valore.
+        Scopri le elaborazioni statistiche esclusive generate dal nostro algoritmo MLOps. Naviga tra i maggiori campionati europei per esplorare le probabilità matematiche degli eventi.
       </p>
 
       {/* Tabs Scorrevoli */}
@@ -221,17 +228,20 @@ export default function PronosticiPage() {
         )}
       </div>
 
-      {/* Legale */}
-      <div className="bg-[#0F172A] border border-[#334155]/50 p-4 rounded-xl text-center flex flex-col items-center">
-        <div className="flex items-center space-x-3 mb-2">
-          <div className="w-8 h-8 rounded-full border-2 border-[#64748B] flex items-center justify-center">
-            <span className="text-[#64748B] font-black text-xs">+18</span>
+      {/* Disclaimer Legale & Statistico */}
+      <div className="bg-[#0F172A] border border-[#f59e0b]/30 p-5 rounded-xl text-center flex flex-col items-center mt-8">
+        <div className="flex items-center space-x-3 mb-3">
+          <div className="w-10 h-10 rounded-full border-2 border-[#f59e0b] flex items-center justify-center bg-[#f59e0b]/10">
+            <span className="text-[#f59e0b] font-black text-sm">+18</span>
           </div>
-          <AlertTriangle className="text-[#64748B]" size={20} />
+          <AlertTriangle className="text-[#f59e0b]" size={24} />
         </div>
-        <p className="text-[10px] text-[#64748B] font-medium leading-relaxed max-w-[90%] uppercase tracking-wide">
-          Riservato ai maggiori di 18 anni. Il gioco può causare dipendenza patologica. 
-          Le quote indicate sono soggette a variazioni. Consulta le probabilità di vincita sul sito del concessionario ufficiale.
+        <h3 className="text-[#f59e0b] font-bold text-sm mb-2 uppercase tracking-widest">Avvertenza Legale e Scopo Statistico</h3>
+        <p className="text-[11px] text-[#94A3B8] font-medium leading-relaxed max-w-[95%]">
+          I contenuti forniti in questa pagina hanno uno scopo <strong>esclusivamente statistico, matematico e di intrattenimento</strong>. 
+          Questa sezione non intende in alcun modo promuovere, incoraggiare o incitare al gioco d'azzardo, nel pieno rispetto del Decreto Dignità (DL 87/2018). 
+          L'algoritmo si limita ad analizzare dati storici e quote di mercato per elaborare modelli probabilistici. 
+          Ricordiamo che il gioco d'azzardo è <strong>vietato ai minori di 18 anni</strong> e può causare dipendenza patologica. Se decidi di giocare, fallo in modo responsabile e sui siti dei concessionari ufficiali ADM.
         </p>
       </div>
       
