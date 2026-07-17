@@ -27,16 +27,17 @@ export default function MarketFeed() {
   }, [leagueTab]);
 
   const currentData = liveData.filter(d => 
-    d.player.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    d.team.toLowerCase().includes(searchQuery.toLowerCase())
+    (d.player && d.player.toLowerCase().includes(searchQuery.toLowerCase())) || 
+    (d.team && d.team.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const acquisti = currentData.filter(d => d.type === 'acquisto');
-  const prestiti = currentData.filter(d => d.type === 'prestito');
-  const svincolati = currentData.filter(d => d.type === 'svincolato');
+  const acquisti = currentData.filter(d => d.type && d.type.toLowerCase() === 'acquisto' && d.status !== 'Rumor');
+  const prestiti = currentData.filter(d => d.type && d.type.toLowerCase() === 'prestito' && d.status !== 'Rumor');
+  const svincolati = currentData.filter(d => d.type && d.type.toLowerCase() === 'svincolato' && d.status !== 'Rumor');
 
   const getIconForType = (type: string) => {
-    switch (type) {
+    const t = type ? type.toLowerCase() : '';
+    switch (t) {
       case 'acquisto': return <ArrowRight className="text-[#10B981] w-4 h-4" />;
       case 'cessione': return <ArrowLeft className="text-[#EF4444] w-4 h-4" />;
       case 'prestito': return <ArrowRightLeft className="text-[#0EA5E9] w-4 h-4" />;
@@ -47,7 +48,8 @@ export default function MarketFeed() {
   };
 
   const getBadgeColor = (type: string) => {
-    switch (type) {
+    const t = type ? type.toLowerCase() : '';
+    switch (t) {
       case 'acquisto': return 'bg-[#10B981]/20 text-[#10B981] border-[#10B981]/50';
       case 'cessione': return 'bg-[#EF4444]/20 text-[#EF4444] border-[#EF4444]/50';
       case 'prestito': return 'bg-[#0EA5E9]/20 text-[#0EA5E9] border-[#0EA5E9]/50';
@@ -57,18 +59,29 @@ export default function MarketFeed() {
     }
   };
 
-  const renderTransferCard = (tr: any) => (
+  const renderTransferCard = (tr: any) => {
+    const t = tr.type ? tr.type.toLowerCase() : '';
+    const isRumor = tr.status === 'Rumor';
+    
+    return (
     <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
-      <div className={`absolute left-0 top-0 bottom-0 w-1 ${tr.type === 'acquisto' ? 'bg-[#10B981]' : tr.type === 'cessione' ? 'bg-[#EF4444]' : tr.type === 'prestito' ? 'bg-[#0EA5E9]' : tr.type === 'svincolato' ? 'bg-[#94A3B8]' : 'bg-[#F59E0B]'}`} />
+      <div className={`absolute left-0 top-0 bottom-0 w-1 ${isRumor ? 'bg-[#F59E0B]' : t === 'acquisto' ? 'bg-[#10B981]' : t === 'cessione' ? 'bg-[#EF4444]' : t === 'prestito' ? 'bg-[#0EA5E9]' : t === 'svincolato' ? 'bg-[#94A3B8]' : 'bg-[#F59E0B]'}`} />
       
       <div className="flex justify-between items-start mb-2 pl-2">
         <div className="flex items-center space-x-2">
           {getIconForType(tr.type)}
           <span className="font-bold text-sm text-white">{tr.team}</span>
         </div>
-        <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase border ${getBadgeColor(tr.type)}`}>
-          {tr.type}
-        </span>
+        <div className="flex items-center space-x-2">
+          {isRumor && (
+            <span className="text-[10px] font-black px-2 py-0.5 rounded uppercase border bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/50">
+              RUMOR
+            </span>
+          )}
+          <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase border ${getBadgeColor(tr.type)}`}>
+            {tr.type}
+          </span>
+        </div>
       </div>
       
       <div className="pl-2">
@@ -80,7 +93,8 @@ export default function MarketFeed() {
       </div>
       <div className="absolute bottom-2 right-4 text-[9px] text-[#64748B] font-bold uppercase">{tr.date}</div>
     </div>
-  );
+    );
+  };
 
   return (
     <div className="w-full flex flex-col h-full space-y-6">
@@ -182,97 +196,22 @@ export default function MarketFeed() {
           )}
 
           {filterTab === 'trattative' && (() => {
-            const topRumors: any[] = [];
-            const tabRumors: [string, any[]][] = [];
+            const rumors = currentData.filter(d => d.status === 'Rumor');
 
             return (
             <section className="space-y-6">
               
-              {/* TOP RUMORS GLOBALI */}
-              {topRumors.length > 0 && (
-                <div className="mb-8">
-                  <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-                    <Star size={16} className="mr-2" /> Top Rumors & Operazioni
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {topRumors.map((r, idx) => (
-                      <div key={`top-${idx}`} className="bg-gradient-to-r from-[#0F172A] to-[#1E293B] border border-[#10B981]/50 rounded-xl p-4 shadow-lg relative overflow-hidden">
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#10B981]" />
-                        <div className="flex justify-between items-start mb-2 pl-2">
-                          <div className="flex items-center space-x-2">
-                            <Star size={14} className="text-[#10B981] fill-[#10B981]" />
-                            <span className="font-bold text-sm text-white">{r.team}</span>
-                          </div>
-                          <span className="text-[10px] font-black px-2 py-0.5 rounded uppercase border bg-[#10B981]/20 text-[#10B981] border-[#10B981]/50">
-                            Top
-                          </span>
-                        </div>
-                        <div className="pl-2">
-                          <div className="text-xl font-black text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
-                          <div className="flex justify-between items-center text-xs mt-2">
-                            <span className="text-[#94A3B8] font-medium">Da/A: <span className="text-white font-bold">{r.from}</span></span>
-                            <span className="font-black text-[#10B981]">{r.fee}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2 mt-8">
+                <RefreshCw size={16} className="mr-2" /> Rumors & Trattative
+              </h2>
+
+              {loading ? (
+                <div className="flex justify-center py-10"><div className="w-8 h-8 border-4 border-[#F59E0B] border-t-transparent rounded-full animate-spin"></div></div>
+              ) : (
+                <div className="grid grid-cols-1 gap-3">
+                  {rumors.length > 0 ? rumors.map(renderTransferCard) : <div className="text-sm text-[#64748B]">Nessuna trattativa recente trovata.</div>}
                 </div>
               )}
-
-              <div className="space-y-4">
-                {tabRumors.map(([teamName, rumors]) => {
-                  const leagueRumors = rumors.filter(r => r.league === leagueTab);
-                  if (searchQuery && !teamName.toLowerCase().includes(searchQuery.toLowerCase()) && !leagueRumors.some(r => r.player.toLowerCase().includes(searchQuery.toLowerCase()))) {
-                    return null;
-                  }
-                  if (leagueRumors.length === 0) return null;
-                  return (
-                    <div key={teamName} className="mb-6">
-                      <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-3 border-b border-[#334155] pb-2">
-                        <Clock size={16} className="mr-2" /> Trattative {teamName}
-                      </h2>
-                      <div className="grid grid-cols-1 gap-3">
-                        {leagueRumors.map((r, idx) => (
-                          <div key={idx} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
-                            <div className="flex justify-between items-start mb-2 pl-2">
-                              <div className="flex items-center space-x-2">
-                                <Clock size={14} className="text-[#F59E0B]" />
-                                <span className="font-bold text-sm text-white">{teamName}</span>
-                              </div>
-                              <span className="text-[10px] font-black px-2 py-0.5 rounded uppercase border bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/50">
-                                Rumor
-                              </span>
-                            </div>
-                            <div className="pl-2">
-                              <div className="text-lg font-black text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
-                              <div className="flex justify-between items-center text-xs">
-                                <span className="text-[#94A3B8] font-medium">Da/A: {r.from}</span>
-                                <span className="font-bold text-[#F59E0B]">{r.fee}</span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2 mt-8">
-                <RefreshCw size={16} className="mr-2" /> Rumors & Trattative Globali (Feed X)
-              </h2>
-              <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[600px] border border-[#334155] flex flex-col relative">
-                <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
-                  Connessione al Feed di Fabrizio Romano...
-                </div>
-                <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
-                  <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
-                  </a> 
-                  <Script async src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" />
-                </div>
-              </div>
             </section>
             );
           })()}
