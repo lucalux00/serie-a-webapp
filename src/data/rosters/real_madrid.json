@@ -1,0 +1,36 @@
+{
+  "2023/24": {
+    "coach": "Carlo Ancelotti",
+    "points": "95",
+    "roster": [
+      { "name": "Thibaut Courtois", "role": "POR", "isStarter": true },
+      { "name": "Dani Carvajal", "role": "DIF", "isStarter": true },
+      { "name": "Antonio Rüdiger", "role": "DIF", "isStarter": true },
+      { "name": "Nacho", "role": "DIF", "isStarter": true },
+      { "name": "Ferland Mendy", "role": "DIF", "isStarter": true },
+      { "name": "Federico Valverde", "role": "CEN", "isStarter": true },
+      { "name": "Toni Kroos", "role": "CEN", "isStarter": true },
+      { "name": "Eduardo Camavinga", "role": "CEN", "isStarter": true },
+      { "name": "Jude Bellingham", "role": "CEN", "isStarter": true },
+      { "name": "Vinicius Junior", "role": "ATT", "isStarter": true },
+      { "name": "Rodrygo", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2021/22": {
+    "coach": "Carlo Ancelotti",
+    "points": "86",
+    "roster": [
+      { "name": "Thibaut Courtois", "role": "POR", "isStarter": true },
+      { "name": "Dani Carvajal", "role": "DIF", "isStarter": true },
+      { "name": "Eder Militao", "role": "DIF", "isStarter": true },
+      { "name": "David Alaba", "role": "DIF", "isStarter": true },
+      { "name": "Ferland Mendy", "role": "DIF", "isStarter": true },
+      { "name": "Casemiro", "role": "CEN", "isStarter": true },
+      { "name": "Toni Kroos", "role": "CEN", "isStarter": true },
+      { "name": "Luka Modric", "role": "CEN", "isStarter": true },
+      { "name": "Federico Valverde", "role": "CEN", "isStarter": true },
+      { "name": "Vinicius Junior", "role": "ATT", "isStarter": true },
+      { "name": "Karim Benzema", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

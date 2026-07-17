@@ -82,5 +82,30 @@ export const HISTORY_DATA: Record<string, { team: string, crest: string, wins: s
     { team: 'Montpellier', crest: 'https://crests.football-data.org/518.png', wins: ['2011/12'] },
     { team: 'Lens', crest: 'https://crests.football-data.org/546.png', wins: ['1997/98'] },
     { team: 'Auxerre', crest: 'https://crests.football-data.org/525.png', wins: ['1995/96'] }
+  ],
+  'CL': [
+    { team: 'Real Madrid', crest: 'https://crests.football-data.org/86.png', wins: ['2023/24', '2021/22', '2017/18', '2016/17', '2015/16', '2013/14', '2001/02', '1999/00', '1997/98'] },
+    { team: 'Milan', crest: 'https://crests.football-data.org/98.svg', wins: ['2006/07', '2002/03', '1993/94', '1989/90', '1988/89'] },
+    { team: 'Bayern Munich', crest: 'https://crests.football-data.org/5.svg', wins: ['2019/20', '2012/13', '2000/01', '1975/76'] },
+    { team: 'Liverpool', crest: 'https://crests.football-data.org/64.png', wins: ['2018/19', '2004/05', '1983/84', '1980/81'] },
+    { team: 'Barcelona', crest: 'https://crests.football-data.org/81.svg', wins: ['2014/15', '2010/11', '2008/09', '2005/06', '1991/92'] },
+    { team: 'Ajax', crest: 'https://crests.football-data.org/678.png', wins: ['1994/95', '1972/73', '1971/72', '1970/71'] },
+    { team: 'Inter', crest: 'https://crests.football-data.org/108.png', wins: ['2009/10', '1964/65', '1963/64'] },
+    { team: 'Manchester United', crest: 'https://crests.football-data.org/66.png', wins: ['2007/08', '1998/99', '1967/68'] },
+    { team: 'Juventus', crest: 'https://crests.football-data.org/109.png', wins: ['1995/96', '1984/85'] },
+    { team: 'Chelsea', crest: 'https://crests.football-data.org/61.png', wins: ['2020/21', '2011/12'] },
+    { team: 'Nottingham Forest', crest: 'https://crests.football-data.org/351.png', wins: ['1979/80', '1978/79'] },
+    { team: 'Benfica', crest: 'https://crests.football-data.org/1903.png', wins: ['1961/62', '1960/61'] },
+    { team: 'Manchester City', crest: 'https://crests.football-data.org/65.png', wins: ['2022/23'] },
+    { team: 'Borussia Dortmund', crest: 'https://crests.football-data.org/4.png', wins: ['1996/97'] },
+    { team: 'Olympique Marseille', crest: 'https://crests.football-data.org/516.png', wins: ['1992/93'] },
+    { team: 'Red Star Belgrade', crest: 'https://crests.football-data.org/724.png', wins: ['1990/91'] },
+    { team: 'PSV Eindhoven', crest: 'https://crests.football-data.org/674.png', wins: ['1987/88'] },
+    { team: 'Porto', crest: 'https://crests.football-data.org/503.png', wins: ['2003/04', '1986/87'] },
+    { team: 'Steaua Bucuresti', crest: 'https://crests.football-data.org/755.png', wins: ['1985/86'] },
+    { team: 'Hamburg', crest: 'https://crests.football-data.org/9.png', wins: ['1982/83'] },
+    { team: 'Aston Villa', crest: 'https://crests.football-data.org/58.png', wins: ['1981/82'] },
+    { team: 'Feyenoord', crest: 'https://crests.football-data.org/675.png', wins: ['1969/70'] },
+    { team: 'Celtic', crest: 'https://crests.football-data.org/732.png', wins: ['1966/67'] }
   ]
 };

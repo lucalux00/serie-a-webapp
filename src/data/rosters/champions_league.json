@@ -1,0 +1,94 @@
+{
+  "2023/24": {
+    "winner": "Real Madrid",
+    "runnerUp": "Borussia Dortmund",
+    "score": "2-0",
+    "stadium": "Wembley Stadium, Londra",
+    "stats": {
+      "possession": "54% - 46%",
+      "shots": "13 - 13",
+      "shotsOnTarget": "6 - 3",
+      "corners": "8 - 9",
+      "fouls": "10 - 11"
+    },
+    "coach": "Carlo Ancelotti",
+    "roster": [
+      { "name": "Thibaut Courtois", "role": "POR", "isStarter": true },
+      { "name": "Dani Carvajal", "role": "DIF", "isStarter": true },
+      { "name": "Antonio Rüdiger", "role": "DIF", "isStarter": true },
+      { "name": "Nacho", "role": "DIF", "isStarter": true },
+      { "name": "Ferland Mendy", "role": "DIF", "isStarter": true },
+      { "name": "Federico Valverde", "role": "CEN", "isStarter": true },
+      { "name": "Eduardo Camavinga", "role": "CEN", "isStarter": true },
+      { "name": "Toni Kroos", "role": "CEN", "isStarter": true },
+      { "name": "Jude Bellingham", "role": "CEN", "isStarter": true },
+      { "name": "Rodrygo", "role": "ATT", "isStarter": true },
+      { "name": "Vinicius Junior", "role": "ATT", "isStarter": true },
+      { "name": "Joselu", "role": "ATT", "isStarter": false },
+      { "name": "Luka Modric", "role": "CEN", "isStarter": false },
+      { "name": "Eder Militao", "role": "DIF", "isStarter": false },
+      { "name": "Lucas Vazquez", "role": "DIF", "isStarter": false }
+    ]
+  },
+  "2022/23": {
+    "winner": "Manchester City",
+    "runnerUp": "Inter",
+    "score": "1-0",
+    "stadium": "Atatürk Olympic Stadium, Istanbul",
+    "stats": {
+      "possession": "56% - 44%",
+      "shots": "7 - 14",
+      "shotsOnTarget": "4 - 6",
+      "corners": "2 - 4",
+      "fouls": "11 - 17"
+    },
+    "coach": "Pep Guardiola",
+    "roster": [
+      { "name": "Ederson", "role": "POR", "isStarter": true },
+      { "name": "Manuel Akanji", "role": "DIF", "isStarter": true },
+      { "name": "Ruben Dias", "role": "DIF", "isStarter": true },
+      { "name": "Nathan Ake", "role": "DIF", "isStarter": true },
+      { "name": "John Stones", "role": "CEN", "isStarter": true },
+      { "name": "Rodri", "role": "CEN", "isStarter": true },
+      { "name": "Bernardo Silva", "role": "CEN", "isStarter": true },
+      { "name": "Kevin De Bruyne", "role": "CEN", "isStarter": true },
+      { "name": "Ilkay Gündogan", "role": "CEN", "isStarter": true },
+      { "name": "Jack Grealish", "role": "CEN", "isStarter": true },
+      { "name": "Erling Haaland", "role": "ATT", "isStarter": true },
+      { "name": "Phil Foden", "role": "CEN", "isStarter": false },
+      { "name": "Kyle Walker", "role": "DIF", "isStarter": false },
+      { "name": "Riyad Mahrez", "role": "ATT", "isStarter": false },
+      { "name": "Julian Alvarez", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "2002/03": {
+    "winner": "Milan",
+    "runnerUp": "Juventus",
+    "score": "0-0 (3-2 dcr)",
+    "stadium": "Old Trafford, Manchester",
+    "stats": {
+      "possession": "48% - 52%",
+      "shots": "14 - 11",
+      "shotsOnTarget": "3 - 2",
+      "corners": "10 - 5",
+      "fouls": "23 - 34"
+    },
+    "coach": "Carlo Ancelotti",
+    "roster": [
+      { "name": "Dida", "role": "POR", "isStarter": true },
+      { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Nesta", "role": "DIF", "isStarter": true },
+      { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Kakha Kaladze", "role": "DIF", "isStarter": true },
+      { "name": "Gennaro Gattuso", "role": "CEN", "isStarter": true },
+      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
+      { "name": "Clarence Seedorf", "role": "CEN", "isStarter": true },
+      { "name": "Rui Costa", "role": "CEN", "isStarter": true },
+      { "name": "Andriy Shevchenko", "role": "ATT", "isStarter": true },
+      { "name": "Filippo Inzaghi", "role": "ATT", "isStarter": true },
+      { "name": "Serginho", "role": "CEN", "isStarter": false },
+      { "name": "Roque Junior", "role": "DIF", "isStarter": false },
+      { "name": "Massimo Ambrosini", "role": "CEN", "isStarter": false }
+    ]
+  }
+}

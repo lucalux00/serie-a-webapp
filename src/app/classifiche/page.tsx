@@ -14,6 +14,7 @@ const LEAGUES = [
   { id: 'LL', name: 'La Liga',        color: '#F59E0B', flag: '🇪🇸', short: 'LL' },
   { id: 'BL', name: 'Bundesliga',     color: '#EF4444', flag: '🇩🇪', short: 'BL' },
   { id: 'L1', name: 'Ligue 1',        color: '#8B5CF6', flag: '🇫🇷', short: 'L1' },
+  { id: 'CL', name: 'Champions League', color: '#6366F1', flag: '🇪🇺', short: 'CL' },
 ];
 
 type ViewMode = 'standings' | 'scorers' | 'calendar' | 'history';

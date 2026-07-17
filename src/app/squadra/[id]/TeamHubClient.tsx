@@ -899,20 +899,65 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                   <XCircle size={20} />
                 </button>
               </div>
-
               <div className="p-6 overflow-y-auto no-scrollbar flex-1 space-y-6">
                 <div>
                   <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">Allenatore</h3>
                   <div className="text-lg font-bold text-white">{selectedTrophy.coach}</div>
                 </div>
                 <div>
-                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">Risultato / Punti</h3>
-                  <div className="text-lg font-bold text-[#F59E0B]">{selectedTrophy.points}</div>
-                </div>
-                <div className="mt-4">
-                  <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
-                    Rosa Completa
-                  </h3>
+                    <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">Risultato / Punti</h3>
+                    <div className="text-lg font-bold text-[#F59E0B]">{selectedTrophy.points}</div>
+                  </div>
+                  
+                  {/* CHAMPIONS LEAGUE / FINALE STATS */}
+                  {selectedTrophy.runnerUp && (
+                    <div className="col-span-1 sm:col-span-2 bg-[#0B1120] p-4 rounded-xl border border-[#1E293B]">
+                      <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">Dettagli Finale</h3>
+                      
+                      <div className="flex justify-between items-center bg-[#1E293B] p-4 rounded-lg mb-4">
+                        <div className="text-center w-1/3">
+                          <span className="block text-sm font-bold text-white truncate">{team.name}</span>
+                          <span className="text-xs text-[#10B981]">Vincitore</span>
+                        </div>
+                        <div className="text-center w-1/3">
+                          <span className="block text-2xl font-black text-[#F59E0B]">{selectedTrophy.score}</span>
+                        </div>
+                        <div className="text-center w-1/3">
+                          <span className="block text-sm font-bold text-[#94A3B8] truncate">{selectedTrophy.runnerUp}</span>
+                          <span className="text-xs text-[#EF4444]">Sconfitto</span>
+                        </div>
+                      </div>
+
+                      {selectedTrophy.stadium && (
+                        <div className="text-center mb-4 text-xs text-[#64748B]">
+                          📍 Stadio: <span className="text-[#94A3B8]">{selectedTrophy.stadium}</span>
+                        </div>
+                      )}
+
+                      {selectedTrophy.stats && (
+                        <div className="space-y-3">
+                          <h4 className="text-[10px] text-[#64748B] font-bold uppercase tracking-widest text-center mb-2">Statistiche Partita</h4>
+                          {Object.entries(selectedTrophy.stats).map(([key, value]) => {
+                            const [val1, val2] = (value as string).split(' - ');
+                            const label = key === 'possession' ? 'Possesso Palla' : key === 'shots' ? 'Tiri Totali' : key === 'shotsOnTarget' ? 'Tiri in Porta' : key === 'corners' ? 'Calci d\'Angolo' : key === 'fouls' ? 'Falli' : key;
+                            return (
+                              <div key={key} className="flex items-center justify-between text-xs">
+                                <span className="w-8 text-right font-bold text-white">{val1}</span>
+                                <span className="text-[#64748B] uppercase text-[10px] tracking-wider">{label}</span>
+                                <span className="w-8 text-left font-bold text-[#94A3B8]">{val2}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="mt-4 col-span-1 sm:col-span-2">
+                    <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                      Rosa Completa
+                    </h3>
+                  </div>
                   
                   {/* NUOVO FORMATO (Oggetti con ruolo e isStarter) */}
                   {selectedTrophy.roster && selectedTrophy.roster.length > 0 && typeof selectedTrophy.roster[0] === 'object' ? (
