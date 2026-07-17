@@ -26,7 +26,9 @@ def get_competition_name(sport_key, sport_title):
         'soccer_epl': 'Premier League',
         'soccer_spain_la_liga': 'La Liga',
         'soccer_germany_bundesliga': 'Bundesliga',
-        'soccer_france_ligue_one': 'Ligue 1'
+        'soccer_france_ligue_one': 'Ligue 1',
+        'soccer_friendly_international': 'Amichevoli Nazionali',
+        'soccer_friendly_club': 'Amichevoli Club'
     }
     if sport_key in mapping:
         return mapping[sport_key]
@@ -34,7 +36,7 @@ def get_competition_name(sport_key, sport_title):
         return sport_title.split(' - ')[0]
     return 'Altro'
 
-def analyze_and_pick(match):
+def analyze_and_pick(match, team_weights):
     home = match['home_team']
     away = match['away_team']
     
@@ -46,28 +48,37 @@ def analyze_and_pick(match):
     if not market or not market.get('outcomes'):
         return None
         
-    home_odds = next((o['price'] for o in market['outcomes'] if o['name'] == home), 2.5)
-    away_odds = next((o['price'] for o in market['outcomes'] if o['name'] == away), 2.5)
-    draw_odds = next((o['price'] for o in market['outcomes'] if o['name'] == 'Draw'), 3.0)
+    base_home_odds = next((o['price'] for o in market['outcomes'] if o['name'] == home), 2.5)
+    base_away_odds = next((o['price'] for o in market['outcomes'] if o['name'] == away), 2.5)
+    base_draw_odds = next((o['price'] for o in market['outcomes'] if o['name'] == 'Draw'), 3.0)
+    
+    # Applichiamo i pesi imparati dal Feedback Loop!
+    # Se form_rating > 1, la squadra è "prevedibile/solida", la quota base si fida di più
+    home_weight = float(team_weights.get(home, 1.0))
+    away_weight = float(team_weights.get(away, 1.0))
+    
+    home_odds = base_home_odds / home_weight
+    away_odds = base_away_odds / away_weight
+    draw_odds = base_draw_odds
     
     pick = ''
     final_odds = 0
     
     if home_odds < 1.55:
         pick = '1'
-        final_odds = home_odds
+        final_odds = base_home_odds
     elif away_odds < 1.55:
         pick = '2'
-        final_odds = away_odds
+        final_odds = base_away_odds
     elif home_odds < 2.0 and away_odds > 3.0:
         pick = '1X'
-        final_odds = max(1.15, home_odds - 0.4)
+        final_odds = max(1.15, base_home_odds - 0.4)
     elif away_odds < 2.0 and home_odds > 3.0:
         pick = 'X2'
-        final_odds = max(1.15, away_odds - 0.4)
+        final_odds = max(1.15, base_away_odds - 0.4)
     elif draw_odds < 3.20:
         pick = 'X'
-        final_odds = draw_odds
+        final_odds = base_draw_odds
     else:
         pick = 'Gol'
         final_odds = 1.75
@@ -88,7 +99,20 @@ def main():
         print("POSTGRES_URL environment variable is not set. Exiting.")
         return
 
-    print("Inizio estrazione dati the-odds-api...")
+    team_weights = {}
+    conn = None
+    cur = None
+    try:
+        conn = psycopg2.connect(DB_URL)
+        cur = conn.cursor()
+        # Leggiamo i pesi imparati dal passato
+        cur.execute("SELECT team_name, form_rating FROM ml_team_weights")
+        for row in cur.fetchall():
+            team_weights[row[0]] = row[1]
+    except Exception as e:
+        print(f"Non ho potuto caricare i pesi di auto-apprendimento: {e}. Uso pesi standard (1.0).")
+
+    print("Inizio estrazione dati the-odds-api (incluse Amichevoli per Studio)...")
     sports = [
         'soccer_italy_serie_a', 
         'soccer_uefa_champs_league', 
@@ -96,7 +120,9 @@ def main():
         'soccer_epl',
         'soccer_spain_la_liga',
         'soccer_germany_bundesliga',
-        'soccer_france_ligue_one'
+        'soccer_france_ligue_one',
+        'soccer_friendly_international',
+        'soccer_friendly_club'
     ]
     all_raw_data = []
     for sport in sports:
@@ -105,7 +131,7 @@ def main():
     print(f"Trovate {len(all_raw_data)} partite grezze. Filtraggio in corso...")
     
     valid_picks = []
-    next_week_aware = datetime.now().astimezone() + timedelta(days=45) # 45 giorni per trovare partite in estate
+    next_week_aware = datetime.now().astimezone() + timedelta(days=45)
     
     for match in all_raw_data:
         if match.get('sport_key') and not match['sport_key'].startswith('soccer_'):
@@ -114,7 +140,7 @@ def main():
         try:
             commence_time = datetime.fromisoformat(match['commence_time'].replace('Z', '+00:00'))
             if commence_time < next_week_aware:
-                pick_data = analyze_and_pick(match)
+                pick_data = analyze_and_pick(match, team_weights)
                 if pick_data:
                     valid_picks.append(pick_data)
         except Exception as e:
@@ -125,9 +151,10 @@ def main():
     print(f"Elaborate {len(unique_picks)} previsioni uniche. Salvataggio su Vercel Postgres...")
     
     try:
-        conn = psycopg2.connect(DB_URL)
-        cur = conn.cursor()
-        
+        if not conn:
+            conn = psycopg2.connect(DB_URL)
+            cur = conn.cursor()
+            
         cur.execute("DELETE FROM ml_predictions;")
         
         insert_query = """
@@ -142,19 +169,16 @@ def main():
                 p['pick'],
                 p['odds'],
                 p['commence_time'],
-                'v1.0_heuristic'
+                'v2.0_auto_learning'
             ))
             
         conn.commit()
         print(f"SUCCESSO: Inserite {len(unique_picks)} previsioni nel database.")
-        
     except Exception as e:
         print(f"ERRORE Database: {e}")
     finally:
-        if 'cur' in locals():
-            cur.close()
-        if 'conn' in locals():
-            conn.close()
+        if cur: cur.close()
+        if conn: conn.close()
 
 if __name__ == "__main__":
     main()

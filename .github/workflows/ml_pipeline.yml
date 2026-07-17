@@ -28,8 +28,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r webapp/scripts/ml/requirements.txt
         
-    - name: Run MLOps Algorithm
+    - name: Run MLOps Algorithm (Feedback Loop & Prediction)
       env:
         POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       run: |
+        python webapp/scripts/ml/feedback_loop.py
         python webapp/scripts/ml/train_and_predict.py
