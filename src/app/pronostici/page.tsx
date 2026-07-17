@@ -8,7 +8,6 @@ import { getTeamLogoUrl } from '@/utils/teamLogos';
 export default function PronosticiPage() {
   const bookmakerName = "SNAI";
   const affiliateLink = "https://www.snai.it/";
-  const baseBetAmount = 10;
 
   const [singlePredictions, setSinglePredictions] = useState<any[]>([]);
   const [bollette, setBollette] = useState<any[]>([]);
@@ -136,8 +135,8 @@ export default function PronosticiPage() {
                   </div>
 
                   <div className="flex justify-between items-center mb-5 bg-[#0B1120] p-3 rounded-xl border border-[#334155]/50">
-                    <span className="text-xs text-[#94A3B8] font-bold">Ritorno potenziale con {baseBetAmount}€</span>
-                    <span className="font-black text-xl text-[#10B981]">~ {(bolletta.totalOdds * baseBetAmount).toFixed(2)}€</span>
+                    <span className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Moltiplicatore Totale</span>
+                    <span className="font-black text-xl text-[#10B981]">{bolletta.totalOdds.toFixed(2)}x</span>
                   </div>
 
                   <a 
