@@ -1,0 +1,200 @@
+[
+    {
+        "team_id": "napoli",
+        "type": "Acquisto",
+        "player": "Alessandro Buongiorno",
+        "otherTeam": "Torino",
+        "fee": "35M €",
+        "date": "13 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "napoli",
+        "type": "Acquisto",
+        "player": "Rafa Marin",
+        "otherTeam": "Real Madrid",
+        "fee": "12M €",
+        "date": "10 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "napoli",
+        "type": "Acquisto",
+        "player": "Leonardo Spinazzola",
+        "otherTeam": "Svincolato",
+        "fee": "0",
+        "date": "8 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "napoli",
+        "type": "Cessione",
+        "player": "Piotr Zielinski",
+        "otherTeam": "Inter",
+        "fee": "0 (Scadenza)",
+        "date": "1 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "napoli",
+        "type": "Trattativa",
+        "player": "Romelu Lukaku",
+        "otherTeam": "Chelsea",
+        "fee": "30M €",
+        "date": "17 Luglio 2026",
+        "status": "In Corso"
+    },
+    {
+        "team_id": "juventus",
+        "type": "Acquisto",
+        "player": "Douglas Luiz",
+        "otherTeam": "Aston Villa",
+        "fee": "51M €",
+        "date": "30 Giugno 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "juventus",
+        "type": "Acquisto",
+        "player": "Khephren Thuram",
+        "otherTeam": "Nizza",
+        "fee": "20M €",
+        "date": "10 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "juventus",
+        "type": "Acquisto",
+        "player": "Michele Di Gregorio",
+        "otherTeam": "Monza",
+        "fee": "18M €",
+        "date": "5 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "juventus",
+        "type": "Cessione",
+        "player": "Adrien Rabiot",
+        "otherTeam": "Svincolato",
+        "fee": "0",
+        "date": "30 Giugno 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "juventus",
+        "type": "Trattativa",
+        "player": "Teun Koopmeiners",
+        "otherTeam": "Atalanta",
+        "fee": "60M €",
+        "date": "17 Luglio 2026",
+        "status": "In Corso"
+    },
+    {
+        "team_id": "inter",
+        "type": "Acquisto",
+        "player": "Mehdi Taremi",
+        "otherTeam": "Porto",
+        "fee": "0",
+        "date": "7 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "inter",
+        "type": "Acquisto",
+        "player": "Piotr Zielinski",
+        "otherTeam": "Napoli",
+        "fee": "0",
+        "date": "6 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "inter",
+        "type": "Acquisto",
+        "player": "Josep Martinez",
+        "otherTeam": "Genoa",
+        "fee": "13.5M €",
+        "date": "9 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "milan",
+        "type": "Acquisto",
+        "player": "Alvaro Morata",
+        "otherTeam": "Atlético Madrid",
+        "fee": "13M €",
+        "date": "19 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "milan",
+        "type": "Trattativa",
+        "player": "Strahinja Pavlovic",
+        "otherTeam": "RB Salisburgo",
+        "fee": "20M €",
+        "date": "17 Luglio 2026",
+        "status": "In Corso"
+    },
+    {
+        "team_id": "milan",
+        "type": "Cessione",
+        "player": "Olivier Giroud",
+        "otherTeam": "LAFC",
+        "fee": "0",
+        "date": "1 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "roma",
+        "type": "Acquisto",
+        "player": "Enzo Le Fée",
+        "otherTeam": "Rennes",
+        "fee": "23M €",
+        "date": "10 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "roma",
+        "type": "Trattativa",
+        "player": "Matias Soulé",
+        "otherTeam": "Juventus",
+        "fee": "30M €",
+        "date": "17 Luglio 2026",
+        "status": "In Corso"
+    },
+    {
+        "team_id": "lazio",
+        "type": "Acquisto",
+        "player": "Loum Tchaouna",
+        "otherTeam": "Salernitana",
+        "fee": "8M €",
+        "date": "1 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "lazio",
+        "type": "Cessione",
+        "player": "Ciro Immobile",
+        "otherTeam": "Besiktas",
+        "fee": "3M €",
+        "date": "12 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "atalanta",
+        "type": "Acquisto",
+        "player": "Niccolò Zaniolo",
+        "otherTeam": "Galatasaray",
+        "fee": "Prestito",
+        "date": "5 Luglio 2026",
+        "status": "Ufficiale"
+    },
+    {
+        "team_id": "atalanta",
+        "type": "Acquisto",
+        "player": "Ben Godfrey",
+        "otherTeam": "Everton",
+        "fee": "12M €",
+        "date": "2 Luglio 2026",
+        "status": "Ufficiale"
+    }
+]

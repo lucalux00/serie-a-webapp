@@ -9,7 +9,6 @@ import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
-import { TEAM_RUMORS } from '@/data/rumors';
 import { getTeamLogoUrl } from '@/utils/teamLogos';
 
 // Componente Partite con dati reali da football-data.org
@@ -629,17 +628,16 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                       )}
 
                       {teamMercatoFilter === 'trattative' && (() => {
-                        const teamKey = Object.keys(TEAM_RUMORS).find(k => team.name?.toLowerCase().includes(k.toLowerCase()));
-                        const rumors = teamKey ? TEAM_RUMORS[teamKey] : [];
+                        const rumors = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('trattativa') || t.type.toLowerCase().includes('rumor'));
 
                         return (
                         <div className="grid grid-cols-1 gap-3">
                           {rumors.length > 0 && (
                             <>
                               <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                                <Clock size={16} className="mr-2" /> Calciomercato {teamKey}
+                                <Clock size={16} className="mr-2" /> Calciomercato {team.name}
                               </h2>
-                              {rumors.map((r, idx) => (
+                              {rumors.map((r: any, idx: number) => (
                                 <div key={idx} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
                                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
                                   <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
@@ -654,7 +652,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                                   <div className="pl-2">
                                     <div className="font-black text-lg text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
                                     <div className="flex justify-between items-center mt-2 text-xs">
-                                      <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{r.from}</strong></span>
+                                      <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{r.otherTeam || r.from}</strong></span>
                                     </div>
                                     <div className="flex justify-between items-center mt-1 text-xs border-t border-[#334155] pt-1">
                                       <span className="text-[#94A3B8] font-medium">Valutazione:</span>
@@ -664,6 +662,9 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                                 </div>
                               ))}
                             </>
+                          )}
+                          {rumors.length === 0 && (
+                             <div className="text-sm text-[#64748B] p-4">Nessun rumor o trattativa confermata in questo momento.</div>
                           )}
                           <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2 mt-4">
                             <ArrowRightLeft size={16} className="mr-2" /> Mercato Globale (Feed X)

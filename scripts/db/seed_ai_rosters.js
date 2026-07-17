@@ -1,6 +1,5 @@
 const { db } = require('@vercel/postgres');
 const fs = require('fs');
-require('dotenv').config({ path: '.env' });
 require('dotenv').config({ path: '.env.local' });
 
 async function seed() {
@@ -30,6 +29,9 @@ async function seed() {
             inserted++;
         }
         console.log(`✅ Inseriti ${inserted} giocatori aggiornati a Luglio 2026.`);
+
+        const res = await client.sql`SELECT count(*) FROM players`;
+        console.log("VERIFICA COUNT DOPO INSERT:", res.rows[0].count);
 
     } catch(e) {
         console.error("Errore fatale:", e);
