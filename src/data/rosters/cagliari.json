@@ -1,0 +1,19 @@
+{
+  "1969/70": {
+    "coach": "Manlio Scopigno",
+    "points": "45",
+    "roster": [
+      { "name": "Enrico Albertosi", "role": "POR", "isStarter": true },
+      { "name": "Mario Martiradonna", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Tomasini", "role": "DIF", "isStarter": true },
+      { "name": "Pierluigi Cera", "role": "DIF", "isStarter": true },
+      { "name": "Eraldo Mancin", "role": "DIF", "isStarter": true },
+      { "name": "Mario Brugnera", "role": "CEN", "isStarter": true },
+      { "name": "Nenè", "role": "CEN", "isStarter": true },
+      { "name": "Ricciotti Greatti", "role": "CEN", "isStarter": true },
+      { "name": "Angelo Domenghini", "role": "ATT", "isStarter": true },
+      { "name": "Sergio Gori", "role": "ATT", "isStarter": true },
+      { "name": "Gigi Riva", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

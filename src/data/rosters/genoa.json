@@ -1,0 +1,87 @@
+{
+  "1923/24": {
+    "coach": "William Garbutt",
+    "points": "Girone Finale",
+    "roster": [
+      { "name": "Giovanni De Prà", "role": "POR", "isStarter": true },
+      { "name": "Delfo Bellini", "role": "DIF", "isStarter": true },
+      { "name": "Renzo De Vecchi", "role": "DIF", "isStarter": true },
+      { "name": "Ottavio Barbieri", "role": "CEN", "isStarter": true },
+      { "name": "Luigi Burlando", "role": "CEN", "isStarter": true },
+      { "name": "Ettore Leale", "role": "CEN", "isStarter": true },
+      { "name": "Edoardo Catto", "role": "ATT", "isStarter": true },
+      { "name": "Aristodemo Santamaria", "role": "ATT", "isStarter": true },
+      { "name": "Edoardo Mariani", "role": "ATT", "isStarter": true },
+      { "name": "Cesare Alberti", "role": "ATT", "isStarter": true },
+      { "name": "Domenico Neri", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1922/23": {
+    "coach": "William Garbutt",
+    "points": "Girone Finale",
+    "roster": [
+      { "name": "Giovanni De Prà", "role": "POR", "isStarter": true },
+      { "name": "Delfo Bellini", "role": "DIF", "isStarter": true },
+      { "name": "Renzo De Vecchi", "role": "DIF", "isStarter": true },
+      { "name": "Ottavio Barbieri", "role": "CEN", "isStarter": true },
+      { "name": "Luigi Burlando", "role": "CEN", "isStarter": true },
+      { "name": "Ettore Leale", "role": "CEN", "isStarter": true },
+      { "name": "Edoardo Catto", "role": "ATT", "isStarter": true },
+      { "name": "Aristodemo Santamaria", "role": "ATT", "isStarter": true },
+      { "name": "Edoardo Mariani", "role": "ATT", "isStarter": true },
+      { "name": "Cesare Alberti", "role": "ATT", "isStarter": true },
+      { "name": "Domenico Neri", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1914/15": {
+    "coach": "William Garbutt",
+    "points": "Girone Finale (Assegnato d'ufficio)",
+    "roster": [
+      { "name": "Giacomo Rolla", "role": "POR", "isStarter": true },
+      { "name": "Renzo De Vecchi", "role": "DIF", "isStarter": true },
+      { "name": "Claudio Casanova", "role": "DIF", "isStarter": true },
+      { "name": "Pietro Pella", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Magni", "role": "CEN", "isStarter": true },
+      { "name": "Ettore Leale", "role": "CEN", "isStarter": true },
+      { "name": "Luigi Benvenuto", "role": "CEN", "isStarter": true },
+      { "name": "Edoardo Mariani", "role": "ATT", "isStarter": true },
+      { "name": "Aristodemo Santamaria", "role": "ATT", "isStarter": true },
+      { "name": "Percy Walsingham", "role": "ATT", "isStarter": true },
+      { "name": "Enrico Sardi", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1904": {
+    "coach": "Karl Senft",
+    "points": "Finale Diretta",
+    "roster": [
+      { "name": "James Spensley", "role": "POR", "isStarter": true },
+      { "name": "Paolo Rossi", "role": "DIF", "isStarter": true },
+      { "name": "Edoardo Pasteur", "role": "DIF", "isStarter": true },
+      { "name": "Karl Senft", "role": "DIF", "isStarter": true },
+      { "name": "Howard Passadoro", "role": "CEN", "isStarter": true },
+      { "name": "Ernesto Pasteur", "role": "CEN", "isStarter": true },
+      { "name": "Vieri Arnaldi", "role": "CEN", "isStarter": true },
+      { "name": "Giovanni Foffani", "role": "ATT", "isStarter": true },
+      { "name": "Edoardo Bosisio", "role": "ATT", "isStarter": true },
+      { "name": "Attilio Salvadè", "role": "ATT", "isStarter": true },
+      { "name": "Joseph William Agar", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1898": {
+    "coach": "James Spensley",
+    "points": "Torneo di un giorno",
+    "roster": [
+      { "name": "William Baird", "role": "POR", "isStarter": true },
+      { "name": "Ernesto De Galleani", "role": "DIF", "isStarter": true },
+      { "name": "Fausto Ghigliotti", "role": "DIF", "isStarter": true },
+      { "name": "James Spensley", "role": "DIF", "isStarter": true },
+      { "name": "Edoardo Pasteur", "role": "CEN", "isStarter": true },
+      { "name": "Giovanni Bocciardo", "role": "CEN", "isStarter": true },
+      { "name": "Enrico Pasteur", "role": "CEN", "isStarter": true },
+      { "name": "Silvio Piero Bertollo", "role": "ATT", "isStarter": true },
+      { "name": "John Quertier Le Pelley", "role": "ATT", "isStarter": true },
+      { "name": "Henri Dapples", "role": "ATT", "isStarter": true },
+      { "name": "Hermann Hülsebosch", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "2023/24": {
+    "coach": "Simone Inzaghi",
+    "points": "94",
+    "roster": [
+      { "name": "Yann Sommer", "role": "POR", "isStarter": true },
+      { "name": "Benjamin Pavard", "role": "DIF", "isStarter": true },
+      { "name": "Francesco Acerbi", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Bastoni", "role": "DIF", "isStarter": true },
+      { "name": "Matteo Darmian", "role": "CEN", "isStarter": true },
+      { "name": "Nicolo Barella", "role": "CEN", "isStarter": true },
+      { "name": "Hakan Calhanoglu", "role": "CEN", "isStarter": true },
+      { "name": "Henrikh Mkhitaryan", "role": "CEN", "isStarter": true },
+      { "name": "Federico Dimarco", "role": "CEN", "isStarter": true },
+      { "name": "Marcus Thuram", "role": "ATT", "isStarter": true },
+      { "name": "Lautaro Martinez", "role": "ATT", "isStarter": true },
+      { "name": "Davide Frattesi", "role": "CEN", "isStarter": false },
+      { "name": "Carlos Augusto", "role": "DIF", "isStarter": false }
+    ]
+  },
+  "2020/21": {
+    "coach": "Antonio Conte",
+    "points": "91",
+    "roster": [
+      { "name": "Samir Handanovic", "role": "POR", "isStarter": true },
+      { "name": "Milan Skriniar", "role": "DIF", "isStarter": true },
+      { "name": "Stefan de Vrij", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Bastoni", "role": "DIF", "isStarter": true },
+      { "name": "Achraf Hakimi", "role": "CEN", "isStarter": true },
+      { "name": "Nicolo Barella", "role": "CEN", "isStarter": true },
+      { "name": "Marcelo Brozovic", "role": "CEN", "isStarter": true },
+      { "name": "Christian Eriksen", "role": "CEN", "isStarter": true },
+      { "name": "Ivan Perisic", "role": "CEN", "isStarter": true },
+      { "name": "Romelu Lukaku", "role": "ATT", "isStarter": true },
+      { "name": "Lautaro Martinez", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2009/10": {
+    "coach": "Josè Mourinho",
+    "points": "82",
+    "roster": [
+      { "name": "Julio Cesar", "role": "POR", "isStarter": true },
+      { "name": "Maicon", "role": "DIF", "isStarter": true },
+      { "name": "Lucio", "role": "DIF", "isStarter": true },
+      { "name": "Walter Samuel", "role": "DIF", "isStarter": true },
+      { "name": "Cristian Chivu", "role": "DIF", "isStarter": true },
+      { "name": "Javier Zanetti", "role": "CEN", "isStarter": true },
+      { "name": "Esteban Cambiasso", "role": "CEN", "isStarter": true },
+      { "name": "Wesley Sneijder", "role": "CEN", "isStarter": true },
+      { "name": "Goran Pandev", "role": "ATT", "isStarter": true },
+      { "name": "Samuel Eto'o", "role": "ATT", "isStarter": true },
+      { "name": "Diego Milito", "role": "ATT", "isStarter": true },
+      { "name": "Dejan Stankovic", "role": "CEN", "isStarter": false },
+      { "name": "Mario Balotelli", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "2008/09": {
+    "coach": "Josè Mourinho",
+    "points": "84",
+    "roster": [
+      { "name": "Julio Cesar", "role": "POR", "isStarter": true },
+      { "name": "Maicon", "role": "DIF", "isStarter": true },
+      { "name": "Ivan Cordoba", "role": "DIF", "isStarter": true },
+      { "name": "Walter Samuel", "role": "DIF", "isStarter": true },
+      { "name": "Maxwell", "role": "DIF", "isStarter": true },
+      { "name": "Javier Zanetti", "role": "CEN", "isStarter": true },
+      { "name": "Esteban Cambiasso", "role": "CEN", "isStarter": true },
+      { "name": "Sulley Muntari", "role": "CEN", "isStarter": true },
+      { "name": "Dejan Stankovic", "role": "CEN", "isStarter": true },
+      { "name": "Zlatan Ibrahimovic", "role": "ATT", "isStarter": true },
+      { "name": "Mario Balotelli", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2007/08": {
+    "coach": "Roberto Mancini",
+    "points": "85",
+    "roster": [
+      { "name": "Julio Cesar", "role": "POR", "isStarter": true },
+      { "name": "Maicon", "role": "DIF", "isStarter": true },
+      { "name": "Ivan Cordoba", "role": "DIF", "isStarter": true },
+      { "name": "Cristian Chivu", "role": "DIF", "isStarter": true },
+      { "name": "Maxwell", "role": "DIF", "isStarter": true },
+      { "name": "Javier Zanetti", "role": "CEN", "isStarter": true },
+      { "name": "Esteban Cambiasso", "role": "CEN", "isStarter": true },
+      { "name": "Dejan Stankovic", "role": "CEN", "isStarter": true },
+      { "name": "Julio Cruz", "role": "ATT", "isStarter": true },
+      { "name": "Zlatan Ibrahimovic", "role": "ATT", "isStarter": true },
+      { "name": "Hernan Crespo", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "2006/07": {
+    "coach": "Roberto Mancini",
+    "points": "97",
+    "roster": [
+      { "name": "Julio Cesar", "role": "POR", "isStarter": true },
+      { "name": "Maicon", "role": "DIF", "isStarter": true },
+      { "name": "Ivan Cordoba", "role": "DIF", "isStarter": true },
+      { "name": "Marco Materazzi", "role": "DIF", "isStarter": true },
+      { "name": "Javier Zanetti", "role": "DIF", "isStarter": true },
+      { "name": "Patrick Vieira", "role": "CEN", "isStarter": true },
+      { "name": "Esteban Cambiasso", "role": "CEN", "isStarter": true },
+      { "name": "Dejan Stankovic", "role": "CEN", "isStarter": true },
+      { "name": "Luis Figo", "role": "CEN", "isStarter": true },
+      { "name": "Zlatan Ibrahimovic", "role": "ATT", "isStarter": true },
+      { "name": "Hernan Crespo", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1988/89": {
+    "coach": "Giovanni Trapattoni",
+    "points": "58",
+    "roster": [
+      { "name": "Walter Zenga", "role": "POR", "isStarter": true },
+      { "name": "Giuseppe Bergomi", "role": "DIF", "isStarter": true },
+      { "name": "Corrado Verdelli", "role": "DIF", "isStarter": true },
+      { "name": "Riccardo Ferri", "role": "DIF", "isStarter": true },
+      { "name": "Andreas Brehme", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Bianchi", "role": "CEN", "isStarter": true },
+      { "name": "Lothar Matthaus", "role": "CEN", "isStarter": true },
+      { "name": "Gianfranco Matteoli", "role": "CEN", "isStarter": true },
+      { "name": "Nicola Berti", "role": "CEN", "isStarter": true },
+      { "name": "Ramon Diaz", "role": "ATT", "isStarter": true },
+      { "name": "Aldo Serena", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

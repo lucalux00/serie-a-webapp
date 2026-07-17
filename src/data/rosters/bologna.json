@@ -1,0 +1,36 @@
+{
+  "1963/64": {
+    "coach": "Fulvio Bernardini",
+    "points": "54",
+    "roster": [
+      { "name": "William Negri", "role": "POR", "isStarter": true },
+      { "name": "Carlo Furlanis", "role": "DIF", "isStarter": true },
+      { "name": "Mirko Pavinato", "role": "DIF", "isStarter": true },
+      { "name": "Paride Tumburus", "role": "DIF", "isStarter": true },
+      { "name": "Francesco Janich", "role": "DIF", "isStarter": true },
+      { "name": "Romano Fogli", "role": "CEN", "isStarter": true },
+      { "name": "Giacomo Bulgarelli", "role": "CEN", "isStarter": true },
+      { "name": "Helmut Haller", "role": "CEN", "isStarter": true },
+      { "name": "Marino Perani", "role": "ATT", "isStarter": true },
+      { "name": "Harald Nielsen", "role": "ATT", "isStarter": true },
+      { "name": "Ezio Pascutti", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1940/41": {
+    "coach": "Hermann Felsner",
+    "points": "39",
+    "roster": [
+      { "name": "Pietro Ferrari", "role": "POR", "isStarter": true },
+      { "name": "Mario Pagotto", "role": "DIF", "isStarter": true },
+      { "name": "Secondo Ricci", "role": "DIF", "isStarter": true },
+      { "name": "Dino Fiorini", "role": "DIF", "isStarter": true },
+      { "name": "Aurelio Marchese", "role": "DIF", "isStarter": true },
+      { "name": "Mario Montesanto", "role": "CEN", "isStarter": true },
+      { "name": "Michele Andreolo", "role": "CEN", "isStarter": true },
+      { "name": "Amedeo Biavati", "role": "CEN", "isStarter": true },
+      { "name": "Hector Puricelli", "role": "ATT", "isStarter": true },
+      { "name": "Raffaele Sansone", "role": "ATT", "isStarter": true },
+      { "name": "Carlo Reguzzoni", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

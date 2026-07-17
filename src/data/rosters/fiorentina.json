@@ -1,0 +1,37 @@
+{
+  "1968/69": {
+    "coach": "Bruno Pesaola",
+    "points": "45",
+    "roster": [
+      { "name": "Franco Superchi", "role": "POR", "isStarter": true },
+      { "name": "Bernardo Rogora", "role": "DIF", "isStarter": true },
+      { "name": "Eraldo Mancin", "role": "DIF", "isStarter": true },
+      { "name": "Ugo Ferrante", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Brizi", "role": "DIF", "isStarter": true },
+      { "name": "Salvatore Esposito", "role": "CEN", "isStarter": true },
+      { "name": "Claudio Merlo", "role": "CEN", "isStarter": true },
+      { "name": "Giancarlo De Sisti", "role": "CEN", "isStarter": true },
+      { "name": "Luciano Chiarugi", "role": "ATT", "isStarter": true },
+      { "name": "Mario Maraschi", "role": "ATT", "isStarter": true },
+      { "name": "Amarildo", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1955/56": {
+    "coach": "Fulvio Bernardini",
+    "points": "53",
+    "roster": [
+      { "name": "Giuliano Sarti", "role": "POR", "isStarter": true },
+      { "name": "Ardico Magnini", "role": "DIF", "isStarter": true },
+      { "name": "Sergio Cervato", "role": "DIF", "isStarter": true },
+      { "name": "Francesco Rosetta", "role": "DIF", "isStarter": true },
+      { "name": "Alberto Orzan", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Chiappella", "role": "CEN", "isStarter": true },
+      { "name": "Maurilio Prini", "role": "CEN", "isStarter": true },
+      { "name": "Armando Segato", "role": "CEN", "isStarter": true },
+      { "name": "Guido Gratton", "role": "ATT", "isStarter": true },
+      { "name": "Julinho", "role": "ATT", "isStarter": true },
+      { "name": "Miguel Montuori", "role": "ATT", "isStarter": true },
+      { "name": "Giuseppe Virgili", "role": "ATT", "isStarter": false }
+    ]
+  }
+}

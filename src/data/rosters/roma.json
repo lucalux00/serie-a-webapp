@@ -1,0 +1,54 @@
+{
+  "2000/01": {
+    "coach": "Fabio Capello",
+    "points": "75",
+    "roster": [
+      { "name": "Francesco Antonioli", "role": "POR", "isStarter": true },
+      { "name": "Zago", "role": "DIF", "isStarter": true },
+      { "name": "Walter Samuel", "role": "DIF", "isStarter": true },
+      { "name": "Aldair", "role": "DIF", "isStarter": true },
+      { "name": "Cafu", "role": "DIF", "isStarter": true },
+      { "name": "Vincent Candela", "role": "DIF", "isStarter": true },
+      { "name": "Damiano Tommasi", "role": "CEN", "isStarter": true },
+      { "name": "Cristiano Zanetti", "role": "CEN", "isStarter": true },
+      { "name": "Francesco Totti", "role": "CEN", "isStarter": true },
+      { "name": "Gabriel Batistuta", "role": "ATT", "isStarter": true },
+      { "name": "Marco Delvecchio", "role": "ATT", "isStarter": true },
+      { "name": "Vincenzo Montella", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "1982/83": {
+    "coach": "Nils Liedholm",
+    "points": "43",
+    "roster": [
+      { "name": "Franco Tancredi", "role": "POR", "isStarter": true },
+      { "name": "Pietro Vierchowod", "role": "DIF", "isStarter": true },
+      { "name": "Aldo Maldera", "role": "DIF", "isStarter": true },
+      { "name": "Sebastiano Nela", "role": "DIF", "isStarter": true },
+      { "name": "Agostino Di Bartolomei", "role": "DIF", "isStarter": true },
+      { "name": "Carlo Ancelotti", "role": "CEN", "isStarter": true },
+      { "name": "Paulo Roberto Falcao", "role": "CEN", "isStarter": true },
+      { "name": "Herbert Prohaska", "role": "CEN", "isStarter": true },
+      { "name": "Bruno Conti", "role": "ATT", "isStarter": true },
+      { "name": "Roberto Pruzzo", "role": "ATT", "isStarter": true },
+      { "name": "Maurizio Iorio", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1941/42": {
+    "coach": "Alfred Schaffer",
+    "points": "42",
+    "roster": [
+      { "name": "Guido Masetti", "role": "POR", "isStarter": true },
+      { "name": "Mario De Grassi", "role": "DIF", "isStarter": true },
+      { "name": "Luigi Brunella", "role": "DIF", "isStarter": true },
+      { "name": "Renato Pastore", "role": "DIF", "isStarter": true },
+      { "name": "Aldo Donati", "role": "CEN", "isStarter": true },
+      { "name": "Paolo Jacobini", "role": "CEN", "isStarter": true },
+      { "name": "Aristide Coscia", "role": "CEN", "isStarter": true },
+      { "name": "Giuseppe Bonomi", "role": "CEN", "isStarter": true },
+      { "name": "Amedeo Amadei", "role": "ATT", "isStarter": true },
+      { "name": "Naim Krieziu", "role": "ATT", "isStarter": true },
+      { "name": "Miguel Angel Pantò", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

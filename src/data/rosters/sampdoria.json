@@ -1,0 +1,20 @@
+{
+  "1990/91": {
+    "coach": "Vujadin Boskov",
+    "points": "51",
+    "roster": [
+      { "name": "Gianluca Pagliuca", "role": "POR", "isStarter": true },
+      { "name": "Moreno Mannini", "role": "DIF", "isStarter": true },
+      { "name": "Pietro Vierchowod", "role": "DIF", "isStarter": true },
+      { "name": "Luca Pellegrini", "role": "DIF", "isStarter": true },
+      { "name": "Marco Lanna", "role": "DIF", "isStarter": true },
+      { "name": "Attilio Lombardo", "role": "CEN", "isStarter": true },
+      { "name": "Fausto Pari", "role": "CEN", "isStarter": true },
+      { "name": "Toninho Cerezo", "role": "CEN", "isStarter": true },
+      { "name": "Srecko Katanec", "role": "CEN", "isStarter": true },
+      { "name": "Ivano Bonetti", "role": "CEN", "isStarter": false },
+      { "name": "Gianluca Vialli", "role": "ATT", "isStarter": true },
+      { "name": "Roberto Mancini", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

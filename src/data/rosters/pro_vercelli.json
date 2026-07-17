@@ -1,0 +1,36 @@
+{
+  "1921/22": {
+    "coach": "Guido Ara",
+    "points": "Girone Finale",
+    "roster": [
+      { "name": "Mario Curti", "role": "POR", "isStarter": true },
+      { "name": "Virginio Rosetta", "role": "DIF", "isStarter": true },
+      { "name": "Piero Bossola", "role": "DIF", "isStarter": true },
+      { "name": "Antonio Bodo", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Parodi", "role": "CEN", "isStarter": true },
+      { "name": "Perino", "role": "CEN", "isStarter": true },
+      { "name": "Guido Ara", "role": "CEN", "isStarter": true },
+      { "name": "Francesco Mattuteia", "role": "CEN", "isStarter": true },
+      { "name": "Arturo Gay", "role": "ATT", "isStarter": true },
+      { "name": "Pio Ferraris", "role": "ATT", "isStarter": true },
+      { "name": "Alessandro Rampini", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1908": {
+    "coach": "Marcello Bertinetti",
+    "points": "Girone Finale",
+    "roster": [
+      { "name": "Giovanni Innocenti", "role": "POR", "isStarter": true },
+      { "name": "Angelo Binaschi", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Servetto", "role": "DIF", "isStarter": true },
+      { "name": "Guido Ara", "role": "CEN", "isStarter": true },
+      { "name": "Giuseppe Milano", "role": "CEN", "isStarter": true },
+      { "name": "Pietro Leone", "role": "CEN", "isStarter": true },
+      { "name": "Romolo Boglietti", "role": "ATT", "isStarter": true },
+      { "name": "Marcello Bertinetti", "role": "ATT", "isStarter": true },
+      { "name": "Vincenzo Fresia", "role": "ATT", "isStarter": true },
+      { "name": "Annibale Visconti", "role": "ATT", "isStarter": true },
+      { "name": "Carlo Rampini", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "1913/14": {
+    "coach": "N/A",
+    "points": "Girone Finale",
+    "roster": [
+      { "name": "Gallina", "role": "POR", "isStarter": true },
+      { "name": "Attilio Maggiani", "role": "DIF", "isStarter": true },
+      { "name": "Mario Sciava", "role": "DIF", "isStarter": true },
+      { "name": "Luigi Barbesino", "role": "CEN", "isStarter": true },
+      { "name": "Giuseppe Parodi", "role": "CEN", "isStarter": true },
+      { "name": "Pietro Rosa", "role": "CEN", "isStarter": true },
+      { "name": "Clemente Caire", "role": "ATT", "isStarter": true },
+      { "name": "Varese", "role": "ATT", "isStarter": true },
+      { "name": "Giovanni Gallina", "role": "ATT", "isStarter": true },
+      { "name": "Amedeo Varese", "role": "ATT", "isStarter": true },
+      { "name": "Guglielmo Mattea", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

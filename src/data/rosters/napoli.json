@@ -1,0 +1,72 @@
+{
+  "2024/25": {
+    "coach": "Antonio Conte",
+    "points": "In corso",
+    "roster": [
+      { "name": "Alex Meret", "role": "POR", "isStarter": true },
+      { "name": "Giovanni Di Lorenzo", "role": "DIF", "isStarter": true },
+      { "name": "Amir Rrahmani", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Buongiorno", "role": "DIF", "isStarter": true },
+      { "name": "Mathias Olivera", "role": "DIF", "isStarter": true },
+      { "name": "Stanislav Lobotka", "role": "CEN", "isStarter": true },
+      { "name": "Frank Anguissa", "role": "CEN", "isStarter": true },
+      { "name": "Scott McTominay", "role": "CEN", "isStarter": true },
+      { "name": "Khvicha Kvaratskhelia", "role": "ATT", "isStarter": true },
+      { "name": "Matteo Politano", "role": "ATT", "isStarter": true },
+      { "name": "Romelu Lukaku", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2022/23": {
+    "coach": "Luciano Spalletti",
+    "points": "90",
+    "roster": [
+      { "name": "Alex Meret", "role": "POR", "isStarter": true },
+      { "name": "Giovanni Di Lorenzo", "role": "DIF", "isStarter": true },
+      { "name": "Amir Rrahmani", "role": "DIF", "isStarter": true },
+      { "name": "Kim Min-jae", "role": "DIF", "isStarter": true },
+      { "name": "Mario Rui", "role": "DIF", "isStarter": true },
+      { "name": "Stanislav Lobotka", "role": "CEN", "isStarter": true },
+      { "name": "Frank Anguissa", "role": "CEN", "isStarter": true },
+      { "name": "Piotr Zielinski", "role": "CEN", "isStarter": true },
+      { "name": "Matteo Politano", "role": "ATT", "isStarter": true },
+      { "name": "Khvicha Kvaratskhelia", "role": "ATT", "isStarter": true },
+      { "name": "Victor Osimhen", "role": "ATT", "isStarter": true },
+      { "name": "Eljif Elmas", "role": "CEN", "isStarter": false }
+    ]
+  },
+  "1989/90": {
+    "coach": "Albertino Bigon",
+    "points": "51",
+    "roster": [
+      { "name": "Giuliano Giuliani", "role": "POR", "isStarter": true },
+      { "name": "Ciro Ferrara", "role": "DIF", "isStarter": true },
+      { "name": "Giovanni Francini", "role": "DIF", "isStarter": true },
+      { "name": "Giancarlo Corradini", "role": "DIF", "isStarter": true },
+      { "name": "Marco Baroni", "role": "DIF", "isStarter": true },
+      { "name": "Massimo Crippa", "role": "CEN", "isStarter": true },
+      { "name": "Fernando De Napoli", "role": "CEN", "isStarter": true },
+      { "name": "Alemao", "role": "CEN", "isStarter": true },
+      { "name": "Diego Armando Maradona", "role": "CEN", "isStarter": true },
+      { "name": "Careca", "role": "ATT", "isStarter": true },
+      { "name": "Andrea Carnevale", "role": "ATT", "isStarter": true },
+      { "name": "Gianfranco Zola", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "1986/87": {
+    "coach": "Ottavio Bianchi",
+    "points": "42",
+    "roster": [
+      { "name": "Claudio Garella", "role": "POR", "isStarter": true },
+      { "name": "Ciro Ferrara", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Volpecina", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Renica", "role": "DIF", "isStarter": true },
+      { "name": "Moreno Ferrario", "role": "DIF", "isStarter": true },
+      { "name": "Fernando De Napoli", "role": "CEN", "isStarter": true },
+      { "name": "Salvatore Bagni", "role": "CEN", "isStarter": true },
+      { "name": "Francesco Romano", "role": "CEN", "isStarter": true },
+      { "name": "Diego Armando Maradona", "role": "CEN", "isStarter": true },
+      { "name": "Bruno Giordano", "role": "ATT", "isStarter": true },
+      { "name": "Andrea Carnevale", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

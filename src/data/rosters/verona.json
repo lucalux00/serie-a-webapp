@@ -1,0 +1,20 @@
+{
+  "1984/85": {
+    "coach": "Osvaldo Bagnoli",
+    "points": "43",
+    "roster": [
+      { "name": "Claudio Garella", "role": "POR", "isStarter": true },
+      { "name": "Mauro Ferroni", "role": "DIF", "isStarter": true },
+      { "name": "Silvano Fontolan", "role": "DIF", "isStarter": true },
+      { "name": "Roberto Tricella", "role": "DIF", "isStarter": true },
+      { "name": "Luciano Marangon", "role": "DIF", "isStarter": true },
+      { "name": "Domenico Volpati", "role": "CEN", "isStarter": true },
+      { "name": "Luigi Sacchetti", "role": "CEN", "isStarter": true },
+      { "name": "Antonio Di Gennaro", "role": "CEN", "isStarter": true },
+      { "name": "Hans-Peter Briegel", "role": "CEN", "isStarter": true },
+      { "name": "Pietro Fanna", "role": "ATT", "isStarter": true },
+      { "name": "Preben Elkjær Larsen", "role": "ATT", "isStarter": true },
+      { "name": "Giuseppe Galderisi", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

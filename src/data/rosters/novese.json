@@ -1,0 +1,19 @@
+{
+  "1921/22": {
+    "coach": "N/A",
+    "points": "FIGC Finale",
+    "roster": [
+      { "name": "Emiliano Stritzel", "role": "POR", "isStarter": true },
+      { "name": "Luigi Vercelli", "role": "DIF", "isStarter": true },
+      { "name": "Agostino Grixoni", "role": "DIF", "isStarter": true },
+      { "name": "Mario Toselli", "role": "CEN", "isStarter": true },
+      { "name": "Carlo Parodi", "role": "CEN", "isStarter": true },
+      { "name": "Giovanni Rebuffo", "role": "CEN", "isStarter": true },
+      { "name": "Aristodemo Santamaria", "role": "ATT", "isStarter": true },
+      { "name": "Mario Cevenini", "role": "ATT", "isStarter": true },
+      { "name": "Carletto Gambarotta", "role": "ATT", "isStarter": true },
+      { "name": "Giuseppe Asti", "role": "ATT", "isStarter": true },
+      { "name": "Giacomo Neri", "role": "ATT", "isStarter": true }
+    ]
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "2019/20": {
+    "coach": "Maurizio Sarri",
+    "points": "83",
+    "roster": [
+      { "name": "Wojciech Szczesny", "role": "POR", "isStarter": true },
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": false },
+      { "name": "Matthijs de Ligt", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Alex Sandro", "role": "DIF", "isStarter": true },
+      { "name": "Juan Cuadrado", "role": "DIF", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": false },
+      { "name": "Miralem Pjanic", "role": "CEN", "isStarter": true },
+      { "name": "Rodrigo Bentancur", "role": "CEN", "isStarter": true },
+      { "name": "Blaise Matuidi", "role": "CEN", "isStarter": true },
+      { "name": "Adrien Rabiot", "role": "CEN", "isStarter": false },
+      { "name": "Cristiano Ronaldo", "role": "ATT", "isStarter": true },
+      { "name": "Paulo Dybala", "role": "ATT", "isStarter": true },
+      { "name": "Gonzalo Higuain", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "2018/19": {
+    "coach": "Massimiliano Allegri",
+    "points": "90",
+    "roster": [
+      { "name": "Wojciech Szczesny", "role": "POR", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Alex Sandro", "role": "DIF", "isStarter": true },
+      { "name": "Joao Cancelo", "role": "DIF", "isStarter": true },
+      { "name": "Miralem Pjanic", "role": "CEN", "isStarter": true },
+      { "name": "Blaise Matuidi", "role": "CEN", "isStarter": true },
+      { "name": "Emre Can", "role": "CEN", "isStarter": false },
+      { "name": "Cristiano Ronaldo", "role": "ATT", "isStarter": true },
+      { "name": "Mario Mandzukic", "role": "ATT", "isStarter": true },
+      { "name": "Paulo Dybala", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2017/18": {
+    "coach": "Massimiliano Allegri",
+    "points": "95",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Medhi Benatia", "role": "DIF", "isStarter": true },
+      { "name": "Alex Sandro", "role": "DIF", "isStarter": true },
+      { "name": "Stephan Lichtsteiner", "role": "DIF", "isStarter": true },
+      { "name": "Miralem Pjanic", "role": "CEN", "isStarter": true },
+      { "name": "Sami Khedira", "role": "CEN", "isStarter": true },
+      { "name": "Blaise Matuidi", "role": "CEN", "isStarter": true },
+      { "name": "Paulo Dybala", "role": "ATT", "isStarter": true },
+      { "name": "Gonzalo Higuain", "role": "ATT", "isStarter": true },
+      { "name": "Douglas Costa", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2016/17": {
+    "coach": "Massimiliano Allegri",
+    "points": "91",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Andrea Barzagli", "role": "DIF", "isStarter": true },
+      { "name": "Alex Sandro", "role": "DIF", "isStarter": true },
+      { "name": "Miralem Pjanic", "role": "CEN", "isStarter": true },
+      { "name": "Sami Khedira", "role": "CEN", "isStarter": true },
+      { "name": "Claudio Marchisio", "role": "CEN", "isStarter": false },
+      { "name": "Paulo Dybala", "role": "ATT", "isStarter": true },
+      { "name": "Gonzalo Higuain", "role": "ATT", "isStarter": true },
+      { "name": "Mario Mandzukic", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2015/16": {
+    "coach": "Massimiliano Allegri",
+    "points": "91",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Andrea Barzagli", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Stephan Lichtsteiner", "role": "DIF", "isStarter": true },
+      { "name": "Paul Pogba", "role": "CEN", "isStarter": true },
+      { "name": "Claudio Marchisio", "role": "CEN", "isStarter": true },
+      { "name": "Sami Khedira", "role": "CEN", "isStarter": true },
+      { "name": "Paulo Dybala", "role": "ATT", "isStarter": true },
+      { "name": "Mario Mandzukic", "role": "ATT", "isStarter": true },
+      { "name": "Alvaro Morata", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "2014/15": {
+    "coach": "Massimiliano Allegri",
+    "points": "87",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Stephan Lichtsteiner", "role": "DIF", "isStarter": true },
+      { "name": "Patrice Evra", "role": "DIF", "isStarter": true },
+      { "name": "Claudio Marchisio", "role": "CEN", "isStarter": true },
+      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
+      { "name": "Paul Pogba", "role": "CEN", "isStarter": true },
+      { "name": "Arturo Vidal", "role": "CEN", "isStarter": true },
+      { "name": "Carlos Tevez", "role": "ATT", "isStarter": true },
+      { "name": "Alvaro Morata", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2013/14": {
+    "coach": "Antonio Conte",
+    "points": "102",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Andrea Barzagli", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Stephan Lichtsteiner", "role": "CEN", "isStarter": true },
+      { "name": "Kwadwo Asamoah", "role": "CEN", "isStarter": true },
+      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
+      { "name": "Arturo Vidal", "role": "CEN", "isStarter": true },
+      { "name": "Paul Pogba", "role": "CEN", "isStarter": true },
+      { "name": "Carlos Tevez", "role": "ATT", "isStarter": true },
+      { "name": "Fernando Llorente", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2012/13": {
+    "coach": "Antonio Conte",
+    "points": "87",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Andrea Barzagli", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Stephan Lichtsteiner", "role": "CEN", "isStarter": true },
+      { "name": "Kwadwo Asamoah", "role": "CEN", "isStarter": true },
+      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
+      { "name": "Arturo Vidal", "role": "CEN", "isStarter": true },
+      { "name": "Claudio Marchisio", "role": "CEN", "isStarter": true },
+      { "name": "Mirko Vucinic", "role": "ATT", "isStarter": true },
+      { "name": "Sebastian Giovinco", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "2011/12": {
+    "coach": "Antonio Conte",
+    "points": "84",
+    "roster": [
+      { "name": "Gianluigi Buffon", "role": "POR", "isStarter": true },
+      { "name": "Andrea Barzagli", "role": "DIF", "isStarter": true },
+      { "name": "Leonardo Bonucci", "role": "DIF", "isStarter": true },
+      { "name": "Giorgio Chiellini", "role": "DIF", "isStarter": true },
+      { "name": "Stephan Lichtsteiner", "role": "DIF", "isStarter": true },
+      { "name": "Simone Pepe", "role": "CEN", "isStarter": true },
+      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
+      { "name": "Arturo Vidal", "role": "CEN", "isStarter": true },
+      { "name": "Claudio Marchisio", "role": "CEN", "isStarter": true },
+      { "name": "Mirko Vucinic", "role": "ATT", "isStarter": true },
+      { "name": "Alessandro Matri", "role": "ATT", "isStarter": true },
+      { "name": "Alessandro Del Piero", "role": "ATT", "isStarter": false }
+    ]
+  },
+  "1997/98": {
+    "coach": "Marcello Lippi",
+    "points": "74",
+    "roster": [
+      { "name": "Angelo Peruzzi", "role": "POR", "isStarter": true },
+      { "name": "Moreno Torricelli", "role": "DIF", "isStarter": true },
+      { "name": "Mark Iuliano", "role": "DIF", "isStarter": true },
+      { "name": "Paolo Montero", "role": "DIF", "isStarter": true },
+      { "name": "Gianluca Pessotto", "role": "DIF", "isStarter": true },
+      { "name": "Angelo Di Livio", "role": "CEN", "isStarter": true },
+      { "name": "Didier Deschamps", "role": "CEN", "isStarter": true },
+      { "name": "Edgar Davids", "role": "CEN", "isStarter": true },
+      { "name": "Zinedine Zidane", "role": "CEN", "isStarter": true },
+      { "name": "Filippo Inzaghi", "role": "ATT", "isStarter": true },
+      { "name": "Alessandro Del Piero", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1985/86": {
+    "coach": "Giovanni Trapattoni",
+    "points": "45",
+    "roster": [
+      { "name": "Stefano Tacconi", "role": "POR", "isStarter": true },
+      { "name": "Luciano Favero", "role": "DIF", "isStarter": true },
+      { "name": "Gaetano Scirea", "role": "DIF", "isStarter": true },
+      { "name": "Sergio Brio", "role": "DIF", "isStarter": true },
+      { "name": "Antonio Cabrini", "role": "DIF", "isStarter": true },
+      { "name": "Massimo Mauro", "role": "CEN", "isStarter": true },
+      { "name": "Lionello Manfredonia", "role": "CEN", "isStarter": true },
+      { "name": "Michel Platini", "role": "CEN", "isStarter": true },
+      { "name": "Michael Laudrup", "role": "ATT", "isStarter": true },
+      { "name": "Aldo Serena", "role": "ATT", "isStarter": true },
+      { "name": "Marco Pacione", "role": "ATT", "isStarter": false }
+    ]
+  }
+}

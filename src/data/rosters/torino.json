@@ -1,0 +1,70 @@
+{
+  "1975/76": {
+    "coach": "Luigi Radice",
+    "points": "45",
+    "roster": [
+      { "name": "Luciano Castellini", "role": "POR", "isStarter": true },
+      { "name": "Nello Santin", "role": "DIF", "isStarter": true },
+      { "name": "Roberto Mozzini", "role": "DIF", "isStarter": true },
+      { "name": "Roberto Salvadori", "role": "DIF", "isStarter": true },
+      { "name": "Vittorio Caporale", "role": "DIF", "isStarter": true },
+      { "name": "Patrizio Sala", "role": "CEN", "isStarter": true },
+      { "name": "Eraldo Pecci", "role": "CEN", "isStarter": true },
+      { "name": "Renato Zaccarelli", "role": "CEN", "isStarter": true },
+      { "name": "Claudio Sala", "role": "CEN", "isStarter": true },
+      { "name": "Francesco Graziani", "role": "ATT", "isStarter": true },
+      { "name": "Paolino Pulici", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1948/49": {
+    "coach": "Ernő Egri Erbstein",
+    "points": "60",
+    "roster": [
+      { "name": "Valerio Bacigalupo", "role": "POR", "isStarter": true },
+      { "name": "Aldo Ballarin", "role": "DIF", "isStarter": true },
+      { "name": "Virgilio Maroso", "role": "DIF", "isStarter": true },
+      { "name": "Mario Rigamonti", "role": "DIF", "isStarter": true },
+      { "name": "Eusebio Castigliano", "role": "CEN", "isStarter": true },
+      { "name": "Giuseppe Grezar", "role": "CEN", "isStarter": true },
+      { "name": "Romeo Menti", "role": "CEN", "isStarter": true },
+      { "name": "Ezio Loik", "role": "CEN", "isStarter": true },
+      { "name": "Valentino Mazzola", "role": "CEN", "isStarter": true },
+      { "name": "Franco Ossola", "role": "ATT", "isStarter": true },
+      { "name": "Guglielmo Gabetto", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1947/48": {
+    "coach": "Mario Sperone",
+    "points": "65",
+    "roster": [
+      { "name": "Valerio Bacigalupo", "role": "POR", "isStarter": true },
+      { "name": "Aldo Ballarin", "role": "DIF", "isStarter": true },
+      { "name": "Virgilio Maroso", "role": "DIF", "isStarter": true },
+      { "name": "Mario Rigamonti", "role": "DIF", "isStarter": true },
+      { "name": "Eusebio Castigliano", "role": "CEN", "isStarter": true },
+      { "name": "Giuseppe Grezar", "role": "CEN", "isStarter": true },
+      { "name": "Romeo Menti", "role": "CEN", "isStarter": true },
+      { "name": "Ezio Loik", "role": "CEN", "isStarter": true },
+      { "name": "Valentino Mazzola", "role": "CEN", "isStarter": true },
+      { "name": "Franco Ossola", "role": "ATT", "isStarter": true },
+      { "name": "Guglielmo Gabetto", "role": "ATT", "isStarter": true }
+    ]
+  },
+  "1927/28": {
+    "coach": "Tony Cargnelli",
+    "points": "Girone Finale",
+    "roster": [
+      { "name": "Vincenzo Bosia", "role": "POR", "isStarter": true },
+      { "name": "Feliciano Monti", "role": "DIF", "isStarter": true },
+      { "name": "Cesare Martin", "role": "DIF", "isStarter": true },
+      { "name": "Enrico Colombari", "role": "CEN", "isStarter": true },
+      { "name": "Antonio Janni", "role": "CEN", "isStarter": true },
+      { "name": "Mario Sperone", "role": "CEN", "isStarter": true },
+      { "name": "Adolfo Baloncieri", "role": "CEN", "isStarter": true },
+      { "name": "Julio Libonatti", "role": "ATT", "isStarter": true },
+      { "name": "Gino Rossetti", "role": "ATT", "isStarter": true },
+      { "name": "Francesco Franzoni", "role": "ATT", "isStarter": true },
+      { "name": "Luciano Vezzani", "role": "ATT", "isStarter": true }
+    ]
+  }
+}
