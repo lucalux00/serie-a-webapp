@@ -1,157 +1,61 @@
 import { NextResponse } from 'next/server';
+import { sql } from '@vercel/postgres';
 
-export const revalidate = 302400; // Cache ISR: 3.5 giorni.
-
-const API_KEY = "2fc579dbb539cbc9c2e4caa650d7b47f"; // Chiave fornita dall'utente
-
-// Helper per scaricare quote live da un campionato specifico
-async function fetchOdds(sport: string) {
-  try {
-    const url = `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${API_KEY}&regions=eu&markets=h2h`;
-    const res = await fetch(url, { next: { revalidate: 302400 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.error("Errore fetch per", sport, err);
-    return [];
-  }
-}
-
-// L'algoritmo analizza le quote REALI dei bookmakers (implicite di probabilità)
-// per estrarre la scelta migliore statistica (Tipster Logic).
-function analyzeAndPick(match: any) {
-  const home = match.home_team;
-  const away = match.away_team;
-  
-  // Prendiamo il primo bookmaker disponibile per le quote H2H (di solito Unibet, William Hill, ecc)
-  const bookmaker = match.bookmakers && match.bookmakers[0];
-  if (!bookmaker) return null;
-
-  const market = bookmaker.markets.find((m: any) => m.key === 'h2h');
-  if (!market || !market.outcomes) return null;
-
-  const homeOdds = market.outcomes.find((o: any) => o.name === home)?.price || 2.5;
-  const awayOdds = market.outcomes.find((o: any) => o.name === away)?.price || 2.5;
-  const drawOdds = market.outcomes.find((o: any) => o.name === 'Draw')?.price || 3.0;
-
-  let pick = '';
-  let finalOdds = 0;
-
-  // Logica statistica basata sull'implied probability dei bookmakers
-  if (homeOdds < 1.55) {
-    pick = '1'; finalOdds = homeOdds;
-  } else if (awayOdds < 1.55) {
-    pick = '2'; finalOdds = awayOdds;
-  } else if (homeOdds < 2.0 && awayOdds > 3.0) {
-    pick = '1X'; finalOdds = Math.max(1.15, homeOdds - 0.4); // Stima realistica doppia chance se non c'è il mercato
-  } else if (awayOdds < 2.0 && homeOdds > 3.0) {
-    pick = 'X2'; finalOdds = Math.max(1.15, awayOdds - 0.4);
-  } else if (drawOdds < 3.20) {
-    pick = 'X'; finalOdds = drawOdds;
-  } else {
-    pick = 'Gol'; finalOdds = 1.75; // Mercato non H2H, fallback realistico basato sull'equilibrio
-  }
-
-  // Arrotonda
-  finalOdds = Math.round(finalOdds * 100) / 100;
-
-  return {
-    id: match.id,
-    match: `${home} - ${away}`,
-    pick,
-    odds: finalOdds,
-    commence_time: match.commence_time
-  };
-}
+export const revalidate = 60; // Cache ISR: 60 secondi (visto che ora interroga il nostro DB)
 
 export async function GET() {
   try {
-    // 1. Fetch partite REALI E LIVE (Campionati Prioritari)
-    const saData = await fetchOdds('soccer_italy_serie_a');
-    const clData = await fetchOdds('soccer_uefa_champs_league');
-    const elData = await fetchOdds('soccer_uefa_europa_league');
-    
-    // 2. Elaborazione dei dati: ignoriamo partite troppo in là (solo prossimi 7 giorni)
-    const nextWeek = new Date();
-    nextWeek.setDate(nextWeek.getDate() + 7);
+    // 1. Fetch partite direttamente dal nostro database MLOps (Vercel Postgres)
+    const { rows: allPicks } = await sql`
+      SELECT id, match_name as match, pick, odds, match_date as commence_time, confidence_score
+      FROM ml_predictions
+      WHERE match_date > NOW()
+      ORDER BY match_date ASC
+      LIMIT 50
+    `;
 
-    const filterAndProcess = (matches: any[]) => {
-      if (!Array.isArray(matches)) return [];
-      return matches
-        .filter(m => new Date(m.commence_time) < nextWeek)
-        .map(analyzeAndPick)
-        .filter(Boolean); // Rimuove eventuali null
-    };
-
-    const saPicks = filterAndProcess(saData);
-    const clPicks = filterAndProcess(clData);
-    const elPicks = filterAndProcess(elData);
-    
-    // Se non abbiamo un numero sufficiente di partite IMMINENTI, peschiamo dal mix mondiale di calcio imminente
-    let extraPicks: any[] = [];
-    if (saPicks.length + clPicks.length + elPicks.length < 8) {
-      const upcomingAll = await fetchOdds('upcoming');
-      if (Array.isArray(upcomingAll)) {
-          // Filtriamo solo il calcio mondiale vero
-          const extraData = upcomingAll.filter(m => m.sport_key?.startsWith('soccer_'));
-          extraPicks = filterAndProcess(extraData);
-      }
-    }
-
-    // Uniamo tutto rimuovendo i duplicati (basati sull'ID del match)
-    const allPicksMap = new Map();
-    [...saPicks, ...clPicks, ...elPicks, ...extraPicks].forEach(p => {
-        if (!allPicksMap.has(p.id)) allPicksMap.set(p.id, p);
-    });
-
-    const allPicks = Array.from(allPicksMap.values())
-        .sort((a: any, b: any) => new Date(a.commence_time).getTime() - new Date(b.commence_time).getTime());
-
-    // Se l'API non ha assolutamente nulla per questa settimana
+    // Se l'algoritmo non ha calcolato nulla o non ci sono partite future
     if (allPicks.length === 0) {
         return NextResponse.json({ 
-            error: 'Nessuna partita scommettibile nei prossimi 7 giorni per questi campionati.' 
+            error: 'Nessuna previsione disponibile al momento. L\'algoritmo è in attesa di nuove partite.',
+            singlePredictions: [],
+            bollette: []
         }, { status: 200 });
     }
 
-    // 3. Creazione Singole Sicure (le 4 con la quota più bassa, indice di altissima probabilità)
-    const singlePredictions = [...allPicks].sort((a: any, b: any) => a.odds - b.odds).slice(0, 4);
+    // Convertiamo i valori numerici che Postgres potrebbe restituire come stringhe
+    const formattedPicks = allPicks.map(p => ({
+        ...p,
+        odds: Number(p.odds)
+    }));
 
-    // 4. Multiple (usiamo i pick reali generati)
+    // 3. Creazione Singole Sicure (le 4 con la quota più bassa, indice di altissima probabilità)
+    const singlePredictions = [...formattedPicks].sort((a: any, b: any) => a.odds - b.odds).slice(0, 4);
+
+    // 4. Multiple
     const bollette = [];
 
-    // Multipla Serie A
-    if (saPicks.length >= 3) {
-      const selected = saPicks.slice(0, 4);
-      const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
-      bollette.push({
-        id: 'bolletta_sa',
-        title: 'Multipla Serie A',
-        type: 'campionato',
-        matches: selected,
-        totalOdds: Math.round(totalOdds * 100) / 100
-      });
-    }
+    // Troviamo le partite che assomigliano alla Serie A o alle Coppe per categorizzarle (euristica per UI)
+    const saPicks = formattedPicks.filter(p => p.match.includes('Juventus') || p.match.includes('Inter') || p.match.includes('Milan') || p.match.includes('Napoli') || p.match.includes('Roma') || p.match.includes('Lazio'));
+    const euroPicks = formattedPicks.filter(p => !saPicks.includes(p));
 
-    // Multipla Europea (Champions / Europa League)
-    const euroPicks = [...clPicks, ...elPicks];
-    if (euroPicks.length >= 3) {
-      const selected = euroPicks.slice(0, 4);
+    // Multipla Principale (Le top 4 più bilanciate)
+    if (formattedPicks.length >= 4) {
+      const selected = formattedPicks.slice(0, 4);
       const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
-        id: 'bolletta_euro',
-        title: 'Multipla Notti Europee',
-        type: 'coppa',
+        id: 'bolletta_main',
+        title: 'La Multipla Algoritmica',
+        type: 'principale',
         matches: selected,
         totalOdds: Math.round(totalOdds * 100) / 100
       });
     }
 
     // Raddoppio del Giorno
-    if (allPicks.length >= 2) {
+    if (formattedPicks.length >= 2) {
       // Cerchiamo due partite che combinate danno circa quota 2.0 (es. 1.4 x 1.4)
-      const raddoppioMatches = [...allPicks].filter((p: any) => p.odds >= 1.25 && p.odds <= 1.6).slice(0, 2);
+      const raddoppioMatches = [...formattedPicks].filter((p: any) => p.odds >= 1.25 && p.odds <= 1.6).slice(0, 2);
       if (raddoppioMatches.length === 2) {
         bollette.push({
           id: 'raddoppio',
@@ -163,14 +67,13 @@ export async function GET() {
       }
     }
 
-    // Multipla Mista / Extra (se non c'è Serie A/Europa, usa le amichevoli o le rimanenti)
-    if (allPicks.length >= 4) {
-      // Evitiamo di ripetere esattamente i match della Serie A se abbiamo molta roba
-      const mixed = [...allPicks].sort(() => 0.5 - Math.random()).slice(0, 5);
+    // Multipla Azzardo (quote più alte)
+    if (formattedPicks.length >= 8) {
+      const mixed = [...formattedPicks].sort((a: any, b: any) => b.odds - a.odds).slice(0, 4); // Le 4 più alte
       const totalOdds = mixed.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bollettone',
-        title: 'La Multipla Mista (Migliori Statistiche)',
+        title: 'La Multipla Valore (Quote Alte)',
         type: 'alta',
         matches: mixed,
         totalOdds: Math.round(totalOdds * 100) / 100
@@ -181,6 +84,6 @@ export async function GET() {
 
   } catch (error) {
     console.error("GET /api/pronostici error:", error);
-    return NextResponse.json({ error: 'Errore nel recupero pronostici reali' }, { status: 500 });
+    return NextResponse.json({ error: 'Errore nel recupero pronostici dal database' }, { status: 500 });
   }
 }

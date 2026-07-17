@@ -957,7 +957,6 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                     <h3 className="text-xs text-[#94A3B8] font-black uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
                       Rosa Completa
                     </h3>
-                  </div>
                   
                   {/* NUOVO FORMATO (Oggetti con ruolo e isStarter) */}
                   {selectedTrophy.roster && selectedTrophy.roster.length > 0 && typeof selectedTrophy.roster[0] === 'object' ? (

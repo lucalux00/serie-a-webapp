@@ -4,6 +4,7 @@
     "runnerUp": "Borussia Dortmund",
     "score": "2-0",
     "stadium": "Wembley Stadium, Londra",
+    "coach": "Carlo Ancelotti",
     "stats": {
       "possession": "54% - 46%",
       "shots": "13 - 13",
@@ -11,23 +12,62 @@
       "corners": "8 - 9",
       "fouls": "10 - 11"
     },
-    "coach": "Carlo Ancelotti",
     "roster": [
-      { "name": "Thibaut Courtois", "role": "POR", "isStarter": true },
-      { "name": "Dani Carvajal", "role": "DIF", "isStarter": true },
-      { "name": "Antonio Rüdiger", "role": "DIF", "isStarter": true },
-      { "name": "Nacho", "role": "DIF", "isStarter": true },
-      { "name": "Ferland Mendy", "role": "DIF", "isStarter": true },
-      { "name": "Federico Valverde", "role": "CEN", "isStarter": true },
-      { "name": "Eduardo Camavinga", "role": "CEN", "isStarter": true },
-      { "name": "Toni Kroos", "role": "CEN", "isStarter": true },
-      { "name": "Jude Bellingham", "role": "CEN", "isStarter": true },
-      { "name": "Rodrygo", "role": "ATT", "isStarter": true },
-      { "name": "Vinicius Junior", "role": "ATT", "isStarter": true },
-      { "name": "Joselu", "role": "ATT", "isStarter": false },
-      { "name": "Luka Modric", "role": "CEN", "isStarter": false },
-      { "name": "Eder Militao", "role": "DIF", "isStarter": false },
-      { "name": "Lucas Vazquez", "role": "DIF", "isStarter": false }
+      {
+        "name": "Thibaut Courtois",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Carvajal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Antonio Rüdiger",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Nacho",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ferland Mendy",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Federico Valverde",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Eduardo Camavinga",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Toni Kroos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jude Bellingham",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Rodrygo",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Vinicius Junior",
+        "role": "ATT",
+        "isStarter": true
+      }
     ]
   },
   "2022/23": {
@@ -35,6 +75,7 @@
     "runnerUp": "Inter",
     "score": "1-0",
     "stadium": "Atatürk Olympic Stadium, Istanbul",
+    "coach": "Pep Guardiola",
     "stats": {
       "possession": "56% - 44%",
       "shots": "7 - 14",
@@ -42,23 +83,1411 @@
       "corners": "2 - 4",
       "fouls": "11 - 17"
     },
-    "coach": "Pep Guardiola",
     "roster": [
-      { "name": "Ederson", "role": "POR", "isStarter": true },
-      { "name": "Manuel Akanji", "role": "DIF", "isStarter": true },
-      { "name": "Ruben Dias", "role": "DIF", "isStarter": true },
-      { "name": "Nathan Ake", "role": "DIF", "isStarter": true },
-      { "name": "John Stones", "role": "CEN", "isStarter": true },
-      { "name": "Rodri", "role": "CEN", "isStarter": true },
-      { "name": "Bernardo Silva", "role": "CEN", "isStarter": true },
-      { "name": "Kevin De Bruyne", "role": "CEN", "isStarter": true },
-      { "name": "Ilkay Gündogan", "role": "CEN", "isStarter": true },
-      { "name": "Jack Grealish", "role": "CEN", "isStarter": true },
-      { "name": "Erling Haaland", "role": "ATT", "isStarter": true },
-      { "name": "Phil Foden", "role": "CEN", "isStarter": false },
-      { "name": "Kyle Walker", "role": "DIF", "isStarter": false },
-      { "name": "Riyad Mahrez", "role": "ATT", "isStarter": false },
-      { "name": "Julian Alvarez", "role": "ATT", "isStarter": false }
+      {
+        "name": "Ederson",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Manuel Akanji",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ruben Dias",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Nathan Ake",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "John Stones",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rodri",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Bernardo Silva",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Kevin De Bruyne",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ilkay Gündogan",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Jack Grealish",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Erling Haaland",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2021/22": {
+    "winner": "Real Madrid",
+    "runnerUp": "Liverpool",
+    "score": "1-0",
+    "stadium": "Stade de France, Parigi",
+    "coach": "Carlo Ancelotti",
+    "stats": {
+      "possession": "46% - 54%",
+      "shots": "4 - 24",
+      "shotsOnTarget": "2 - 9",
+      "corners": "2 - 6",
+      "fouls": "7 - 8"
+    },
+    "roster": [
+      {
+        "name": "Thibaut Courtois",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Carvajal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Eder Militao",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "David Alaba",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ferland Mendy",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Casemiro",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Toni Kroos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luka Modric",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Federico Valverde",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Vinicius Junior",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Karim Benzema",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2020/21": {
+    "winner": "Chelsea",
+    "runnerUp": "Manchester City",
+    "score": "1-0",
+    "stadium": "Estádio do Dragão, Porto",
+    "coach": "Thomas Tuchel",
+    "stats": {
+      "possession": "39% - 61%",
+      "shots": "8 - 7",
+      "shotsOnTarget": "2 - 1",
+      "corners": "1 - 3",
+      "fouls": "13 - 14"
+    },
+    "roster": [
+      {
+        "name": "Edouard Mendy",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Cesar Azpilicueta",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Thiago Silva",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Antonio Rüdiger",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Reece James",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jorginho",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "N'Golo Kanté",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ben Chilwell",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Mason Mount",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kai Havertz",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Timo Werner",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2019/20": {
+    "winner": "Bayern Munich",
+    "runnerUp": "Paris Saint-Germain",
+    "score": "1-0",
+    "stadium": "Estádio da Luz, Lisbona",
+    "coach": "Hans-Dieter Flick",
+    "stats": {
+      "possession": "62% - 38%",
+      "shots": "12 - 9",
+      "shotsOnTarget": "2 - 3",
+      "corners": "4 - 4",
+      "fouls": "22 - 16"
+    },
+    "roster": [
+      {
+        "name": "Manuel Neuer",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Joshua Kimmich",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jerome Boateng",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "David Alaba",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alphonso Davies",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Leon Goretzka",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Thiago Alcantara",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Serge Gnabry",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Thomas Müller",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kingsley Coman",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Robert Lewandowski",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2018/19": {
+    "winner": "Liverpool",
+    "runnerUp": "Tottenham Hotspur",
+    "score": "2-0",
+    "stadium": "Wanda Metropolitano, Madrid",
+    "coach": "Jürgen Klopp",
+    "stats": {
+      "possession": "35% - 65%",
+      "shots": "14 - 16",
+      "shotsOnTarget": "3 - 8",
+      "corners": "9 - 8",
+      "fouls": "6 - 5"
+    },
+    "roster": [
+      {
+        "name": "Alisson",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Trent Alexander-Arnold",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Joel Matip",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Virgil van Dijk",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Andrew Robertson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jordan Henderson",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Fabinho",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Georginio Wijnaldum",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Mohamed Salah",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Firmino",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Sadio Mané",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2017/18": {
+    "winner": "Real Madrid",
+    "runnerUp": "Liverpool",
+    "score": "3-1",
+    "stadium": "NSC Olimpiyskiy, Kiev",
+    "coach": "Zinedine Zidane",
+    "stats": {
+      "possession": "62% - 38%",
+      "shots": "14 - 13",
+      "shotsOnTarget": "5 - 2",
+      "corners": "9 - 5",
+      "fouls": "5 - 18"
+    },
+    "roster": [
+      {
+        "name": "Keylor Navas",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Carvajal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Raphael Varane",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Ramos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marcelo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Casemiro",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luka Modric",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Toni Kroos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Isco",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Karim Benzema",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2016/17": {
+    "winner": "Real Madrid",
+    "runnerUp": "Juventus",
+    "score": "4-1",
+    "stadium": "Millennium Stadium, Cardiff",
+    "coach": "Zinedine Zidane",
+    "stats": {
+      "possession": "56% - 44%",
+      "shots": "18 - 9",
+      "shotsOnTarget": "5 - 4",
+      "corners": "1 - 1",
+      "fouls": "18 - 23"
+    },
+    "roster": [
+      {
+        "name": "Keylor Navas",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Carvajal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Raphael Varane",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Ramos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marcelo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Casemiro",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luka Modric",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Toni Kroos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Isco",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Karim Benzema",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2015/16": {
+    "winner": "Real Madrid",
+    "runnerUp": "Atletico Madrid",
+    "score": "1-1 (5-3 dcr)",
+    "stadium": "San Siro, Milano",
+    "coach": "Zinedine Zidane",
+    "stats": {
+      "possession": "46% - 54%",
+      "shots": "25 - 17",
+      "shotsOnTarget": "8 - 4",
+      "corners": "7 - 6",
+      "fouls": "18 - 16"
+    },
+    "roster": [
+      {
+        "name": "Keylor Navas",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Carvajal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Pepe",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Ramos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marcelo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Casemiro",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luka Modric",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Toni Kroos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gareth Bale",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Karim Benzema",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2014/15": {
+    "winner": "Barcelona",
+    "runnerUp": "Juventus",
+    "score": "3-1",
+    "stadium": "Olympiastadion, Berlino",
+    "coach": "Luis Enrique",
+    "stats": {
+      "possession": "62% - 38%",
+      "shots": "18 - 14",
+      "shotsOnTarget": "8 - 6",
+      "corners": "8 - 8",
+      "fouls": "12 - 24"
+    },
+    "roster": [
+      {
+        "name": "Marc-André ter Stegen",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Alves",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gerard Piqué",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Javier Mascherano",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jordi Alba",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Busquets",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ivan Rakitic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Andres Iniesta",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Lionel Messi",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Luis Suarez",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Neymar",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2013/14": {
+    "winner": "Real Madrid",
+    "runnerUp": "Atletico Madrid",
+    "score": "4-1 (dts)",
+    "stadium": "Estádio da Luz, Lisbona",
+    "coach": "Carlo Ancelotti",
+    "stats": {
+      "possession": "60% - 40%",
+      "shots": "21 - 10",
+      "shotsOnTarget": "9 - 4",
+      "corners": "9 - 9",
+      "fouls": "19 - 27"
+    },
+    "roster": [
+      {
+        "name": "Iker Casillas",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Carvajal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Ramos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Raphael Varane",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Fabio Coentrao",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sami Khedira",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luka Modric",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Angel Di Maria",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gareth Bale",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Karim Benzema",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2012/13": {
+    "winner": "Bayern Munich",
+    "runnerUp": "Borussia Dortmund",
+    "score": "2-1",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Jupp Heynckes",
+    "stats": {
+      "possession": "57% - 43%",
+      "shots": "14 - 12",
+      "shotsOnTarget": "9 - 8",
+      "corners": "8 - 6",
+      "fouls": "10 - 13"
+    },
+    "roster": [
+      {
+        "name": "Manuel Neuer",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Philipp Lahm",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jerome Boateng",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Dante",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "David Alaba",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Javi Martinez",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Bastian Schweinsteiger",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Arjen Robben",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Thomas Müller",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Franck Ribery",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Mario Mandzukic",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2011/12": {
+    "winner": "Chelsea",
+    "runnerUp": "Bayern Munich",
+    "score": "1-1 (4-3 dcr)",
+    "stadium": "Allianz Arena, Monaco",
+    "coach": "Roberto Di Matteo",
+    "stats": {
+      "possession": "44% - 56%",
+      "shots": "9 - 35",
+      "shotsOnTarget": "3 - 7",
+      "corners": "1 - 20",
+      "fouls": "26 - 14"
+    },
+    "roster": [
+      {
+        "name": "Petr Cech",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Jose Bosingwa",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "David Luiz",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gary Cahill",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ashley Cole",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "John Obi Mikel",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Frank Lampard",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Salomon Kalou",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Juan Mata",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ryan Bertrand",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Didier Drogba",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2010/11": {
+    "winner": "Barcelona",
+    "runnerUp": "Manchester United",
+    "score": "3-1",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Pep Guardiola",
+    "stats": {
+      "possession": "63% - 37%",
+      "shots": "19 - 4",
+      "shotsOnTarget": "12 - 1",
+      "corners": "6 - 0",
+      "fouls": "5 - 16"
+    },
+    "roster": [
+      {
+        "name": "Victor Valdes",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Dani Alves",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Javier Mascherano",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gerard Piqué",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Eric Abidal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Busquets",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Xavi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Andres Iniesta",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "David Villa",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Lionel Messi",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Pedro",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2009/10": {
+    "winner": "Inter",
+    "runnerUp": "Bayern Munich",
+    "score": "2-0",
+    "stadium": "Santiago Bernabéu, Madrid",
+    "coach": "José Mourinho",
+    "stats": {
+      "possession": "32% - 68%",
+      "shots": "11 - 21",
+      "shotsOnTarget": "7 - 6",
+      "corners": "2 - 5",
+      "fouls": "13 - 16"
+    },
+    "roster": [
+      {
+        "name": "Julio Cesar",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Maicon",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Lucio",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Walter Samuel",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Cristian Chivu",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Javier Zanetti",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Esteban Cambiasso",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Wesley Sneijder",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Samuel Eto'o",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Diego Milito",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Goran Pandev",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2008/09": {
+    "winner": "Barcelona",
+    "runnerUp": "Manchester United",
+    "score": "2-0",
+    "stadium": "Stadio Olimpico, Roma",
+    "coach": "Pep Guardiola",
+    "stats": {
+      "possession": "51% - 49%",
+      "shots": "11 - 12",
+      "shotsOnTarget": "8 - 2",
+      "corners": "4 - 7",
+      "fouls": "17 - 10"
+    },
+    "roster": [
+      {
+        "name": "Victor Valdes",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Carles Puyol",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Yaya Touré",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gerard Piqué",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sylvinho",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Busquets",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Xavi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Andres Iniesta",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Lionel Messi",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Samuel Eto'o",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Thierry Henry",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2007/08": {
+    "winner": "Manchester United",
+    "runnerUp": "Chelsea",
+    "score": "1-1 (6-5 dcr)",
+    "stadium": "Luzhniki Stadium, Mosca",
+    "coach": "Alex Ferguson",
+    "stats": {
+      "possession": "58% - 42%",
+      "shots": "12 - 24",
+      "shotsOnTarget": "5 - 3",
+      "corners": "5 - 8",
+      "fouls": "22 - 24"
+    },
+    "roster": [
+      {
+        "name": "Edwin van der Sar",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Wes Brown",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rio Ferdinand",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Nemanja Vidic",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Patrice Evra",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Owen Hargreaves",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Paul Scholes",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Michael Carrick",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Cristiano Ronaldo",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Wayne Rooney",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Carlos Tevez",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2006/07": {
+    "winner": "Milan",
+    "runnerUp": "Liverpool",
+    "score": "2-1",
+    "stadium": "Stadio Olimpico, Atene",
+    "coach": "Carlo Ancelotti",
+    "stats": {
+      "possession": "53% - 47%",
+      "shots": "5 - 12",
+      "shotsOnTarget": "3 - 4",
+      "corners": "4 - 6",
+      "fouls": "14 - 26"
+    },
+    "roster": [
+      {
+        "name": "Dida",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Massimo Oddo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alessandro Nesta",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Paolo Maldini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marek Jankulovski",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gennaro Gattuso",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Andrea Pirlo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Massimo Ambrosini",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Clarence Seedorf",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kaka",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Filippo Inzaghi",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2005/06": {
+    "winner": "Barcelona",
+    "runnerUp": "Arsenal",
+    "score": "2-1",
+    "stadium": "Stade de France, Parigi",
+    "coach": "Frank Rijkaard",
+    "stats": {
+      "possession": "64% - 36%",
+      "shots": "18 - 8",
+      "shotsOnTarget": "9 - 5",
+      "corners": "3 - 4",
+      "fouls": "19 - 16"
+    },
+    "roster": [
+      {
+        "name": "Victor Valdes",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Oleguer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Carles Puyol",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rafael Marquez",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Giovanni van Bronckhorst",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Edmilson",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Deco",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Mark van Bommel",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ludovic Giuly",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Samuel Eto'o",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ronaldinho",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2004/05": {
+    "winner": "Liverpool",
+    "runnerUp": "Milan",
+    "score": "3-3 (3-2 dcr)",
+    "stadium": "Atatürk Olympic Stadium, Istanbul",
+    "coach": "Rafael Benitez",
+    "stats": {
+      "possession": "45% - 55%",
+      "shots": "15 - 22",
+      "shotsOnTarget": "7 - 10",
+      "corners": "4 - 10",
+      "fouls": "23 - 16"
+    },
+    "roster": [
+      {
+        "name": "Jerzy Dudek",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Steve Finnan",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jamie Carragher",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sami Hyypia",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Djimi Traore",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Xabi Alonso",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luis Garcia",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Steven Gerrard",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "John Arne Riise",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Harry Kewell",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Milan Baros",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2003/04": {
+    "winner": "Porto",
+    "runnerUp": "Monaco",
+    "score": "3-0",
+    "stadium": "Arena AufSchalke, Gelsenkirchen",
+    "coach": "José Mourinho",
+    "stats": {
+      "possession": "44% - 56%",
+      "shots": "4 - 0",
+      "shotsOnTarget": "3 - 0",
+      "corners": "2 - 1",
+      "fouls": "20 - 13"
+    },
+    "roster": [
+      {
+        "name": "Vitor Baia",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Paulo Ferreira",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jorge Costa",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ricardo Carvalho",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Nuno Valente",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Costinha",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Pedro Mendes",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Maniche",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Deco",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Derlei",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Carlos Alberto",
+        "role": "ATT",
+        "isStarter": true
+      }
     ]
   },
   "2002/03": {
@@ -66,6 +1495,7 @@
     "runnerUp": "Juventus",
     "score": "0-0 (3-2 dcr)",
     "stadium": "Old Trafford, Manchester",
+    "coach": "Carlo Ancelotti",
     "stats": {
       "possession": "48% - 52%",
       "shots": "14 - 11",
@@ -73,22 +1503,3070 @@
       "corners": "10 - 5",
       "fouls": "23 - 34"
     },
-    "coach": "Carlo Ancelotti",
     "roster": [
-      { "name": "Dida", "role": "POR", "isStarter": true },
-      { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
-      { "name": "Alessandro Nesta", "role": "DIF", "isStarter": true },
-      { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
-      { "name": "Kakha Kaladze", "role": "DIF", "isStarter": true },
-      { "name": "Gennaro Gattuso", "role": "CEN", "isStarter": true },
-      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
-      { "name": "Clarence Seedorf", "role": "CEN", "isStarter": true },
-      { "name": "Rui Costa", "role": "CEN", "isStarter": true },
-      { "name": "Andriy Shevchenko", "role": "ATT", "isStarter": true },
-      { "name": "Filippo Inzaghi", "role": "ATT", "isStarter": true },
-      { "name": "Serginho", "role": "CEN", "isStarter": false },
-      { "name": "Roque Junior", "role": "DIF", "isStarter": false },
-      { "name": "Massimo Ambrosini", "role": "CEN", "isStarter": false }
+      {
+        "name": "Dida",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Alessandro Costacurta",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alessandro Nesta",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Paolo Maldini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Kakha Kaladze",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gennaro Gattuso",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Andrea Pirlo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Clarence Seedorf",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Rui Costa",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Andriy Shevchenko",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Filippo Inzaghi",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2001/02": {
+    "winner": "Real Madrid",
+    "runnerUp": "Bayer Leverkusen",
+    "score": "2-1",
+    "stadium": "Hampden Park, Glasgow",
+    "coach": "Vicente del Bosque",
+    "roster": [
+      {
+        "name": "Cesar",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Michel Salgado",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Hierro",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ivan Helguera",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Carlos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Claude Makelele",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luis Figo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Santiago Solari",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Zinedine Zidane",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Raul",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Morientes",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "2000/01": {
+    "winner": "Bayern Munich",
+    "runnerUp": "Valencia",
+    "score": "1-1 (5-4 dcr)",
+    "stadium": "San Siro, Milano",
+    "coach": "Ottmar Hitzfeld",
+    "roster": [
+      {
+        "name": "Oliver Kahn",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Samuel Kuffour",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Patrik Andersson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Thomas Linke",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Willy Sagnol",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Bixente Lizarazu",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Owen Hargreaves",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Stefan Effenberg",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Mehmet Scholl",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Hasan Salihamidzic",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Giovane Elber",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1999/00": {
+    "winner": "Real Madrid",
+    "runnerUp": "Valencia",
+    "score": "3-0",
+    "stadium": "Stade de France, Parigi",
+    "coach": "Vicente del Bosque",
+    "roster": [
+      {
+        "name": "Iker Casillas",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Aitor Karanka",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ivan Helguera",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ivan Campo",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Michel Salgado",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Carlos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Redondo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Steve McManaman",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Raul",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Morientes",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Nicolas Anelka",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1998/99": {
+    "winner": "Manchester United",
+    "runnerUp": "Bayern Munich",
+    "score": "2-1",
+    "stadium": "Camp Nou, Barcellona",
+    "coach": "Alex Ferguson",
+    "roster": [
+      {
+        "name": "Peter Schmeichel",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Gary Neville",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ronny Johnsen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jaap Stam",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Denis Irwin",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ryan Giggs",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "David Beckham",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Nicky Butt",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jesper Blomqvist",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Dwight Yorke",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Andy Cole",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1997/98": {
+    "winner": "Real Madrid",
+    "runnerUp": "Juventus",
+    "score": "1-0",
+    "stadium": "Amsterdam Arena, Amsterdam",
+    "coach": "Jupp Heynckes",
+    "roster": [
+      {
+        "name": "Bodo Illgner",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Christian Panucci",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Manuel Sanchis",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Hierro",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Carlos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Redondo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Christian Karembeu",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Clarence Seedorf",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Raul",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Morientes",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Predrag Mijatovic",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1996/97": {
+    "winner": "Borussia Dortmund",
+    "runnerUp": "Juventus",
+    "score": "3-1",
+    "stadium": "Olympiastadion, Monaco",
+    "coach": "Ottmar Hitzfeld",
+    "roster": [
+      {
+        "name": "Stefan Klos",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Jürgen Kohler",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Matthias Sammer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Martin Kree",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Stefan Reuter",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jörg Heinrich",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Paul Lambert",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Paulo Sousa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Andreas Möller",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Karl-Heinz Riedle",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Stephane Chapuisat",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1995/96": {
+    "winner": "Juventus",
+    "runnerUp": "Ajax",
+    "score": "1-1 (4-2 dcr)",
+    "stadium": "Stadio Olimpico, Roma",
+    "coach": "Marcello Lippi",
+    "roster": [
+      {
+        "name": "Angelo Peruzzi",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Moreno Torricelli",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Pietro Vierchowod",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ciro Ferrara",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gianluca Pessotto",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Antonio Conte",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Paulo Sousa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Didier Deschamps",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alessandro Del Piero",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Gianluca Vialli",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Fabrizio Ravanelli",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1994/95": {
+    "winner": "Ajax",
+    "runnerUp": "Milan",
+    "score": "1-0",
+    "stadium": "Ernst-Happel-Stadion, Vienna",
+    "coach": "Louis van Gaal",
+    "roster": [
+      {
+        "name": "Edwin van der Sar",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Michael Reiziger",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Danny Blind",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Frank Rijkaard",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Frank de Boer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Clarence Seedorf",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Edgar Davids",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ronald de Boer",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jari Litmanen",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Finidi George",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Marc Overmars",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1993/94": {
+    "winner": "Milan",
+    "runnerUp": "Barcelona",
+    "score": "4-0",
+    "stadium": "Olympiako Stadio, Atene",
+    "coach": "Fabio Capello",
+    "roster": [
+      {
+        "name": "Sebastiano Rossi",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Mauro Tassotti",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Filippo Galli",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Paolo Maldini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Christian Panucci",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Zvonimir Boban",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Demetrio Albertini",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Marcel Desailly",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Donadoni",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Dejan Savicevic",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Daniele Massaro",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1992/93": {
+    "winner": "Olympique Marseille",
+    "runnerUp": "Milan",
+    "score": "1-0",
+    "stadium": "Olympiastadion, Monaco",
+    "coach": "Raymond Goethals",
+    "roster": [
+      {
+        "name": "Fabien Barthez",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Jocelyn Angloma",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Basile Boli",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marcel Desailly",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Eric Di Meco",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Didier Deschamps",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Franck Sauzée",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Abedi Pelé",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Rudi Völler",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Alen Boksic",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Jean-Jacques Eydelie",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1991/92": {
+    "winner": "Barcelona",
+    "runnerUp": "Sampdoria",
+    "score": "1-0 (dts)",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Johan Cruyff",
+    "roster": [
+      {
+        "name": "Andoni Zubizarreta",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Nando",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ronald Koeman",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Albert Ferrer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Juan Carlos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jose Mari Bakero",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Josep Guardiola",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Eusebio Sacristan",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Michael Laudrup",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Hristo Stoichkov",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Julio Salinas",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1990/91": {
+    "winner": "Red Star Belgrade",
+    "runnerUp": "Olympique Marseille",
+    "score": "0-0 (5-3 dcr)",
+    "stadium": "Stadio San Nicola, Bari",
+    "coach": "Ljupko Petrovic",
+    "roster": [
+      {
+        "name": "Stevan Stojanovic",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Slobodan Marovic",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ilija Najdoski",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Refik Sabanadzovic",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Miodrag Belodedici",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Vladimir Jugovic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sinisa Mihajlovic",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Robert Prosinecki",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Dejan Savicevic",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Darko Pancev",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Dragisa Binic",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1989/90": {
+    "winner": "Milan",
+    "runnerUp": "Benfica",
+    "score": "1-0",
+    "stadium": "Praterstadion, Vienna",
+    "coach": "Arrigo Sacchi",
+    "roster": [
+      {
+        "name": "Giovanni Galli",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Mauro Tassotti",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alessandro Costacurta",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franco Baresi",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Paolo Maldini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Angelo Colombo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Frank Rijkaard",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Carlo Ancelotti",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alberigo Evani",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ruud Gullit",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Marco van Basten",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1988/89": {
+    "winner": "Milan",
+    "runnerUp": "Steaua Bucuresti",
+    "score": "4-0",
+    "stadium": "Camp Nou, Barcellona",
+    "coach": "Arrigo Sacchi",
+    "roster": [
+      {
+        "name": "Giovanni Galli",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Mauro Tassotti",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alessandro Costacurta",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franco Baresi",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Paolo Maldini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Angelo Colombo",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Frank Rijkaard",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Carlo Ancelotti",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Donadoni",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ruud Gullit",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Marco van Basten",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1987/88": {
+    "winner": "PSV Eindhoven",
+    "runnerUp": "Benfica",
+    "score": "0-0 (6-5 dcr)",
+    "stadium": "Neckarstadion, Stoccarda",
+    "coach": "Guus Hiddink",
+    "roster": [
+      {
+        "name": "Hans van Breukelen",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Eric Gerets",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ivan Nielsen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ronald Koeman",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jan Heintze",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Berry van Aerle",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Edward Linskens",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gerald Vanenburg",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Wim Kieft",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Sören Lerby",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Hans Gillhaus",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1986/87": {
+    "winner": "Porto",
+    "runnerUp": "Bayern Munich",
+    "score": "2-1",
+    "stadium": "Praterstadion, Vienna",
+    "coach": "Artur Jorge",
+    "roster": [
+      {
+        "name": "Jozef Mlynarczyk",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Joao Pinto",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Celso",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Eduardo Luis",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Augusto Inacio",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Quim",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jaime Magalhaes",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Antonio Sousa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "André",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paulo Futre",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Rabah Madjer",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1985/86": {
+    "winner": "Steaua Bucuresti",
+    "runnerUp": "Barcelona",
+    "score": "0-0 (2-0 dcr)",
+    "stadium": "Ramón Sánchez Pizjuán, Siviglia",
+    "coach": "Emerich Jenei",
+    "roster": [
+      {
+        "name": "Helmuth Duckadam",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Stefan Iovan",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Adrian Bumbescu",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Miodrag Belodedici",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ilie Barbulescu",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Lucian Balan",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gavril Balint",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "László Bölöni",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Mihail Majearu",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Marius Lacatus",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Victor Piturca",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1984/85": {
+    "winner": "Juventus",
+    "runnerUp": "Liverpool",
+    "score": "1-0",
+    "stadium": "Heysel Stadium, Bruxelles",
+    "coach": "Giovanni Trapattoni",
+    "roster": [
+      {
+        "name": "Stefano Tacconi",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Luciano Favero",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Antonio Cabrini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Massimo Bonini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sergio Brio",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gaetano Scirea",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Massimo Briaschi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Marco Tardelli",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Paolo Rossi",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Michel Platini",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Zbigniew Boniek",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1983/84": {
+    "winner": "Liverpool",
+    "runnerUp": "Roma",
+    "score": "1-1 (4-2 dcr)",
+    "stadium": "Stadio Olimpico, Roma",
+    "coach": "Joe Fagan",
+    "roster": [
+      {
+        "name": "Bruce Grobbelaar",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Phil Neal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Mark Lawrenson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alan Hansen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alan Kennedy",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Craig Johnston",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sammy Lee",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Graeme Souness",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ronnie Whelan",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kenny Dalglish",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ian Rush",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1982/83": {
+    "winner": "Hamburg",
+    "runnerUp": "Juventus",
+    "score": "1-0",
+    "stadium": "Olympiako Stadio, Atene",
+    "coach": "Ernst Happel",
+    "roster": [
+      {
+        "name": "Uli Stein",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Manfred Kaltz",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ditmar Jakobs",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Holger Hieronymus",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Bernd Wehmeyer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Jürgen Groh",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Wolfgang Rolff",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Felix Magath",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jürgen Milewski",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Horst Hrubesch",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Lars Bastrup",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1981/82": {
+    "winner": "Aston Villa",
+    "runnerUp": "Bayern Munich",
+    "score": "1-0",
+    "stadium": "De Kuip, Rotterdam",
+    "coach": "Tony Barton",
+    "roster": [
+      {
+        "name": "Jimmy Rimmer",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Kenny Swain",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ken McNaught",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Allan Evans",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gary Williams",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Dennis Mortimer",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Des Bremner",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gordon Cowans",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Tony Morley",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Gary Shaw",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Peter Withe",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1980/81": {
+    "winner": "Liverpool",
+    "runnerUp": "Real Madrid",
+    "score": "1-0",
+    "stadium": "Parc des Princes, Parigi",
+    "coach": "Bob Paisley",
+    "roster": [
+      {
+        "name": "Ray Clemence",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Phil Neal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alan Hansen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Colin Irwin",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alan Kennedy",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Sammy Lee",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Graeme Souness",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Terry McDermott",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ray Kennedy",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kenny Dalglish",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "David Johnson",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1979/80": {
+    "winner": "Nottingham Forest",
+    "runnerUp": "Hamburg",
+    "score": "1-0",
+    "stadium": "Santiago Bernabéu, Madrid",
+    "coach": "Brian Clough",
+    "roster": [
+      {
+        "name": "Peter Shilton",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Viv Anderson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Frank Gray",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Larry Lloyd",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Kenny Burns",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Martin O'Neill",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ian Bowyer",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gary Mills",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "John McGovern",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Garry Birtles",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "John Robertson",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1978/79": {
+    "winner": "Nottingham Forest",
+    "runnerUp": "Malmö FF",
+    "score": "1-0",
+    "stadium": "Olympiastadion, Monaco",
+    "coach": "Brian Clough",
+    "roster": [
+      {
+        "name": "Peter Shilton",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Viv Anderson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Frank Clark",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Larry Lloyd",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Kenny Burns",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Trevor Francis",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ian Bowyer",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gary Birtles",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "John McGovern",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Tony Woodcock",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "John Robertson",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1977/78": {
+    "winner": "Liverpool",
+    "runnerUp": "Club Brugge",
+    "score": "1-0",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Bob Paisley",
+    "roster": [
+      {
+        "name": "Ray Clemence",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Phil Neal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Phil Thompson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Alan Hansen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ray Kennedy",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Emlyn Hughes",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Graeme Souness",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Terry McDermott",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jimmy Case",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kenny Dalglish",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "David Fairclough",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1976/77": {
+    "winner": "Liverpool",
+    "runnerUp": "Borussia M.Gladbach",
+    "score": "3-1",
+    "stadium": "Stadio Olimpico, Roma",
+    "coach": "Bob Paisley",
+    "roster": [
+      {
+        "name": "Ray Clemence",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Phil Neal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Tommy Smith",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Emlyn Hughes",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Joey Jones",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ian Callaghan",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Terry McDermott",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ray Kennedy",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jimmy Case",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Kevin Keegan",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Steve Heighway",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1975/76": {
+    "winner": "Bayern Munich",
+    "runnerUp": "Saint-Étienne",
+    "score": "1-0",
+    "stadium": "Hampden Park, Glasgow",
+    "coach": "Dettmar Cramer",
+    "roster": [
+      {
+        "name": "Sepp Maier",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Johnny Hansen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Udo Horsmann",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Hans-Georg Schwarzenbeck",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Beckenbauer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Bernd Dürnberger",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Roth",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jupp Kapellmann",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Karl-Heinz Rummenigge",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Gerd Müller",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Uli Hoeness",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1974/75": {
+    "winner": "Bayern Munich",
+    "runnerUp": "Leeds United",
+    "score": "2-0",
+    "stadium": "Parc des Princes, Parigi",
+    "coach": "Dettmar Cramer",
+    "roster": [
+      {
+        "name": "Sepp Maier",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Bernd Dürnberger",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Hans-Georg Schwarzenbeck",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Beckenbauer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Björn Andersson",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rainer Zobel",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Roth",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jupp Kapellmann",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Conny Torstensson",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Gerd Müller",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Uli Hoeness",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1973/74": {
+    "winner": "Bayern Munich",
+    "runnerUp": "Atletico Madrid",
+    "score": "4-0",
+    "stadium": "Heysel Stadium, Bruxelles",
+    "coach": "Udo Lattek",
+    "roster": [
+      {
+        "name": "Sepp Maier",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Johnny Hansen",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Paul Breitner",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Hans-Georg Schwarzenbeck",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Beckenbauer",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Roth",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Conny Torstensson",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Rainer Zobel",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gerd Müller",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Uli Hoeness",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Jupp Kapellmann",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1972/73": {
+    "winner": "Ajax",
+    "runnerUp": "Juventus",
+    "score": "1-0",
+    "stadium": "Crvena Zvezda Stadium, Belgrado",
+    "coach": "Stefan Kovacs",
+    "roster": [
+      {
+        "name": "Heinz Stuy",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Wim Suurbier",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Barry Hulshoff",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Horst Blankenburg",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ruud Krol",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Johan Neeskens",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Arie Haan",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gerrie Mühren",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sjaak Swart",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Johan Cruyff",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Piet Keizer",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1971/72": {
+    "winner": "Ajax",
+    "runnerUp": "Inter",
+    "score": "2-0",
+    "stadium": "De Kuip, Rotterdam",
+    "coach": "Stefan Kovacs",
+    "roster": [
+      {
+        "name": "Heinz Stuy",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Wim Suurbier",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Barry Hulshoff",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Horst Blankenburg",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ruud Krol",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Johan Neeskens",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Arie Haan",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gerrie Mühren",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sjaak Swart",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Johan Cruyff",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Piet Keizer",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1970/71": {
+    "winner": "Ajax",
+    "runnerUp": "Panathinaikos",
+    "score": "2-0",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Rinus Michels",
+    "roster": [
+      {
+        "name": "Heinz Stuy",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Wim Suurbier",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Barry Hulshoff",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Velibor Vasovic",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ruud Krol",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Johan Neeskens",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Nico Rijnders",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gerrie Mühren",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sjaak Swart",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Johan Cruyff",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Dick van Dijk",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1969/70": {
+    "winner": "Feyenoord",
+    "runnerUp": "Celtic",
+    "score": "2-1 (dts)",
+    "stadium": "San Siro, Milano",
+    "coach": "Ernst Happel",
+    "roster": [
+      {
+        "name": "Eddy Pieters Graafland",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Piet Romeijn",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rinus Israel",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Theo Laseroms",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Theo van Duivenbode",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Franz Hasil",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Wim Jansen",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Willem van Hanegem",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Henk Wery",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ove Kindvall",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Coen Moulijn",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1968/69": {
+    "winner": "Milan",
+    "runnerUp": "Ajax",
+    "score": "4-1",
+    "stadium": "Santiago Bernabéu, Madrid",
+    "coach": "Nereo Rocco",
+    "roster": [
+      {
+        "name": "Fabio Cudicini",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Angelo Anquilletti",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Karl-Heinz Schnellinger",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Roberto Rosato",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Saul Malatrasi",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Giovanni Trapattoni",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Kurt Hamrin",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Lodovico Delvecchio",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Angelo Sormani",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Gianni Rivera",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Pierino Prati",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1967/68": {
+    "winner": "Manchester United",
+    "runnerUp": "Benfica",
+    "score": "4-1 (dts)",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Matt Busby",
+    "roster": [
+      {
+        "name": "Alex Stepney",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Shay Brennan",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Bill Foulkes",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "David Sadler",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Tony Dunne",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Pat Crerand",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Bobby Charlton",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Nobby Stiles",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "George Best",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Brian Kidd",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "John Aston",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1966/67": {
+    "winner": "Celtic",
+    "runnerUp": "Inter",
+    "score": "2-1",
+    "stadium": "Estádio Nacional, Lisbona",
+    "coach": "Jock Stein",
+    "roster": [
+      {
+        "name": "Ronnie Simpson",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Jim Craig",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Tommy Gemmell",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Bobby Murdoch",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Billy McNeill",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "John Clark",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jimmy Johnstone",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Willie Wallace",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Stevie Chalmers",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Bertie Auld",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Bobby Lennox",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1965/66": {
+    "winner": "Real Madrid",
+    "runnerUp": "Partizan",
+    "score": "2-1",
+    "stadium": "Heysel Stadium, Bruxelles",
+    "coach": "Miguel Muñoz",
+    "roster": [
+      {
+        "name": "Jose Araquistain",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Pachin",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Pedro de Felipe",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ignacio Zoco",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Manuel Sanchis",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Pirri",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Manuel Velazquez",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Serena",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Amancio Amaro",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ramon Grosso",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paco Gento",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1964/65": {
+    "winner": "Inter",
+    "runnerUp": "Benfica",
+    "score": "1-0",
+    "stadium": "San Siro, Milano",
+    "coach": "Helenio Herrera",
+    "roster": [
+      {
+        "name": "Giuliano Sarti",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Tarcisio Burgnich",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Giacinto Facchetti",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Gianfranco Bedin",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Aristide Guarneri",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Armando Picchi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jair da Costa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sandro Mazzola",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Joaquin Peiró",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Luis Suárez",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Mario Corso",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1963/64": {
+    "winner": "Inter",
+    "runnerUp": "Real Madrid",
+    "score": "3-1",
+    "stadium": "Praterstadion, Vienna",
+    "coach": "Helenio Herrera",
+    "roster": [
+      {
+        "name": "Giuliano Sarti",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Tarcisio Burgnich",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Giacinto Facchetti",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Carlo Tagnin",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Aristide Guarneri",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Armando Picchi",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Jair da Costa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Sandro Mazzola",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Aurelio Milani",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Luis Suárez",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Mario Corso",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1962/63": {
+    "winner": "Milan",
+    "runnerUp": "Benfica",
+    "score": "2-1",
+    "stadium": "Wembley Stadium, Londra",
+    "coach": "Nereo Rocco",
+    "roster": [
+      {
+        "name": "Giorgio Ghezzi",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Mario David",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Mario Trebbi",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Victor Benitez",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Cesare Maldini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Giovanni Trapattoni",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Gino Pivatelli",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Dino Sani",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "José Altafini",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Gianni Rivera",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Bruno Mora",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1961/62": {
+    "winner": "Benfica",
+    "runnerUp": "Real Madrid",
+    "score": "5-3",
+    "stadium": "Olympisch Stadion, Amsterdam",
+    "coach": "Béla Guttmann",
+    "roster": [
+      {
+        "name": "Costa Pereira",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "João Jurado",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Germano",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Angelo Martins",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Domiciano Cavém",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Cruz",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "José Augusto",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Eusébio",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "José Águas",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Mário Coluna",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "António Simões",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1960/61": {
+    "winner": "Benfica",
+    "runnerUp": "Barcelona",
+    "score": "3-2",
+    "stadium": "Wankdorf Stadium, Berna",
+    "coach": "Béla Guttmann",
+    "roster": [
+      {
+        "name": "Costa Pereira",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Mário João",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Germano",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Angelo Martins",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "José Neto",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Fernando Cruz",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "José Augusto",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Joaquim Santana",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "José Águas",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Mário Coluna",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Domiciano Cavém",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1959/60": {
+    "winner": "Real Madrid",
+    "runnerUp": "Eintracht Frankfurt",
+    "score": "7-3",
+    "stadium": "Hampden Park, Glasgow",
+    "coach": "Miguel Muñoz",
+    "roster": [
+      {
+        "name": "Rogelio Dominguez",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Marquitos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Josamaria Zarraga",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Pachin",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "José Maria Vidal",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Ruiz",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Canario",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Luis del Sol",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alfredo Di Stefano",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Ferenc Puskas",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paco Gento",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1958/59": {
+    "winner": "Real Madrid",
+    "runnerUp": "Stade de Reims",
+    "score": "2-0",
+    "stadium": "Neckarstadion, Stoccarda",
+    "coach": "Luis Carniglia",
+    "roster": [
+      {
+        "name": "Rogelio Dominguez",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Marquitos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Josamaria Zarraga",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rafael Lesmes",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Juan Santisteban",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Antonio Ruiz",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Raymond Kopa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Enrique Mateos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alfredo Di Stefano",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Héctor Rial",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paco Gento",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1957/58": {
+    "winner": "Real Madrid",
+    "runnerUp": "Milan",
+    "score": "3-2 (dts)",
+    "stadium": "Heysel Stadium, Bruxelles",
+    "coach": "Luis Carniglia",
+    "roster": [
+      {
+        "name": "Juan Alonso",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Atienza",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marquitos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rafael Lesmes",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Juan Santisteban",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Josamaria Zarraga",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Raymond Kopa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Joseito",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alfredo Di Stefano",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Héctor Rial",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paco Gento",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1956/57": {
+    "winner": "Real Madrid",
+    "runnerUp": "Fiorentina",
+    "score": "2-0",
+    "stadium": "Santiago Bernabéu, Madrid",
+    "coach": "José Villalonga",
+    "roster": [
+      {
+        "name": "Juan Alonso",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Manuel Torres",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marquitos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rafael Lesmes",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Miguel Muñoz",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Josamaria Zarraga",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Raymond Kopa",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Enrique Mateos",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alfredo Di Stefano",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Héctor Rial",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paco Gento",
+        "role": "ATT",
+        "isStarter": true
+      }
+    ]
+  },
+  "1955/56": {
+    "winner": "Real Madrid",
+    "runnerUp": "Stade de Reims",
+    "score": "4-3",
+    "stadium": "Parc des Princes, Parigi",
+    "coach": "José Villalonga",
+    "roster": [
+      {
+        "name": "Juan Alonso",
+        "role": "POR",
+        "isStarter": true
+      },
+      {
+        "name": "Atienza",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Marquitos",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Rafael Lesmes",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Miguel Muñoz",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Josamaria Zarraga",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Joseito",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Ramon Marsal",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Alfredo Di Stefano",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Héctor Rial",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Paco Gento",
+        "role": "ATT",
+        "isStarter": true
+      }
     ]
   }
 }

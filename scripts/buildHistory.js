@@ -4,6 +4,7 @@ const path = require('path');
 const ROSTERS_DIR = path.join(__dirname, '../src/data/rosters');
 const HISTORY_FILE = path.join(__dirname, '../src/data/history.ts');
 const OUTPUT_FILE = path.join(__dirname, '../src/data/trofeiCronologia.json');
+const CL_FILE = path.join(ROSTERS_DIR, 'champions_league.json');
 
 const historyContent = fs.readFileSync(HISTORY_FILE, 'utf-8');
 
@@ -25,95 +26,144 @@ try {
     process.exit(1);
 }
 
-const finalDb = [];
-
 const leagueNames = {
-    'A': 'Campionato Serie A',
-    'LL': 'La Liga',
-    'PL': 'Premier League',
-    'BL': 'Bundesliga',
-    'L1': 'Ligue 1',
-    'CL': 'Champions League'
+    'LL': { name: 'La Liga', icon: '🇪🇸' },
+    'PL': { name: 'Premier League', icon: '🇬🇧' },
+    'BL': { name: 'Bundesliga', icon: '🇩🇪' },
+    'L1': { name: 'Ligue 1', icon: '🇫🇷' },
+    'CL': { name: 'Champions League', icon: '🇪🇺' }
 };
 
-for (const [leagueId, teams] of Object.entries(HISTORY_DATA)) {
-    const trophyName = leagueNames[leagueId] || 'Campionato';
+function normalizeYear(year) {
+    if (year.length === 9 && year.includes('/')) {
+        return year.substring(0, 5) + year.substring(7);
+    }
+    return year;
+}
 
-    for (const teamDataObj of teams) {
-        const teamNameRaw = teamDataObj.team;
-        let teamId = teamNameRaw.toLowerCase().replace(/ /g, '_').replace(/-/g, '_');
-        teamId = teamId.replace(/ñ/g, 'n').replace(/ü/g, 'u').replace(/é/g, 'e');
-        const wins = teamDataObj.wins;
+function normalizeTeamId(teamName) {
+    return teamName.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+}
 
-        // Prova a caricare il file JSON del team
-        let teamData = {};
-        const teamFile = path.join(ROSTERS_DIR, `${teamId}.json`);
-        if (fs.existsSync(teamFile)) {
-            teamData = JSON.parse(fs.readFileSync(teamFile, 'utf-8'));
-        }
+// 1. Carica il trofeiCronologia.json ORIGINALE (ripristinato)
+let finalDb = [];
+try {
+    const rawData = fs.readFileSync(OUTPUT_FILE, 'utf-8');
+    finalDb = JSON.parse(rawData);
+} catch (e) {
+    console.error("Errore lettura trofeiCronologia.json originale:", e);
+}
 
-        // Se è CL, i dati li peschiamo da champions_league.json
-        let clData = {};
-        if (leagueId === 'CL') {
-            const clFile = path.join(ROSTERS_DIR, 'champions_league.json');
-            if (fs.existsSync(clFile)) {
-                clData = JSON.parse(fs.readFileSync(clFile, 'utf-8'));
+// 2. Arricchisci le formazioni italiane esistenti con le rose complete se disponibili
+for (let trophy of finalDb) {
+    const teamId = normalizeTeamId(trophy.team);
+    const nYear = normalizeYear(trophy.year);
+    
+    const rosterPath = path.join(ROSTERS_DIR, `${teamId}.json`);
+    if (fs.existsSync(rosterPath)) {
+        try {
+            const teamData = JSON.parse(fs.readFileSync(rosterPath, 'utf-8'));
+            if (teamData[nYear] && teamData[nYear].roster) {
+                trophy.roster = teamData[nYear].roster;
+                // possiamo rimuovere formation
+                delete trophy.formation;
             }
-        }
-
-        wins.forEach((yearLabel, idx) => {
-            const yearMatch = yearLabel.match(/\d+/g);
-            let specificData = null;
-
-            if (leagueId === 'CL') {
-                // Per la CL peschiamo il dato esatto dell'annata dal database della CL
-                const finalData = clData[yearLabel];
-                if (finalData && finalData.winner === teamNameRaw) {
-                    specificData = finalData;
-                }
-            } else {
-                // Per i campionati nazionali cerchiamo nel file del team
-                if (yearMatch && yearMatch.length > 0) {
-                    const endYear = yearMatch.length > 1 ? yearMatch[1] : yearMatch[0];
-                    const fullEndYear = endYear.length === 2 ? `19${endYear}` : endYear;
-                    const targetYear = fullEndYear.length === 2 ? (parseInt(endYear) > 25 ? `19${endYear}` : `20${endYear}`) : fullEndYear;
-                    
-                    specificData = teamData[yearLabel] || teamData[targetYear];
-                }
-            }
-
-            if (!specificData) {
-                specificData = {
-                    coach: 'Dato Storico in Aggiornamento',
-                    points: leagueId === 'CL' ? 'Vittoria Finale' : 'Vittoria Campionato',
-                    roster: [
-                        { name: 'Formazione in aggiornamento', role: 'CEN', isStarter: true }
-                    ]
-                };
-            }
-
-            const trophyEntry = {
-                id: `${teamId}_${leagueId}_${idx}`,
-                team: teamId,
-                name: trophyName,
-                year: yearLabel,
-                icon: leagueId === 'CL' ? "🇪🇺" : "🏆",
-                coach: specificData.coach || 'Dato Storico',
-                points: specificData.points || (leagueId === 'CL' ? 'Vittoria' : 'Vittoria Storica'),
-                roster: specificData.roster || []
-            };
-
-            if (leagueId === 'CL' && specificData.runnerUp) {
-                trophyEntry.runnerUp = specificData.runnerUp;
-                trophyEntry.score = specificData.score;
-                trophyEntry.stadium = specificData.stadium;
-                trophyEntry.stats = specificData.stats;
-            }
-
-            finalDb.push(trophyEntry);
-        });
+        } catch(e) {}
     }
 }
 
+// 3. Aggiungi campionati esteri (LL, PL, BL, L1) da history.ts
+for (const [leagueId, teams] of Object.entries(HISTORY_DATA)) {
+    if (leagueId === 'A' || leagueId === 'CL') continue; // L'Italia è già in trofeiCronologia, CL la facciamo a parte
+
+    const leagueInfo = leagueNames[leagueId];
+    
+    for (const teamObj of teams) {
+        const teamName = teamObj.team;
+        const teamId = normalizeTeamId(teamName);
+        let teamRosters = {};
+        
+        const rosterPath = path.join(ROSTERS_DIR, `${teamId}.json`);
+        if (fs.existsSync(rosterPath)) {
+            try {
+                teamRosters = JSON.parse(fs.readFileSync(rosterPath, 'utf-8'));
+            } catch(e) {}
+        }
+
+        for (let i = 0; i < teamObj.wins.length; i++) {
+            const year = teamObj.wins[i]; // formato 2023/24
+            
+            let roster = [];
+            if (teamRosters[year] && teamRosters[year].roster) {
+                roster = teamRosters[year].roster;
+            } else {
+                roster = [{ name: "Formazione in aggiornamento", role: "CEN", isStarter: true }];
+            }
+
+            finalDb.push({
+                id: `${teamId}_${leagueId}_${i}`,
+                team: teamName,
+                name: leagueInfo.name,
+                year: year,
+                icon: leagueInfo.icon,
+                coach: "Dato Storico",
+                points: "Vittoria Storica",
+                roster: roster
+            });
+        }
+    }
+}
+
+// 4. Aggiungi Champions League usando champions_league.json
+let clData = {};
+if (fs.existsSync(CL_FILE)) {
+    clData = JSON.parse(fs.readFileSync(CL_FILE, 'utf-8'));
+}
+
+if (HISTORY_DATA['CL']) {
+    const clIcon = leagueNames['CL'].icon;
+    const clName = leagueNames['CL'].name;
+
+    for (const teamObj of HISTORY_DATA['CL']) {
+        const teamName = teamObj.team;
+        const teamId = normalizeTeamId(teamName);
+
+        for (let i = 0; i < teamObj.wins.length; i++) {
+            const year = teamObj.wins[i];
+            
+            let clEntry = clData[year];
+            if (clEntry && clEntry.winner === teamName) {
+                // Abbiamo i dati completi
+                finalDb.push({
+                    id: `${teamId}_cl_${i}`,
+                    team: teamName,
+                    name: clName,
+                    year: year,
+                    icon: clIcon,
+                    coach: clEntry.coach || "Dato Storico",
+                    points: clEntry.score || "Vittoria",
+                    runnerUp: clEntry.runnerUp,
+                    stadium: clEntry.stadium,
+                    stats: clEntry.stats,
+                    roster: clEntry.roster
+                });
+            } else {
+                // Non abbiamo i dati per questo specifico team/anno in clData
+                finalDb.push({
+                    id: `${teamId}_cl_${i}`,
+                    team: teamName,
+                    name: clName,
+                    year: year,
+                    icon: clIcon,
+                    coach: "Dato Storico",
+                    points: "Vittoria Storica",
+                    roster: [{ name: "Formazione in aggiornamento", role: "CEN", isStarter: true }]
+                });
+            }
+        }
+    }
+}
+
+
 fs.writeFileSync(OUTPUT_FILE, JSON.stringify(finalDb, null, 2));
-console.log(`Generati ${finalDb.length} trofei in ${OUTPUT_FILE}`);
+console.log(`Generated ${finalDb.length} historical records successfully!`);
