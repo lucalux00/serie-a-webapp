@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Target, ExternalLink, Calculator, AlertTriangle, Info, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Target, ExternalLink, Calculator, AlertTriangle, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getTeamLogoUrl } from '@/utils/teamLogos';
 
@@ -13,6 +13,7 @@ export default function PronosticiPage() {
   const [bollette, setBollette] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedBolletta, setExpandedBolletta] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>('Tutti');
 
   useEffect(() => {
     async function loadPredictions() {
@@ -40,6 +41,21 @@ export default function PronosticiPage() {
     }
   };
 
+  // Otteniamo la lista di campionati unici disponibili nelle previsioni attuali
+  const availableCompetitions = useMemo(() => {
+    const comps = new Set<string>();
+    singlePredictions.forEach(p => {
+        if (p.competition) comps.add(p.competition);
+    });
+    return ['Tutti', ...Array.from(comps)];
+  }, [singlePredictions]);
+
+  // Filtriamo le singole in base alla tab attiva
+  const filteredPredictions = useMemo(() => {
+      if (activeTab === 'Tutti') return singlePredictions;
+      return singlePredictions.filter(p => p.competition === activeTab);
+  }, [activeTab, singlePredictions]);
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-[60vh] p-4 text-[#94A3B8]">
@@ -57,48 +73,93 @@ export default function PronosticiPage() {
         </div>
         <div>
           <h1 className="text-2xl font-black text-white">I Pronostici</h1>
-          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Singole & Bollette</p>
+          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Algoritmo Statistico</p>
         </div>
       </div>
       
       <p className="text-sm text-[#cbd5e1] mb-6 bg-[#1E293B] p-4 rounded-xl border border-[#334155] shadow-sm">
-        Scopri le analisi statistiche esclusive e le combinazioni algoritmiche calcolate sulle partite e amichevoli in programma. Il nostro algoritmo confronta le probabilità implicite del mercato per estrarre le selezioni di maggior valore matematico.
+        Scopri le analisi statistiche esclusive generate dal nostro MLOps. Naviga tra i maggiori campionati europei per trovare le singole di maggior valore.
       </p>
 
-      {/* Singole */}
-      <h2 className="text-lg font-black mb-4 text-white flex items-center">
-        <Target className="text-[#10B981] mr-2" size={20} />
-        Top 4 Singole Più Sicure
-      </h2>
-      <div className="mb-8 space-y-3">
-        {singlePredictions.length > 0 ? singlePredictions.map((pred, i) => (
-          <div key={pred.id || i} className="bg-[#1E293B] rounded-xl p-4 flex justify-between items-center border border-[#334155] shadow-sm relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#10B981]" />
-            <div className="pl-2">
-              <div className="flex items-center gap-2 mb-1.5">
-                <img src={getTeamLogoUrl(pred.match.split(' - ')[0])} alt="" loading="lazy" className="w-5 h-5 object-contain" />
-                <span className="font-black text-[#F8FAFC] text-sm">{pred.match}</span>
-                {pred.match.split(' - ')[1] && <img src={getTeamLogoUrl(pred.match.split(' - ')[1])} alt="" loading="lazy" className="w-5 h-5 object-contain" />}
-              </div>
-              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-widest">Esito: <span className="text-[#10B981]">{pred.pick}</span></div>
-            </div>
-            <div className="bg-[#0F172A] px-3 py-2 rounded-lg border border-[#334155] min-w-[60px] text-center">
-              <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-0.5">Quota</span>
-              <span className="font-black text-white">{pred.odds.toFixed(2)}</span>
-            </div>
+      {/* Tabs Scorrevoli */}
+      {availableCompetitions.length > 1 && (
+          <div className="flex overflow-x-auto hide-scrollbar mb-6 gap-2 pb-2">
+              {availableCompetitions.map(tab => (
+                  <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+                          activeTab === tab 
+                          ? 'bg-[#0EA5E9] text-white shadow-md shadow-[#0EA5E9]/20' 
+                          : 'bg-[#1E293B] text-[#94A3B8] border border-[#334155] hover:text-white'
+                      }`}
+                  >
+                      {tab}
+                  </button>
+              ))}
           </div>
-        )) : (
-          <div className="bg-[#1E293B] p-4 text-center rounded-xl border border-[#334155] text-white">Nessuna singola trovata.</div>
-        )}
+      )}
+
+      {/* Singole */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-black text-white flex items-center">
+            <Target className="text-[#10B981] mr-2" size={20} />
+            Top Singole {activeTab !== 'Tutti' ? `- ${activeTab}` : ''}
+        </h2>
+        <span className="text-xs font-bold text-[#64748B] bg-[#1E293B] px-2 py-1 rounded-md">{filteredPredictions.length} match</span>
+      </div>
+
+      <div className="mb-10 space-y-3 min-h-[200px]">
+        <AnimatePresence mode="popLayout">
+            {filteredPredictions.length > 0 ? filteredPredictions.map((pred, i) => (
+            <motion.div 
+                key={pred.id || i} 
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="bg-[#1E293B] rounded-xl p-4 flex justify-between items-center border border-[#334155] shadow-sm relative overflow-hidden"
+            >
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#10B981]" />
+                <div className="pl-2 flex-1">
+                <div className="flex items-center gap-2 mb-1.5">
+                    <img src={getTeamLogoUrl(pred.match.split(' - ')[0])} alt="" loading="lazy" className="w-5 h-5 object-contain" />
+                    <span className="font-black text-[#F8FAFC] text-sm leading-tight">{pred.match}</span>
+                    {pred.match.split(' - ')[1] && <img src={getTeamLogoUrl(pred.match.split(' - ')[1])} alt="" loading="lazy" className="w-5 h-5 object-contain" />}
+                </div>
+                <div className="flex gap-3">
+                    <div className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest flex items-center">
+                        <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1] mr-2">{pred.competition || 'Altro'}</span>
+                        Esito: <span className="text-[#10B981] ml-1">{pred.pick}</span>
+                    </div>
+                </div>
+                </div>
+                <div className="bg-[#0F172A] px-3 py-2 rounded-lg border border-[#334155] min-w-[60px] text-center shrink-0">
+                <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-0.5">Quota</span>
+                <span className="font-black text-white">{pred.odds.toFixed(2)}</span>
+                </div>
+            </motion.div>
+            )) : (
+            <motion.div 
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                className="bg-[#1E293B] p-6 text-center rounded-xl border border-[#334155] text-[#94A3B8] flex flex-col items-center justify-center"
+            >
+                <Target size={32} className="opacity-20 mb-3" />
+                <p>Nessuna singola di valore trovata per questo campionato al momento.</p>
+            </motion.div>
+            )}
+        </AnimatePresence>
       </div>
 
       {/* Bollette */}
       <h2 className="text-lg font-black mb-4 text-white flex items-center">
         <Calculator className="text-[#0EA5E9] mr-2" size={20} />
-        Le Nostre Multiple
+        Le Bollette Globali
       </h2>
+      <p className="text-xs text-[#94A3B8] mb-4">Le bollette mescolano i match di maggior valore di tutta Europa.</p>
       <div className="mb-8 space-y-4">
-        {bollette.map(bolletta => (
+        {bollette.length > 0 ? bollette.map(bolletta => (
           <div key={bolletta.id} className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] border border-[#334155] rounded-2xl shadow-xl overflow-hidden cursor-pointer" onClick={() => toggleBolletta(bolletta.id)}>
             <div className="p-5 flex justify-between items-center">
               <div>
@@ -121,15 +182,17 @@ export default function PronosticiPage() {
                   <div className="space-y-3 mb-5">
                     {bolletta.matches.map((m: any, idx: number) => (
                       <div key={idx} className="flex justify-between items-center bg-[#0F172A] p-3 rounded-lg border border-[#334155]/50">
-                        <div>
+                        <div className="flex-1 overflow-hidden pr-2">
                           <div className="flex items-center gap-2 mb-1">
-                            <img src={getTeamLogoUrl(m.match.split(' - ')[0])} alt="" loading="lazy" className="w-4 h-4 object-contain" />
-                            <span className="text-xs font-bold text-[#94A3B8]">{m.match}</span>
-                            {m.match.split(' - ')[1] && <img src={getTeamLogoUrl(m.match.split(' - ')[1])} alt="" loading="lazy" className="w-4 h-4 object-contain" />}
+                            <img src={getTeamLogoUrl(m.match.split(' - ')[0])} alt="" loading="lazy" className="w-4 h-4 object-contain shrink-0" />
+                            <span className="text-xs font-bold text-[#94A3B8] truncate">{m.match}</span>
                           </div>
-                          <div className="font-bold text-white text-sm">{m.pick}</div>
+                          <div className="flex items-center text-[10px]">
+                            <span className="text-white font-bold mr-2">{m.pick}</span>
+                            <span className="text-[#64748B]">{m.competition || 'Altro'}</span>
+                          </div>
                         </div>
-                        <div className="font-black text-[#10B981]">{m.odds.toFixed(2)}</div>
+                        <div className="font-black text-[#10B981] shrink-0">{m.odds.toFixed(2)}</div>
                       </div>
                     ))}
                   </div>
@@ -153,7 +216,9 @@ export default function PronosticiPage() {
               )}
             </AnimatePresence>
           </div>
-        ))}
+        )) : (
+            <div className="bg-[#1E293B] p-4 text-center rounded-xl border border-[#334155] text-white">Nessuna bolletta algoritmica disponibile.</div>
+        )}
       </div>
 
       {/* Legale */}
@@ -169,6 +234,17 @@ export default function PronosticiPage() {
           Le quote indicate sono soggette a variazioni. Consulta le probabilità di vincita sul sito del concessionario ufficiale.
         </p>
       </div>
+      
+      {/* Stile per nascondere la scrollbar nativa nei tab */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+      `}} />
     </div>
   );
 }

@@ -18,6 +18,22 @@ def fetch_odds(sport):
         print(f"Error fetching {sport}: {e}")
         return []
 
+def get_competition_name(sport_key, sport_title):
+    mapping = {
+        'soccer_italy_serie_a': 'Serie A',
+        'soccer_uefa_champs_league': 'Champions League',
+        'soccer_uefa_europa_league': 'Europa League',
+        'soccer_epl': 'Premier League',
+        'soccer_spain_la_liga': 'La Liga',
+        'soccer_germany_bundesliga': 'Bundesliga',
+        'soccer_france_ligue_one': 'Ligue 1'
+    }
+    if sport_key in mapping:
+        return mapping[sport_key]
+    if sport_title:
+        return sport_title.split(' - ')[0]
+    return 'Altro'
+
 def analyze_and_pick(match):
     home = match['home_team']
     away = match['away_team']
@@ -37,8 +53,6 @@ def analyze_and_pick(match):
     pick = ''
     final_odds = 0
     
-    # Base logic (Tipster / Implied probability)
-    # This is the starting point, to be expanded with Scikit-learn/Poisson later
     if home_odds < 1.55:
         pick = '1'
         final_odds = home_odds
@@ -58,9 +72,12 @@ def analyze_and_pick(match):
         pick = 'Gol'
         final_odds = 1.75
         
+    comp_name = get_competition_name(match.get('sport_key'), match.get('sport_title'))
+        
     return {
         'id': match['id'],
         'match': f"{home} - {away}",
+        'competition': comp_name,
         'pick': pick,
         'odds': round(final_odds, 2),
         'commence_time': match['commence_time']
@@ -72,7 +89,15 @@ def main():
         return
 
     print("Inizio estrazione dati the-odds-api...")
-    sports = ['soccer_italy_serie_a', 'soccer_uefa_champs_league', 'soccer_uefa_europa_league', 'upcoming']
+    sports = [
+        'soccer_italy_serie_a', 
+        'soccer_uefa_champs_league', 
+        'soccer_uefa_europa_league',
+        'soccer_epl',
+        'soccer_spain_la_liga',
+        'soccer_germany_bundesliga',
+        'soccer_france_ligue_one'
+    ]
     all_raw_data = []
     for sport in sports:
         all_raw_data.extend(fetch_odds(sport))
@@ -87,9 +112,7 @@ def main():
             continue
             
         try:
-            # Handle standard ISO 8601 strings from the API
             commence_time = datetime.fromisoformat(match['commence_time'].replace('Z', '+00:00'))
-            
             if commence_time < next_week_aware:
                 pick_data = analyze_and_pick(match)
                 if pick_data:
@@ -97,7 +120,6 @@ def main():
         except Exception as e:
             continue
                 
-    # Remove duplicates
     unique_picks = list({p['id']: p for p in valid_picks}.values())
     
     print(f"Elaborate {len(unique_picks)} previsioni uniche. Salvataggio su Vercel Postgres...")
@@ -106,17 +128,17 @@ def main():
         conn = psycopg2.connect(DB_URL)
         cur = conn.cursor()
         
-        # Clear old predictions to keep the table fresh
         cur.execute("DELETE FROM ml_predictions;")
         
         insert_query = """
-        INSERT INTO ml_predictions (id, match_name, pick, odds, match_date, algorithm_version)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO ml_predictions (id, match_name, competition, pick, odds, match_date, algorithm_version)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
         for p in unique_picks:
             cur.execute(insert_query, (
                 p['id'],
                 p['match'],
+                p['competition'],
                 p['pick'],
                 p['odds'],
                 p['commence_time'],

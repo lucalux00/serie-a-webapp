@@ -7,11 +7,11 @@ export async function GET() {
   try {
     // 1. Fetch partite direttamente dal nostro database MLOps (Vercel Postgres)
     const { rows: allPicks } = await sql`
-      SELECT id, match_name as match, pick, odds, match_date as commence_time, confidence_score
+      SELECT id, match_name as match, competition, pick, odds, match_date as commence_time, confidence_score
       FROM ml_predictions
       WHERE match_date > NOW()
       ORDER BY match_date ASC
-      LIMIT 50
+      LIMIT 100
     `;
 
     // Se l'algoritmo non ha calcolato nulla o non ci sono partite future
