@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
-import { verifyJwt } from '@/lib/jwt';
+import { verifyJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';

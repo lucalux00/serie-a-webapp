@@ -11,6 +11,7 @@ export default function FantacalcioPage() {
         <FantaLiveTable />
       </section>
 
+      <section>
         <h2 className="text-xl font-bold mb-4">Consigli della Settimana</h2>
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-[#1E293B] border border-[#10B981]/50 rounded-xl p-4 shadow-md flex flex-col justify-end h-32 relative overflow-hidden">
