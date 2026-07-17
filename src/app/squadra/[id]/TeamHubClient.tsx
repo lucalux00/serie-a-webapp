@@ -872,11 +872,11 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
         )}
       </AnimatePresence>
 
-      {/* Trophy Sheet Modal */}
-      <AnimatePresence>
-        {selectedTrophy && selectedTrophy.formation && (
-          <>
-            <motion.div 
+        {/* Trophy Sheet Modal */}
+        <AnimatePresence>
+          {selectedTrophy && (
+            <>
+              <motion.div 
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setSelectedTrophy(null)}
               className="fixed inset-0 bg-[#0F172A]/80 backdrop-blur-sm z-50"
