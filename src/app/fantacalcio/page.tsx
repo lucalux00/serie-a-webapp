@@ -6,10 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import FantaLineupBuilder from '@/components/domain/FantaLineupBuilder';
 import FantaMatchdayVotes from '@/components/domain/FantaMatchdayVotes';
+import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
 
 export default function FantacalcioPage() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'formazione' | 'calendario' | 'advisor'>('formazione');
+  const [activeTab, setActiveTab] = useState<'formazione' | 'calendario' | 'advisor' | 'news'>('formazione');
 
   if (!user) {
     return (
@@ -53,6 +54,12 @@ export default function FantacalcioPage() {
         >
           <Cpu size={16} className="mr-2" /> AI ADVISOR
         </button>
+        <button
+          onClick={() => setActiveTab('news')}
+          className={`flex-1 flex items-center justify-center py-3 text-xs font-bold rounded-lg transition-all ${activeTab === 'news' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
+        >
+          <Info size={16} className="mr-2" /> NEWS
+        </button>
       </div>
 
       <AnimatePresence mode="wait">
@@ -93,6 +100,11 @@ export default function FantacalcioPage() {
                 <p className="text-xs text-[#64748B]">Apprendimento sulle formazioni passate in corso... (Coming Soon)</p>
               </div>
             </div>
+          </motion.div>
+        )}
+        {activeTab === 'news' && (
+          <motion.div key="news" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <FantaNewsFeed />
           </motion.div>
         )}
       </AnimatePresence>

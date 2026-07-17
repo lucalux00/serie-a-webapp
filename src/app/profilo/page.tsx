@@ -111,7 +111,6 @@ export default function ProfiloPage() {
       </motion.div>
 
       <FantaRoster />
-      <FantaNewsFeed />
 
       <div className="space-y-3">
         <button 

@@ -70,9 +70,9 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
         const mapRole = (role: string): string => {
           if (!role) return 'CEN';
           const r = role.toLowerCase();
-          if (r.includes('portiere') || r.includes('keeper')) return 'POR';
-          if (r.includes('difensore') || r.includes('terzino') || r.includes('libero') || r.includes('stopper') || r.includes('back')) return 'DIF';
-          if (r.includes('attaccante') || r.includes('ala') || r.includes('centravanti') || r.includes('punta') || r.includes('striker') || r.includes('winger') || r.includes('forward')) return 'ATT';
+          if (r === 'por' || r.includes('portiere') || r.includes('keeper')) return 'POR';
+          if (r === 'dif' || r.includes('difensore') || r.includes('terzino') || r.includes('libero') || r.includes('stopper') || r.includes('back')) return 'DIF';
+          if (r === 'att' || r.includes('attaccante') || r.includes('ala') || r.includes('centravanti') || r.includes('punta') || r.includes('striker') || r.includes('winger') || r.includes('forward')) return 'ATT';
           return 'CEN';
         };
 
