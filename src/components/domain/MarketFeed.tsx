@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw, CheckCircle2, Search, Clock, Star } from 'lucide-react';
 import Script from 'next/script';
-import { TEAM_RUMORS } from '@/data/rumors';
 
 export default function MarketFeed() {
   const [leagueTab, setLeagueTab] = useState<'A' | 'B' | 'PL' | 'LL'>('A');
@@ -183,13 +182,8 @@ export default function MarketFeed() {
           )}
 
           {filterTab === 'trattative' && (() => {
-            const topRumors = Object.entries(TEAM_RUMORS).flatMap(([teamName, rumors]) => 
-              rumors.filter(r => r.isTop).map(r => ({ ...r, team: teamName }))
-            );
-            
-            const tabRumors = Object.entries(TEAM_RUMORS).filter(([teamName, rumors]) => 
-              rumors.some(r => r.league === leagueTab)
-            );
+            const topRumors: any[] = [];
+            const tabRumors: [string, any[]][] = [];
 
             return (
             <section className="space-y-6">
