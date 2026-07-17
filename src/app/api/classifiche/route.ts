@@ -66,15 +66,7 @@ export async function GET(request: Request) {
         ? `${new Date(data.season.startDate).getFullYear()}/${String(new Date(data.season.endDate).getFullYear()).slice(2)}`
         : '2025/26';
 
-      // Se stagione non iniziata torna errore esplicito
-      if (seasonNotStarted) {
-        return NextResponse.json({
-          error: 'season_not_started',
-          message: 'La stagione non è ancora iniziata. Seleziona una stagione precedente.',
-          season: currentSeason,
-          standings: [],
-        });
-      }
+      // Rimosso il blocco error: 'season_not_started' per permettere la visualizzazione a 0 punti.
 
       return NextResponse.json({
         season: currentSeason,
