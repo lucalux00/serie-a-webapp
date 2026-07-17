@@ -226,7 +226,25 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   // Gestione apertura automatica del trofeo tramite parametro URL
   useEffect(() => {
     if (activeTab === 'trofei' && yearParam && trofeiData && groupedTrofei.length > 0) {
-      const foundTrophy = trofeiData.find((t: any) => t.year === yearParam);
+      const foundTrophy = trofeiData.find((t: any) => {
+        if (t.year === yearParam) return true;
+        
+        // Match "1925/26" with "1926" or "1925/1926"
+        if (yearParam.includes('/')) {
+          const parts = yearParam.split('/');
+          const startYear = parts[0];
+          const endYearStr = parts[1];
+          const fullEndYear = startYear.slice(0, 4 - endYearStr.length) + endYearStr;
+          
+          if (t.year === startYear || t.year === fullEndYear || t.year.endsWith(endYearStr)) {
+            return true;
+          }
+        }
+        
+        // General fallback
+        return yearParam.includes(t.year) || t.year.includes(yearParam);
+      });
+      
       if (foundTrophy) {
         const group = groupedTrofei.find((g: any) => g.name === foundTrophy.name);
         if (group) {
