@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-export const revalidate = 0; // Cache disabilitata per avere sempre i dati in tempo reale dal database
+export const dynamic = 'force-dynamic'; // Forza Next.js a non usare la cache statica per questa route API
 
 export async function GET() {
   try {
