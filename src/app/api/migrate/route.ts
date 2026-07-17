@@ -14,8 +14,12 @@ export async function GET(request: Request) {
     console.log('Avvio migrazione dati...');
 
     // 1. Creazione Tabelle
+    // Droppiamo le tabelle vecchie per essere sicuri che lo schema sia aggiornato (visto che stiamo troncando i dati comunque)
+    await sql`DROP TABLE IF EXISTS players CASCADE;`;
+    await sql`DROP TABLE IF EXISTS transfers CASCADE;`;
+    
     await sql`
-      CREATE TABLE IF NOT EXISTS players (
+      CREATE TABLE players (
         id SERIAL PRIMARY KEY,
         team_id VARCHAR(50) NOT NULL,
         name VARCHAR(100) NOT NULL,
@@ -31,7 +35,7 @@ export async function GET(request: Request) {
     `;
 
     await sql`
-      CREATE TABLE IF NOT EXISTS transfers (
+      CREATE TABLE transfers (
         id SERIAL PRIMARY KEY,
         team_id VARCHAR(50) NOT NULL,
         type VARCHAR(50) NOT NULL,
