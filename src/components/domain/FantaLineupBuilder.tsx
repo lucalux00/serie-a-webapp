@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { Save, AlertCircle, CheckCircle2, Loader2, Info } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle2, Loader2, Info, Cpu } from 'lucide-react';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -21,6 +21,7 @@ export default function FantaLineupBuilder() {
   const [titolari, setTitolari] = useState<any[]>([]);
   const [panchina, setPanchina] = useState<any[]>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [isAutoFilling, setIsAutoFilling] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
   useEffect(() => {
@@ -105,6 +106,49 @@ export default function FantaLineupBuilder() {
     }
   };
 
+  const handleAutoFill = async () => {
+    if (!isMatchdayActive) return;
+    setIsAutoFilling(true);
+    setSaveMessage('');
+    try {
+      const res = await fetch('/api/fantacalcio/advisor');
+      if (!res.ok) throw new Error("Errore nel calcolo AI");
+      const data = await res.json();
+      
+      if (data.recommendedLineup && data.recommendedLineup.length > 0) {
+        const aiTitolari = data.recommendedLineup.map((p: any) => ({
+          player_name: p.playerName,
+          team_name: p.teamName,
+          role: p.role,
+          position_type: 'titolare'
+        }));
+        
+        // Auto-fill panchina with remaining top players
+        const remaining = data.playerScores
+          .filter((p: any) => !aiTitolari.find((t: any) => t.player_name === p.playerName))
+          .slice(0, 7)
+          .map((p: any, idx: number) => ({
+            player_name: p.playerName,
+            team_name: p.teamName,
+            role: p.role,
+            position_type: 'panchina',
+            bench_order: idx + 1
+          }));
+
+        setTitolari(aiTitolari);
+        setPanchina(remaining);
+        setSaveMessage('Formazione ideale schierata! Ricordati di salvare.');
+      } else {
+        setSaveMessage('Roster vuoto o errore AI.');
+      }
+    } catch (e: any) {
+      setSaveMessage(e.message || "Errore generico");
+    } finally {
+      setIsAutoFilling(false);
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
+  };
+
   const renderPlayerList = (players: any[], type: 'titolare' | 'panchina' | 'roster') => {
     return players.map((p, idx) => {
       const pName = p.playerName || p.player_name;
@@ -156,14 +200,24 @@ export default function FantaLineupBuilder() {
             {isMatchdayActive ? '✓ Formazione Modificabile' : '✕ Giornata Chiusa'}
           </p>
         </div>
-        <button
-          onClick={handleSave}
-          disabled={!isMatchdayActive || isSaving || titolari.length !== 11}
-          className="bg-[#10B981] disabled:bg-[#334155] disabled:text-[#64748B] text-[#0F172A] font-black px-4 py-2 rounded-lg flex items-center shadow-lg transition-colors"
-        >
-          {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-          SALVA
-        </button>
+        <div className="flex space-x-2">
+          <button
+            onClick={handleAutoFill}
+            disabled={!isMatchdayActive || isAutoFilling}
+            className="bg-[#3B82F6] disabled:bg-[#334155] disabled:text-[#64748B] text-white font-black px-3 py-2 rounded-lg flex items-center shadow-lg transition-colors text-sm"
+          >
+            {isAutoFilling ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Cpu className="w-4 h-4 mr-2" />}
+            AUTO-SCHIERA (AI)
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={!isMatchdayActive || isSaving || titolari.length !== 11}
+            className="bg-[#10B981] disabled:bg-[#334155] disabled:text-[#64748B] text-[#0F172A] font-black px-4 py-2 rounded-lg flex items-center shadow-lg transition-colors text-sm"
+          >
+            {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+            SALVA
+          </button>
+        </div>
       </div>
 
       {saveMessage && (

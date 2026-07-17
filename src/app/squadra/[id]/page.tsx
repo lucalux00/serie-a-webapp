@@ -83,8 +83,8 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
             id: p.id,
             name: p.name,
             number: p.number || '?',
-            position: mapRole(p.role),
-            roleLabel: p.role || 'Calciatore',
+            position: p.position || mapRole(p.role),
+            roleLabel: p.position || p.role || 'Calciatore',
             status: null,
             squad_type: p.squad_type || 'first',
           }));

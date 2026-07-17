@@ -7,6 +7,7 @@ import { Home, Newspaper, TrendingUp, Trophy, User, Target } from 'lucide-react'
 
 const NAV_ITEMS = [
   { label: 'Squadre', href: '/', icon: Home },
+  { label: 'Pronostici', href: '/pronostici', icon: TrendingUp },
   { label: 'Mercato', href: '/mercato', icon: Newspaper },
   { label: 'Classifica', href: '/classifiche', icon: Trophy },
   { label: 'Fanta', href: '/fantacalcio', icon: Target },

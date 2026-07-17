@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import FantaLineupBuilder from '@/components/domain/FantaLineupBuilder';
 import FantaMatchdayVotes from '@/components/domain/FantaMatchdayVotes';
 import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
+import FantaAdvisorDashboard from '@/components/domain/FantaAdvisorDashboard';
 
 export default function FantacalcioPage() {
   const { user } = useAuth();
@@ -75,31 +76,7 @@ export default function FantacalcioPage() {
         )}
         {activeTab === 'advisor' && (
           <motion.div key="advisor" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            <div className="bg-gradient-to-br from-[#1E3A8A]/50 to-[#0F172A] border border-[#3B82F6]/30 rounded-2xl p-6 shadow-lg relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                <Cpu size={100} />
-              </div>
-              <div className="flex items-center space-x-3 mb-4 relative z-10">
-                <div className="w-12 h-12 rounded-full bg-[#3B82F6]/20 flex items-center justify-center">
-                  <span className="text-[#3B82F6] text-2xl">🤖</span>
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-[#F8FAFC]">Fanta-Advisor AI</h2>
-                  <p className="text-xs text-[#3B82F6] font-bold uppercase tracking-wider">In addestramento</p>
-                </div>
-              </div>
-              <p className="text-[#94A3B8] text-sm mb-6 leading-relaxed relative z-10">
-                Il nostro sistema analizzerà la tua rosa e i dati storici per suggerirti <strong>la miglior formazione titolare</strong> e calcolerà chi tagliare in base ai crediti rimanenti.
-              </p>
-              
-              <div className="bg-[#0F172A] p-4 rounded-xl border border-[#334155] relative z-10">
-                <div className="flex items-center text-[#10B981] mb-2">
-                  <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse mr-2"></span>
-                  <span className="text-xs font-bold uppercase">Stato Algoritmo</span>
-                </div>
-                <p className="text-xs text-[#64748B]">Apprendimento sulle formazioni passate in corso... (Coming Soon)</p>
-              </div>
-            </div>
+            <FantaAdvisorDashboard />
           </motion.div>
         )}
         {activeTab === 'news' && (
