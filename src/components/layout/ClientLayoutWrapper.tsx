@@ -11,6 +11,16 @@ import NewsTicker from '@/components/layout/NewsTicker';
 function AppContent({ children }: { children: React.ReactNode }) {
   const { user, isLoaded } = useAuth();
 
+  React.useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('SW registration failed: ', err);
+        });
+      });
+    }
+  }, []);
+
   if (!isLoaded) {
     return <div className="min-h-screen bg-[#0F172A] flex items-center justify-center">
       <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>

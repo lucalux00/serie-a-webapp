@@ -1,41 +1,31 @@
-self.addEventListener('push', function (event) {
-  if (event.data) {
-    const data = event.data.json();
-    const options = {
-      body: data.body,
-      icon: data.icon || '/icon-192x192.png', // Assicurati di avere queste icone nella cartella public
-      badge: '/badge-72x72.png',
-      vibrate: [100, 50, 100],
-      data: {
-        dateOfArrival: Date.now(),
-        primaryKey: '2',
-        url: data.url || '/'
-      },
-      actions: [
-        {
-          action: 'explore',
-          title: 'Vedi Partita',
-        },
-      ],
-    };
-    event.waitUntil(self.registration.showNotification(data.title, options));
-  }
+const CACHE_NAME = 'serie-a-pwa-cache-v1';
+const urlsToCache = [
+  '/',
+  '/manifest.json',
+  '/icon-192x192.jpg',
+  '/icon-512x512.jpg'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
 });
 
-self.addEventListener('notificationclick', function (event) {
-  event.notification.close();
-  const urlToOpen = event.notification.data.url;
-  
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      for (const client of clientList) {
-        if (client.url === urlToOpen && 'focus' in client) {
-          return client.focus();
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Cache hit - return response
+        if (response) {
+          return response;
         }
-      }
-      if (clients.openWindow) {
-        return clients.openWindow(urlToOpen);
-      }
-    })
+        return fetch(event.request).catch(() => {
+          // You can return a fallback offline page here if you want
+        });
+      })
   );
 });
