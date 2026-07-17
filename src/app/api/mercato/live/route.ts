@@ -15,7 +15,7 @@ export async function GET(request: Request) {
         'A' as league, 
         status, 
         type, 
-        (SELECT name FROM teams WHERE id = t.team_id) as team, 
+        UPPER(SUBSTR(team_id, 1, 1)) || SUBSTR(team_id, 2) as team, 
         player, 
         other_team as "fromTo", 
         fee, 
