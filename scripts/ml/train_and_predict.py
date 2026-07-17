@@ -80,7 +80,7 @@ def main():
     print(f"Trovate {len(all_raw_data)} partite grezze. Filtraggio in corso...")
     
     valid_picks = []
-    next_week_aware = datetime.now().astimezone() + timedelta(days=7)
+    next_week_aware = datetime.now().astimezone() + timedelta(days=45) # 45 giorni per trovare partite in estate
     
     for match in all_raw_data:
         if match.get('sport_key') and not match['sport_key'].startswith('soccer_'):
