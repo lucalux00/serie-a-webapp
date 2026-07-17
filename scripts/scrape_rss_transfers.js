@@ -62,7 +62,7 @@ Restituisci ESCLUSIVAMENTE un JSON array di oggetti con i seguenti campi:
 IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-2.0-flash',
             contents: prompt,
         });
 

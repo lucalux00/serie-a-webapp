@@ -181,6 +181,9 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const [selectedTrophyGroup, setSelectedTrophyGroup] = useState<any>(null);
   const [selectedTrophy, setSelectedTrophy] = useState<any>(null);
   const [selectedMatchAnalysis, setSelectedMatchAnalysis] = useState<any>(null);
+  const [selectedNews, setSelectedNews] = useState<any>(null);
+  const [newsSummary, setNewsSummary] = useState<string>('');
+  const [isSummarizing, setIsSummarizing] = useState<boolean>(false);
 
   const { data: matchdayData, isLoading: isLoadingMatchday } = useSWR(
     `/api/analisi/matchday`,
@@ -201,6 +204,30 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const otherNews = news.slice(4);
 
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
+
+  const openNewsModal = async (item: any) => {
+    setSelectedNews(item);
+    setNewsSummary('');
+    setIsSummarizing(true);
+    
+    try {
+      const res = await fetch('/api/news/summarize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: item.link })
+      });
+      const data = await res.json();
+      if (data.summary) {
+        setNewsSummary(data.summary);
+      } else {
+        setNewsSummary('Non è stato possibile generare il riassunto per questa notizia.');
+      }
+    } catch (e) {
+      setNewsSummary('Errore di connessione durante la generazione del riassunto.');
+    } finally {
+      setIsSummarizing(false);
+    }
+  };
 
   // Group trophies by name
   const groupedTrofei = React.useMemo(() => {
@@ -365,7 +392,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                       return (
                         <div key={idx} className="relative pl-12">
                           <div className="absolute left-[22px] top-4 w-3 h-3 bg-[#0EA5E9] rounded-full ring-4 ring-[#0F172A]" />
-                          <div className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
+                          <button onClick={() => openNewsModal(item)} className="w-full text-left bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden transition-transform active:scale-[0.98] hover:border-[#0EA5E9]/50">
                             <div className="flex justify-between items-start mb-2">
                               <span className="text-xs font-bold px-2 py-1 bg-[#0F172A] text-[#38BDF8] rounded">
                                 {item.source || 'News'}
@@ -381,7 +408,13 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                             </div>
                             <h3 className="text-sm font-bold leading-tight text-white mb-2">{displayTitle}</h3>
                             <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{snippet}</p>
-                          </div>
+                            <div className="mt-3 pt-3 border-t border-[#334155] flex justify-between items-center">
+                              <span className="text-[10px] text-[#94A3B8] font-bold">Clicca per il riassunto AI</span>
+                              <span className="text-[10px] text-[#0EA5E9] font-black uppercase tracking-widest flex items-center">
+                                Leggi <ArrowRightLeft size={10} className="ml-1" />
+                              </span>
+                            </div>
+                          </button>
                         </div>
                       );
                   })}
@@ -1030,6 +1063,77 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                     </>
                   )}
                 </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* News Summary Modal */}
+      <AnimatePresence>
+        {selectedNews && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setSelectedNews(null)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+            />
+            <motion.div 
+              initial={{ opacity: 0, y: 100, scale: 0.95 }} 
+              animate={{ opacity: 1, y: 0, scale: 1 }} 
+              exit={{ opacity: 0, y: 100, scale: 0.95 }}
+              className="fixed bottom-0 left-0 right-0 h-[85vh] sm:h-[80vh] sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-2xl bg-[#0F172A] rounded-t-3xl sm:rounded-3xl shadow-2xl z-[101] flex flex-col overflow-hidden border border-[#334155]"
+            >
+              <div className="sticky top-0 bg-[#0F172A]/80 backdrop-blur-md border-b border-[#334155] p-4 flex justify-between items-start z-10">
+                <div className="flex-1 pr-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold px-2 py-1 bg-[#1E293B] text-[#38BDF8] rounded">
+                      {selectedNews.source || 'News'}
+                    </span>
+                    <span className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest">
+                      Riassunto AI
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-black text-white leading-tight">
+                    {selectedNews.cleanTitle || selectedNews.title}
+                  </h2>
+                </div>
+                <button 
+                  onClick={() => setSelectedNews(null)}
+                  className="bg-[#1E293B] text-[#94A3B8] hover:text-white p-2 rounded-full transition-colors"
+                >
+                  <XCircle size={24} />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-5 sm:p-6 no-scrollbar relative">
+                {isSummarizing ? (
+                  <div className="flex flex-col items-center justify-center h-48 space-y-4">
+                    <div className="w-10 h-10 border-4 border-[#0EA5E9] border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-sm font-bold text-[#0EA5E9] animate-pulse">L'AI sta leggendo l'articolo per te...</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="prose prose-invert max-w-none text-sm text-[#E2E8F0] leading-relaxed">
+                      {newsSummary.split('\n\n').map((paragraph, i) => (
+                        <p key={i} className="mb-4">{paragraph}</p>
+                      ))}
+                    </div>
+
+                    <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 flex flex-col items-center justify-center text-center mt-8">
+                      <p className="text-xs text-[#94A3B8] mb-3">Questo è un riassunto generato dall'intelligenza artificiale. Per i dettagli completi, supporta il lavoro dei giornalisti leggendo l'articolo originale.</p>
+                      <a 
+                        href={selectedNews.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="bg-gradient-to-r from-[#0EA5E9] to-[#3B82F6] text-white font-bold text-sm px-6 py-3 rounded-full hover:shadow-[0_0_15px_rgba(14,165,233,0.5)] transition-all flex items-center"
+                      >
+                        Leggi l'articolo originale su {selectedNews.source}
+                        <ArrowRightLeft size={16} className="ml-2" />
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </>
