@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-export const revalidate = 60; // Cache ISR: 60 secondi (visto che ora interroga il nostro DB)
+export const revalidate = 0; // Cache disabilitata per avere sempre i dati in tempo reale dal database
 
 export async function GET() {
   try {
