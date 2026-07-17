@@ -162,6 +162,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       success: true,
       message: 'Migrazione completata con successo!',
+      version: 'v3_force_drop',
       stats: {
         playersInserted: playersCount,
         transfersInserted: transfersCount
@@ -170,6 +171,6 @@ export async function GET(request: Request) {
 
   } catch (error: any) {
     console.error('Migration error:', error);
-    return NextResponse.json({ error: 'Migration failed', details: error.message }, { status: 500 });
+    return NextResponse.json({ error: 'Migration failed', details: error.message, version: 'v3_force_drop' }, { status: 500 });
   }
 }
