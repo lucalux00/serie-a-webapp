@@ -1,6 +1,9 @@
 name: MLOps Predictions Pipeline
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # Esegue il workflow ogni venerdì e martedì alle 08:00 UTC
     - cron: '0 8 * * 2,5'
