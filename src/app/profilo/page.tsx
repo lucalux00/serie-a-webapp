@@ -8,6 +8,9 @@ import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X } from 'lucide
 import Link from 'next/link';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
+import FantaRoster from '@/components/domain/FantaRoster';
+import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
+
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
   const { isSupported, isSubscribed, subscribe, testNotification } = usePushNotifications(user?.id);
@@ -106,6 +109,9 @@ export default function ProfiloPage() {
           </div>
         )}
       </motion.div>
+
+      <FantaRoster />
+      <FantaNewsFeed />
 
       <div className="space-y-3">
         <button 

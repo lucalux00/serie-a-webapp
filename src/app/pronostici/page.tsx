@@ -77,11 +77,18 @@ export default function PronosticiPage() {
         </div>
       </div>
       
-      <div className="bg-[#f59e0b]/10 border border-[#f59e0b]/20 p-3 rounded-lg flex items-start sm:items-center mb-6">
+      <div className="bg-[#f59e0b]/10 border border-[#f59e0b]/20 p-3 rounded-lg flex items-start sm:items-center mb-4">
         <Info size={18} className="text-[#f59e0b] mr-3 mt-0.5 sm:mt-0 shrink-0" />
         <p className="text-xs text-[#f59e0b] font-medium leading-relaxed">
           <strong>Attenzione:</strong> Le analisi presenti in questa pagina sono prodotte da modelli matematici a solo scopo statistico e di studio. Non rappresentano in alcun modo un invito o un incitamento al gioco d'azzardo.
         </p>
+      </div>
+
+      <div className="flex justify-end mb-6">
+        <a href="/pronostici/storico" className="bg-[#1E293B] border border-[#334155] hover:border-[#10B981] text-[#10B981] text-xs font-bold px-4 py-2 rounded-lg flex items-center transition-colors shadow-sm">
+          <Calculator size={14} className="mr-2" />
+          Vedi Storico & ROI Algoritmo
+        </a>
       </div>
 
       <p className="text-sm text-[#cbd5e1] mb-6 bg-[#1E293B] p-4 rounded-xl border border-[#334155] shadow-sm">
