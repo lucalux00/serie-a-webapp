@@ -46,6 +46,35 @@ export async function GET(request: Request) {
     // Svuota le tabelle per evitare duplicati se la migrazione viene lanciata due volte
     await sql`TRUNCATE TABLE players RESTART IDENTITY;`;
     await sql`TRUNCATE TABLE transfers RESTART IDENTITY;`;
+    
+    // --- MLOps Tables ---
+    await sql`DROP TABLE IF EXISTS ml_predictions;`;
+    await sql`
+      CREATE TABLE ml_predictions (
+        id VARCHAR(255) PRIMARY KEY,
+        match_name VARCHAR(255) NOT NULL,
+        competition VARCHAR(100),
+        pick VARCHAR(50) NOT NULL,
+        odds NUMERIC(5,2) NOT NULL,
+        match_date TIMESTAMP WITH TIME ZONE NOT NULL,
+        confidence_score NUMERIC(5,2),
+        algorithm_version VARCHAR(50),
+        actual_result VARCHAR(50),
+        is_correct BOOLEAN,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+    
+    await sql`
+      CREATE TABLE IF NOT EXISTS ml_team_weights (
+        team_name VARCHAR(255) PRIMARY KEY,
+        competition VARCHAR(100) NOT NULL,
+        form_rating NUMERIC(5,2) DEFAULT 1.0,
+        historical_accuracy NUMERIC(5,2) DEFAULT 0.5,
+        matches_analyzed INTEGER DEFAULT 0,
+        last_updated TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
 
     // 2. Lettura file JSON
     const squadsPath = path.join(process.cwd(), 'src', 'data', 'deepSquads.json');
