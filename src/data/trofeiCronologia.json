@@ -19,12 +19,17 @@
         "isStarter": false
       },
       {
-        "name": "Matthijs de Ligt",
+        "name": "Carlo Pinsoglio",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Leonardo Bonucci",
         "role": "DIF",
         "isStarter": true
       },
       {
-        "name": "Leonardo Bonucci",
+        "name": "Matthijs de Ligt",
         "role": "DIF",
         "isStarter": true
       },
@@ -44,6 +49,26 @@
         "isStarter": false
       },
       {
+        "name": "Merih Demiral",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Daniele Rugani",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Mattia De Sciglio",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Danilo",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Miralem Pjanic",
         "role": "CEN",
         "isStarter": true
@@ -54,12 +79,22 @@
         "isStarter": true
       },
       {
-        "name": "Blaise Matuidi",
+        "name": "Adrien Rabiot",
         "role": "CEN",
         "isStarter": true
       },
       {
-        "name": "Adrien Rabiot",
+        "name": "Blaise Matuidi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Sami Khedira",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Aaron Ramsey",
         "role": "CEN",
         "isStarter": false
       },
@@ -75,6 +110,16 @@
       },
       {
         "name": "Gonzalo Higuain",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Federico Bernardeschi",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Douglas Costa",
         "role": "ATT",
         "isStarter": false
       }
@@ -95,12 +140,22 @@
         "isStarter": true
       },
       {
-        "name": "Giorgio Chiellini",
+        "name": "Mattia Perin",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Carlo Pinsoglio",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Leonardo Bonucci",
         "role": "DIF",
         "isStarter": true
       },
       {
-        "name": "Leonardo Bonucci",
+        "name": "Giorgio Chiellini",
         "role": "DIF",
         "isStarter": true
       },
@@ -115,6 +170,31 @@
         "isStarter": true
       },
       {
+        "name": "Daniele Rugani",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Mattia De Sciglio",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Martin Caceres",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Andrea Barzagli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Leonardo Spinazzola",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Miralem Pjanic",
         "role": "CEN",
         "isStarter": true
@@ -125,7 +205,17 @@
         "isStarter": true
       },
       {
+        "name": "Rodrigo Bentancur",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
         "name": "Emre Can",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Sami Khedira",
         "role": "CEN",
         "isStarter": false
       },
@@ -142,7 +232,27 @@
       {
         "name": "Paulo Dybala",
         "role": "ATT",
-        "isStarter": true
+        "isStarter": false
+      },
+      {
+        "name": "Federico Bernardeschi",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Douglas Costa",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Juan Cuadrado",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Moise Kean",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -152,62 +262,12 @@
     "name": "Campionato Serie A",
     "year": "2017/18",
     "icon": "🏆",
-    "coach": "Massimiliano Allegri",
-    "points": "95",
+    "coach": "Dato Storico in Aggiornamento",
+    "points": "Vittoria Scudetto",
     "roster": [
       {
-        "name": "Gianluigi Buffon",
-        "role": "POR",
-        "isStarter": true
-      },
-      {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Medhi Benatia",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Alex Sandro",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Stephan Lichtsteiner",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Miralem Pjanic",
+        "name": "Formazione in aggiornamento",
         "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Sami Khedira",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Blaise Matuidi",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Paulo Dybala",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Gonzalo Higuain",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Douglas Costa",
-        "role": "ATT",
         "isStarter": true
       }
     ]
@@ -218,62 +278,12 @@
     "name": "Campionato Serie A",
     "year": "2016/17",
     "icon": "🏆",
-    "coach": "Massimiliano Allegri",
-    "points": "91",
+    "coach": "Dato Storico in Aggiornamento",
+    "points": "Vittoria Scudetto",
     "roster": [
       {
-        "name": "Gianluigi Buffon",
-        "role": "POR",
-        "isStarter": true
-      },
-      {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Leonardo Bonucci",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Barzagli",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Alex Sandro",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Miralem Pjanic",
+        "name": "Formazione in aggiornamento",
         "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Sami Khedira",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Claudio Marchisio",
-        "role": "CEN",
-        "isStarter": false
-      },
-      {
-        "name": "Paulo Dybala",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Gonzalo Higuain",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Mario Mandzukic",
-        "role": "ATT",
         "isStarter": true
       }
     ]
@@ -284,63 +294,13 @@
     "name": "Campionato Serie A",
     "year": "2015/16",
     "icon": "🏆",
-    "coach": "Massimiliano Allegri",
-    "points": "91",
+    "coach": "Dato Storico in Aggiornamento",
+    "points": "Vittoria Scudetto",
     "roster": [
       {
-        "name": "Gianluigi Buffon",
-        "role": "POR",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Barzagli",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Leonardo Bonucci",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Stephan Lichtsteiner",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Paul Pogba",
+        "name": "Formazione in aggiornamento",
         "role": "CEN",
         "isStarter": true
-      },
-      {
-        "name": "Claudio Marchisio",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Sami Khedira",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Paulo Dybala",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Mario Mandzukic",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Alvaro Morata",
-        "role": "ATT",
-        "isStarter": false
       }
     ]
   },
@@ -350,62 +310,12 @@
     "name": "Campionato Serie A",
     "year": "2014/15",
     "icon": "🏆",
-    "coach": "Massimiliano Allegri",
-    "points": "87",
+    "coach": "Dato Storico in Aggiornamento",
+    "points": "Vittoria Scudetto",
     "roster": [
       {
-        "name": "Gianluigi Buffon",
-        "role": "POR",
-        "isStarter": true
-      },
-      {
-        "name": "Leonardo Bonucci",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Stephan Lichtsteiner",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Patrice Evra",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Claudio Marchisio",
+        "name": "Formazione in aggiornamento",
         "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Pirlo",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Paul Pogba",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Arturo Vidal",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Carlos Tevez",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Alvaro Morata",
-        "role": "ATT",
         "isStarter": true
       }
     ]
@@ -416,62 +326,12 @@
     "name": "Campionato Serie A",
     "year": "2013/14",
     "icon": "🏆",
-    "coach": "Antonio Conte",
-    "points": "102",
+    "coach": "Dato Storico in Aggiornamento",
+    "points": "Vittoria Scudetto",
     "roster": [
       {
-        "name": "Gianluigi Buffon",
-        "role": "POR",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Barzagli",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Leonardo Bonucci",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Stephan Lichtsteiner",
+        "name": "Formazione in aggiornamento",
         "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Kwadwo Asamoah",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Pirlo",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Arturo Vidal",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Paul Pogba",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Carlos Tevez",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Fernando Llorente",
-        "role": "ATT",
         "isStarter": true
       }
     ]
@@ -482,62 +342,12 @@
     "name": "Campionato Serie A",
     "year": "2012/13",
     "icon": "🏆",
-    "coach": "Antonio Conte",
-    "points": "87",
+    "coach": "Dato Storico in Aggiornamento",
+    "points": "Vittoria Scudetto",
     "roster": [
       {
-        "name": "Gianluigi Buffon",
-        "role": "POR",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Barzagli",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Leonardo Bonucci",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
-        "name": "Stephan Lichtsteiner",
+        "name": "Formazione in aggiornamento",
         "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Kwadwo Asamoah",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Andrea Pirlo",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Arturo Vidal",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Claudio Marchisio",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Mirko Vucinic",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Sebastian Giovinco",
-        "role": "ATT",
         "isStarter": true
       }
     ]
@@ -557,6 +367,21 @@
         "isStarter": true
       },
       {
+        "name": "Marco Storari",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Alex Manninger",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Giorgio Chiellini",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
         "name": "Andrea Barzagli",
         "role": "DIF",
         "isStarter": true
@@ -567,19 +392,24 @@
         "isStarter": true
       },
       {
-        "name": "Giorgio Chiellini",
-        "role": "DIF",
-        "isStarter": true
-      },
-      {
         "name": "Stephan Lichtsteiner",
         "role": "DIF",
         "isStarter": true
       },
       {
-        "name": "Simone Pepe",
-        "role": "CEN",
-        "isStarter": true
+        "name": "Paolo De Ceglie",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Martin Caceres",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Fabio Grosso",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Andrea Pirlo",
@@ -597,6 +427,41 @@
         "isStarter": true
       },
       {
+        "name": "Simone Pepe",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
+        "name": "Emanuele Giaccherini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Marcelo Estigarribia",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Simone Padoin",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Milos Krasic",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Eljero Elia",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Luca Marrone",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Mirko Vucinic",
         "role": "ATT",
         "isStarter": true
@@ -608,6 +473,16 @@
       },
       {
         "name": "Alessandro Del Piero",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Fabio Quagliarella",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Borriello",
         "role": "ATT",
         "isStarter": false
       }
@@ -660,12 +535,17 @@
         "isStarter": true
       },
       {
+        "name": "Michelangelo Rampulla",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Moreno Torricelli",
         "role": "DIF",
         "isStarter": true
       },
       {
-        "name": "Mark Iuliano",
+        "name": "Ciro Ferrara",
         "role": "DIF",
         "isStarter": true
       },
@@ -678,6 +558,21 @@
         "name": "Gianluca Pessotto",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Mark Iuliano",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessandro Birindelli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Dimas",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Angelo Di Livio",
@@ -700,14 +595,44 @@
         "isStarter": true
       },
       {
-        "name": "Filippo Inzaghi",
-        "role": "ATT",
-        "isStarter": true
+        "name": "Antonio Conte",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Alessio Tacchinardi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Fabio Pecchia",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Alessandro Del Piero",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Filippo Inzaghi",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Daniel Fonseca",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Nicola Amoruso",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marcelo Zalayeta",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -758,6 +683,11 @@
         "isStarter": true
       },
       {
+        "name": "Luciano Bodini",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Luciano Favero",
         "role": "DIF",
         "isStarter": true
@@ -778,6 +708,16 @@
         "isStarter": true
       },
       {
+        "name": "Nicola Caricola",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Stefano Pioli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Massimo Mauro",
         "role": "CEN",
         "isStarter": true
@@ -793,9 +733,19 @@
         "isStarter": true
       },
       {
-        "name": "Michael Laudrup",
-        "role": "ATT",
+        "name": "Massimo Bonini",
+        "role": "CEN",
         "isStarter": true
+      },
+      {
+        "name": "Ivano Bonetti",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Gabriele Pin",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Aldo Serena",
@@ -803,7 +753,17 @@
         "isStarter": true
       },
       {
+        "name": "Michael Laudrup",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
         "name": "Marco Pacione",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Massimo Briaschi",
         "role": "ATT",
         "isStarter": false
       }
@@ -1176,6 +1136,16 @@
         "isStarter": true
       },
       {
+        "name": "Emil Audero",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Raffaele Di Gennaro",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Benjamin Pavard",
         "role": "DIF",
         "isStarter": true
@@ -1191,7 +1161,42 @@
         "isStarter": true
       },
       {
+        "name": "Stefan de Vrij",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Yann Bisseck",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Matteo Darmian",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Denzel Dumfries",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Federico Dimarco",
+        "role": "DIF",
+        "isStarter": true
+      },
+      {
+        "name": "Carlos Augusto",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Tajon Buchanan",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Hakan Calhanoglu",
         "role": "CEN",
         "isStarter": true
       },
@@ -1201,28 +1206,8 @@
         "isStarter": true
       },
       {
-        "name": "Hakan Calhanoglu",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
         "name": "Henrikh Mkhitaryan",
         "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Federico Dimarco",
-        "role": "CEN",
-        "isStarter": true
-      },
-      {
-        "name": "Marcus Thuram",
-        "role": "ATT",
-        "isStarter": true
-      },
-      {
-        "name": "Lautaro Martinez",
-        "role": "ATT",
         "isStarter": true
       },
       {
@@ -1231,8 +1216,43 @@
         "isStarter": false
       },
       {
-        "name": "Carlos Augusto",
-        "role": "DIF",
+        "name": "Kristjan Asllani",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Davy Klaassen",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Stefano Sensi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Juan Cuadrado",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Lautaro Martinez",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Marcus Thuram",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
+        "name": "Marko Arnautovic",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Alexis Sanchez",
+        "role": "ATT",
         "isStarter": false
       }
     ]
@@ -1252,6 +1272,16 @@
         "isStarter": true
       },
       {
+        "name": "Andrei Radu",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Daniele Padelli",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Milan Skriniar",
         "role": "DIF",
         "isStarter": true
@@ -1267,12 +1297,37 @@
         "isStarter": true
       },
       {
+        "name": "Andrea Ranocchia",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Danilo D'Ambrosio",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Aleksandar Kolarov",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Matteo Darmian",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Achraf Hakimi",
         "role": "CEN",
         "isStarter": true
       },
       {
-        "name": "Nicolo Barella",
+        "name": "Ashley Young",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Ivan Perisic",
         "role": "CEN",
         "isStarter": true
       },
@@ -1282,14 +1337,34 @@
         "isStarter": true
       },
       {
+        "name": "Nicolo Barella",
+        "role": "CEN",
+        "isStarter": true
+      },
+      {
         "name": "Christian Eriksen",
         "role": "CEN",
         "isStarter": true
       },
       {
-        "name": "Ivan Perisic",
+        "name": "Arturo Vidal",
         "role": "CEN",
-        "isStarter": true
+        "isStarter": false
+      },
+      {
+        "name": "Roberto Gagliardini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Stefano Sensi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Matias Vecino",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Romelu Lukaku",
@@ -1300,6 +1375,16 @@
         "name": "Lautaro Martinez",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Alexis Sanchez",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Andrea Pinamonti",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -1316,6 +1401,16 @@
         "name": "Julio Cesar",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Francesco Toldo",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Paolo Orlandoni",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Maicon",
@@ -1338,6 +1433,21 @@
         "isStarter": true
       },
       {
+        "name": "Ivan Cordoba",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Materazzi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Davide Santon",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Javier Zanetti",
         "role": "CEN",
         "isStarter": true
@@ -1353,9 +1463,29 @@
         "isStarter": true
       },
       {
-        "name": "Goran Pandev",
-        "role": "ATT",
-        "isStarter": true
+        "name": "Dejan Stankovic",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Thiago Motta",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Sulley Muntari",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Rene Krhin",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "McDonald Mariga",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Samuel Eto'o",
@@ -1368,12 +1498,22 @@
         "isStarter": true
       },
       {
-        "name": "Dejan Stankovic",
-        "role": "CEN",
-        "isStarter": false
+        "name": "Goran Pandev",
+        "role": "ATT",
+        "isStarter": true
       },
       {
         "name": "Mario Balotelli",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Ricardo Quaresma",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marko Arnautovic",
         "role": "ATT",
         "isStarter": false
       }
@@ -1392,6 +1532,16 @@
         "name": "Julio Cesar",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Francesco Toldo",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Paolo Orlandoni",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Maicon",
@@ -1414,6 +1564,26 @@
         "isStarter": true
       },
       {
+        "name": "Cristian Chivu",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Materazzi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Nicolas Burdisso",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Davide Santon",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Javier Zanetti",
         "role": "CEN",
         "isStarter": true
@@ -1434,6 +1604,21 @@
         "isStarter": true
       },
       {
+        "name": "Patrick Vieira",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Luis Figo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Amantino Mancini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Zlatan Ibrahimovic",
         "role": "ATT",
         "isStarter": true
@@ -1442,6 +1627,21 @@
         "name": "Mario Balotelli",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Julio Cruz",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Hernan Crespo",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Victor Obinna",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -1458,6 +1658,11 @@
         "name": "Julio Cesar",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Francesco Toldo",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Maicon",
@@ -1480,6 +1685,26 @@
         "isStarter": true
       },
       {
+        "name": "Walter Samuel",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Materazzi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Nicolas Burdisso",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Nelson Rivas",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Javier Zanetti",
         "role": "CEN",
         "isStarter": true
@@ -1495,9 +1720,29 @@
         "isStarter": true
       },
       {
-        "name": "Julio Cruz",
-        "role": "ATT",
-        "isStarter": true
+        "name": "Patrick Vieira",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Luis Jimenez",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Vitor Pele",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Luis Figo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Santiago Solari",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Zlatan Ibrahimovic",
@@ -1505,7 +1750,22 @@
         "isStarter": true
       },
       {
+        "name": "Julio Cruz",
+        "role": "ATT",
+        "isStarter": true
+      },
+      {
         "name": "Hernan Crespo",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "David Suazo",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Mario Balotelli",
         "role": "ATT",
         "isStarter": false
       }
@@ -1524,6 +1784,11 @@
         "name": "Julio Cesar",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Francesco Toldo",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Maicon",
@@ -1546,6 +1811,26 @@
         "isStarter": true
       },
       {
+        "name": "Fabio Grosso",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Walter Samuel",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Maxwell",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Nicolas Burdisso",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Patrick Vieira",
         "role": "CEN",
         "isStarter": true
@@ -1566,6 +1851,21 @@
         "isStarter": true
       },
       {
+        "name": "Olivier Dacourt",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Santiago Solari",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Mariano Gonzalez",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Zlatan Ibrahimovic",
         "role": "ATT",
         "isStarter": true
@@ -1574,6 +1874,21 @@
         "name": "Hernan Crespo",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Julio Cruz",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Adriano",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Alvaro Recoba",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -1608,6 +1923,11 @@
         "isStarter": true
       },
       {
+        "name": "Astutillo Malgioglio",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Giuseppe Bergomi",
         "role": "DIF",
         "isStarter": true
@@ -1626,6 +1946,21 @@
         "name": "Andreas Brehme",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Giuseppe Baresi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Romano Galvani",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Salvatore Nobile",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Alessandro Bianchi",
@@ -1648,6 +1983,21 @@
         "isStarter": true
       },
       {
+        "name": "Pietro Fanna",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Alberto Rivolta",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Dario Morello",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Ramon Diaz",
         "role": "ATT",
         "isStarter": true
@@ -1656,6 +2006,11 @@
         "name": "Aldo Serena",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Massimo Ciocci",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -1866,6 +2221,16 @@
         "isStarter": true
       },
       {
+        "name": "Ciprian Tatarusanu",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Antonio Mirante",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Davide Calabria",
         "role": "DIF",
         "isStarter": true
@@ -1886,6 +2251,31 @@
         "isStarter": true
       },
       {
+        "name": "Simon Kjaer",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessio Romagnoli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessandro Florenzi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Fode Ballo-Toure",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Matteo Gabbia",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Sandro Tonali",
         "role": "CEN",
         "isStarter": true
@@ -1901,9 +2291,24 @@
         "isStarter": false
       },
       {
+        "name": "Rade Krunic",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Tiemoue Bakayoko",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Alexis Saelemaekers",
         "role": "CEN",
         "isStarter": true
+      },
+      {
+        "name": "Junior Messias",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Brahim Diaz",
@@ -1924,6 +2329,16 @@
         "name": "Zlatan Ibrahimovic",
         "role": "ATT",
         "isStarter": false
+      },
+      {
+        "name": "Ante Rebic",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Daniel Maldini",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -1940,6 +2355,16 @@
         "name": "Christian Abbiati",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Marco Amelia",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Flavio Roma",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Ignazio Abate",
@@ -1962,6 +2387,26 @@
         "isStarter": true
       },
       {
+        "name": "Gianluca Zambrotta",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Mario Yepes",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Daniele Bonera",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Massimo Oddo",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Gennaro Gattuso",
         "role": "CEN",
         "isStarter": true
@@ -1982,6 +2427,26 @@
         "isStarter": true
       },
       {
+        "name": "Massimo Ambrosini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Mathieu Flamini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Andrea Pirlo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Urby Emanuelson",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Alexandre Pato",
         "role": "ATT",
         "isStarter": true
@@ -1993,6 +2458,16 @@
       },
       {
         "name": "Robinho",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Antonio Cassano",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Filippo Inzaghi",
         "role": "ATT",
         "isStarter": false
       }
@@ -2011,6 +2486,16 @@
         "name": "Dida",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Christian Abbiati",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Valerio Fiori",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Cafu",
@@ -2033,6 +2518,26 @@
         "isStarter": true
       },
       {
+        "name": "Alessandro Costacurta",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Kakha Kaladze",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Martin Laursen",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Dario Simic",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Gennaro Gattuso",
         "role": "CEN",
         "isStarter": true
@@ -2053,6 +2558,31 @@
         "isStarter": true
       },
       {
+        "name": "Massimo Ambrosini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Rui Costa",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Cristian Brocchi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Serginho",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Fernando Redondo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Andriy Shevchenko",
         "role": "ATT",
         "isStarter": true
@@ -2064,6 +2594,11 @@
       },
       {
         "name": "Filippo Inzaghi",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Borriello",
         "role": "ATT",
         "isStarter": false
       }
@@ -2084,6 +2619,16 @@
         "isStarter": true
       },
       {
+        "name": "Sebastiano Rossi",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Jens Lehmann",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Luigi Sala",
         "role": "DIF",
         "isStarter": true
@@ -2097,6 +2642,21 @@
         "name": "Paolo Maldini",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Roberto Ayala",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Christian Ziege",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Bruno N'Gotty",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Thomas Helveg",
@@ -2124,6 +2684,26 @@
         "isStarter": true
       },
       {
+        "name": "Leonardo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Ibrahim Ba",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Domenico Morfeo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Federico Giunti",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Oliver Bierhoff",
         "role": "ATT",
         "isStarter": true
@@ -2132,6 +2712,11 @@
         "name": "George Weah",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Maurizio Ganz",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -2148,6 +2733,11 @@
         "name": "Sebastiano Rossi",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Mario Ielpo",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Christian Panucci",
@@ -2170,6 +2760,16 @@
         "isStarter": true
       },
       {
+        "name": "Mauro Tassotti",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Filippo Galli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Stefano Eranio",
         "role": "CEN",
         "isStarter": true
@@ -2190,6 +2790,26 @@
         "isStarter": true
       },
       {
+        "name": "Roberto Donadoni",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Gianluigi Lentini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Massimo Ambrosini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Patrick Vieira",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Dejan Savicevic",
         "role": "ATT",
         "isStarter": true
@@ -2201,6 +2821,16 @@
       },
       {
         "name": "Roberto Baggio",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Simone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Paolo Di Canio",
         "role": "ATT",
         "isStarter": false
       }
@@ -2221,6 +2851,11 @@
         "isStarter": true
       },
       {
+        "name": "Mario Ielpo",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Mauro Tassotti",
         "role": "DIF",
         "isStarter": true
@@ -2239,6 +2874,21 @@
         "name": "Paolo Maldini",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Christian Panucci",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Filippo Galli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessandro Orlando",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Roberto Donadoni",
@@ -2261,6 +2911,31 @@
         "isStarter": true
       },
       {
+        "name": "Stefano Eranio",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Brian Laudrup",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Gianluigi Lentini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Angelo Carbone",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Fernando De Napoli",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Dejan Savicevic",
         "role": "ATT",
         "isStarter": true
@@ -2272,6 +2947,16 @@
       },
       {
         "name": "Jean-Pierre Papin",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Simone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Florin Raducioiu",
         "role": "ATT",
         "isStarter": false
       }
@@ -2292,6 +2977,11 @@
         "isStarter": true
       },
       {
+        "name": "Francesco Antonioli",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Mauro Tassotti",
         "role": "DIF",
         "isStarter": true
@@ -2310,6 +3000,16 @@
         "name": "Paolo Maldini",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Filippo Galli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Enzo Gambaro",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Roberto Donadoni",
@@ -2332,6 +3032,36 @@
         "isStarter": true
       },
       {
+        "name": "Alberigo Evani",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Stefano Eranio",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Gianluigi Lentini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Zvonimir Boban",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Fernando De Napoli",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Dejan Savicevic",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
         "name": "Marco van Basten",
         "role": "ATT",
         "isStarter": true
@@ -2342,8 +3072,18 @@
         "isStarter": true
       },
       {
-        "name": "Gianluigi Lentini",
-        "role": "CEN",
+        "name": "Jean-Pierre Papin",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Simone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Aldo Serena",
+        "role": "ATT",
         "isStarter": false
       }
     ]
@@ -2361,6 +3101,11 @@
         "name": "Sebastiano Rossi",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Francesco Antonioli",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Mauro Tassotti",
@@ -2381,6 +3126,16 @@
         "name": "Paolo Maldini",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Filippo Galli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Enzo Gambaro",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Roberto Donadoni",
@@ -2408,12 +3163,32 @@
         "isStarter": true
       },
       {
+        "name": "Carlo Ancelotti",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Diego Fuser",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Marco van Basten",
         "role": "ATT",
         "isStarter": true
       },
       {
         "name": "Daniele Massaro",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Simone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Aldo Serena",
         "role": "ATT",
         "isStarter": false
       }
@@ -2432,6 +3207,11 @@
         "name": "Giovanni Galli",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Giulio Nuciari",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Mauro Tassotti",
@@ -2454,6 +3234,16 @@
         "isStarter": true
       },
       {
+        "name": "Alessandro Costacurta",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Walter Bianchi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Angelo Colombo",
         "role": "CEN",
         "isStarter": true
@@ -2474,6 +3264,11 @@
         "isStarter": true
       },
       {
+        "name": "Mario Bortolazzi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Ruud Gullit",
         "role": "ATT",
         "isStarter": true
@@ -2485,6 +3280,16 @@
       },
       {
         "name": "Marco van Basten",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Daniele Massaro",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Massimiliano Cappioli",
         "role": "ATT",
         "isStarter": false
       }
@@ -3795,6 +4600,16 @@
         "isStarter": true
       },
       {
+        "name": "Cristiano Lupatelli",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Marco Amelia",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Zago",
         "role": "DIF",
         "isStarter": true
@@ -3808,6 +4623,21 @@
         "name": "Aldair",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Jonathan Zebina",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Amedeo Mangone",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessandro Rinaldi",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Cafu",
@@ -3830,8 +4660,33 @@
         "isStarter": true
       },
       {
-        "name": "Francesco Totti",
+        "name": "Emerson",
         "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Marcos Assuncao",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Hidetoshi Nakata",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Gianni Guigou",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Eusebio Di Francesco",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Francesco Totti",
+        "role": "ATT",
         "isStarter": true
       },
       {
@@ -3846,6 +4701,11 @@
       },
       {
         "name": "Vincenzo Montella",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Abel Balbo",
         "role": "ATT",
         "isStarter": false
       }
@@ -3864,6 +4724,11 @@
         "name": "Franco Tancredi",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Franco Superchi",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Pietro Vierchowod",
@@ -3886,6 +4751,21 @@
         "isStarter": true
       },
       {
+        "name": "Ubaldo Righetti",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Michele Nappi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Settimio Lucci",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Carlo Ancelotti",
         "role": "CEN",
         "isStarter": true
@@ -3901,9 +4781,19 @@
         "isStarter": true
       },
       {
-        "name": "Bruno Conti",
-        "role": "ATT",
-        "isStarter": true
+        "name": "Claudio Valigi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Odoacre Chierico",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Giuseppe Giannini",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Roberto Pruzzo",
@@ -3911,9 +4801,19 @@
         "isStarter": true
       },
       {
-        "name": "Maurizio Iorio",
+        "name": "Bruno Conti",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Maurizio Iorio",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Paolo Giovannelli",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -3932,6 +4832,16 @@
         "isStarter": true
       },
       {
+        "name": "Fosco Risorti",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Ippolito Ippoliti",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Mario De Grassi",
         "role": "DIF",
         "isStarter": true
@@ -3945,6 +4855,16 @@
         "name": "Renato Pastore",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Enrico Schiavetti",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Sergio Andreoli",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Aldo Donati",
@@ -3967,6 +4887,21 @@
         "isStarter": true
       },
       {
+        "name": "Renato Cappellini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Vittorio Dagianti",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Mario Mornese",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Amedeo Amadei",
         "role": "ATT",
         "isStarter": true
@@ -3980,6 +4915,16 @@
         "name": "Miguel Angel Pantò",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Ermes Borsetti",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Cesare Augusto Fasanelli",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -3996,6 +4941,16 @@
         "name": "Alex Meret",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Elia Caprile",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Nikita Contini",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Giovanni Di Lorenzo",
@@ -4018,6 +4973,26 @@
         "isStarter": true
       },
       {
+        "name": "Rafa Marin",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Juan Jesus",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Leonardo Spinazzola",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Pasquale Mazzocchi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Stanislav Lobotka",
         "role": "CEN",
         "isStarter": true
@@ -4033,6 +5008,16 @@
         "isStarter": true
       },
       {
+        "name": "Billy Gilmour",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Michael Folorunsho",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Khvicha Kvaratskhelia",
         "role": "ATT",
         "isStarter": true
@@ -4046,6 +5031,26 @@
         "name": "Romelu Lukaku",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "David Neres",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Giacomo Raspadori",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Giovanni Simeone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Cyril Ngonge",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -4062,6 +5067,21 @@
         "name": "Alex Meret",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Pierluigi Gollini",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Salvatore Sirigu",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Davide Marfella",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Giovanni Di Lorenzo",
@@ -4084,6 +5104,31 @@
         "isStarter": true
       },
       {
+        "name": "Mathias Olivera",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Juan Jesus",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Leo Ostigard",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Bartosz Bereszynski",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessandro Zanoli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Stanislav Lobotka",
         "role": "CEN",
         "isStarter": true
@@ -4097,6 +5142,26 @@
         "name": "Piotr Zielinski",
         "role": "CEN",
         "isStarter": true
+      },
+      {
+        "name": "Eljif Elmas",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Tanguy Ndombele",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Diego Demme",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Gianluca Gaetano",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Matteo Politano",
@@ -4114,8 +5179,23 @@
         "isStarter": true
       },
       {
-        "name": "Eljif Elmas",
-        "role": "CEN",
+        "name": "Hirving Lozano",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Giacomo Raspadori",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Giovanni Simeone",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Alessio Zerbin",
+        "role": "ATT",
         "isStarter": false
       }
     ]
@@ -4133,6 +5213,11 @@
         "name": "Giuliano Giuliani",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Raffaele Di Fusco",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Ciro Ferrara",
@@ -4155,6 +5240,21 @@
         "isStarter": true
       },
       {
+        "name": "Alessandro Renica",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Tebaldo Bigliardi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Massimo Tarantino",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Massimo Crippa",
         "role": "CEN",
         "isStarter": true
@@ -4175,6 +5275,16 @@
         "isStarter": true
       },
       {
+        "name": "Antonio Bucciarelli",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Massimo Mauro",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Careca",
         "role": "ATT",
         "isStarter": true
@@ -4186,6 +5296,11 @@
       },
       {
         "name": "Gianfranco Zola",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Maurizio Neri",
         "role": "ATT",
         "isStarter": false
       }
@@ -4204,6 +5319,11 @@
         "name": "Claudio Garella",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Raffaele Di Fusco",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Ciro Ferrara",
@@ -4226,6 +5346,26 @@
         "isStarter": true
       },
       {
+        "name": "Giuseppe Bruscolotti",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Tebaldo Bigliardi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Raimondo Marino",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Massimo Filardi",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Fernando De Napoli",
         "role": "CEN",
         "isStarter": true
@@ -4246,6 +5386,21 @@
         "isStarter": true
       },
       {
+        "name": "Costanzo Celestini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Luigi Caffarelli",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Ciro Muro",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Bruno Giordano",
         "role": "ATT",
         "isStarter": true
@@ -4254,6 +5409,11 @@
         "name": "Andrea Carnevale",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Pietro Puzone",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -4270,6 +5430,16 @@
         "name": "Luca Marchegiani",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Marco Ballotta",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
+        "name": "Emanuele Concetti",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Paolo Negro",
@@ -4290,6 +5460,26 @@
         "name": "Giuseppe Pancaro",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Giuseppe Favalli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Fernando Couto",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Nestor Sensini",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Guerino Gottardi",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Sergio Conceicao",
@@ -4317,12 +5507,42 @@
         "isStarter": true
       },
       {
+        "name": "Dejan Stankovic",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Roberto Mancini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Attilio Lombardo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Giampiero Pinzi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Marcelo Salas",
         "role": "ATT",
         "isStarter": true
       },
       {
         "name": "Simone Inzaghi",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Alen Boksic",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Fabrizio Ravanelli",
         "role": "ATT",
         "isStarter": false
       }
@@ -4341,6 +5561,11 @@
         "name": "Felice Pulici",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Avelino Moriggi",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Sergio Petrelli",
@@ -4363,6 +5588,16 @@
         "isStarter": true
       },
       {
+        "name": "Mario Facco",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Luigi Polentes",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Franco Nanni",
         "role": "CEN",
         "isStarter": true
@@ -4381,6 +5616,21 @@
         "name": "Vincenzo D'Amico",
         "role": "CEN",
         "isStarter": true
+      },
+      {
+        "name": "Paolo Franzoni",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Fausto Inselvini",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Pierpaolo Manservisi",
+        "role": "CEN",
+        "isStarter": false
       },
       {
         "name": "Giorgio Chinaglia",
@@ -4409,6 +5659,11 @@
         "isStarter": true
       },
       {
+        "name": "Claudio Bandoni",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Bernardo Rogora",
         "role": "DIF",
         "isStarter": true
@@ -4427,6 +5682,16 @@
         "name": "Giuseppe Brizi",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Paolino Stanzial",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Pierluigi Cencetti",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Salvatore Esposito",
@@ -4457,6 +5722,26 @@
         "name": "Amarildo",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Francesco Rizzo",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Giovan Battista Pirovano",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Lucio Bertogna",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Giorgio Mariani",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -4473,6 +5758,11 @@
         "name": "Giuliano Sarti",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Riccardo Toros",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Ardico Magnini",
@@ -4493,6 +5783,11 @@
         "name": "Alberto Orzan",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Piero Gonfiantini",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Giuseppe Chiappella",
@@ -4528,6 +5823,21 @@
         "name": "Giuseppe Virgili",
         "role": "ATT",
         "isStarter": false
+      },
+      {
+        "name": "Claudio Bizzarri",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Aldo Scaramucci",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Bruno Mazza",
+        "role": "CEN",
+        "isStarter": false
       }
     ]
   },
@@ -4544,6 +5854,11 @@
         "name": "Enrico Albertosi",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Adriano Reginato",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Mario Martiradonna",
@@ -4566,6 +5881,16 @@
         "isStarter": true
       },
       {
+        "name": "Comunardo Niccolai",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Giulio Zignoli",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Mario Brugnera",
         "role": "CEN",
         "isStarter": true
@@ -4581,6 +5906,16 @@
         "isStarter": true
       },
       {
+        "name": "Cesare Poli",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Claudio Nastasio",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Angelo Domenghini",
         "role": "ATT",
         "isStarter": true
@@ -4594,6 +5929,16 @@
         "name": "Gigi Riva",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Corrado Nastasio",
+        "role": "ATT",
+        "isStarter": false
+      },
+      {
+        "name": "Gerry Hitchens",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -4744,6 +6089,11 @@
         "isStarter": true
       },
       {
+        "name": "Giulio Nuciari",
+        "role": "POR",
+        "isStarter": false
+      },
+      {
         "name": "Moreno Mannini",
         "role": "DIF",
         "isStarter": true
@@ -4762,6 +6112,21 @@
         "name": "Marco Lanna",
         "role": "DIF",
         "isStarter": true
+      },
+      {
+        "name": "Ivano Bonetti",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Alessandro Calcagno",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Michele Dall'Igna",
+        "role": "DIF",
+        "isStarter": false
       },
       {
         "name": "Attilio Lombardo",
@@ -4784,7 +6149,22 @@
         "isStarter": true
       },
       {
-        "name": "Ivano Bonetti",
+        "name": "Giovanni Invernizzi",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Alexei Mikhailichenko",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Giuseppe Dossena",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Umberto Calcagno",
         "role": "CEN",
         "isStarter": false
       },
@@ -4797,6 +6177,11 @@
         "name": "Roberto Mancini",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Marco Branca",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },
@@ -4813,6 +6198,11 @@
         "name": "Claudio Garella",
         "role": "POR",
         "isStarter": true
+      },
+      {
+        "name": "Sergio Spuri",
+        "role": "POR",
+        "isStarter": false
       },
       {
         "name": "Mauro Ferroni",
@@ -4835,6 +6225,16 @@
         "isStarter": true
       },
       {
+        "name": "Dario Donà",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
+        "name": "Fabio Marangon",
+        "role": "DIF",
+        "isStarter": false
+      },
+      {
         "name": "Domenico Volpati",
         "role": "CEN",
         "isStarter": true
@@ -4855,6 +6255,16 @@
         "isStarter": true
       },
       {
+        "name": "Antonio Terracciano",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
+        "name": "Luciano Bruni",
+        "role": "CEN",
+        "isStarter": false
+      },
+      {
         "name": "Pietro Fanna",
         "role": "ATT",
         "isStarter": true
@@ -4868,6 +6278,11 @@
         "name": "Giuseppe Galderisi",
         "role": "ATT",
         "isStarter": true
+      },
+      {
+        "name": "Franco Turchetta",
+        "role": "ATT",
+        "isStarter": false
       }
     ]
   },

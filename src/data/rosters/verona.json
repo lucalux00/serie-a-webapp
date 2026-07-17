@@ -4,17 +4,23 @@
     "points": "43",
     "roster": [
       { "name": "Claudio Garella", "role": "POR", "isStarter": true },
+      { "name": "Sergio Spuri", "role": "POR", "isStarter": false },
       { "name": "Mauro Ferroni", "role": "DIF", "isStarter": true },
       { "name": "Silvano Fontolan", "role": "DIF", "isStarter": true },
       { "name": "Roberto Tricella", "role": "DIF", "isStarter": true },
       { "name": "Luciano Marangon", "role": "DIF", "isStarter": true },
+      { "name": "Dario Donà", "role": "DIF", "isStarter": false },
+      { "name": "Fabio Marangon", "role": "DIF", "isStarter": false },
       { "name": "Domenico Volpati", "role": "CEN", "isStarter": true },
       { "name": "Luigi Sacchetti", "role": "CEN", "isStarter": true },
       { "name": "Antonio Di Gennaro", "role": "CEN", "isStarter": true },
       { "name": "Hans-Peter Briegel", "role": "CEN", "isStarter": true },
+      { "name": "Antonio Terracciano", "role": "CEN", "isStarter": false },
+      { "name": "Luciano Bruni", "role": "CEN", "isStarter": false },
       { "name": "Pietro Fanna", "role": "ATT", "isStarter": true },
       { "name": "Preben Elkjær Larsen", "role": "ATT", "isStarter": true },
-      { "name": "Giuseppe Galderisi", "role": "ATT", "isStarter": true }
+      { "name": "Giuseppe Galderisi", "role": "ATT", "isStarter": true },
+      { "name": "Franco Turchetta", "role": "ATT", "isStarter": false }
     ]
   }
 }

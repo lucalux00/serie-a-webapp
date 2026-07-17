@@ -4,17 +4,29 @@
     "points": "72",
     "roster": [
       { "name": "Luca Marchegiani", "role": "POR", "isStarter": true },
+      { "name": "Marco Ballotta", "role": "POR", "isStarter": false },
+      { "name": "Emanuele Concetti", "role": "POR", "isStarter": false },
       { "name": "Paolo Negro", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Nesta", "role": "DIF", "isStarter": true },
       { "name": "Sinisa Mihajlovic", "role": "DIF", "isStarter": true },
       { "name": "Giuseppe Pancaro", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Favalli", "role": "DIF", "isStarter": false },
+      { "name": "Fernando Couto", "role": "DIF", "isStarter": false },
+      { "name": "Nestor Sensini", "role": "DIF", "isStarter": false },
+      { "name": "Guerino Gottardi", "role": "DIF", "isStarter": false },
       { "name": "Sergio Conceicao", "role": "CEN", "isStarter": true },
       { "name": "Diego Simeone", "role": "CEN", "isStarter": true },
       { "name": "Matias Almeyda", "role": "CEN", "isStarter": true },
       { "name": "Juan Sebastian Veron", "role": "CEN", "isStarter": true },
       { "name": "Pavel Nedved", "role": "CEN", "isStarter": true },
+      { "name": "Dejan Stankovic", "role": "CEN", "isStarter": false },
+      { "name": "Roberto Mancini", "role": "CEN", "isStarter": false },
+      { "name": "Attilio Lombardo", "role": "CEN", "isStarter": false },
+      { "name": "Giampiero Pinzi", "role": "CEN", "isStarter": false },
       { "name": "Marcelo Salas", "role": "ATT", "isStarter": true },
-      { "name": "Simone Inzaghi", "role": "ATT", "isStarter": false }
+      { "name": "Simone Inzaghi", "role": "ATT", "isStarter": false },
+      { "name": "Alen Boksic", "role": "ATT", "isStarter": false },
+      { "name": "Fabrizio Ravanelli", "role": "ATT", "isStarter": false }
     ]
   },
   "1973/74": {
@@ -22,14 +34,20 @@
     "points": "43",
     "roster": [
       { "name": "Felice Pulici", "role": "POR", "isStarter": true },
+      { "name": "Avelino Moriggi", "role": "POR", "isStarter": false },
       { "name": "Sergio Petrelli", "role": "DIF", "isStarter": true },
       { "name": "Luigi Martini", "role": "DIF", "isStarter": true },
       { "name": "Pino Wilson", "role": "DIF", "isStarter": true },
       { "name": "Giancarlo Oddi", "role": "DIF", "isStarter": true },
+      { "name": "Mario Facco", "role": "DIF", "isStarter": false },
+      { "name": "Luigi Polentes", "role": "DIF", "isStarter": false },
       { "name": "Franco Nanni", "role": "CEN", "isStarter": true },
       { "name": "Luciano Re Cecconi", "role": "CEN", "isStarter": true },
       { "name": "Mario Frustalupi", "role": "CEN", "isStarter": true },
       { "name": "Vincenzo D'Amico", "role": "CEN", "isStarter": true },
+      { "name": "Paolo Franzoni", "role": "CEN", "isStarter": false },
+      { "name": "Fausto Inselvini", "role": "CEN", "isStarter": false },
+      { "name": "Pierpaolo Manservisi", "role": "CEN", "isStarter": false },
       { "name": "Giorgio Chinaglia", "role": "ATT", "isStarter": true },
       { "name": "Renzo Garlaschelli", "role": "ATT", "isStarter": true }
     ]

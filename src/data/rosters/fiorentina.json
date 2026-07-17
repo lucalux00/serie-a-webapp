@@ -4,16 +4,23 @@
     "points": "45",
     "roster": [
       { "name": "Franco Superchi", "role": "POR", "isStarter": true },
+      { "name": "Claudio Bandoni", "role": "POR", "isStarter": false },
       { "name": "Bernardo Rogora", "role": "DIF", "isStarter": true },
       { "name": "Eraldo Mancin", "role": "DIF", "isStarter": true },
       { "name": "Ugo Ferrante", "role": "DIF", "isStarter": true },
       { "name": "Giuseppe Brizi", "role": "DIF", "isStarter": true },
+      { "name": "Paolino Stanzial", "role": "DIF", "isStarter": false },
+      { "name": "Pierluigi Cencetti", "role": "DIF", "isStarter": false },
       { "name": "Salvatore Esposito", "role": "CEN", "isStarter": true },
       { "name": "Claudio Merlo", "role": "CEN", "isStarter": true },
       { "name": "Giancarlo De Sisti", "role": "CEN", "isStarter": true },
       { "name": "Luciano Chiarugi", "role": "ATT", "isStarter": true },
       { "name": "Mario Maraschi", "role": "ATT", "isStarter": true },
-      { "name": "Amarildo", "role": "ATT", "isStarter": true }
+      { "name": "Amarildo", "role": "ATT", "isStarter": true },
+      { "name": "Francesco Rizzo", "role": "CEN", "isStarter": false },
+      { "name": "Giovan Battista Pirovano", "role": "CEN", "isStarter": false },
+      { "name": "Lucio Bertogna", "role": "ATT", "isStarter": false },
+      { "name": "Giorgio Mariani", "role": "ATT", "isStarter": false }
     ]
   },
   "1955/56": {
@@ -21,17 +28,22 @@
     "points": "53",
     "roster": [
       { "name": "Giuliano Sarti", "role": "POR", "isStarter": true },
+      { "name": "Riccardo Toros", "role": "POR", "isStarter": false },
       { "name": "Ardico Magnini", "role": "DIF", "isStarter": true },
       { "name": "Sergio Cervato", "role": "DIF", "isStarter": true },
       { "name": "Francesco Rosetta", "role": "DIF", "isStarter": true },
       { "name": "Alberto Orzan", "role": "DIF", "isStarter": true },
+      { "name": "Piero Gonfiantini", "role": "DIF", "isStarter": false },
       { "name": "Giuseppe Chiappella", "role": "CEN", "isStarter": true },
       { "name": "Maurilio Prini", "role": "CEN", "isStarter": true },
       { "name": "Armando Segato", "role": "CEN", "isStarter": true },
       { "name": "Guido Gratton", "role": "ATT", "isStarter": true },
       { "name": "Julinho", "role": "ATT", "isStarter": true },
       { "name": "Miguel Montuori", "role": "ATT", "isStarter": true },
-      { "name": "Giuseppe Virgili", "role": "ATT", "isStarter": false }
+      { "name": "Giuseppe Virgili", "role": "ATT", "isStarter": false },
+      { "name": "Claudio Bizzarri", "role": "ATT", "isStarter": false },
+      { "name": "Aldo Scaramucci", "role": "CEN", "isStarter": false },
+      { "name": "Bruno Mazza", "role": "CEN", "isStarter": false }
     ]
   }
 }

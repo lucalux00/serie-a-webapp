@@ -4,18 +4,30 @@
     "points": "86",
     "roster": [
       { "name": "Mike Maignan", "role": "POR", "isStarter": true },
+      { "name": "Ciprian Tatarusanu", "role": "POR", "isStarter": false },
+      { "name": "Antonio Mirante", "role": "POR", "isStarter": false },
       { "name": "Davide Calabria", "role": "DIF", "isStarter": true },
       { "name": "Pierre Kalulu", "role": "DIF", "isStarter": true },
       { "name": "Fikayo Tomori", "role": "DIF", "isStarter": true },
       { "name": "Theo Hernandez", "role": "DIF", "isStarter": true },
+      { "name": "Simon Kjaer", "role": "DIF", "isStarter": false },
+      { "name": "Alessio Romagnoli", "role": "DIF", "isStarter": false },
+      { "name": "Alessandro Florenzi", "role": "DIF", "isStarter": false },
+      { "name": "Fode Ballo-Toure", "role": "DIF", "isStarter": false },
+      { "name": "Matteo Gabbia", "role": "DIF", "isStarter": false },
       { "name": "Sandro Tonali", "role": "CEN", "isStarter": true },
       { "name": "Franck Kessie", "role": "CEN", "isStarter": true },
       { "name": "Ismael Bennacer", "role": "CEN", "isStarter": false },
+      { "name": "Rade Krunic", "role": "CEN", "isStarter": false },
+      { "name": "Tiemoue Bakayoko", "role": "CEN", "isStarter": false },
       { "name": "Alexis Saelemaekers", "role": "CEN", "isStarter": true },
+      { "name": "Junior Messias", "role": "CEN", "isStarter": false },
       { "name": "Brahim Diaz", "role": "CEN", "isStarter": true },
       { "name": "Rafael Leao", "role": "ATT", "isStarter": true },
       { "name": "Olivier Giroud", "role": "ATT", "isStarter": true },
-      { "name": "Zlatan Ibrahimovic", "role": "ATT", "isStarter": false }
+      { "name": "Zlatan Ibrahimovic", "role": "ATT", "isStarter": false },
+      { "name": "Ante Rebic", "role": "ATT", "isStarter": false },
+      { "name": "Daniel Maldini", "role": "ATT", "isStarter": false }
     ]
   },
   "2010/11": {
@@ -23,17 +35,29 @@
     "points": "82",
     "roster": [
       { "name": "Christian Abbiati", "role": "POR", "isStarter": true },
+      { "name": "Marco Amelia", "role": "POR", "isStarter": false },
+      { "name": "Flavio Roma", "role": "POR", "isStarter": false },
       { "name": "Ignazio Abate", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Nesta", "role": "DIF", "isStarter": true },
       { "name": "Thiago Silva", "role": "DIF", "isStarter": true },
       { "name": "Luca Antonini", "role": "DIF", "isStarter": true },
+      { "name": "Gianluca Zambrotta", "role": "DIF", "isStarter": false },
+      { "name": "Mario Yepes", "role": "DIF", "isStarter": false },
+      { "name": "Daniele Bonera", "role": "DIF", "isStarter": false },
+      { "name": "Massimo Oddo", "role": "DIF", "isStarter": false },
       { "name": "Gennaro Gattuso", "role": "CEN", "isStarter": true },
       { "name": "Clarence Seedorf", "role": "CEN", "isStarter": true },
       { "name": "Mark van Bommel", "role": "CEN", "isStarter": true },
       { "name": "Kevin-Prince Boateng", "role": "CEN", "isStarter": true },
+      { "name": "Massimo Ambrosini", "role": "CEN", "isStarter": false },
+      { "name": "Mathieu Flamini", "role": "CEN", "isStarter": false },
+      { "name": "Andrea Pirlo", "role": "CEN", "isStarter": false },
+      { "name": "Urby Emanuelson", "role": "CEN", "isStarter": false },
       { "name": "Alexandre Pato", "role": "ATT", "isStarter": true },
       { "name": "Zlatan Ibrahimovic", "role": "ATT", "isStarter": true },
-      { "name": "Robinho", "role": "ATT", "isStarter": false }
+      { "name": "Robinho", "role": "ATT", "isStarter": false },
+      { "name": "Antonio Cassano", "role": "ATT", "isStarter": false },
+      { "name": "Filippo Inzaghi", "role": "ATT", "isStarter": false }
     ]
   },
   "2003/04": {
@@ -41,17 +65,29 @@
     "points": "82",
     "roster": [
       { "name": "Dida", "role": "POR", "isStarter": true },
+      { "name": "Christian Abbiati", "role": "POR", "isStarter": false },
+      { "name": "Valerio Fiori", "role": "POR", "isStarter": false },
       { "name": "Cafu", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Nesta", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
       { "name": "Giuseppe Pancaro", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": false },
+      { "name": "Kakha Kaladze", "role": "DIF", "isStarter": false },
+      { "name": "Martin Laursen", "role": "DIF", "isStarter": false },
+      { "name": "Dario Simic", "role": "DIF", "isStarter": false },
       { "name": "Gennaro Gattuso", "role": "CEN", "isStarter": true },
       { "name": "Andrea Pirlo", "role": "CEN", "isStarter": true },
       { "name": "Clarence Seedorf", "role": "CEN", "isStarter": true },
       { "name": "Kakà", "role": "CEN", "isStarter": true },
+      { "name": "Massimo Ambrosini", "role": "CEN", "isStarter": false },
+      { "name": "Rui Costa", "role": "CEN", "isStarter": false },
+      { "name": "Cristian Brocchi", "role": "CEN", "isStarter": false },
+      { "name": "Serginho", "role": "CEN", "isStarter": false },
+      { "name": "Fernando Redondo", "role": "CEN", "isStarter": false },
       { "name": "Andriy Shevchenko", "role": "ATT", "isStarter": true },
       { "name": "Jon Dahl Tomasson", "role": "ATT", "isStarter": true },
-      { "name": "Filippo Inzaghi", "role": "ATT", "isStarter": false }
+      { "name": "Filippo Inzaghi", "role": "ATT", "isStarter": false },
+      { "name": "Marco Borriello", "role": "ATT", "isStarter": false }
     ]
   },
   "1998/99": {
@@ -59,16 +95,26 @@
     "points": "70",
     "roster": [
       { "name": "Christian Abbiati", "role": "POR", "isStarter": true },
+      { "name": "Sebastiano Rossi", "role": "POR", "isStarter": false },
+      { "name": "Jens Lehmann", "role": "POR", "isStarter": false },
       { "name": "Luigi Sala", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Roberto Ayala", "role": "DIF", "isStarter": false },
+      { "name": "Christian Ziege", "role": "DIF", "isStarter": false },
+      { "name": "Bruno N'Gotty", "role": "DIF", "isStarter": false },
       { "name": "Thomas Helveg", "role": "CEN", "isStarter": true },
       { "name": "Demetrio Albertini", "role": "CEN", "isStarter": true },
       { "name": "Massimo Ambrosini", "role": "CEN", "isStarter": true },
       { "name": "Andres Guglielminpietro", "role": "CEN", "isStarter": true },
       { "name": "Zvonimir Boban", "role": "CEN", "isStarter": true },
+      { "name": "Leonardo", "role": "CEN", "isStarter": false },
+      { "name": "Ibrahim Ba", "role": "CEN", "isStarter": false },
+      { "name": "Domenico Morfeo", "role": "CEN", "isStarter": false },
+      { "name": "Federico Giunti", "role": "CEN", "isStarter": false },
       { "name": "Oliver Bierhoff", "role": "ATT", "isStarter": true },
-      { "name": "George Weah", "role": "ATT", "isStarter": true }
+      { "name": "George Weah", "role": "ATT", "isStarter": true },
+      { "name": "Maurizio Ganz", "role": "ATT", "isStarter": false }
     ]
   },
   "1995/96": {
@@ -76,17 +122,26 @@
     "points": "73",
     "roster": [
       { "name": "Sebastiano Rossi", "role": "POR", "isStarter": true },
+      { "name": "Mario Ielpo", "role": "POR", "isStarter": false },
       { "name": "Christian Panucci", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
       { "name": "Franco Baresi", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Mauro Tassotti", "role": "DIF", "isStarter": false },
+      { "name": "Filippo Galli", "role": "DIF", "isStarter": false },
       { "name": "Stefano Eranio", "role": "CEN", "isStarter": true },
       { "name": "Marcel Desailly", "role": "CEN", "isStarter": true },
       { "name": "Demetrio Albertini", "role": "CEN", "isStarter": true },
       { "name": "Zvonimir Boban", "role": "CEN", "isStarter": true },
+      { "name": "Roberto Donadoni", "role": "CEN", "isStarter": false },
+      { "name": "Gianluigi Lentini", "role": "CEN", "isStarter": false },
+      { "name": "Massimo Ambrosini", "role": "CEN", "isStarter": false },
+      { "name": "Patrick Vieira", "role": "CEN", "isStarter": false },
       { "name": "Dejan Savicevic", "role": "ATT", "isStarter": true },
       { "name": "George Weah", "role": "ATT", "isStarter": true },
-      { "name": "Roberto Baggio", "role": "ATT", "isStarter": false }
+      { "name": "Roberto Baggio", "role": "ATT", "isStarter": false },
+      { "name": "Marco Simone", "role": "ATT", "isStarter": false },
+      { "name": "Paolo Di Canio", "role": "ATT", "isStarter": false }
     ]
   },
   "1993/94": {
@@ -94,17 +149,28 @@
     "points": "50",
     "roster": [
       { "name": "Sebastiano Rossi", "role": "POR", "isStarter": true },
+      { "name": "Mario Ielpo", "role": "POR", "isStarter": false },
       { "name": "Mauro Tassotti", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
       { "name": "Franco Baresi", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Christian Panucci", "role": "DIF", "isStarter": false },
+      { "name": "Filippo Galli", "role": "DIF", "isStarter": false },
+      { "name": "Alessandro Orlando", "role": "DIF", "isStarter": false },
       { "name": "Roberto Donadoni", "role": "CEN", "isStarter": true },
       { "name": "Demetrio Albertini", "role": "CEN", "isStarter": true },
       { "name": "Marcel Desailly", "role": "CEN", "isStarter": true },
       { "name": "Zvonimir Boban", "role": "CEN", "isStarter": true },
+      { "name": "Stefano Eranio", "role": "CEN", "isStarter": false },
+      { "name": "Brian Laudrup", "role": "CEN", "isStarter": false },
+      { "name": "Gianluigi Lentini", "role": "CEN", "isStarter": false },
+      { "name": "Angelo Carbone", "role": "CEN", "isStarter": false },
+      { "name": "Fernando De Napoli", "role": "CEN", "isStarter": false },
       { "name": "Dejan Savicevic", "role": "ATT", "isStarter": true },
       { "name": "Daniele Massaro", "role": "ATT", "isStarter": true },
-      { "name": "Jean-Pierre Papin", "role": "ATT", "isStarter": false }
+      { "name": "Jean-Pierre Papin", "role": "ATT", "isStarter": false },
+      { "name": "Marco Simone", "role": "ATT", "isStarter": false },
+      { "name": "Florin Raducioiu", "role": "ATT", "isStarter": false }
     ]
   },
   "1992/93": {
@@ -112,17 +178,28 @@
     "points": "50",
     "roster": [
       { "name": "Sebastiano Rossi", "role": "POR", "isStarter": true },
+      { "name": "Francesco Antonioli", "role": "POR", "isStarter": false },
       { "name": "Mauro Tassotti", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
       { "name": "Franco Baresi", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Filippo Galli", "role": "DIF", "isStarter": false },
+      { "name": "Enzo Gambaro", "role": "DIF", "isStarter": false },
       { "name": "Roberto Donadoni", "role": "CEN", "isStarter": true },
       { "name": "Demetrio Albertini", "role": "CEN", "isStarter": true },
       { "name": "Frank Rijkaard", "role": "CEN", "isStarter": true },
       { "name": "Ruud Gullit", "role": "CEN", "isStarter": true },
+      { "name": "Alberigo Evani", "role": "CEN", "isStarter": false },
+      { "name": "Stefano Eranio", "role": "CEN", "isStarter": false },
+      { "name": "Gianluigi Lentini", "role": "CEN", "isStarter": false },
+      { "name": "Zvonimir Boban", "role": "CEN", "isStarter": false },
+      { "name": "Fernando De Napoli", "role": "CEN", "isStarter": false },
+      { "name": "Dejan Savicevic", "role": "ATT", "isStarter": false },
       { "name": "Marco van Basten", "role": "ATT", "isStarter": true },
       { "name": "Daniele Massaro", "role": "ATT", "isStarter": true },
-      { "name": "Gianluigi Lentini", "role": "CEN", "isStarter": false }
+      { "name": "Jean-Pierre Papin", "role": "ATT", "isStarter": false },
+      { "name": "Marco Simone", "role": "ATT", "isStarter": false },
+      { "name": "Aldo Serena", "role": "ATT", "isStarter": false }
     ]
   },
   "1991/92": {
@@ -130,17 +207,24 @@
     "points": "56",
     "roster": [
       { "name": "Sebastiano Rossi", "role": "POR", "isStarter": true },
+      { "name": "Francesco Antonioli", "role": "POR", "isStarter": false },
       { "name": "Mauro Tassotti", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": true },
       { "name": "Franco Baresi", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Filippo Galli", "role": "DIF", "isStarter": false },
+      { "name": "Enzo Gambaro", "role": "DIF", "isStarter": false },
       { "name": "Roberto Donadoni", "role": "CEN", "isStarter": true },
       { "name": "Demetrio Albertini", "role": "CEN", "isStarter": true },
       { "name": "Frank Rijkaard", "role": "CEN", "isStarter": true },
       { "name": "Alberigo Evani", "role": "CEN", "isStarter": true },
       { "name": "Ruud Gullit", "role": "CEN", "isStarter": true },
+      { "name": "Carlo Ancelotti", "role": "CEN", "isStarter": false },
+      { "name": "Diego Fuser", "role": "CEN", "isStarter": false },
       { "name": "Marco van Basten", "role": "ATT", "isStarter": true },
-      { "name": "Daniele Massaro", "role": "ATT", "isStarter": false }
+      { "name": "Daniele Massaro", "role": "ATT", "isStarter": false },
+      { "name": "Marco Simone", "role": "ATT", "isStarter": false },
+      { "name": "Aldo Serena", "role": "ATT", "isStarter": false }
     ]
   },
   "1987/88": {
@@ -148,17 +232,23 @@
     "points": "45",
     "roster": [
       { "name": "Giovanni Galli", "role": "POR", "isStarter": true },
+      { "name": "Giulio Nuciari", "role": "POR", "isStarter": false },
       { "name": "Mauro Tassotti", "role": "DIF", "isStarter": true },
       { "name": "Filippo Galli", "role": "DIF", "isStarter": true },
       { "name": "Franco Baresi", "role": "DIF", "isStarter": true },
       { "name": "Paolo Maldini", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Costacurta", "role": "DIF", "isStarter": false },
+      { "name": "Walter Bianchi", "role": "DIF", "isStarter": false },
       { "name": "Angelo Colombo", "role": "CEN", "isStarter": true },
       { "name": "Carlo Ancelotti", "role": "CEN", "isStarter": true },
       { "name": "Roberto Donadoni", "role": "CEN", "isStarter": true },
       { "name": "Alberigo Evani", "role": "CEN", "isStarter": true },
+      { "name": "Mario Bortolazzi", "role": "CEN", "isStarter": false },
       { "name": "Ruud Gullit", "role": "ATT", "isStarter": true },
       { "name": "Pietro Paolo Virdis", "role": "ATT", "isStarter": true },
-      { "name": "Marco van Basten", "role": "ATT", "isStarter": false }
+      { "name": "Marco van Basten", "role": "ATT", "isStarter": false },
+      { "name": "Daniele Massaro", "role": "ATT", "isStarter": false },
+      { "name": "Massimiliano Cappioli", "role": "ATT", "isStarter": false }
     ]
   }
 }

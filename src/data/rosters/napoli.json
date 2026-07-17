@@ -4,16 +4,28 @@
     "points": "In corso",
     "roster": [
       { "name": "Alex Meret", "role": "POR", "isStarter": true },
+      { "name": "Elia Caprile", "role": "POR", "isStarter": false },
+      { "name": "Nikita Contini", "role": "POR", "isStarter": false },
       { "name": "Giovanni Di Lorenzo", "role": "DIF", "isStarter": true },
       { "name": "Amir Rrahmani", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Buongiorno", "role": "DIF", "isStarter": true },
       { "name": "Mathias Olivera", "role": "DIF", "isStarter": true },
+      { "name": "Rafa Marin", "role": "DIF", "isStarter": false },
+      { "name": "Juan Jesus", "role": "DIF", "isStarter": false },
+      { "name": "Leonardo Spinazzola", "role": "DIF", "isStarter": false },
+      { "name": "Pasquale Mazzocchi", "role": "DIF", "isStarter": false },
       { "name": "Stanislav Lobotka", "role": "CEN", "isStarter": true },
       { "name": "Frank Anguissa", "role": "CEN", "isStarter": true },
       { "name": "Scott McTominay", "role": "CEN", "isStarter": true },
+      { "name": "Billy Gilmour", "role": "CEN", "isStarter": false },
+      { "name": "Michael Folorunsho", "role": "CEN", "isStarter": false },
       { "name": "Khvicha Kvaratskhelia", "role": "ATT", "isStarter": true },
       { "name": "Matteo Politano", "role": "ATT", "isStarter": true },
-      { "name": "Romelu Lukaku", "role": "ATT", "isStarter": true }
+      { "name": "Romelu Lukaku", "role": "ATT", "isStarter": true },
+      { "name": "David Neres", "role": "ATT", "isStarter": false },
+      { "name": "Giacomo Raspadori", "role": "ATT", "isStarter": false },
+      { "name": "Giovanni Simeone", "role": "ATT", "isStarter": false },
+      { "name": "Cyril Ngonge", "role": "ATT", "isStarter": false }
     ]
   },
   "2022/23": {
@@ -21,17 +33,32 @@
     "points": "90",
     "roster": [
       { "name": "Alex Meret", "role": "POR", "isStarter": true },
+      { "name": "Pierluigi Gollini", "role": "POR", "isStarter": false },
+      { "name": "Salvatore Sirigu", "role": "POR", "isStarter": false },
+      { "name": "Davide Marfella", "role": "POR", "isStarter": false },
       { "name": "Giovanni Di Lorenzo", "role": "DIF", "isStarter": true },
       { "name": "Amir Rrahmani", "role": "DIF", "isStarter": true },
       { "name": "Kim Min-jae", "role": "DIF", "isStarter": true },
       { "name": "Mario Rui", "role": "DIF", "isStarter": true },
+      { "name": "Mathias Olivera", "role": "DIF", "isStarter": false },
+      { "name": "Juan Jesus", "role": "DIF", "isStarter": false },
+      { "name": "Leo Ostigard", "role": "DIF", "isStarter": false },
+      { "name": "Bartosz Bereszynski", "role": "DIF", "isStarter": false },
+      { "name": "Alessandro Zanoli", "role": "DIF", "isStarter": false },
       { "name": "Stanislav Lobotka", "role": "CEN", "isStarter": true },
       { "name": "Frank Anguissa", "role": "CEN", "isStarter": true },
       { "name": "Piotr Zielinski", "role": "CEN", "isStarter": true },
+      { "name": "Eljif Elmas", "role": "CEN", "isStarter": false },
+      { "name": "Tanguy Ndombele", "role": "CEN", "isStarter": false },
+      { "name": "Diego Demme", "role": "CEN", "isStarter": false },
+      { "name": "Gianluca Gaetano", "role": "CEN", "isStarter": false },
       { "name": "Matteo Politano", "role": "ATT", "isStarter": true },
       { "name": "Khvicha Kvaratskhelia", "role": "ATT", "isStarter": true },
       { "name": "Victor Osimhen", "role": "ATT", "isStarter": true },
-      { "name": "Eljif Elmas", "role": "CEN", "isStarter": false }
+      { "name": "Hirving Lozano", "role": "ATT", "isStarter": false },
+      { "name": "Giacomo Raspadori", "role": "ATT", "isStarter": false },
+      { "name": "Giovanni Simeone", "role": "ATT", "isStarter": false },
+      { "name": "Alessio Zerbin", "role": "ATT", "isStarter": false }
     ]
   },
   "1989/90": {
@@ -39,17 +66,24 @@
     "points": "51",
     "roster": [
       { "name": "Giuliano Giuliani", "role": "POR", "isStarter": true },
+      { "name": "Raffaele Di Fusco", "role": "POR", "isStarter": false },
       { "name": "Ciro Ferrara", "role": "DIF", "isStarter": true },
       { "name": "Giovanni Francini", "role": "DIF", "isStarter": true },
       { "name": "Giancarlo Corradini", "role": "DIF", "isStarter": true },
       { "name": "Marco Baroni", "role": "DIF", "isStarter": true },
+      { "name": "Alessandro Renica", "role": "DIF", "isStarter": false },
+      { "name": "Tebaldo Bigliardi", "role": "DIF", "isStarter": false },
+      { "name": "Massimo Tarantino", "role": "DIF", "isStarter": false },
       { "name": "Massimo Crippa", "role": "CEN", "isStarter": true },
       { "name": "Fernando De Napoli", "role": "CEN", "isStarter": true },
       { "name": "Alemao", "role": "CEN", "isStarter": true },
       { "name": "Diego Armando Maradona", "role": "CEN", "isStarter": true },
+      { "name": "Antonio Bucciarelli", "role": "CEN", "isStarter": false },
+      { "name": "Massimo Mauro", "role": "CEN", "isStarter": false },
       { "name": "Careca", "role": "ATT", "isStarter": true },
       { "name": "Andrea Carnevale", "role": "ATT", "isStarter": true },
-      { "name": "Gianfranco Zola", "role": "ATT", "isStarter": false }
+      { "name": "Gianfranco Zola", "role": "ATT", "isStarter": false },
+      { "name": "Maurizio Neri", "role": "ATT", "isStarter": false }
     ]
   },
   "1986/87": {
@@ -57,16 +91,25 @@
     "points": "42",
     "roster": [
       { "name": "Claudio Garella", "role": "POR", "isStarter": true },
+      { "name": "Raffaele Di Fusco", "role": "POR", "isStarter": false },
       { "name": "Ciro Ferrara", "role": "DIF", "isStarter": true },
       { "name": "Giuseppe Volpecina", "role": "DIF", "isStarter": true },
       { "name": "Alessandro Renica", "role": "DIF", "isStarter": true },
       { "name": "Moreno Ferrario", "role": "DIF", "isStarter": true },
+      { "name": "Giuseppe Bruscolotti", "role": "DIF", "isStarter": false },
+      { "name": "Tebaldo Bigliardi", "role": "DIF", "isStarter": false },
+      { "name": "Raimondo Marino", "role": "DIF", "isStarter": false },
+      { "name": "Massimo Filardi", "role": "DIF", "isStarter": false },
       { "name": "Fernando De Napoli", "role": "CEN", "isStarter": true },
       { "name": "Salvatore Bagni", "role": "CEN", "isStarter": true },
       { "name": "Francesco Romano", "role": "CEN", "isStarter": true },
       { "name": "Diego Armando Maradona", "role": "CEN", "isStarter": true },
+      { "name": "Costanzo Celestini", "role": "CEN", "isStarter": false },
+      { "name": "Luigi Caffarelli", "role": "CEN", "isStarter": false },
+      { "name": "Ciro Muro", "role": "CEN", "isStarter": false },
       { "name": "Bruno Giordano", "role": "ATT", "isStarter": true },
-      { "name": "Andrea Carnevale", "role": "ATT", "isStarter": true }
+      { "name": "Andrea Carnevale", "role": "ATT", "isStarter": true },
+      { "name": "Pietro Puzone", "role": "ATT", "isStarter": false }
     ]
   }
 }

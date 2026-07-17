@@ -4,16 +4,23 @@
     "points": "45",
     "roster": [
       { "name": "Enrico Albertosi", "role": "POR", "isStarter": true },
+      { "name": "Adriano Reginato", "role": "POR", "isStarter": false },
       { "name": "Mario Martiradonna", "role": "DIF", "isStarter": true },
       { "name": "Giuseppe Tomasini", "role": "DIF", "isStarter": true },
       { "name": "Pierluigi Cera", "role": "DIF", "isStarter": true },
       { "name": "Eraldo Mancin", "role": "DIF", "isStarter": true },
+      { "name": "Comunardo Niccolai", "role": "DIF", "isStarter": false },
+      { "name": "Giulio Zignoli", "role": "DIF", "isStarter": false },
       { "name": "Mario Brugnera", "role": "CEN", "isStarter": true },
       { "name": "Nenè", "role": "CEN", "isStarter": true },
       { "name": "Ricciotti Greatti", "role": "CEN", "isStarter": true },
+      { "name": "Cesare Poli", "role": "CEN", "isStarter": false },
+      { "name": "Claudio Nastasio", "role": "CEN", "isStarter": false },
       { "name": "Angelo Domenghini", "role": "ATT", "isStarter": true },
       { "name": "Sergio Gori", "role": "ATT", "isStarter": true },
-      { "name": "Gigi Riva", "role": "ATT", "isStarter": true }
+      { "name": "Gigi Riva", "role": "ATT", "isStarter": true },
+      { "name": "Corrado Nastasio", "role": "ATT", "isStarter": false },
+      { "name": "Gerry Hitchens", "role": "ATT", "isStarter": false }
     ]
   }
 }
