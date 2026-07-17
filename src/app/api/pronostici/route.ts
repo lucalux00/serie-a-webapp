@@ -118,30 +118,30 @@ export async function GET() {
     // 3. Creazione Singole Sicure (le 4 con la quota più bassa, indice di altissima probabilità)
     const singlePredictions = [...allPicks].sort((a: any, b: any) => a.odds - b.odds).slice(0, 4);
 
-    // 4. Bollette (usiamo i pick reali generati)
+    // 4. Multiple (usiamo i pick reali generati)
     const bollette = [];
 
-    // Bolletta Serie A
+    // Multipla Serie A
     if (saPicks.length >= 3) {
       const selected = saPicks.slice(0, 4);
       const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bolletta_sa',
-        title: 'Bolletta Serie A',
+        title: 'Multipla Serie A',
         type: 'campionato',
         matches: selected,
         totalOdds: Math.round(totalOdds * 100) / 100
       });
     }
 
-    // Bolletta Europea (Champions / Europa League)
+    // Multipla Europea (Champions / Europa League)
     const euroPicks = [...clPicks, ...elPicks];
     if (euroPicks.length >= 3) {
       const selected = euroPicks.slice(0, 4);
       const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bolletta_euro',
-        title: 'Bolletta Notti Europee',
+        title: 'Multipla Notti Europee',
         type: 'coppa',
         matches: selected,
         totalOdds: Math.round(totalOdds * 100) / 100
@@ -155,7 +155,7 @@ export async function GET() {
       if (raddoppioMatches.length === 2) {
         bollette.push({
           id: 'raddoppio',
-          title: 'Il Raddoppio Reale',
+          title: 'Il Raddoppio Statistico',
           type: 'raddoppio',
           matches: raddoppioMatches,
           totalOdds: Math.round(raddoppioMatches[0].odds * raddoppioMatches[1].odds * 100) / 100
@@ -163,14 +163,14 @@ export async function GET() {
       }
     }
 
-    // Bolletta Mista / Extra (se non c'è Serie A/Europa, usa le amichevoli o le rimanenti)
+    // Multipla Mista / Extra (se non c'è Serie A/Europa, usa le amichevoli o le rimanenti)
     if (allPicks.length >= 4) {
       // Evitiamo di ripetere esattamente i match della Serie A se abbiamo molta roba
       const mixed = [...allPicks].sort(() => 0.5 - Math.random()).slice(0, 5);
       const totalOdds = mixed.reduce((acc: number, curr: any) => acc * curr.odds, 1);
       bollette.push({
         id: 'bollettone',
-        title: 'Il Bollettone Misto (Migliori Statistiche)',
+        title: 'La Multipla Mista (Migliori Statistiche)',
         type: 'alta',
         matches: mixed,
         totalOdds: Math.round(totalOdds * 100) / 100

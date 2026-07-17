@@ -63,7 +63,7 @@ export default function PronosticiPage() {
       </div>
       
       <p className="text-sm text-[#cbd5e1] mb-6 bg-[#1E293B] p-4 rounded-xl border border-[#334155] shadow-sm">
-        Scopri le selezioni esclusive e le bollette già pronte del nostro algoritmo, calcolate sulle partite e amichevoli in programma.
+        Scopri le analisi statistiche esclusive e le combinazioni algoritmiche calcolate sulle partite e amichevoli in programma. Il nostro algoritmo confronta le probabilità implicite del mercato per estrarre le selezioni di maggior valore matematico.
       </p>
 
       {/* Singole */}
@@ -96,7 +96,7 @@ export default function PronosticiPage() {
       {/* Bollette */}
       <h2 className="text-lg font-black mb-4 text-white flex items-center">
         <Calculator className="text-[#0EA5E9] mr-2" size={20} />
-        Le Nostre Bollette
+        Le Nostre Multiple
       </h2>
       <div className="mb-8 space-y-4">
         {bollette.map(bolletta => (
@@ -136,7 +136,7 @@ export default function PronosticiPage() {
                   </div>
 
                   <div className="flex justify-between items-center mb-5 bg-[#0B1120] p-3 rounded-xl border border-[#334155]/50">
-                    <span className="text-xs text-[#94A3B8] font-bold">Vincita con {baseBetAmount}€</span>
+                    <span className="text-xs text-[#94A3B8] font-bold">Ritorno potenziale con {baseBetAmount}€</span>
                     <span className="font-black text-xl text-[#10B981]">~ {(bolletta.totalOdds * baseBetAmount).toFixed(2)}€</span>
                   </div>
 
@@ -147,7 +147,7 @@ export default function PronosticiPage() {
                     onClick={(e) => e.stopPropagation()}
                     className="w-full flex items-center justify-center bg-[#0EA5E9] hover:bg-[#0284c7] text-white font-black py-4 rounded-xl active:scale-95 transition-transform shadow-lg group"
                   >
-                    GIOCA SU {bookmakerName}
+                    VERIFICA QUOTE SU {bookmakerName}
                     <ExternalLink size={18} className="ml-2 opacity-70 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </motion.div>
