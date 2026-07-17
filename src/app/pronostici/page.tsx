@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Target, ExternalLink, Calculator, AlertTriangle, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Target, ExternalLink, Calculator, AlertTriangle, Loader2, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getTeamLogoUrl } from '@/utils/teamLogos';
 

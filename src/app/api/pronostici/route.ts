@@ -36,8 +36,8 @@ export async function GET() {
     const bollette = [];
 
     // Troviamo le partite che assomigliano alla Serie A o alle Coppe per categorizzarle (euristica per UI)
-    const saPicks = formattedPicks.filter(p => p.match.includes('Juventus') || p.match.includes('Inter') || p.match.includes('Milan') || p.match.includes('Napoli') || p.match.includes('Roma') || p.match.includes('Lazio'));
-    const euroPicks = formattedPicks.filter(p => !saPicks.includes(p));
+    const saPicks = formattedPicks.filter((p: any) => p.match.includes('Juventus') || p.match.includes('Inter') || p.match.includes('Milan') || p.match.includes('Napoli') || p.match.includes('Roma') || p.match.includes('Lazio'));
+    const euroPicks = formattedPicks.filter((p: any) => !saPicks.includes(p));
 
     // Multipla Principale (Le top 4 più bilanciate)
     if (formattedPicks.length >= 4) {
