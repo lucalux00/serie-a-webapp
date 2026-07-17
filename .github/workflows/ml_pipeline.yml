@@ -32,5 +32,6 @@ jobs:
       env:
         POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       run: |
+        python scripts/ml/fix_db.py
         python scripts/ml/feedback_loop.py
         python scripts/ml/train_and_predict.py
