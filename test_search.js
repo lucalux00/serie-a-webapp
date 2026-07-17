@@ -4,15 +4,11 @@ require('dotenv').config({ path: '.env.local' });
 async function check() {
   const client = await db.connect();
   try {
-    const res = await client.sql`
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema='public'
-    `;
-    console.log("Tables in DB:", res.rows);
-    
-    const countRes = await client.sql`SELECT count(*) FROM players`;
-    console.log("Players count:", countRes.rows);
+    const resP = await client.sql`SELECT count(*) FROM players`;
+    console.log("PLAYERS COUNT:", resP.rows[0].count);
+
+    const resT = await client.sql`SELECT count(*) FROM transfers`;
+    console.log("TRANSFERS COUNT:", resT.rows[0].count);
   } catch(e) {
     console.error(e);
   } finally {
