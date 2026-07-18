@@ -78,7 +78,7 @@ export async function GET(request: Request) {
       },
       palmares: [],
       stats: {
-        isGoalkeeper: isGk,
+        isGoalkeeper: role.toLowerCase().includes('portier') || role.toLowerCase() === 'gk',
         carriera: { presenze: 150, gol: 15 },
         nazionale: { presenze: 10, gol: 1 },
         squadraAttuale: { nome: team || 'In Aggiornamento', presenze: 20, gol: 2 },

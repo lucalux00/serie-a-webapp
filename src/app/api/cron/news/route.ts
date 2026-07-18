@@ -22,7 +22,7 @@ export async function GET(request: Request) {
         VALUES (
           ${item.title}, 
           ${item.link}, 
-          ${new Date(item.pubDate)}, 
+          ${new Date(item.pubDate).toISOString()}, 
           ${item.source}, 
           ${item.cleanTitle}, 
           ${item.time}, 

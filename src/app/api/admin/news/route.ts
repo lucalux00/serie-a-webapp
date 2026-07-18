@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     await sql`
       INSERT INTO news (title, link, pub_date, source, clean_title, time, snippet, type, status)
-      VALUES (${title}, ${finalLink}, ${pubDate}, ${source}, ${cleanTitle}, ${time}, ${content || null}, ${type}, ${status})
+      VALUES (${title}, ${finalLink}, ${pubDate.toISOString()}, ${source}, ${cleanTitle}, ${time}, ${content || null}, ${type}, ${status})
     `;
 
     return NextResponse.json({ success: true });
