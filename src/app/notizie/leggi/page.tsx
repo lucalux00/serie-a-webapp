@@ -4,7 +4,8 @@ import { Readability } from '@mozilla/readability';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export default async function ReadNewsPage({ searchParams }: { searchParams: { url?: string, source?: string } }) {
+export default async function ReadNewsPage(props: { searchParams: Promise<{ url?: string, source?: string }> }) {
+  const searchParams = await props.searchParams;
   const url = searchParams?.url;
   const source = searchParams?.source || 'Fonte Sconosciuta';
 
