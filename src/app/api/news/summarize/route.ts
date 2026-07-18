@@ -42,7 +42,13 @@ Scrivi in italiano corretto, scorrevole e giornalistico. Non usare elenchi punta
     if (!geminiRes.ok) {
       const errorText = await geminiRes.text();
       console.error("Gemini API Error:", errorText);
-      throw new Error("Errore durante la generazione del riassunto");
+      try {
+        const errorJson = JSON.parse(errorText);
+        if (errorJson.error && errorJson.error.message) {
+          return NextResponse.json({ summary: `Errore Gemini API: ${errorJson.error.message}` });
+        }
+      } catch (e) {}
+      return NextResponse.json({ summary: "Errore dal server Gemini (Probabile limite di quota o chiave invalida)." });
     }
 
     const geminiData = await geminiRes.json();

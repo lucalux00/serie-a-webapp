@@ -50,17 +50,43 @@ function filterByTeam(items: Parser.Item[], teamName: string): Parser.Item[] {
   });
 }
 
+function decodeHTMLEntities(text: string): string {
+  const entities: Record<string, string> = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#39;': "'",
+    '&agrave;': 'à',
+    '&egrave;': 'è',
+    '&eacute;': 'é',
+    '&igrave;': 'ì',
+    '&ograve;': 'ò',
+    '&ugrave;': 'ù',
+    '&apos;': "'",
+    '&nbsp;': ' ',
+    '&laquo;': '«',
+    '&raquo;': '»',
+    '&rsquo;': "'",
+    '&lsquo;': "'",
+    '&ldquo;': '"',
+    '&rdquo;': '"',
+    '&euro;': '€',
+  };
+  return text.replace(/&[a-z0-9#]+;/gi, match => entities[match.toLowerCase()] || match);
+}
+
 function itemToNewsItem(item: Parser.Item): NewsItem {
   const dateStr = item.isoDate || item.pubDate || new Date().toISOString();
   const date = new Date(dateStr);
   const time = date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
   
-  // Estrai uno snippet pulito
+  // Estrai uno snippet pulito e decodifica entità
   const rawSnippet = item.contentSnippet || item.content || '';
-  const snippet = rawSnippet.replace(/<[^>]*>/g, '').trim().substring(0, 600);
+  const snippet = decodeHTMLEntities(rawSnippet.replace(/<[^>]*>/g, '').trim().substring(0, 600));
 
-  // Pulisci titolo
-  const rawTitle = item.title || '';
+  // Pulisci titolo e decodifica entità
+  const rawTitle = decodeHTMLEntities(item.title || '');
   const cleanTitle = rawTitle.split(' - ')[0].split(' | ')[0].trim();
 
   // Ricava la fonte dal link
