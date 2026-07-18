@@ -1,6 +1,5 @@
 import React from 'react';
-import { JSDOM } from 'jsdom';
-import { Readability } from '@mozilla/readability';
+import * as cheerio from 'cheerio';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
@@ -20,15 +19,30 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
 
   try {
     const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (!res.ok) throw new Error('Failed to fetch');
     const html = await res.text();
     
-    const doc = new JSDOM(html, { url });
-    const reader = new Readability(doc.window.document);
-    const article = reader.parse();
-
-    if (!article) {
-      throw new Error('Impossibile estrarre l\'articolo');
+    const $ = cheerio.load(html);
+    
+    // Rimuovi elementi di disturbo
+    $('script, style, iframe, nav, footer, header, aside, .ad, .ads, .advertisement, .cookie-banner, .social-share').remove();
+    
+    let contentHtml = '';
+    const selectors = ['article', '.article-content', '.article-body', '.entry-content', '.post-content', 'main'];
+    
+    for (const selector of selectors) {
+      const el = $(selector);
+      if (el.length > 0) {
+        contentHtml = el.html() || '';
+        break;
+      }
     }
+
+    if (!contentHtml) {
+      contentHtml = $('body').html() || '<p>Contenuto non disponibile.</p>';
+    }
+
+    const title = $('h1').first().text() || $('title').text() || 'Articolo';
 
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl relative">
@@ -45,21 +59,15 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
             </div>
           </div>
           
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight">{article.title}</h1>
-          
-          {article.byline && (
-            <div className="text-sm text-[#94A3B8] font-bold mb-6 pb-6 border-b border-[#334155]">
-              Di <span className="text-white">{article.byline}</span>
-            </div>
-          )}
+          <h1 className="text-2xl md:text-4xl font-black text-white mb-6 leading-tight">{title}</h1>
           
           <div 
             className="prose prose-invert max-w-none text-[#F8FAFC] leading-relaxed text-lg"
-            dangerouslySetInnerHTML={{ __html: article.content || '' }} 
+            dangerouslySetInnerHTML={{ __html: contentHtml }} 
           />
         </div>
         
-        {/* Anti-copy CSS e script per bloccare il tasto destro e la selezione */}
+        {/* Anti-copy CSS e script */}
         <style dangerouslySetInnerHTML={{__html: `
           .select-none {
             user-select: none;
@@ -67,8 +75,6 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
             -moz-user-select: none;
             -ms-user-select: none;
           }
-          /* Nascondi eventuali immagini rotte o iframes dall'articolo originale */
-          .prose iframe { display: none !important; }
         `}} />
         <script dangerouslySetInnerHTML={{__html: `
           document.addEventListener('contextmenu', event => event.preventDefault());
