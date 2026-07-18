@@ -41,7 +41,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  if (!user || (!user.isAdmin && user.email !== 'lucapinelli0000@gmail.com')) {
+  if (!user || (!user.isAdmin && user.email !== 'lucapinelli0000@gmail.com' && user.email !== 'luca.pinelli0000@gmail.com')) {
     return (
       <div className="container mx-auto px-4 py-8 text-center text-white">
         <ShieldAlert className="w-16 h-16 text-red-500 mx-auto mb-4" />

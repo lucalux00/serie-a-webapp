@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     if (!jwtUser) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 });
 
     const { rows } = await sql`SELECT email FROM users WHERE id = ${jwtUser.userId}`;
-    if (!rows[0] || rows[0].email !== 'lucapinelli0000@gmail.com') {
+    if (!rows[0] || (rows[0].email !== 'lucapinelli0000@gmail.com' && rows[0].email !== 'luca.pinelli0000@gmail.com')) {
       return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
     }
 
@@ -44,7 +44,7 @@ export async function PUT(request: Request) {
     const jwtUser = await getUserFromCookie();
     if (!jwtUser) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 });
     const { rows } = await sql`SELECT email FROM users WHERE id = ${jwtUser.userId}`;
-    if (!rows[0] || rows[0].email !== 'lucapinelli0000@gmail.com') return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
+    if (!rows[0] || (rows[0].email !== 'lucapinelli0000@gmail.com' && rows[0].email !== 'luca.pinelli0000@gmail.com')) return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
 
     const body = await request.json();
     const { id, title, content, type, status, link } = body;
@@ -67,7 +67,7 @@ export async function DELETE(request: Request) {
     const jwtUser = await getUserFromCookie();
     if (!jwtUser) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 });
     const { rows } = await sql`SELECT email FROM users WHERE id = ${jwtUser.userId}`;
-    if (!rows[0] || rows[0].email !== 'lucapinelli0000@gmail.com') return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
+    if (!rows[0] || (rows[0].email !== 'lucapinelli0000@gmail.com' && rows[0].email !== 'luca.pinelli0000@gmail.com')) return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
 
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
     // Controlla se l'utente è l'admin dal DB
     const { rows } = await sql`SELECT email FROM users WHERE id = ${jwtUser.userId}`;
-    if (!rows[0] || rows[0].email !== 'lucapinelli0000@gmail.com') {
+    if (!rows[0] || (rows[0].email !== 'lucapinelli0000@gmail.com' && rows[0].email !== 'luca.pinelli0000@gmail.com')) {
       return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
     }
 
