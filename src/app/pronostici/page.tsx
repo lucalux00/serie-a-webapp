@@ -24,6 +24,10 @@ export default function PronosticiPage() {
   const [loadingDaily, setLoadingDaily] = useState(true);
   const [expandedAnalysis, setExpandedAnalysis] = useState<number | null>(null);
 
+  // Spiegazioni MLOps
+  const [expandedMlopsAnalysis, setExpandedMlopsAnalysis] = useState<string | null>(null);
+  const [mlopsExplanations, setMlopsExplanations] = useState<Record<string, {text: string, loading: boolean}>>({});
+
   // Fetch Odierni (Default)
   useEffect(() => {
     async function loadDaily() {
@@ -71,6 +75,25 @@ export default function PronosticiPage() {
 
   const toggleAnalysis = (id: number) => {
     setExpandedAnalysis(prev => prev === id ? null : id);
+  };
+
+  const toggleMlopsAnalysis = async (pred: any) => {
+    if (expandedMlopsAnalysis === pred.id) {
+      setExpandedMlopsAnalysis(null);
+      return;
+    }
+    setExpandedMlopsAnalysis(pred.id);
+    
+    if (!mlopsExplanations[pred.id]) {
+      setMlopsExplanations(prev => ({ ...prev, [pred.id]: { text: '', loading: true } }));
+      try {
+        const res = await fetch(`/api/pronostici/spiegazione?match_id=${pred.id}&match=${encodeURIComponent(pred.match)}&pick=${encodeURIComponent(pred.pick)}`);
+        const data = await res.json();
+        setMlopsExplanations(prev => ({ ...prev, [pred.id]: { text: data.analysis || 'Analisi non disponibile.', loading: false } }));
+      } catch (err) {
+        setMlopsExplanations(prev => ({ ...prev, [pred.id]: { text: 'Errore nel caricamento.', loading: false } }));
+      }
+    }
   };
 
   const availableCompetitions = useMemo(() => {
@@ -270,27 +293,49 @@ export default function PronosticiPage() {
                       {filteredPredictions.length > 0 ? filteredPredictions.map((pred, i) => (
                       <motion.div 
                           key={pred.id || i} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
-                          className="bg-[#1E293B] rounded-xl p-4 flex justify-between items-center border border-[#334155] shadow-sm relative overflow-hidden"
+                          className="bg-[#1E293B] rounded-xl border border-[#334155] shadow-sm relative overflow-hidden"
                       >
                           <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#10B981]" />
-                          <div className="pl-2 flex-1">
-                          <div className="flex items-center gap-2 mb-1.5">
-                              <img src={getTeamLogoUrl(pred.match.split(' - ')[0])} alt="" loading="lazy" className="w-5 h-5 object-contain" />
-                              <span className="font-black text-[#F8FAFC] text-sm leading-tight">{pred.match}</span>
-                              {pred.match.split(' - ')[1] && <img src={getTeamLogoUrl(pred.match.split(' - ')[1])} alt="" loading="lazy" className="w-5 h-5 object-contain" />}
-                          </div>
-                          <div className="flex gap-3">
-                              <div className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest flex items-center flex-wrap gap-2">
-                                  <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1]">{pred.competition || 'Altro'}</span>
-                                  {pred.commence_time && <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1]">{formatDate(pred.commence_time)}</span>}
-                                  <span>Esito: <span className="text-[#10B981]">{pred.pick}</span></span>
+                          <div className="p-4 flex justify-between items-center cursor-pointer hover:bg-[#334155]/40 transition-colors" onClick={() => toggleMlopsAnalysis(pred)}>
+                            <div className="pl-2 flex-1">
+                              <div className="flex items-center gap-2 mb-1.5">
+                                  <img src={getTeamLogoUrl(pred.match.split(' - ')[0])} alt="" loading="lazy" className="w-5 h-5 object-contain" />
+                                  <span className="font-black text-[#F8FAFC] text-sm leading-tight">{pred.match}</span>
+                                  {pred.match.split(' - ')[1] && <img src={getTeamLogoUrl(pred.match.split(' - ')[1])} alt="" loading="lazy" className="w-5 h-5 object-contain" />}
                               </div>
+                              <div className="flex gap-3">
+                                  <div className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest flex items-center flex-wrap gap-2">
+                                      <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1]">{pred.competition || 'Altro'}</span>
+                                      {pred.commence_time && <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1]">{formatDate(pred.commence_time)}</span>}
+                                      <span>Esito: <span className="text-[#10B981]">{pred.pick}</span></span>
+                                  </div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="bg-[#0F172A] px-3 py-2 rounded-lg border border-[#334155] min-w-[60px] text-center shrink-0">
+                                <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-0.5">Quota</span>
+                                <span className="font-black text-white">{pred.odds.toFixed(2)}</span>
+                              </div>
+                              <div className="w-6 flex justify-center text-[#94A3B8]">
+                                {expandedMlopsAnalysis === pred.id ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                              </div>
+                            </div>
                           </div>
-                          </div>
-                          <div className="bg-[#0F172A] px-3 py-2 rounded-lg border border-[#334155] min-w-[60px] text-center shrink-0">
-                          <span className="block text-[10px] text-[#64748B] font-bold uppercase mb-0.5">Quota</span>
-                          <span className="font-black text-white">{pred.odds.toFixed(2)}</span>
-                          </div>
+
+                          <AnimatePresence>
+                            {expandedMlopsAnalysis === pred.id && (
+                               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="border-t border-[#334155]/50 p-4 bg-[#0F172A]/50">
+                                  {mlopsExplanations[pred.id]?.loading ? (
+                                     <div className="flex flex-col items-center justify-center py-4">
+                                       <Loader2 className="animate-spin text-[#10B981] mb-2" size={24} />
+                                       <span className="text-xs text-[#94A3B8] font-bold">Generazione Analisi in corso...</span>
+                                     </div>
+                                  ) : (
+                                     <div className="prose prose-invert text-sm text-[#cbd5e1] leading-relaxed max-w-none" dangerouslySetInnerHTML={{ __html: mlopsExplanations[pred.id]?.text }} />
+                                  )}
+                               </motion.div>
+                            )}
+                          </AnimatePresence>
                       </motion.div>
                       )) : (
                       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-[#1E293B] p-6 text-center rounded-xl border border-[#334155] text-[#94A3B8] flex flex-col items-center justify-center">
