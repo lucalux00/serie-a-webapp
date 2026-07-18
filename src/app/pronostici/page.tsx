@@ -107,14 +107,14 @@ export default function PronosticiPage() {
       <div className="flex bg-[#1E293B] p-1 rounded-2xl mb-6 shadow-sm border border-[#334155]">
         <button 
           onClick={() => setMainTab('odierni')}
-          className={\`flex-1 flex items-center justify-center py-3 rounded-xl font-black text-sm transition-all \${mainTab === 'odierni' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}\`}
+          className={`flex-1 flex items-center justify-center py-3 rounded-xl font-black text-sm transition-all ${mainTab === 'odierni' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
         >
           <CalendarClock className="w-4 h-4 mr-2" />
           Prossimi Match & AI
         </button>
         <button 
           onClick={() => setMainTab('mlops')}
-          className={\`flex-1 flex items-center justify-center py-3 rounded-xl font-black text-sm transition-all \${mainTab === 'mlops' ? 'bg-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}\`}
+          className={`flex-1 flex items-center justify-center py-3 rounded-xl font-black text-sm transition-all ${mainTab === 'mlops' ? 'bg-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
         >
           <BrainCircuit className="w-4 h-4 mr-2" />
           Modello MLOps (Singole/Multiple)
@@ -245,11 +245,11 @@ export default function PronosticiPage() {
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={\`whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 \${
+                                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
                                     activeTab === tab 
                                     ? 'bg-[#0EA5E9] text-white shadow-md shadow-[#0EA5E9]/20' 
                                     : 'bg-[#1E293B] text-[#94A3B8] border border-[#334155] hover:text-white'
-                                }\`}
+                                }`}
                             >
                                 {tab}
                             </button>
@@ -260,7 +260,7 @@ export default function PronosticiPage() {
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-black text-white flex items-center">
                       <Target className="text-[#10B981] mr-2" size={20} />
-                      Top Singole {activeTab !== 'Tutti' ? \`- \${activeTab}\` : ''}
+                      Top Singole {activeTab !== 'Tutti' ? `- ${activeTab}` : ''}
                   </h3>
                   <span className="text-xs font-bold text-[#64748B] bg-[#1E293B] px-2 py-1 rounded-md">{filteredPredictions.length} match</span>
                 </div>
@@ -370,10 +370,10 @@ export default function PronosticiPage() {
         </p>
       </div>
       
-      <style dangerouslySetInnerHTML={{__html: \`
+      <style dangerouslySetInnerHTML={{__html: `
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      \`}} />
+      `}} />
     </div>
   );
 }

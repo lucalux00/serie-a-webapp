@@ -53,7 +53,7 @@ export async function GET() {
     const dateTo = threeDaysFromNow.toISOString().split('T')[0];
 
     // Competitions: SA (Serie A), PL (Premier League), PD (La Liga), BL1 (Bundesliga), CL (Champions)
-    const response = await fetch(\`https://api.football-data.org/v4/matches?dateFrom=\${dateFrom}&dateTo=\${dateTo}&competitions=SA,PL,PD,BL1,CL\`, {
+    const response = await fetch(`https://api.football-data.org/v4/matches?dateFrom=${dateFrom}&dateTo=${dateTo}&competitions=SA,PL,PD,BL1,CL`, {
       headers: { 'X-Auth-Token': FOOTBALL_API_KEY },
       next: { revalidate: 3600 }
     });
@@ -80,10 +80,10 @@ export async function GET() {
       const awayTeam = m.awayTeam.name;
       const matchDate = m.utcDate;
       const competition = m.competition.name;
-      const matchStr = \`\${homeTeam} - \${awayTeam}\`;
+      const matchStr = `${homeTeam} - ${awayTeam}`;
 
       // 1. Controlla Cache DB
-      const { rows } = await sql\`SELECT quotes, analysis FROM daily_ai_predictions WHERE match_id = \${matchId}\`;
+      const { rows } = await sql`SELECT quotes, analysis FROM daily_ai_predictions WHERE match_id = ${matchId}`;
       
       if (rows.length > 0) {
         finalPredictions.push({
@@ -99,11 +99,11 @@ export async function GET() {
         const geminiData = await generateGeminiPrediction(matchStr, competition);
         if (geminiData && geminiData.quotes && geminiData.analysis) {
           // 3. Salva in DB
-          await sql\`
+          await sql`
             INSERT INTO daily_ai_predictions (match_id, home_team, away_team, match_date, competition, quotes, analysis)
-            VALUES (\${matchId}, \${homeTeam}, \${awayTeam}, \${matchDate}, \${competition}, \${JSON.stringify(geminiData.quotes)}, \${geminiData.analysis})
+            VALUES (${matchId}, ${homeTeam}, ${awayTeam}, ${matchDate}, ${competition}, ${JSON.stringify(geminiData.quotes)}, ${geminiData.analysis})
             ON CONFLICT (match_id) DO NOTHING
-          \`;
+          `;
 
           finalPredictions.push({
             id: matchId,
