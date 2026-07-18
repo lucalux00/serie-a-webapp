@@ -206,8 +206,9 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
 
   const openNewsModal = async (item: any) => {
-    // Apriamo l'articolo originale invece del riassunto
-    window.open(item.link, '_blank', 'noopener,noreferrer');
+    const isManual = item.source === 'Redazione';
+    const targetHref = isManual ? item.link : `/notizie/leggi?url=${encodeURIComponent(item.link)}&source=${encodeURIComponent(item.source || 'News')}`;
+    router.push(targetHref);
   };
 
   // Group trophies by name

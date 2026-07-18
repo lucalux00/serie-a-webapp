@@ -168,7 +168,7 @@ export default function ProfiloPage() {
           <div className="text-[#64748B] text-xs">Storico Vinti</div>
         </Link>
 
-        {user.isAdmin && (
+        {(user.isAdmin || user.email === 'lucapinelli0000@gmail.com') && (
           <Link href="/profilo/admin" className="w-full bg-[#3B0764]/20 hover:bg-[#3B0764]/40 border border-[#D946EF]/30 rounded-xl p-4 flex items-center justify-between transition-colors block mt-4">
             <div className="flex items-center text-white font-bold">
               <Settings className="w-5 h-5 mr-3 text-[#D946EF]" />

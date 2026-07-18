@@ -87,6 +87,8 @@ export default function NotiziePage() {
                                item.status === 'trattativa' ? 'text-amber-400 border-amber-400/30 bg-amber-400/10' : 
                                'text-slate-300 border-slate-600 bg-slate-800';
 
+            const targetHref = isManual ? item.link : `/notizie/leggi?url=${encodeURIComponent(item.link)}&source=${encodeURIComponent(item.source || 'News')}`;
+
             return (
               <motion.div
                 key={item.id}
@@ -114,7 +116,7 @@ export default function NotiziePage() {
                   </div>
                 </div>
 
-                <a href={item.link} target={isManual ? "_self" : "_blank"} rel="noreferrer" className="block outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
+                <a href={targetHref} className="block outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
                   <h2 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-2 leading-tight">
                     {item.title}
                   </h2>
@@ -127,7 +129,7 @@ export default function NotiziePage() {
                 )}
 
                 <div className="mt-4 pt-4 border-t border-slate-700/50 flex justify-end">
-                  <a href={item.link} target={isManual ? "_self" : "_blank"} rel="noreferrer" className="text-xs font-bold uppercase tracking-widest flex items-center text-blue-500 hover:text-blue-400 transition-colors">
+                  <a href={targetHref} className="text-xs font-bold uppercase tracking-widest flex items-center text-blue-500 hover:text-blue-400 transition-colors">
                     Leggi tutto <ExternalLink className="w-3 h-3 ml-1" />
                   </a>
                 </div>
