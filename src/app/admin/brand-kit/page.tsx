@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, AlertTriangle, Info, Paintbrush, Typography, Layout, ShieldAlert } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, AlertTriangle, Info, Paintbrush, Type, Layout, ShieldAlert } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 export default function BrandKitPage() {
@@ -151,7 +151,7 @@ export default function BrandKitPage() {
       {/* 3. Tipografia */}
       <section className="space-y-4">
         <div className="flex items-center gap-2 border-b border-white/10 pb-2 mb-4">
-          <Typography className="w-6 h-6 text-[var(--color-sport-primary)]" />
+          <Type className="w-6 h-6 text-[var(--color-sport-primary)]" />
           <h2 className="text-2xl font-semibold">3. Tipografia</h2>
         </div>
         <div className="bg-[var(--color-sport-card)]/30 border border-white/5 rounded-xl p-6 space-y-6">
