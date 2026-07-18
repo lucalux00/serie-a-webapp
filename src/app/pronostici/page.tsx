@@ -99,7 +99,7 @@ export default function PronosticiPage() {
         </div>
         <div>
           <h1 className="text-2xl font-black text-white">I Pronostici</h1>
-          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Algoritmo Statistico & AI</p>
+          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Algoritmo Statistico</p>
         </div>
       </div>
       
@@ -110,14 +110,14 @@ export default function PronosticiPage() {
           className={`flex-1 flex items-center justify-center py-3 rounded-xl font-black text-sm transition-all ${mainTab === 'odierni' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
         >
           <CalendarClock className="w-4 h-4 mr-2" />
-          Prossimi Match & AI
+          Prossimi Match
         </button>
         <button 
           onClick={() => setMainTab('mlops')}
           className={`flex-1 flex items-center justify-center py-3 rounded-xl font-black text-sm transition-all ${mainTab === 'mlops' ? 'bg-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
         >
           <BrainCircuit className="w-4 h-4 mr-2" />
-          Modello MLOps (Singole/Multiple)
+          Singole & Multiple
         </button>
       </div>
 
@@ -137,13 +137,13 @@ export default function PronosticiPage() {
               In Programma
             </h2>
             <p className="text-sm text-[#cbd5e1] mb-6">
-              Scopri le 6 quote chiave e l'analisi dell'Intelligenza Artificiale per i prossimi grandi match in calendario.
+              Scopri le 6 quote chiave e l'analisi avanzata del nostro algoritmo per i prossimi grandi match in calendario.
             </p>
 
             {loadingDaily ? (
               <div className="flex flex-col items-center justify-center py-12">
                 <Loader2 className="animate-spin text-[#10B981] w-10 h-10 mb-4" />
-                <p className="text-[#94A3B8] font-bold text-sm">Analisi AI in corso (potrebbe richiedere qualche secondo)...</p>
+                <p className="text-[#94A3B8] font-bold text-sm">Elaborazione analisi in corso (potrebbe richiedere qualche secondo)...</p>
               </div>
             ) : dailyPredictions.length === 0 ? (
               <div className="bg-[#1E293B] p-8 text-center rounded-2xl border border-[#334155]">
@@ -178,7 +178,7 @@ export default function PronosticiPage() {
                     </div>
 
                     <div className="p-5">
-                      <h4 className="text-xs font-black text-[#94A3B8] uppercase tracking-widest mb-3 text-center">Le 6 Quote Consigliate dall'AI</h4>
+                      <h4 className="text-xs font-black text-[#94A3B8] uppercase tracking-widest mb-3 text-center">Le 6 Quote Consigliate</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
                         {match.quotes?.map((q: any, i: number) => (
                           <div key={i} className="bg-[#0F172A] border border-[#334155] rounded-xl p-3 flex flex-col justify-between items-center text-center">
@@ -194,7 +194,7 @@ export default function PronosticiPage() {
                         className="w-full flex items-center justify-center py-3 bg-[#0F172A] hover:bg-[#334155] text-white rounded-xl border border-[#334155] transition-colors font-bold text-sm"
                       >
                         <BrainCircuit className="w-4 h-4 mr-2 text-[#0EA5E9]" />
-                        {expandedAnalysis === match.id ? 'Chiudi Analisi AI' : 'Leggi Analisi Completa'}
+                        {expandedAnalysis === match.id ? 'Chiudi Analisi' : 'Leggi Analisi Completa'}
                         {expandedAnalysis === match.id ? <ChevronUp className="ml-2 w-4 h-4" /> : <ChevronDown className="ml-2 w-4 h-4" />}
                       </button>
 
@@ -227,7 +227,7 @@ export default function PronosticiPage() {
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-black text-white flex items-center">
                 <BrainCircuit className="text-[#0EA5E9] mr-2" size={24} />
-                MLOps Storico
+                Modello Statistico
               </h2>
               <a href="/pronostici/storico" className="bg-[#1E293B] border border-[#334155] hover:border-[#10B981] text-[#10B981] text-xs font-bold px-3 py-1.5 rounded-lg flex items-center transition-colors">
                 <Calculator size={14} className="mr-2" />
