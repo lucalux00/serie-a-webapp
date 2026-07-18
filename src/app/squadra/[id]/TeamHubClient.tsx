@@ -669,7 +669,12 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                       )}
 
                       {teamMercatoFilter === 'trattative' && (() => {
-                        const rumors = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('trattativa') || t.type.toLowerCase().includes('rumor'));
+                        const rumors = squadData.transfers.filter((t: any) => 
+                          t.status?.toLowerCase().includes('trattativa') || 
+                          t.status?.toLowerCase().includes('rumor') ||
+                          t.type.toLowerCase().includes('trattativa') || 
+                          t.type.toLowerCase().includes('rumor')
+                        );
 
                         return (
                         <div className="grid grid-cols-1 gap-3">
@@ -679,15 +684,15 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                                 <Clock size={16} className="mr-2" /> Calciomercato {team.name}
                               </h2>
                               {rumors.map((r: any, idx: number) => (
-                                <div key={idx} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
+                                <div key={idx} className="bg-[#1E293B] border border-[#F59E0B]/50 rounded-xl p-4 shadow-sm relative overflow-hidden">
                                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
                                   <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
                                     <div className="flex items-center space-x-2">
                                       <Clock size={14} className="text-[#F59E0B]" />
-                                      <span className="font-bold text-sm text-white uppercase tracking-wider">Trattativa</span>
+                                      <span className="font-bold text-sm text-white uppercase tracking-wider">{r.type === 'IN' ? 'Acquisto' : r.type === 'OUT' ? 'Cessione' : r.type}</span>
                                     </div>
-                                    <span className="text-[10px] font-black flex items-center uppercase text-[#F59E0B]">
-                                      Rumor Live
+                                    <span className="text-[10px] font-black flex items-center uppercase text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-1 rounded">
+                                      {r.status}
                                     </span>
                                   </div>
                                   <div className="pl-2">

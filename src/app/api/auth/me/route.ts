@@ -23,7 +23,8 @@ export async function GET() {
         name: dbUser.name, 
         email: dbUser.email,
         favoriteTeamId: dbUser.favorite_team,
-        favoriteTeamName: favTeam ? favTeam.name : null
+        favoriteTeamName: favTeam ? favTeam.name : null,
+        isAdmin: dbUser.email === 'lucapinelli0000@gmail.com'
       } 
     });
   } catch (error) {

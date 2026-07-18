@@ -18,9 +18,7 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
   
   const team = ALL_TEAMS.find(t => t.id === teamId) || { name: 'Squadra', logo: '?', league: 'A' };
   
-  // Esecuzione parallela delle chiamate principali
-  const newsPromise = fetchNewsForTeam(team.name, team.league);
-  
+  // Esecuzione parallela delle chiamate principali al DB
   let dbPlayersPromise: Promise<{ rows: any[] }> = Promise.resolve({ rows: [] });
   let dbTransfersPromise: Promise<{ rows: any[] }> = Promise.resolve({ rows: [] });
   if (process.env.POSTGRES_URL) {
@@ -28,12 +26,13 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
     dbTransfersPromise = sql`SELECT * FROM transfers WHERE team_id = ${teamId} ORDER BY id DESC`;
   }
 
-  // Risolvi tutto in parallelo!
-  const [news, { rows: players }, { rows: transfers }] = await Promise.all([
-    newsPromise,
+  // Risolvi tutto in parallelo! Le news vengono omesse per alleggerire il Server Side Rendering e rendere la pagina istantanea.
+  const [{ rows: players }, { rows: transfers }] = await Promise.all([
     dbPlayersPromise,
     dbTransfersPromise
   ]);
+
+  const news: any[] = []; // Inietto array vuoto: il Client (SWR) si prenderà carico di caricare le news in modo asincrono.
 
   let squadData = null;
   let trofeiData = null;
