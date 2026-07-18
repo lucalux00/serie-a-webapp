@@ -58,15 +58,15 @@ export default function Header() {
         <div className="w-20"></div> {/* Spacer for symmetry */}
         <div className="flex flex-col items-center justify-center mt-1 absolute left-1/2 -translate-x-1/2 w-[250px] text-center">
           <div className={`text-xl sm:text-2xl text-[#F8FAFC] tracking-widest leading-none uppercase italic ${outfit.className}`}>
-            TATTICA <span className="text-[#10B981]">&</span> PRONOSTICI
+            TATTICA <span className="text-[var(--color-sport-primary)]">&</span> PRONOSTICI
           </div>
-          <span className="text-[8px] text-[#64748B] uppercase font-black tracking-widest mt-0.5">Created by Luca Pinelli</span>
+
         </div>
         
         {/* Stats Counter */}
         <div className="flex flex-col items-end justify-center gap-0.5 ml-auto">
-          <div className="flex items-center gap-1.5 text-[10px] font-black text-[#10B981]">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_#10B981]"></div>
+          <div className="flex items-center gap-1.5 text-[10px] font-black text-[var(--color-sport-primary)]">
+            <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-sport-primary)] animate-pulse shadow-[0_0_8px_var(--color-sport-primary)]"></div>
             {stats.online} ONLINE
           </div>
           <div className="flex items-center gap-1 text-[8px] font-bold text-[#64748B] uppercase tracking-wider">

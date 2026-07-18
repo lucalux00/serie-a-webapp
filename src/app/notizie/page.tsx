@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import useSWR from 'swr';
 import { Clock, ExternalLink, RefreshCw, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -22,9 +23,13 @@ interface News {
 export default function NotiziePage() {
   const [filter, setFilter] = useState<'all' | 'live' | 'mercato'>('all');
 
+  const { user } = useAuth();
+  const teamParam = user?.favoriteTeamName ? `&team=${encodeURIComponent(user.favoriteTeamName)}` : '';
+  const typeParam = filter !== 'all' ? `&type=${filter}` : '';
+
   // Aggiornamento ogni 5 minuti (300.000 ms)
   const { data: news, error, isValidating, mutate } = useSWR<News[]>(
-    `/api/news?limit=50${filter !== 'all' ? `&type=${filter}` : ''}`, 
+    `/api/news?limit=50${typeParam}${teamParam}`, 
     fetcher, 
     { refreshInterval: 300000 }
   );

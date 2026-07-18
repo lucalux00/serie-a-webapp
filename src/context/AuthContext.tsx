@@ -18,9 +18,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string, favoriteTeam?: string) => Promise<void>;
   logout: () => void;
-  updateUser: (updates: Partial<User>) => void;
-  // Legacy method per supportare l'onboarding iniziale se usato
-  legacyLogin: (username: string, teamId: string, teamName: string) => void;
+  updateUser: (updates: Partial<User>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -105,29 +103,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  const updateUser = (updates: Partial<User>) => {
+  const updateUser = async (updates: Partial<User>) => {
     if (!user) return;
-    const updatedUser = { ...user, ...updates };
-    setUser(updatedUser);
-    localStorage.setItem('serieA_user', JSON.stringify(updatedUser));
-    
-    // Update the DB record as well
-    const usersDb = JSON.parse(localStorage.getItem('serieA_db') || '[]');
-    const dbIndex = usersDb.findIndex((u: any) => u.id === user.id);
-    if (dbIndex > -1) {
-      usersDb[dbIndex] = { ...usersDb[dbIndex], ...updates };
-      localStorage.setItem('serieA_db', JSON.stringify(usersDb));
+    try {
+      const response = await fetch('/api/auth/me', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      });
+      if (response.ok) {
+        const updatedUser = { ...user, ...updates };
+        setUser(updatedUser);
+      } else {
+        console.error('Failed to update user on server');
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
     }
   };
 
-  const legacyLogin = (username: string, teamId: string, teamName: string) => {
-    const userData = { id: 'legacy', name: username, email: '', favoriteTeamId: teamId, favoriteTeamName: teamName };
-    setUser(userData);
-    localStorage.setItem('serieA_user', JSON.stringify(userData));
-  };
-
   return (
-    <AuthContext.Provider value={{ user, isLoaded, login, register, logout, updateUser, legacyLogin }}>
+    <AuthContext.Provider value={{ user, isLoaded, login, register, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

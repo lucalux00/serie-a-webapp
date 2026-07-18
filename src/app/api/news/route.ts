@@ -9,6 +9,7 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const type = searchParams.get('type');
     const status = searchParams.get('status');
+    const team = searchParams.get('team');
     const page = parseInt(searchParams.get('page') || '1');
     const offset = (page - 1) * limit;
 
@@ -40,10 +41,26 @@ export async function GET(request: Request) {
     // --- END LAZY CRON ---
 
     let query;
-    if (type && status) {
+    let teamFilter = team ? `%${team}%` : null;
+
+    if (type && status && team) {
+      query = sql`
+        SELECT * FROM news 
+        WHERE type = ${type} AND status = ${status} AND (title ILIKE ${teamFilter} OR snippet ILIKE ${teamFilter})
+        ORDER BY pub_date DESC 
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (type && status) {
       query = sql`
         SELECT * FROM news 
         WHERE type = ${type} AND status = ${status}
+        ORDER BY pub_date DESC 
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (type && team) {
+      query = sql`
+        SELECT * FROM news 
+        WHERE type = ${type} AND (title ILIKE ${teamFilter} OR snippet ILIKE ${teamFilter})
         ORDER BY pub_date DESC 
         LIMIT ${limit} OFFSET ${offset}
       `;
@@ -51,6 +68,13 @@ export async function GET(request: Request) {
       query = sql`
         SELECT * FROM news 
         WHERE type = ${type}
+        ORDER BY pub_date DESC 
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (team) {
+      query = sql`
+        SELECT * FROM news 
+        WHERE (title ILIKE ${teamFilter} OR snippet ILIKE ${teamFilter})
         ORDER BY pub_date DESC 
         LIMIT ${limit} OFFSET ${offset}
       `;

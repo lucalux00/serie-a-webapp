@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       maxAge: 7 * 24 * 60 * 60, // 7 giorni
     });
 
-    return NextResponse.json({ success: true, user: { name: user.name, email: user.email, isAdmin: user.email === 'lucapinelli0000@gmail.com' } }, { status: 200 });
+    return NextResponse.json({ success: true, user: { name: user.name, email: user.email, isAdmin: user.email === 'luca.pinelli0000@gmail.com' || user.email === 'lucapinelli0000@gmail.com' } }, { status: 200 });
   } catch (error: any) {
     console.error('Login error:', error);
     return NextResponse.json({ error: 'Errore interno del server' }, { status: 500 });

@@ -7,6 +7,7 @@ import Header from '@/components/layout/Header';
 import BottomNav from '@/components/layout/BottomNav';
 import CookieConsent from '@/components/layout/CookieConsent';
 import NewsTicker from '@/components/layout/NewsTicker';
+import { getTeamColors } from '@/utils/teamColors';
 
 function AppContent({ children }: { children: React.ReactNode }) {
   const { user, isLoaded } = useAuth();
@@ -30,8 +31,10 @@ function AppContent({ children }: { children: React.ReactNode }) {
   // Rimossa la forzatura di LoginPage all'avvio. L'app è visibile anche senza login.
   // LoginPage verrà utilizzato solo nella rotta /profilo o per onboarding specifico.
 
+  const { primary, secondary } = getTeamColors(user?.favoriteTeamId);
+
   return (
-    <>
+    <div style={{ '--color-sport-primary': primary, '--color-sport-secondary': secondary } as React.CSSProperties}>
       <Header />
       <BottomNav />
       <main className="min-h-screen pt-[120px] pb-8">
@@ -39,7 +42,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
       </main>
       <NewsTicker />
       <CookieConsent />
-    </>
+    </div>
   );
 }
 

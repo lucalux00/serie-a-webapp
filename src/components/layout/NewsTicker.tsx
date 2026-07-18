@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
 
 export default function NewsTicker() {
+  const { user } = useAuth();
   const [news, setNews] = useState<{title: string, time: string}[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -13,11 +15,26 @@ export default function NewsTicker() {
       .then(module => {
         const data = module.default as Record<string, any[]>;
         const allNews = Object.values(data).flat();
+        
+        let filteredNews = allNews;
+        if (user?.favoriteTeamName) {
+          const teamName = user.favoriteTeamName.toLowerCase();
+          filteredNews = allNews.filter(n => 
+            n.title?.toLowerCase().includes(teamName) || 
+            n.snippet?.toLowerCase().includes(teamName)
+          );
+        }
+
+        // Se non ci sono notizie per la squadra, mostriamo quelle generali
+        if (filteredNews.length === 0) {
+          filteredNews = allNews;
+        }
+
         // Mescoliamo e prendiamo le prime 15 notizie
-        const shuffled = allNews.sort(() => 0.5 - Math.random()).slice(0, 15);
+        const shuffled = filteredNews.sort(() => 0.5 - Math.random()).slice(0, 15);
         setNews(shuffled);
       });
-  }, []);
+  }, [user?.favoriteTeamName]);
 
   // Logica per cambiare notizia ogni 4 secondi
   useEffect(() => {
@@ -51,7 +68,7 @@ export default function NewsTicker() {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="absolute inset-0 flex items-center px-3"
           >
-            <span className="text-[#0EA5E9] font-black text-xs mr-2 shrink-0">
+            <span className="text-[var(--color-sport-secondary)] font-black text-xs mr-2 shrink-0">
               {news[currentIndex].time}
             </span>
             <span className="text-[#F8FAFC] font-semibold text-xs truncate">
