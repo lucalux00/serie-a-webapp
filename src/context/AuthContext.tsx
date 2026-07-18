@@ -43,6 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               email: data.user.email,
               favoriteTeamId: data.user.favoriteTeamId,
               favoriteTeamName: data.user.favoriteTeamName,
+              isAdmin: data.user.isAdmin,
               avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`
             });
           }

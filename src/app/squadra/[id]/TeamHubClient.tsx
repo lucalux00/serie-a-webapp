@@ -206,32 +206,8 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
 
   const openNewsModal = async (item: any) => {
-    setSelectedNews(item);
-    setNewsSummary('');
-    setIsSummarizing(true);
-    
-    try {
-      const res = await fetch('/api/news/summarize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          url: item.link,
-          title: item.cleanTitle || item.title,
-          snippet: item.snippet,
-          source: item.source
-        })
-      });
-      const data = await res.json();
-      if (data.summary) {
-        setNewsSummary(data.summary);
-      } else {
-        setNewsSummary('Non è stato possibile generare il riassunto per questa notizia.');
-      }
-    } catch (e) {
-      setNewsSummary('Errore di connessione durante la generazione del riassunto.');
-    } finally {
-      setIsSummarizing(false);
-    }
+    // Apriamo l'articolo originale invece del riassunto
+    window.open(item.link, '_blank', 'noopener,noreferrer');
   };
 
   // Group trophies by name
