@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { ALL_TEAMS } from '@/data/teams';
 import { useRouter } from 'next/navigation';
-import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check } from 'lucide-react';
+import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check, Palette } from 'lucide-react';
 import Link from 'next/link';
 import useSWR from 'swr';
 
@@ -163,6 +163,10 @@ export default function AdminPage() {
       <div className="bg-slate-800 rounded-3xl p-6 shadow-2xl border border-slate-700">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-black text-fuchsia-500 uppercase tracking-tighter">Pannello Admin</h1>
+          <Link href="/admin/brand-kit" className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl text-sm font-bold uppercase transition-colors">
+            <Palette className="w-4 h-4" />
+            Brand Kit
+          </Link>
         </div>
 
         <div className="flex space-x-2 mb-6">
