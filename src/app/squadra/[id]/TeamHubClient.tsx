@@ -388,7 +388,8 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                     .map((item: any, idx: number) => {
                       const pubTs = item.pubDate ? new Date(item.pubDate).getTime() : 0;
                       const isNew = pubTs > 0 && (Date.now() - pubTs < 24 * 60 * 60 * 1000);
-                      const displayTitle = item.cleanTitle || item.title || 'Notizia senza titolo';
+                      const rawTitle = item.cleanTitle || item.title || 'Notizia senza titolo';
+                      const displayTitle = typeof document !== 'undefined' ? (() => { const t = document.createElement('textarea'); t.innerHTML = rawTitle; return t.value; })() : rawTitle;
                       const displayDate = item.pubDate 
                         ? new Date(item.pubDate).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
                         : '';

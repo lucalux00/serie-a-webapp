@@ -122,8 +122,8 @@ export default function PlayerSheet({ player, teamName, onClose }: PlayerSheetPr
                     <div className="absolute inset-0 border-4 border-[#10B981]/20 rounded-full"></div>
                     <div className="absolute inset-0 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
                   </div>
-                  <span className="text-[#10B981] text-xs font-black uppercase tracking-widest animate-pulse">Generazione Profilo AI...</span>
-                  <p className="text-[#64748B] text-[10px] uppercase font-bold text-center px-10">Analisi statistiche avanzate, contratti e valutazioni in corso tramite Gemini.</p>
+                  <span className="text-[#10B981] text-xs font-black uppercase tracking-widest animate-pulse">Caricamento Profilo...</span>
+                  <p className="text-[#64748B] text-[10px] uppercase font-bold text-center px-10">Analisi statistiche, contratti e valutazioni estrapolate da dati reali.</p>
                 </div>
               )}
 
