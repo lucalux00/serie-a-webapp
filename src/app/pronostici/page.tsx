@@ -280,9 +280,10 @@ export default function PronosticiPage() {
                               {pred.match.split(' - ')[1] && <img src={getTeamLogoUrl(pred.match.split(' - ')[1])} alt="" loading="lazy" className="w-5 h-5 object-contain" />}
                           </div>
                           <div className="flex gap-3">
-                              <div className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest flex items-center">
-                                  <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1] mr-2">{pred.competition || 'Altro'}</span>
-                                  Esito: <span className="text-[#10B981] ml-1">{pred.pick}</span>
+                              <div className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest flex items-center flex-wrap gap-2">
+                                  <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1]">{pred.competition || 'Altro'}</span>
+                                  {pred.commence_time && <span className="bg-[#0F172A] px-1.5 py-0.5 rounded text-[#cbd5e1]">{formatDate(pred.commence_time)}</span>}
+                                  <span>Esito: <span className="text-[#10B981]">{pred.pick}</span></span>
                               </div>
                           </div>
                           </div>
@@ -326,8 +327,9 @@ export default function PronosticiPage() {
                                     <div className="flex items-center gap-2 mb-1">
                                       <span className="text-xs font-bold text-[#94A3B8] truncate">{m.match}</span>
                                     </div>
-                                    <div className="flex items-center text-[10px]">
-                                      <span className="text-white font-bold mr-2">{m.pick}</span>
+                                    <div className="flex items-center text-[10px] gap-2">
+                                      <span className="text-white font-bold">{m.pick}</span>
+                                      {m.commence_time && <span className="text-[#64748B]">{formatDate(m.commence_time)}</span>}
                                     </div>
                                   </div>
                                   <div className="font-black text-[#10B981] shrink-0">{m.odds.toFixed(2)}</div>
