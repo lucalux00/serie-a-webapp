@@ -43,6 +43,16 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
     }
 
     const title = $('h1').first().text() || $('title').text() || 'Articolo';
+    
+    // Estrai l'autore (giornalista)
+    let author = $('meta[name="author"]').attr('content') || 
+                 $('meta[property="article:author"]').attr('content') || 
+                 $('.author, .byline, [rel="author"], .article-author').first().text().trim() || null;
+                 
+    // Pulisci eventuale testo "di " dall'autore
+    if (author && author.toLowerCase().startsWith('di ')) {
+      author = author.substring(3).trim();
+    }
 
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl relative">
@@ -59,12 +69,31 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
             </div>
           </div>
           
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-6 leading-tight">{title}</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight">{title}</h1>
+          
+          {author && (
+            <div className="text-sm text-[#94A3B8] font-bold mb-6 pb-6 border-b border-[#334155]">
+              Di <span className="text-white">{author}</span>
+            </div>
+          )}
           
           <div 
             className="prose prose-invert max-w-none text-[#F8FAFC] leading-relaxed text-lg"
             dangerouslySetInnerHTML={{ __html: contentHtml }} 
           />
+          
+          {/* Disclaimer Legale */}
+          <div className="mt-8 pt-6 border-t border-[#334155] text-[#94A3B8] text-sm bg-[#0F172A] p-4 rounded-xl">
+            <p>
+              Questo articolo è stato originariamente pubblicato da <strong className="text-white">{source}</strong>
+              {author ? ` a cura di ${author}` : ''}. I diritti d'autore e il contenuto testuale appartengono ai rispettivi proprietari.
+            </p>
+            <p className="mt-3">
+              <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-[#10B981] font-bold hover:underline">
+                Leggi l'articolo originale sul sito della fonte <ArrowLeft className="w-4 h-4 ml-1 rotate-135" style={{ transform: 'rotate(135deg)' }} />
+              </a>
+            </p>
+          </div>
         </div>
         
         {/* Anti-copy CSS e script */}
