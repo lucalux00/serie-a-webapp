@@ -204,3 +204,27 @@ export async function fetchGlobalNewsTicker(): Promise<NewsItem[]> {
     return [];
   }
 }
+
+export async function fetchAllNewsForCron(): Promise<NewsItem[]> {
+  const googleUrl = `https://news.google.com/rss/search?q=serie+a+calcio+calciomercato&hl=it&gl=IT&ceid=IT:it&num=30`;
+  
+  try {
+    const [googleItems, ...directResults] = await Promise.all([
+      fetchFeed(googleUrl),
+      ...DIRECT_RSS_SOURCES.base.map(url => fetchFeed(url)),
+    ]);
+
+    const allItems = [
+      ...googleItems.map(itemToNewsItem),
+      ...directResults.flat().map(itemToNewsItem),
+    ];
+
+    const sorted = allItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+    const deduped = deduplicateNews(sorted);
+    
+    return deduped.filter(item => item.title && item.link).slice(0, 50);
+  } catch (error) {
+    console.error('Error fetching cron news:', error);
+    return [];
+  }
+}

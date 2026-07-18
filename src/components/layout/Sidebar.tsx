@@ -40,6 +40,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             
             <div className="flex-1 py-4 flex flex-col space-y-2 px-4">
+              <Link href="/notizie" onClick={onClose} className="flex items-center p-3 text-[#F8FAFC] hover:bg-[#334155] rounded-xl transition-colors bg-blue-500/10 border border-blue-500/20">
+                <FileText size={20} className="mr-3 text-blue-400" />
+                <span className="font-bold text-blue-400">Notizie Live</span>
+              </Link>
               <Link href="/impostazioni" onClick={onClose} className="flex items-center p-3 text-[#F8FAFC] hover:bg-[#334155] rounded-xl transition-colors">
                 <Info size={20} className="mr-3 text-[#0EA5E9]" />
                 <span className="font-semibold">Info App</span>

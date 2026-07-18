@@ -80,6 +80,23 @@ export async function GET(request: Request) {
       );
     `;
 
+    // --- News Table ---
+    await sql`
+      CREATE TABLE IF NOT EXISTS news (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(500) NOT NULL,
+        link TEXT NOT NULL UNIQUE,
+        pub_date TIMESTAMP WITH TIME ZONE NOT NULL,
+        source VARCHAR(100) NOT NULL,
+        clean_title VARCHAR(500),
+        time VARCHAR(50),
+        snippet TEXT,
+        type VARCHAR(50) DEFAULT 'live',
+        status VARCHAR(50) DEFAULT 'published',
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+
     // 2. Lettura file JSON
     const squadsPath = path.join(process.cwd(), 'src', 'data', 'deepSquads.json');
     if (!fs.existsSync(squadsPath)) {
