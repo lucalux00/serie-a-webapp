@@ -9,6 +9,7 @@ export type User = {
   favoriteTeamId?: string | null;
   favoriteTeamName?: string | null;
   avatar?: string;
+  isAdmin?: boolean;
 };
 
 interface AuthContextType {
