@@ -195,7 +195,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const { data: news = initialNews } = useSWR(
     `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`,
     fetcher,
-    { fallbackData: initialNews, refreshInterval: 60000 }
+    { fallbackData: initialNews, refreshInterval: 30000 }
   );
 
   // Nessun fetch dell'articolo completo. Mostriamo solo le Pillole.
@@ -214,7 +214,12 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
       const res = await fetch('/api/news/summarize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: item.link })
+        body: JSON.stringify({ 
+          url: item.link,
+          title: item.cleanTitle || item.title,
+          snippet: item.snippet,
+          source: item.source
+        })
       });
       const data = await res.json();
       if (data.summary) {
@@ -396,6 +401,9 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                             <div className="flex justify-between items-start mb-2">
                               <span className="text-xs font-bold px-2 py-1 bg-[#0F172A] text-[#38BDF8] rounded">
                                 {item.source || 'News'}
+                                {item.relatedSources && item.relatedSources.length > 0 && (
+                                  <span className="text-[#64748B] ml-1 font-normal">+ altre {item.relatedSources.length} fonti</span>
+                                )}
                               </span>
                               <div className="flex items-center gap-2">
                                 {isNew && (

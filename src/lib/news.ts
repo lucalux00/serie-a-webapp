@@ -8,6 +8,7 @@ export interface NewsItem {
   cleanTitle: string;
   time: string;
   snippet?: string;
+  relatedSources?: string[]; // Per il sistema anti-duplicati
 }
 
 const parser = new Parser({ timeout: 8000 });
@@ -26,9 +27,13 @@ const DIRECT_RSS_SOURCES: Record<string, string[]> = {
   ]
 };
 
+// Sfruttiamo la Vercel Data Cache (sostituto di Redis) tramite il parametro next: { revalidate }
 async function fetchFeed(url: string): Promise<Parser.Item[]> {
   try {
-    const feed = await parser.parseURL(url);
+    const res = await fetch(url, { next: { revalidate: 30 } });
+    if (!res.ok) return [];
+    const xml = await res.text();
+    const feed = await parser.parseString(xml);
     return feed.items || [];
   } catch {
     return [];
@@ -85,7 +90,45 @@ function itemToNewsItem(item: Parser.Item): NewsItem {
     cleanTitle,
     time,
     snippet,
+    relatedSources: [],
   };
+}
+
+// Algoritmo Anti-Duplicati (Jaccard Similarity)
+function calculateSimilarity(str1: string, str2: string): number {
+  const set1 = new Set(str1.toLowerCase().match(/\w+/g) || []);
+  const set2 = new Set(str2.toLowerCase().match(/\w+/g) || []);
+  if (set1.size === 0 || set2.size === 0) return 0;
+  let intersectionSize = 0;
+  for (const word of set1) {
+    if (set2.has(word)) intersectionSize++;
+  }
+  const unionSize = set1.size + set2.size - intersectionSize;
+  return intersectionSize / unionSize;
+}
+
+function deduplicateNews(items: NewsItem[]): NewsItem[] {
+  const deduped: NewsItem[] = [];
+  
+  for (const item of items) {
+    let isDuplicate = false;
+    for (const existing of deduped) {
+      // Se la similarità tra i titoli è alta (> 0.55), la consideriamo la stessa notizia
+      if (calculateSimilarity(item.cleanTitle, existing.cleanTitle) > 0.55) {
+        isDuplicate = true;
+        // Aggiungiamo la fonte ai correlati se non è già presente
+        if (item.source !== existing.source && !existing.relatedSources?.includes(item.source)) {
+          existing.relatedSources = existing.relatedSources || [];
+          existing.relatedSources.push(item.source);
+        }
+        break;
+      }
+    }
+    if (!isDuplicate) {
+      deduped.push(item);
+    }
+  }
+  return deduped;
 }
 
 export async function fetchNewsForTeam(teamName: string, league: string = 'A'): Promise<NewsItem[]> {
@@ -113,31 +156,24 @@ export async function fetchNewsForTeam(teamName: string, league: string = 'A'): 
     ...filteredDirect.map(itemToNewsItem),
   ];
 
-  // Deduplica per titolo simile
-  const seen = new Set<string>();
-  const deduped = allItems.filter(item => {
-    const key = item.cleanTitle.toLowerCase().substring(0, 40);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
+  // Ordina per data decrescente PRIMA della deduplicazione (per mantenere la più recente come principale)
+  const sorted = allItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
 
-  // Ordina per data decrescente
-  return deduped
-    .filter(item => item.title && item.link)
-    .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
-    .slice(0, 20);
+  // Deduplica usando l'algoritmo avanzato
+  const deduped = deduplicateNews(sorted);
+
+  return deduped.filter(item => item.title && item.link).slice(0, 20);
 }
 
 export async function fetchGlobalNewsTicker(): Promise<NewsItem[]> {
   const url = `https://news.google.com/rss/search?q=serie+a+calcio+calciomercato&hl=it&gl=IT&ceid=IT:it&num=20`;
   try {
     const items = await fetchFeed(url);
-    return items
-      .map(itemToNewsItem)
-      .filter(item => item.title && item.link)
-      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
-      .slice(0, 20);
+    const parsedItems = items.map(itemToNewsItem);
+    const sorted = parsedItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+    const deduped = deduplicateNews(sorted);
+    
+    return deduped.filter(item => item.title && item.link).slice(0, 20);
   } catch {
     return [];
   }
