@@ -12,9 +12,9 @@ async function generateExplanation(matchStr: string, pick: string) {
   const prompt = `Sei l'algoritmo statistico ufficiale di una piattaforma di pronostici sportivi di alto livello.
 Hai appena suggerito l'esito "${pick}" per la partita "${matchStr}".
 
-Scrivi un'analisi statistica e tattica dettagliata (circa 3-4 paragrafi brevi) che giustifichi questa scelta in modo convincente e autorevole.
-Usa argomentazioni basate su stato di forma, statistiche recenti, storici degli scontri diretti e moduli tattici.
-Scrivi in italiano, in terza persona, con un tono analitico e giornalistico. Usa tag HTML di base (<p>, <strong>, <ul>) per formattare la risposta e renderla leggibile.
+Scrivi un'analisi tattica (circa 2-3 paragrafi brevi) che giustifichi questa scelta in modo convincente e autorevole.
+REGOLA FONDAMENTALE: Non inventare MAI statistiche, infortuni o eventi inesistenti. Basati SOLO su dati reali e generali sulle squadre coinvolte.
+Scrivi in italiano, in terza persona, con un tono analitico. Usa tag HTML di base (<p>, <strong>, <ul>).
 
 Esempio di output:
 <p>L'algoritmo ha individuato un netto vantaggio per l'esito <strong>${pick}</strong>. Il modello statistico evidenzia come...</p>
@@ -62,7 +62,14 @@ export async function GET(request: Request) {
       `;
       return NextResponse.json({ analysis });
     } else {
-      return NextResponse.json({ error: 'Impossibile generare l\'analisi' }, { status: 500 });
+      // Salva uno stato di errore per evitare loop infiniti
+      const fallbackAnalysis = '<p>Analisi testuale temporaneamente non disponibile.</p>';
+      await sql`
+        INSERT INTO ml_explanations (match_id, analysis)
+        VALUES (${matchId}, ${fallbackAnalysis})
+        ON CONFLICT (match_id) DO NOTHING
+      `;
+      return NextResponse.json({ analysis: fallbackAnalysis });
     }
 
   } catch (error) {
