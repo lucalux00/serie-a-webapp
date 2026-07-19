@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlayerSheet from '@/components/domain/PlayerSheet';
 import useSWR from 'swr';
+import LiveCommentary from '@/components/LiveCommentary';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -174,7 +175,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const router = useRouter();
   const searchParams = useSearchParams();
   const yearParam = searchParams.get('year');
-  const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'rosa' | 'mercato' | 'stats' | 'trofei' | 'partite'>(initialTab as any);
+  const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'partite' | 'live' | 'rosa' | 'mercato' | 'stats' | 'trofei'>(initialTab as any);
   const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
@@ -315,6 +316,19 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           style={activeTab === 'partite' ? { borderColor: team.primaryColor || '#10B981', color: team.primaryColor || '#10B981' } : {}}
         >
           PARTITE
+        </button>
+        <button 
+          onClick={() => setActiveTab('live')} 
+          className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'live' ? 'border-[#EF4444] text-[#EF4444]' : 'border-transparent text-[#94A3B8]'}`}
+          style={activeTab === 'live' ? { borderColor: '#EF4444', color: '#EF4444' } : {}}
+        >
+          <span className="flex items-center gap-1">
+            <span className="relative flex h-2 w-2">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EF4444] ${activeTab !== 'live' ? 'opacity-0' : 'opacity-75'}`}></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#EF4444]"></span>
+            </span>
+            LIVE
+          </span>
         </button>
         <button 
           onClick={() => setActiveTab('rosa')} 
@@ -472,6 +486,13 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           {/* TAB: PARTITE - DATI REALI */}
           {activeTab === 'partite' && (
             <PartiteTab team={team} />
+          )}
+
+          {/* TAB: LIVE - DIRETTA TESTUALE */}
+          {activeTab === 'live' && (
+            <motion.div key="live" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
+              <LiveCommentary teamName={team.name} />
+            </motion.div>
           )}
 
           {/* TAB: ROSA */}
