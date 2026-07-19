@@ -18,28 +18,108 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
   }
 
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    if (!res.ok) throw new Error('Failed to fetch');
-    const html = await res.text();
+    let html = '';
+    
+    // 1. Proviamo la fetch diretta con headers avanzati che simulano un browser reale
+    // Usiamo anche la cache di Next.js (revalidate) per non tempestare i siti di news di richieste
+    const res = await fetch(url, { 
+      headers: { 
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7',
+        'Referer': 'https://www.google.com/'
+      },
+      next: { revalidate: 3600 } // Cache di 1 ora
+    });
+
+    if (res.ok) {
+      html = await res.text();
+    } else {
+      // 2. Se Vercel viene comunque bloccato (errore 403 da Cloudflare, ecc.), usiamo AllOrigins come proxy gratuito
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+      const proxyRes = await fetch(proxyUrl, { next: { revalidate: 3600 } });
+      if (!proxyRes.ok) throw new Error('Proxy fetch failed');
+      html = await proxyRes.text();
+    }
     
     const $ = cheerio.load(html);
     
-    // Rimuovi elementi di disturbo
-    $('script, style, iframe, nav, footer, header, aside, .ad, .ads, .advertisement, .cookie-banner, .social-share').remove();
+    // Rimuovi elementi di disturbo: blocchi pubblicitari, link correlati e player multimediali (video, audio, iframe)
+    $('script, style, iframe, nav, footer, header, aside, form, button, video, audio, object, embed, figure, picture, .ad, .ads, .advertisement, .cookie-banner, .social-share, .related, .comments, [class*="banner"], [id*="banner"], [class*="sidebar"], [class*="menu"], [class*="newsletter"], [id*="newsletter"], [class*="subscribe"], [class*="sponsor"], [id*="sponsor"], [class*="adv"], [id*="adv"], amp-video, amp-iframe').remove();
     
     let contentHtml = '';
-    const selectors = ['article', '.article-content', '.article-body', '.entry-content', '.post-content', 'main'];
+    const selectors = ['article', '.article-content', '.article-body', '.entry-content', '.post-content', 'main', '#main-content'];
     
+    let targetEl = null;
     for (const selector of selectors) {
-      const el = $(selector);
+      const el = $(selector).first();
       if (el.length > 0) {
-        contentHtml = el.html() || '';
+        targetEl = el;
         break;
       }
     }
 
+    if (!targetEl) {
+      targetEl = $('body');
+    }
+
+    // Rimuovi anche i contenitori generici che spesso ospitano il tasto play testuale
+    $('[class*="video"], [class*="player"], [id*="video"], [id*="player"], .play, .play-button, .play-btn, .jwplayer, .vjs').remove();
+
+    // Estrapola solo il testo (paragrafi e titoli) per evitare HTML rotto o pubblicità
+    const elements = targetEl.find('p, h2, h3, h4');
+    if (elements.length > 0) {
+      const textBlocks: string[] = [];
+      elements.each((i, el) => {
+        const tagName = el.tagName.toLowerCase();
+        const text = $(el).text().trim();
+        const lowerText = text.toLowerCase();
+        
+        // Filtra frasi tipiche dei bottoni video, pubblicità testuali o sezioni promozionali
+        if (
+          lowerText === 'play' || 
+          lowerText === 'replay' || 
+          lowerText === 'video' ||
+          lowerText.includes('pubblicità') ||
+          lowerText.includes('pubblicita') ||
+          lowerText.includes('sponsorizzato') ||
+          lowerText.includes('guarda il video') || 
+          lowerText.includes('leggi anche') || 
+          lowerText.includes('scopri di più') ||
+          lowerText.includes('leggi di più') ||
+          lowerText.includes('potrebbe interessarti') ||
+          lowerText.includes('tutti i diritti riservati') ||
+          lowerText.includes('riproduzione riservata') ||
+          lowerText.includes('iscriviti') ||
+          lowerText.includes("scarica l'app") ||
+          lowerText.includes('abbonati') ||
+          lowerText.includes('registrati') ||
+          lowerText.includes('seguici su') ||
+          lowerText.includes('clicca qui') ||
+          lowerText.startsWith('video:') || 
+          lowerText.startsWith('guarda:') ||
+          lowerText.startsWith('scopri:')
+        ) {
+          return; // salta e ignora questo elemento
+        }
+        
+        if (tagName === 'p' && text.length > 25) {
+          textBlocks.push(`<p>${text}</p>`);
+        } else if (tagName.startsWith('h') && text.length > 5) {
+          textBlocks.push(`<${tagName}>${text}</${tagName}>`);
+        }
+      });
+      contentHtml = textBlocks.join('');
+    } else {
+      // Fallback estremo
+      const rawText = targetEl.text().trim();
+      if (rawText.length > 0) {
+        contentHtml = `<p>${rawText}</p>`;
+      }
+    }
+
     if (!contentHtml) {
-      contentHtml = $('body').html() || '<p>Contenuto non disponibile.</p>';
+      contentHtml = '<p>Contenuto non disponibile.</p>';
     }
 
     const title = $('h1').first().text() || $('title').text() || 'Articolo';
