@@ -2,6 +2,7 @@ import React from 'react';
 import * as cheerio from 'cheerio';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import BackButton from '@/components/ui/BackButton';
 
 export default async function ReadNewsPage(props: { searchParams: Promise<{ url?: string, source?: string }> }) {
   const searchParams = await props.searchParams;
@@ -137,9 +138,7 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl relative">
         <div className="mb-6">
-          <Link href="javascript:history.back()" className="text-[#10B981] font-bold flex items-center hover:underline">
-            <ArrowLeft className="w-5 h-5 mr-2" /> Torna Indietro
-          </Link>
+          <BackButton />
         </div>
         
         <div className="bg-[#1E293B] p-6 rounded-3xl shadow-xl border border-[#334155] select-none">
@@ -199,7 +198,7 @@ export default async function ReadNewsPage(props: { searchParams: Promise<{ url?
       <div className="container mx-auto px-4 py-8 max-w-3xl text-center text-white">
         <h1 className="text-2xl font-bold text-red-500 mb-4">Impossibile caricare l'articolo completo</h1>
         <p className="text-[#94A3B8] mb-6">Il sito originale non consente la lettura interna o richiede un abbonamento.</p>
-        <Link href="javascript:history.back()" className="text-[#10B981] font-bold">Torna Indietro</Link>
+        <BackButton showIcon={false} className="text-[#10B981] font-bold hover:underline" />
       </div>
     );
   }
