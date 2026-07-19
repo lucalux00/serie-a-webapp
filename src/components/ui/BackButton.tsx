@@ -21,9 +21,8 @@ export default function BackButton({
 
   const handleBack = () => {
     if (typeof window !== 'undefined') {
-      // Se c'è una history valida o se veniamo dallo stesso sito
-      if (window.history.length > 2 || (document.referrer && document.referrer.includes(window.location.host))) {
-        router.back();
+      if (window.history.length > 1) {
+        window.history.back();
       } else {
         router.push(fallbackHref);
       }
