@@ -59,7 +59,7 @@ Restituisci ESCLUSIVAMENTE un JSON array di oggetti con i seguenti campi:
 IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-flash-lite-latest',
       contents: prompt,
     });
 
@@ -89,6 +89,31 @@ IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
           VALUES (${t.team_id}, ${t.type}, ${t.player}, ${t.other_team || 'N/D'}, ${t.fee || 'N/D'}, ${today}, ${t.status})
         `;
         inserted++;
+
+        if (t.status === 'Ufficiale') {
+          try {
+            const searchName = '%' + t.player.trim() + '%';
+            if (t.type === 'Cessione') {
+              // Rimuovi il giocatore dalla squadra che ha venduto
+              await sql`DELETE FROM players WHERE team_id = ${t.team_id} AND name ILIKE ${searchName}`;
+            } else if (t.type === 'Acquisto' || t.type === 'Prestito') {
+              // Controlla se è già nella nuova squadra
+              const check = await sql`SELECT id FROM players WHERE team_id = ${t.team_id} AND name ILIKE ${searchName}`;
+              if (check.rows.length === 0) {
+                // Se era in un'altra squadra di Serie A, aggiornalo
+                const findOther = await sql`SELECT id FROM players WHERE name ILIKE ${searchName}`;
+                if (findOther.rows.length === 1) {
+                  await sql`UPDATE players SET team_id = ${t.team_id} WHERE id = ${findOther.rows[0].id}`;
+                } else {
+                  // Altrimenti crea un nuovo giocatore in rosa
+                  await sql`INSERT INTO players (team_id, name, role, squad_type) VALUES (${t.team_id}, ${t.player.trim()}, 'N/D', 'first')`;
+                }
+              }
+            }
+          } catch (e) {
+            console.error('Error updating roster for transfer:', t.player, e);
+          }
+        }
       }
     }
 

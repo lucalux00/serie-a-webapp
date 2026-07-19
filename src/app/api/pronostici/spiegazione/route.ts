@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 async function generateExplanation(matchStr: string, pick: string) {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-flash-lite-latest" });
   
   const prompt = `Sei l'algoritmo statistico ufficiale di una piattaforma di pronostici sportivi di alto livello.
 Hai appena suggerito l'esito "${pick}" per la partita "${matchStr}".
