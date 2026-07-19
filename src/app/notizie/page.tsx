@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { Clock, ExternalLink, RefreshCw, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -121,11 +122,11 @@ export default function NotiziePage() {
                   </div>
                 </div>
 
-                <a href={targetHref} className="block outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
+                <Link href={targetHref} className="block outline-none focus:ring-2 focus:ring-blue-500 rounded-xl">
                   <h2 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-2 leading-tight">
                     {item.title}
                   </h2>
-                </a>
+                </Link>
 
                 {item.snippet && (
                   <p className="text-slate-400 text-sm line-clamp-2 mt-2">
@@ -134,9 +135,9 @@ export default function NotiziePage() {
                 )}
 
                 <div className="mt-4 pt-4 border-t border-slate-700/50 flex justify-end">
-                  <a href={targetHref} className="text-xs font-bold uppercase tracking-widest flex items-center text-blue-500 hover:text-blue-400 transition-colors">
+                  <Link href={targetHref} className="text-xs font-bold uppercase tracking-widest flex items-center text-blue-500 hover:text-blue-400 transition-colors">
                     Leggi tutto <ExternalLink className="w-3 h-3 ml-1" />
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             );

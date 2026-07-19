@@ -13,18 +13,20 @@ interface BackButtonProps {
 
 export default function BackButton({ 
   className = "text-[#10B981] font-bold flex items-center hover:underline cursor-pointer",
-  fallbackHref = "/",
+  fallbackHref = "/notizie",
   label = "Torna Indietro",
   showIcon = true
 }: BackButtonProps) {
   const router = useRouter();
 
   const handleBack = () => {
-    // Verifichiamo se c'è una history per tornare indietro
-    if (typeof window !== 'undefined' && window.history.length > 1) {
-      router.back();
-    } else {
-      router.push(fallbackHref);
+    if (typeof window !== 'undefined') {
+      // Se c'è una history valida o se veniamo dallo stesso sito
+      if (window.history.length > 2 || (document.referrer && document.referrer.includes(window.location.host))) {
+        router.back();
+      } else {
+        router.push(fallbackHref);
+      }
     }
   };
 
