@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw, CheckCircle2, Search, Clock, Star } from 'lucide-react';
 import Script from 'next/script';
+import { ALL_TEAMS } from '@/data/teams';
+import TeamLogo from '@/components/ui/TeamLogo';
 
 export default function MarketFeed() {
   const [leagueTab, setLeagueTab] = useState<'A' | 'B' | 'PL' | 'LL'>('A');
   const [filterTab, setFilterTab] = useState<'acquisti' | 'prestiti' | 'svincolati' | 'trattative'>('acquisti');
+  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [liveData, setLiveData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,8 +30,9 @@ export default function MarketFeed() {
   }, [leagueTab]);
 
   const currentData = liveData.filter(d => 
-    (d.player && d.player.toLowerCase().includes(searchQuery.toLowerCase())) || 
-    (d.team && d.team.toLowerCase().includes(searchQuery.toLowerCase()))
+    (!selectedTeam || (d.team && d.team.toLowerCase() === selectedTeam.toLowerCase())) &&
+    ((d.player && d.player.toLowerCase().includes(searchQuery.toLowerCase())) || 
+     (d.team && d.team.toLowerCase().includes(searchQuery.toLowerCase())))
   );
 
   const acquisti = currentData.filter(d => d.type && d.type.toLowerCase() === 'acquisto' && d.status !== 'Rumor');
@@ -63,13 +67,15 @@ export default function MarketFeed() {
     const t = tr.type ? tr.type.toLowerCase() : '';
     const isRumor = tr.status === 'Rumor';
     
+    const teamInfo = ALL_TEAMS.find(team => team.name.toLowerCase() === tr.team?.toLowerCase() || team.id === tr.team?.toLowerCase());
+    
     return (
     <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
       <div className={`absolute left-0 top-0 bottom-0 w-1 ${isRumor ? 'bg-[#F59E0B]' : t === 'acquisto' ? 'bg-[#10B981]' : t === 'cessione' ? 'bg-[#EF4444]' : t === 'prestito' ? 'bg-[#0EA5E9]' : t === 'svincolato' ? 'bg-[#94A3B8]' : 'bg-[#F59E0B]'}`} />
       
       <div className="flex justify-between items-start mb-2 pl-2">
         <div className="flex items-center space-x-2">
-          {getIconForType(tr.type)}
+          {teamInfo ? <TeamLogo src={teamInfo.logoUrl} alt={teamInfo.name} fallbackText={teamInfo.logo} className="w-5 h-5 rounded-full" /> : getIconForType(tr.type)}
           <span className="font-bold text-sm text-white">{tr.team}</span>
         </div>
         <div className="flex items-center space-x-2">
@@ -116,10 +122,33 @@ export default function MarketFeed() {
         {['A', 'B', 'PL', 'LL', 'BL', 'L1'].map((l) => (
           <button 
             key={l}
-            onClick={() => setLeagueTab(l as any)} 
+            onClick={() => {
+              setLeagueTab(l as any);
+              setSelectedTeam(null);
+            }} 
             className={`flex-1 py-3 px-2 text-[10px] sm:text-xs font-black uppercase tracking-widest rounded-xl transition-colors whitespace-nowrap ${leagueTab === l ? 'bg-gradient-to-r from-[#10B981] to-[#0EA5E9] text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
           >
             {l === 'A' ? 'Serie A' : l === 'B' ? 'Serie B' : l === 'PL' ? 'Premier' : l === 'LL' ? 'La Liga' : l === 'BL' ? 'Bundesliga' : 'Ligue 1'}
+          </button>
+        ))}
+      </div>
+
+      {/* Selettore Squadra */}
+      <div className="flex overflow-x-auto space-x-3 px-1 py-2 no-scrollbar mb-4 border-b border-[#334155]/50 pb-4">
+        <button 
+          onClick={() => setSelectedTeam(null)}
+          className={`flex-shrink-0 px-4 py-2 rounded-full font-bold text-xs transition-colors shadow-sm ${!selectedTeam ? 'bg-[#10B981] text-white shadow-[#10B981]/20' : 'bg-[#1E293B] text-[#94A3B8] border border-[#334155] hover:bg-[#334155]/50'}`}
+        >
+          Tutte le Squadre
+        </button>
+        {ALL_TEAMS.filter(t => t.league === leagueTab).map(team => (
+          <button
+            key={team.id}
+            onClick={() => setSelectedTeam(team.name)}
+            className={`flex-shrink-0 flex items-center space-x-2 px-3 py-1.5 rounded-full border transition-colors shadow-sm ${selectedTeam === team.name ? 'bg-gradient-to-r from-[#10B981]/20 to-[#0EA5E9]/20 border-[#10B981] text-white' : 'bg-[#1E293B] border-[#334155] text-[#94A3B8] hover:bg-[#334155]/50'}`}
+          >
+            <TeamLogo src={team.logoUrl} alt={team.name} fallbackText={team.logo} className="w-5 h-5 rounded-full" />
+            <span className="text-xs font-bold">{team.name}</span>
           </button>
         ))}
       </div>

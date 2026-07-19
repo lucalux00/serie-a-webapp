@@ -9,6 +9,7 @@ export async function GET(request: Request) {
   
   try {
     // Legge i trasferimenti direttamente dal DB invece di fare scraping in tempo reale
+    // Filtro per la finestra di mercato attuale (Luglio 2026)
     const { rows: transfers } = await sql`
       SELECT 
         id, 
@@ -21,8 +22,9 @@ export async function GET(request: Request) {
         fee, 
         date
       FROM transfers t
+      WHERE TO_DATE(date, 'DD Mon YYYY') >= TO_DATE('01 Jul 2026', 'DD Mon YYYY')
       ORDER BY id DESC
-      LIMIT 50
+      LIMIT 100
     `;
 
     // Se non ci sono dati, ritorna array vuoto
