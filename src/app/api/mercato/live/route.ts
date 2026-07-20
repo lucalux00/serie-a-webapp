@@ -1,3 +1,15 @@
+/**
+ * GET /api/mercato/live
+ *
+ * Restituisce i trasferimenti dal DB.
+ *
+ * Query params:
+ *   ?league=A|B|PL|LL|BL|L1|ALL  — filtra per lega (default: A)
+ *   ?team_id=napoli               — filtra per squadra specifica (per TeamHub)
+ *   ?limit=100                    — numero max risultati
+ *
+ * Note: i dati vengono popolati dal cron /api/cron/mercato (giornaliero).
+ */
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
@@ -5,35 +17,81 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const league = searchParams.get('league') || 'A';
-  
+  const league  = searchParams.get('league') || 'A';
+  const teamId  = searchParams.get('team_id') || null;
+  const limit   = Math.min(parseInt(searchParams.get('limit') || '100'), 200);
+
   try {
-    // Legge i trasferimenti direttamente dal DB invece di fare scraping in tempo reale
-    // Filtro per la finestra di mercato attuale (Luglio 2026)
-    const { rows: transfers } = await sql`
-      SELECT 
-        id, 
-        'A' as league, 
-        status, 
-        type, 
-        UPPER(SUBSTR(team_id, 1, 1)) || SUBSTR(team_id, 2) as team, 
-        player, 
-        other_team as "fromTo", 
-        fee, 
-        date
-      FROM transfers t
-      WHERE TO_DATE(date, 'DD Mon YYYY') >= TO_DATE('01 Jul 2026', 'DD Mon YYYY')
-      ORDER BY id DESC
-      LIMIT 100
-    `;
+    let rows: any[];
 
-    // Se non ci sono dati, ritorna array vuoto
-    return NextResponse.json({ transfers: transfers || [] });
+    if (teamId) {
+      // Modalità squadra specifica (usata da TeamHubClient)
+      const result = await sql`
+        SELECT
+          id,
+          league,
+          status,
+          type,
+          team_id,
+          INITCAP(REPLACE(team_id, '-', ' ')) AS team,
+          player,
+          other_team  AS "fromTo",
+          fee,
+          date,
+          created_at
+        FROM transfers
+        WHERE team_id = ${teamId}
+        ORDER BY id DESC
+        LIMIT ${limit}
+      `;
+      rows = result.rows;
+    } else if (league === 'ALL') {
+      // Tutte le leghe (per stats/admin)
+      const result = await sql`
+        SELECT
+          id,
+          league,
+          status,
+          type,
+          team_id,
+          INITCAP(REPLACE(team_id, '-', ' ')) AS team,
+          player,
+          other_team AS "fromTo",
+          fee,
+          date,
+          created_at
+        FROM transfers
+        ORDER BY id DESC
+        LIMIT ${limit}
+      `;
+      rows = result.rows;
+    } else {
+      // Singola lega (comportamento default)
+      const result = await sql`
+        SELECT
+          id,
+          league,
+          status,
+          type,
+          team_id,
+          INITCAP(REPLACE(team_id, '-', ' ')) AS team,
+          player,
+          other_team AS "fromTo",
+          fee,
+          date,
+          created_at
+        FROM transfers
+        WHERE league = ${league}
+        ORDER BY id DESC
+        LIMIT ${limit}
+      `;
+      rows = result.rows;
+    }
 
-    return NextResponse.json({ transfers });
+    return NextResponse.json({ transfers: rows });
 
   } catch (error: any) {
-    console.error("Live Mercato DB Error:", error.message);
+    console.error('[mercato/live] Errore DB:', error.message);
     return NextResponse.json({ transfers: [] });
   }
 }

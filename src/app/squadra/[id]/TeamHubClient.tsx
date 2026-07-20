@@ -187,22 +187,32 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const [isSummarizing, setIsSummarizing] = useState<boolean>(false);
 
   const { data: matchdayData, isLoading: isLoadingMatchday } = useSWR(
-    `/api/analisi/matchday`,
+    activeTab === 'analisi' ? `/api/analisi/matchday` : null,
     fetcher,
     { revalidateOnFocus: false }
   );
 
-  // Real-time news fetching with SWR
+  // News fetching — solo quando la tab NEWS è attiva, aggiornamento ogni 5 minuti
   const { data: news = initialNews } = useSWR(
-    `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`,
+    activeTab === 'news'
+      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`
+      : null,
     fetcher,
-    { fallbackData: initialNews, refreshInterval: 30000 }
+    { fallbackData: initialNews, refreshInterval: 300000, revalidateOnFocus: false }
   );
 
-  // Nessun fetch dell'articolo completo. Mostriamo solo le Pillole.
+  // Mercato squadra — solo quando la tab MERCATO è attiva, dati dal DB filtrati per team
+  const { data: teamMercatoRaw, isLoading: isLoadingMercato } = useSWR(
+    activeTab === 'mercato'
+      ? `/api/mercato/live?team_id=${encodeURIComponent(team.id)}&limit=100`
+      : null,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+  const teamTransfers: any[] = teamMercatoRaw?.transfers || squadData?.transfers || [];
 
-  const topNews = news.slice(0, 4);
-  const otherNews = news.slice(4);
+  const topNews = (news || []).slice(0, 4);
+  const otherNews = (news || []).slice(4);
 
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
 
@@ -491,7 +501,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           {/* TAB: LIVE - DIRETTA TESTUALE */}
           {activeTab === 'live' && (
             <motion.div key="live" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
-              <LiveCommentary teamName={team.name} />
+              <LiveCommentary teamName={team.name} isActive={activeTab === 'live'} />
             </motion.div>
           )}
 
@@ -575,62 +585,92 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           )}
 
           {/* TAB: MERCATO */}
-          {activeTab === 'mercato' && squadData && (
+          {activeTab === 'mercato' && (
             <motion.div key="mercato" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
-              
+
               {/* Tabs Filtro Categoria */}
               <div className="flex bg-[#0F172A] border-b border-[#334155] overflow-x-auto no-scrollbar">
                 {[
-                  { id: 'acquisti', label: 'Acquisti' },
-                  { id: 'cessioni', label: 'Cessioni' },
-                  { id: 'prestiti', label: 'Prestiti' },
-                  { id: 'trattative', label: 'Trattative' }
+                  { id: 'acquisti',   label: 'Acquisti',   color: '#10B981' },
+                  { id: 'cessioni',   label: 'Cessioni',   color: '#EF4444' },
+                  { id: 'prestiti',   label: 'Prestiti',   color: '#0EA5E9' },
+                  { id: 'trattative', label: 'Rumors',     color: '#F59E0B' },
                 ].map(tab => (
                   <button
                     key={tab.id}
                     onClick={() => setTeamMercatoFilter(tab.id as any)}
-                    className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors ${teamMercatoFilter === tab.id ? 'border-[#10B981] text-[#10B981]' : 'border-transparent text-[#94A3B8]'}`}
+                    className={`px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition-colors`}
+                    style={teamMercatoFilter === tab.id
+                      ? { borderColor: tab.color, color: tab.color }
+                      : { borderColor: 'transparent', color: '#94A3B8' }}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
 
-              {(() => {
-                const acquisti = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('acquisto') && !t.type.toLowerCase().includes('prestito'));
-                const cessioni = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('cessione') && !t.type.toLowerCase().includes('prestito'));
-                const prestiti = squadData.transfers.filter((t: any) => t.type.toLowerCase().includes('prestito'));
+              {isLoadingMercato ? (
+                <div className="flex items-center justify-center py-12 gap-3">
+                  <div className="w-6 h-6 border-2 border-[#10B981] border-t-transparent rounded-full animate-spin" />
+                  <span className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Caricamento mercato...</span>
+                </div>
+              ) : (() => {
+                const acquisti   = teamTransfers.filter((t: any) => (t.type||'').toLowerCase().includes('acquisto') && t.status !== 'Rumor');
+                const cessioni   = teamTransfers.filter((t: any) => (t.type||'').toLowerCase().includes('cessione') && t.status !== 'Rumor');
+                const prestiti   = teamTransfers.filter((t: any) => (t.type||'').toLowerCase().includes('prestito') && t.status !== 'Rumor');
+                const trattative = teamTransfers.filter((t: any) => t.status === 'Rumor' || (t.type||'').toLowerCase().includes('trattativa'));
 
-                const renderTransferCard = (tr: any, colorHex: string, icon: any) => {
-                  let StatusIcon = Clock;
-                  if (tr.status === 'Conclusa' || tr.status === 'Ufficiale' || tr.status === 'ufficiale') StatusIcon = CheckCircle2;
-                  if (tr.status === 'Fallita') StatusIcon = XCircle;
+                const colorMap: Record<string,string> = {
+                  acquisti: '#10B981', cessioni: '#EF4444', prestiti: '#0EA5E9', trattative: '#F59E0B'
+                };
+                const accentColor = colorMap[teamMercatoFilter] || '#10B981';
+
+                const listMap: Record<string,any[]> = { acquisti, cessioni, prestiti, trattative };
+                const currentList = listMap[teamMercatoFilter] || [];
+
+                const renderCard = (tr: any) => {
+                  const t     = (tr.type||'').toLowerCase();
+                  const color = tr.status === 'Rumor' ? '#F59E0B'
+                    : t.includes('acquisto') ? '#10B981'
+                    : t.includes('cessione') ? '#EF4444'
+                    : t.includes('prestito') ? '#0EA5E9' : '#F59E0B';
 
                   return (
-                    <div key={tr.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden">
-                      <div className={`absolute left-0 top-0 bottom-0 w-1 bg-[${colorHex}]`} style={{ backgroundColor: colorHex }} />
-                      <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
-                        <div className="flex items-center space-x-2">
-                          <span style={{ color: colorHex }}>{icon}</span>
-                          <span className="font-bold text-sm text-white uppercase tracking-wider">{tr.type}</span>
+                    <div key={tr.id || tr.player} className="bg-[#1E293B] border border-[#334155] rounded-xl p-4 shadow-sm relative overflow-hidden hover:border-white/20 transition-colors">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl" style={{ backgroundColor: color }} />
+                      <div className="pl-3">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-[9px] font-black px-2 py-0.5 rounded uppercase border"
+                            style={{ color, backgroundColor: color + '25', borderColor: color + '60' }}>
+                            {tr.type}
+                          </span>
+                          {tr.status === 'Rumor' && (
+                            <span className="text-[9px] font-black px-2 py-0.5 rounded uppercase border bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/40">
+                              RUMOR
+                            </span>
+                          )}
+                          {tr.status && tr.status !== 'Rumor' && (
+                            <span className="text-[9px] font-bold text-[#94A3B8] uppercase">{tr.status}</span>
+                          )}
                         </div>
-                        <span className={`text-[10px] font-black flex items-center uppercase text-[${colorHex}]`} style={{ color: colorHex }}>
-                          <StatusIcon size={12} className="mr-1" /> {tr.status || 'Ufficiale'}
-                        </span>
-                      </div>
-                      <div className="pl-2">
-                        <div className="font-black text-lg text-[#F8FAFC] leading-tight mb-1">{tr.player}</div>
-                        <div className="flex justify-between items-center mt-2 text-xs">
-                          <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{tr.otherTeam}</strong></span>
-                          <span className="font-black" style={{ color: colorHex }}>{tr.fee}</span>
+                        <div className="font-black text-base text-white leading-tight mb-1">{tr.player}</div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-[#94A3B8]">
+                            {tr.otherTeam || tr['fromTo'] ? `↔ ${tr.otherTeam || tr['fromTo']}` : ''}
+                          </span>
+                          <span className="font-black" style={{ color }}>
+                            {tr.fee && tr.fee !== 'N/D' ? tr.fee : ''}
+                          </span>
                         </div>
                         {tr.salary && (
                           <div className="flex justify-between items-center mt-1 text-xs border-t border-[#334155] pt-1">
-                            <span className="text-[#94A3B8] font-medium">Stipendio:</span>
+                            <span className="text-[#94A3B8]">Stipendio:</span>
                             <span className="font-black text-[#0EA5E9]">{tr.salary}</span>
                           </div>
                         )}
-                        <div className="text-[10px] mt-2 text-right text-[#64748B] uppercase font-bold tracking-widest">{tr.date}</div>
+                        <div className="text-[9px] mt-1 text-right text-[#64748B] font-bold uppercase tracking-widest">
+                          {tr.date}
+                        </div>
                       </div>
                     </div>
                   );
@@ -638,96 +678,46 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
 
                 return (
                   <AnimatePresence mode="wait">
-                    <motion.div key={teamMercatoFilter} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
-                      
-                      {teamMercatoFilter === 'acquisti' && (
+                    <motion.div
+                      key={teamMercatoFilter}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className="space-y-3"
+                    >
+                      {/* Header sezione */}
+                      <div className="flex items-center justify-between border-b border-[#334155] pb-3">
+                        <h2 className="font-black text-sm uppercase tracking-widest flex items-center gap-2"
+                          style={{ color: accentColor }}>
+                          {teamMercatoFilter === 'acquisti'   && <ArrowRightLeft size={14} />}
+                          {teamMercatoFilter === 'cessioni'   && <XCircle size={14} />}
+                          {teamMercatoFilter === 'prestiti'   && <ArrowRightLeft size={14} />}
+                          {teamMercatoFilter === 'trattative' && <Clock size={14} />}
+                          {teamMercatoFilter === 'acquisti'   ? 'Acquisti Definitivi' : ''}
+                          {teamMercatoFilter === 'cessioni'   ? 'Cessioni Definitive' : ''}
+                          {teamMercatoFilter === 'prestiti'   ? 'Movimenti in Prestito' : ''}
+                          {teamMercatoFilter === 'trattative' ? `Rumors & Trattative` : ''}
+                          {' '}{team.name}
+                        </h2>
+                        <span className="text-[10px] font-bold text-[#94A3B8] bg-[#1E293B] px-2 py-0.5 rounded-full">
+                          {currentList.length}
+                        </span>
+                      </div>
+
+                      {currentList.length > 0 ? (
                         <div className="grid grid-cols-1 gap-3">
-                          <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <CheckCircle2 size={16} className="mr-2" /> Acquisti Definitivi
-                          </h2>
-                          {acquisti.length > 0 ? acquisti.map((t:any) => renderTransferCard(t, '#10B981', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun acquisto definitivo registrato.</div>}
+                          {currentList.map(renderCard)}
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-12 gap-3 text-[#64748B]">
+                          <CheckCircle2 size={32} className="opacity-20" />
+                          <p className="text-sm font-bold">Nessun movimento registrato</p>
+                          <p className="text-xs text-center max-w-xs">
+                            I dati vengono aggiornati dal cron mercato quotidiano.
+                            {teamTransfers.length === 0 && ' Assicurati di aver lanciato /api/migrate/setup.'}
+                          </p>
                         </div>
                       )}
-
-                      {teamMercatoFilter === 'cessioni' && (
-                        <div className="grid grid-cols-1 gap-3">
-                          <h2 className="flex items-center text-[#EF4444] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <XCircle size={16} className="mr-2" /> Cessioni Definitive
-                          </h2>
-                          {cessioni.length > 0 ? cessioni.map((t:any) => renderTransferCard(t, '#EF4444', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessuna cessione definitiva registrata.</div>}
-                        </div>
-                      )}
-
-                      {teamMercatoFilter === 'prestiti' && (
-                        <div className="grid grid-cols-1 gap-3">
-                          <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                            <ArrowRightLeft size={16} className="mr-2" /> Movimenti in Prestito
-                          </h2>
-                          {prestiti.length > 0 ? prestiti.map((t:any) => renderTransferCard(t, '#0EA5E9', <ArrowRightLeft size={14}/>)) : <div className="text-sm text-[#64748B] p-4">Nessun prestito registrato.</div>}
-                        </div>
-                      )}
-
-                      {teamMercatoFilter === 'trattative' && (() => {
-                        const rumors = squadData.transfers.filter((t: any) => 
-                          t.status?.toLowerCase().includes('trattativa') || 
-                          t.status?.toLowerCase().includes('rumor') ||
-                          t.type.toLowerCase().includes('trattativa') || 
-                          t.type.toLowerCase().includes('rumor')
-                        );
-
-                        return (
-                        <div className="grid grid-cols-1 gap-3">
-                          {rumors.length > 0 && (
-                            <>
-                              <h2 className="flex items-center text-[#F59E0B] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2">
-                                <Clock size={16} className="mr-2" /> Calciomercato {team.name}
-                              </h2>
-                              {rumors.map((r: any, idx: number) => (
-                                <div key={idx} className="bg-[#1E293B] border border-[#F59E0B]/50 rounded-xl p-4 shadow-sm relative overflow-hidden">
-                                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
-                                  <div className="flex justify-between items-start mb-2 pl-2 border-b border-[#334155] pb-2">
-                                    <div className="flex items-center space-x-2">
-                                      <Clock size={14} className="text-[#F59E0B]" />
-                                      <span className="font-bold text-sm text-white uppercase tracking-wider">{r.type === 'IN' ? 'Acquisto' : r.type === 'OUT' ? 'Cessione' : r.type}</span>
-                                    </div>
-                                    <span className="text-[10px] font-black flex items-center uppercase text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-1 rounded">
-                                      {r.status}
-                                    </span>
-                                  </div>
-                                  <div className="pl-2">
-                                    <div className="font-black text-lg text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
-                                    <div className="flex justify-between items-center mt-2 text-xs">
-                                      <span className="text-[#94A3B8] font-medium">Controparte: <strong className="text-white">{r.otherTeam || r.from}</strong></span>
-                                    </div>
-                                    <div className="flex justify-between items-center mt-1 text-xs border-t border-[#334155] pt-1">
-                                      <span className="text-[#94A3B8] font-medium">Valutazione:</span>
-                                      <span className="font-black text-[#F59E0B] text-right">{r.fee}</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </>
-                          )}
-                          {rumors.length === 0 && (
-                             <div className="text-sm text-[#64748B] p-4">Nessun rumor o trattativa confermata in questo momento.</div>
-                          )}
-                          <h2 className="flex items-center text-[#0EA5E9] font-black text-sm uppercase tracking-widest mb-2 border-b border-[#334155] pb-2 mt-4">
-                            <ArrowRightLeft size={16} className="mr-2" /> Mercato Globale (Feed X)
-                          </h2>
-                          <div className="bg-[#1E293B] rounded-xl overflow-hidden h-[500px] border border-[#334155] flex flex-col relative">
-                            <div className="absolute inset-0 z-0 flex items-center justify-center text-[#64748B] text-xs uppercase tracking-widest animate-pulse font-bold">
-                              Caricamento Rumors...
-                            </div>
-                            <div className="z-10 w-full h-full overflow-y-auto no-scrollbar relative bg-[#0F172A]">
-                              <a className="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/FabrizioRomano?ref_src=twsrc%5Etfw">
-                              </a> 
-                              <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-                            </div>
-                          </div>
-                        </div>
-                        );
-                      })()}
-
                     </motion.div>
                   </AnimatePresence>
                 );

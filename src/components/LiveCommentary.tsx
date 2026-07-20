@@ -8,14 +8,16 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 interface LiveCommentaryProps {
   teamName: string;
+  /** Polling attivo solo quando il tab LIVE è selezionato */
+  isActive?: boolean;
 }
 
-export default function LiveCommentary({ teamName }: LiveCommentaryProps) {
-  // Use SWR to poll the live match API every 30 seconds
+export default function LiveCommentary({ teamName, isActive = false }: LiveCommentaryProps) {
+  // Polling ogni 30s solo quando il tab è visibile (isActive = true)
   const { data, error, isLoading } = useSWR(
-    `/api/live-match?team=${encodeURIComponent(teamName)}`,
+    isActive ? `/api/live-match?team=${encodeURIComponent(teamName)}` : null,
     fetcher,
-    { refreshInterval: 30000 }
+    { refreshInterval: isActive ? 30000 : 0, revalidateOnFocus: false }
   );
 
   if (isLoading) {

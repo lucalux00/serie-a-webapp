@@ -1,3 +1,13 @@
+/**
+ * GET /api/pronostici/odierni
+ *
+ * Restituisce i pronostici AI per i prossimi 3 giorni.
+ *
+ * LAZY CRON (fixed):
+ * - Attiva il cron pronostici solo se NON esistono già partite future nel DB
+ * - Impone un cooldown di 60 minuti tramite la tabella cron_lock
+ * - Passa il CRON_SECRET per autenticare la chiamata interna
+ */
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
@@ -5,57 +15,68 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
-    // --- LAZY CRON LOGIC ---
-    // Avviamo l'aggiornamento in background senza bloccare la risposta
-    // (Next.js Edge/Serverless lo esegue "best-effort")
+    // ── LAZY CRON — con cooldown e protezione anti-loop ──────────────────
     try {
-      const { rows: latest } = await sql`SELECT match_date FROM daily_ai_predictions ORDER BY match_date DESC LIMIT 1`;
-      let shouldUpdate = false;
-      
-      if (latest.length === 0) {
-        shouldUpdate = true;
-      } else {
-        const lastDate = new Date(latest[0].match_date).getTime();
-        const now = Date.now();
-        // Se non abbiamo partite future nel db, potremmo dover aggiornare.
-        if (lastDate < now) { 
-          shouldUpdate = true;
+      // 1. Ci sono già partite FUTURE nel DB?
+      const { rows: futureMatches } = await sql`
+        SELECT id FROM daily_ai_predictions
+        WHERE match_date >= NOW()
+        LIMIT 1
+      `;
+
+      if (futureMatches.length === 0) {
+        // 2. È passata più di 1 ora dall'ultimo tentativo?
+        const { rows: lockRows } = await sql`
+          SELECT created_at FROM cron_lock
+          WHERE job_name = 'pronostici'
+            AND created_at > NOW() - INTERVAL '60 minutes'
+        `;
+
+        if (lockRows.length === 0) {
+          // 3. Acquisisci il lock PRIMA di chiamare il cron
+          await sql`
+            INSERT INTO cron_lock (job_name, created_at)
+            VALUES ('pronostici', NOW())
+            ON CONFLICT (job_name) DO UPDATE SET created_at = NOW()
+          `;
+
+          // 4. Avvia il cron in background con autenticazione corretta
+          const cronSecret = process.env.CRON_SECRET || '';
+          fetch(new URL('/api/cron/pronostici', request.url).toString(), {
+            headers: { Authorization: `Bearer ${cronSecret}` },
+          }).catch((e) => console.error('[odierni] Lazy cron fire-and-forget error:', e));
+
+          console.log('[odierni] Lazy cron pronostici avviato (nessuna partita futura in DB)');
+        } else {
+          console.log('[odierni] Lazy cron skippato: cooldown attivo');
         }
       }
-
-      if (shouldUpdate) {
-        // Usa request.url come base per la chiamata al cron
-        fetch(new URL('/api/cron/pronostici', request.url).toString()).catch(e => console.error("Lazy cron error", e));
-      }
     } catch (lazyError) {
-      console.warn("Lazy cron check failed", lazyError);
+      // Non bloccare la risposta per errori nel lazy cron
+      console.warn('[odierni] Lazy cron check fallito:', lazyError);
     }
-    // --- END LAZY CRON ---
+    // ── FINE LAZY CRON ────────────────────────────────────────────────────
 
-    const today = new Date();
-    const threeDaysFromNow = new Date();
-    threeDaysFromNow.setDate(today.getDate() + 3);
-
-    const dateFrom = today.toISOString().split('T')[0];
-    // Per Postgres usiamo ISO string con date filtering
-    
+    // Restituisci i pronostici per i prossimi 3 giorni
     const { rows } = await sql`
-      SELECT match_id as id, 
-             home_team || ' - ' || away_team as match, 
-             competition, 
-             match_date as date, 
-             quotes, 
-             analysis 
-      FROM daily_ai_predictions 
-      WHERE match_date >= NOW() AND match_date <= NOW() + INTERVAL '3 days'
+      SELECT
+        match_id   AS id,
+        home_team || ' - ' || away_team AS match,
+        competition,
+        match_date AS date,
+        quotes,
+        analysis
+      FROM daily_ai_predictions
+      WHERE match_date >= NOW()
+        AND match_date <= NOW() + INTERVAL '3 days'
       ORDER BY match_date ASC
       LIMIT 10
     `;
 
     return NextResponse.json({ predictions: rows });
 
-  } catch (error) {
-    console.error("GET /api/pronostici/odierni error:", error);
+  } catch (error: any) {
+    console.error('[odierni] Errore:', error);
     return NextResponse.json({ error: 'Errore interno' }, { status: 500 });
   }
 }
