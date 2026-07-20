@@ -7,10 +7,6 @@
     {
       "path": "/api/cron/mercato",
       "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/cron/classifica",
-      "schedule": "0 * * * *"
     }
   ]
 }
