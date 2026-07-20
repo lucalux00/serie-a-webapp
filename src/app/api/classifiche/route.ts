@@ -12,10 +12,10 @@ const LEAGUE_CODES: Record<string, string> = {
   'L1': 'FL1',
 };
 
-async function fetchFromApi(endpoint: string) {
+async function fetchFromApi(endpoint: string, revalidate = 300) {
   const res = await fetch(`${FOOTBALL_API_BASE}${endpoint}`, {
     headers: { 'X-Auth-Token': FOOTBALL_API_KEY! },
-    next: { revalidate: 3600 } // Cache 1 ora
+    next: { revalidate } // Default: 5 minuti per dati live/settimanali
   });
   if (!res.ok) {
     const err = await res.text();
@@ -39,11 +39,13 @@ export async function GET(request: Request) {
   try {
     if (type === 'standings') {
       const seasonParam = season ? `?season=${season}` : '';
-      const data = await fetchFromApi(`/competitions/${leagueCode}/standings${seasonParam}`);
+      // Stagioni storiche: cache 24h. Stagione corrente: cache 5 min per restare aggiornati.
+      const cacheSeconds = season ? 86400 : 300;
+      const data = await fetchFromApi(`/competitions/${leagueCode}/standings${seasonParam}`, cacheSeconds);
 
       const allStandings = data.standings?.[0]?.table || [];
       const totalPoints = allStandings.reduce((sum: number, t: any) => sum + t.points, 0);
-      // Se tutti hanno 0 punti (stagione non iniziata) e non è una stagione storica, segnalalo
+      // Se tutti hanno 0 punti (stagione non ancora iniziata) segnalalo al frontend
       const seasonNotStarted = !season && totalPoints === 0;
 
       const standings = allStandings.map((t: any) => ({
@@ -66,11 +68,10 @@ export async function GET(request: Request) {
         ? `${new Date(data.season.startDate).getFullYear()}/${String(new Date(data.season.endDate).getFullYear()).slice(2)}`
         : '2025/26';
 
-      // Rimosso il blocco error: 'season_not_started' per permettere la visualizzazione a 0 punti.
-
       return NextResponse.json({
         season: currentSeason,
         currentMatchday: data.season?.currentMatchday,
+        seasonNotStarted,
         winner: standings[0] || null,
         standings,
       });

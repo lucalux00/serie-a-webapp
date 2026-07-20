@@ -94,23 +94,12 @@ export default function ClassifichePage() {
       const res = await fetch(url);
       const data = await res.json();
       
-      if (data.error === 'season_not_started') {
-        setSeasonNotStarted(true);
-        setSeason(data.season || '');
-        // Auto-load la stagione precedente
-        const prevYear = parseInt(data.season?.split('/')[0] || '2025') - 1;
-        const prevRes = await fetch(`/api/classifiche?league=${lkey || activeLeague}&type=standings&season=${prevYear}`);
-        const prevData = await prevRes.json();
-        setStandings(prevData.standings || []);
-        setSeason(prevData.season || '');
-        if (prevData.currentMatchday) setCurrentMatchday(prevData.currentMatchday);
-      } else {
-        setStandings(data.standings || []);
-        setSeason(data.season || '');
-        if (data.currentMatchday) {
-          setCurrentMatchday(data.currentMatchday);
-          setDisplayMatchday(data.currentMatchday);
-        }
+      setStandings(data.standings || []);
+      setSeason(data.season || '');
+      if (data.seasonNotStarted) setSeasonNotStarted(true);
+      if (data.currentMatchday) {
+        setCurrentMatchday(data.currentMatchday);
+        setDisplayMatchday(data.currentMatchday);
       }
     } catch (e: any) {
       setError('Impossibile caricare la classifica.');
@@ -162,6 +151,7 @@ export default function ClassifichePage() {
     setStandings([]); setMatches([]); setScorers([]); setSeasons([]);
     setExpandedTeam(null);
     setCurrentMatchday(1); setDisplayMatchday(1);
+    setSeasonNotStarted(false);
     setViewMode('standings');
     fetchStandings(activeLeague);
   }, [activeLeague]);
@@ -321,6 +311,17 @@ export default function ClassifichePage() {
                     DATI REALI
                   </div>
                 </div>
+
+                {/* Banner pre-stagione */}
+                {seasonNotStarted && (
+                  <div className="mx-4 mt-3 mb-1 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-xl px-4 py-3 flex items-start gap-3">
+                    <span className="text-xl">🏁</span>
+                    <div>
+                      <p className="text-xs font-black text-[#F59E0B] uppercase tracking-wider">Stagione {season} – Non ancora iniziata</p>
+                      <p className="text-[11px] text-[#94A3B8] mt-0.5">Il calendario è disponibile. I punti si aggiorneranno automaticamente al fischio d'inizio della prima giornata.</p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Legend */}
                 <div className="px-4 py-2 border-b border-[#334155]/50 flex gap-4 text-[9px] font-bold uppercase text-[#64748B]">
