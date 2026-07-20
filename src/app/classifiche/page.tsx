@@ -158,7 +158,10 @@ export default function ClassifichePage() {
 
   // View changes
   useEffect(() => {
-    if (viewMode === 'calendar') fetchMatches(displayMatchday);
+    if (viewMode === 'calendar') {
+      setDisplayMatchday(currentMatchday);
+      fetchMatches(currentMatchday);
+    }
     if (viewMode === 'scorers' && scorers.length === 0) fetchScorers();
     if (viewMode === 'history' && seasons.length === 0) fetchSeasons();
   }, [viewMode]);
@@ -203,13 +206,21 @@ export default function ClassifichePage() {
           {!compact && <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">N</th>}
           {!compact && <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden sm:table-cell">P</th>}
           <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden md:table-cell">GD</th>
+          {!compact && <th className="px-2 py-2 font-bold text-center text-[#64748B] hidden lg:table-cell">Forma</th>}
         </tr>
       </thead>
       <tbody>
         {rows.map((team) => {
           const zone = getZoneColor(team.pos);
           return (
-            <tr key={team.teamId || team.pos} className={`border-b border-[#334155]/30 ${zone.bg} hover:bg-[#334155]/20 transition-colors`}>
+            <tr 
+              key={team.teamId || team.pos} 
+              onClick={() => {
+                const t = ALL_TEAMS.find(x => x.name.toLowerCase() === team.team.toLowerCase() || team.team.toLowerCase().includes(x.name.toLowerCase()));
+                if (t) router.push(`/squadra/${t.id}`);
+              }}
+              className={`border-b border-[#334155]/30 ${zone.bg} hover:bg-[#334155]/40 transition-colors cursor-pointer`}
+            >
               <td className="px-3 py-2.5 text-center">
                 <div className="flex items-center justify-center gap-1">
                   <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: zone.dot }} />
@@ -231,6 +242,17 @@ export default function ClassifichePage() {
               <td className={`px-2 py-2.5 text-center text-xs font-bold hidden md:table-cell ${team.gd > 0 ? 'text-[#10B981]' : team.gd < 0 ? 'text-[#EF4444]' : 'text-[#94A3B8]'}`}>
                 {team.gd > 0 ? '+' : ''}{team.gd}
               </td>
+              {!compact && (
+                <td className="px-2 py-2.5 text-center hidden lg:table-cell">
+                  <div className="flex items-center justify-center gap-1">
+                    {team.form?.split(',').map((r: string, i: number) => (
+                      <div key={i} className={`w-3.5 h-3.5 rounded-sm text-[9px] flex items-center justify-center font-black text-white ${
+                        r === 'W' ? 'bg-[#10B981]' : r === 'D' ? 'bg-[#F59E0B]' : 'bg-[#EF4444]'
+                      }`}>{r === 'W' ? 'V' : r === 'D' ? 'N' : 'P'}</div>
+                    ))}
+                  </div>
+                </td>
+              )}
             </tr>
           );
         })}
