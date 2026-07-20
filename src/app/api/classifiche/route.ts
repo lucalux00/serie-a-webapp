@@ -38,14 +38,47 @@ export async function GET(request: Request) {
 
   try {
     if (type === 'standings') {
-      const seasonParam = season ? `?season=${season}` : '';
-      // Stagioni storiche: cache 24h. Stagione corrente: cache 5 min per restare aggiornati.
-      const cacheSeconds = season ? 86400 : 300;
-      const data = await fetchFromApi(`/competitions/${leagueCode}/standings${seasonParam}`, cacheSeconds);
+      let targetSeason = season;
+      if (!targetSeason) {
+        // Seleziona automaticamente la stagione corrente in base al mese (luglio in poi = anno corrente)
+        const date = new Date();
+        const year = date.getFullYear();
+        targetSeason = date.getMonth() >= 6 ? year.toString() : (year - 1).toString();
+      }
 
-      const allStandings = data.standings?.[0]?.table || [];
-      const totalPoints = allStandings.reduce((sum: number, t: any) => sum + t.points, 0);
-      // Se tutti hanno 0 punti (stagione non ancora iniziata) segnalalo al frontend
+      const cacheSeconds = season ? 86400 : 300;
+      let data: any = {};
+      let allStandings: any[] = [];
+      let totalPoints = 0;
+
+      try {
+        data = await fetchFromApi(`/competitions/${leagueCode}/standings?season=${targetSeason}`, cacheSeconds);
+        allStandings = data.standings?.[0]?.table || [];
+        totalPoints = allStandings.reduce((sum: number, t: any) => sum + t.points, 0);
+      } catch (err: any) {
+        console.warn(`[classifiche API] Impossibile caricare standings per stagione ${targetSeason}: ${err.message}. Genero classifica vuota.`);
+      }
+
+      // Se la classifica è vuota (sia per errore, sia perché l'API la ritorna vuota)
+      if (allStandings.length === 0) {
+        try {
+          const teamsData = await fetchFromApi(`/competitions/${leagueCode}/teams?season=${targetSeason}`, 86400);
+          allStandings = (teamsData.teams || []).map((t: any, index: number) => ({
+            position: index + 1,
+            team: { id: t.id, name: t.name, crest: t.crest },
+            points: 0,
+            playedGames: 0,
+            won: 0, draw: 0, lost: 0,
+            goalsFor: 0, goalsAgainst: 0, goalDifference: 0,
+            form: null,
+          }));
+          totalPoints = 0;
+          data.season = { startDate: `${targetSeason}-08-15`, endDate: `${Number(targetSeason)+1}-05-30` }; // dummy dates
+        } catch (teamErr: any) {
+          console.error(`[classifiche API] Errore nel caricare i team per stagione ${targetSeason}:`, teamErr.message);
+        }
+      }
+
       const seasonNotStarted = !season && totalPoints === 0;
 
       const standings = allStandings.map((t: any) => ({
@@ -66,11 +99,11 @@ export async function GET(request: Request) {
 
       const currentSeason = data.season?.startDate 
         ? `${new Date(data.season.startDate).getFullYear()}/${String(new Date(data.season.endDate).getFullYear()).slice(2)}`
-        : '2025/26';
+        : `${targetSeason}/${String(Number(targetSeason)+1).slice(2)}`;
 
       return NextResponse.json({
         season: currentSeason,
-        currentMatchday: data.season?.currentMatchday,
+        currentMatchday: data.season?.currentMatchday || 1,
         seasonNotStarted,
         winner: standings[0] || null,
         standings,
