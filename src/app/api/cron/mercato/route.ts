@@ -72,7 +72,12 @@ const LEAGUE_FEEDS: Array<{ league: string; feeds: string[] }> = [
 ];
 
 // Prompt per estrarre trasferimenti da titoli RSS
-function buildPrompt(titles: string[], league: string): string {
+interface ArticleEntry {
+  title: string;
+  snippet?: string;
+}
+
+function buildPrompt(articles: ArticleEntry[], league: string): string {
   const leagueCtx =
     league === 'A' ? 'Serie A italiana' :
     league === 'B' ? 'Serie B italiana' :
@@ -80,15 +85,20 @@ function buildPrompt(titles: string[], league: string): string {
     league === 'LL' ? 'La Liga spagnola' :
     league === 'BL' ? 'Bundesliga tedesca' : 'Ligue 1 francese';
 
-  return `Estrai trasferimenti calcistici da questi titoli di notizie sulla ${leagueCtx}.
+  const articlesText = articles.map((a, i) =>
+    `[${i + 1}] ${a.title}${a.snippet ? `\n    → ${a.snippet.substring(0, 150)}` : ''}`
+  ).join('\n');
+
+  return `Estrai trasferimenti calcistici da questi articoli sulla ${leagueCtx}.
 Ignora notizie non relative a trasferimenti di giocatori.
 
-Titoli:
-${titles.join('\n')}
+Articoli:
+${articlesText}
 
 Rispondi SOLO con JSON array (nessun testo aggiuntivo):
-[{"player":"Nome Giocatore","team_id":"id-squadra-slug","league":"${league}","type":"Acquisto|Cessione|Prestito","other_team":"Club controparte","status":"Ufficiale|Rumor","fee":"importo o N/D"}]
+[{"player":"Nome Giocatore","team_id":"id-squadra-slug","league":"${league}","type":"Acquisto|Cessione|Prestito","other_team":"Club controparte","status":"Ufficiale|Rumor","fee":"importo preciso se citato (es: '€45M', '30 milioni', '€12M + bonus') oppure N/D"}]
 
+IMPORTANTE per fee: se nell'articolo viene citata una cifra (anche approssimativa), estraila. Formattala come '€XM' o 'XM€' o 'circa €XM'.
 Per team_id usa slug minuscolo (es: "napoli", "milan", "juventus", "real-madrid", "barcelona", "manchester-city", "paris-saint-germain", "bayern-munich", "arsenal" ecc.).
 Se non riesci a identificare la squadra principale coinvolta, ometti quella voce.
 Restituisci [] se non ci sono trasferimenti chiari.`;
@@ -119,18 +129,24 @@ export async function GET(request: Request) {
     const leagueResults: Record<string, { aiCalled: boolean; inserted: number }> = {};
 
     for (const { league, feeds } of LEAGUE_FEEDS) {
-      // 1. Raccogli titoli da tutti i feed della lega
-      const titles: string[] = [];
+      // 1. Raccogli titoli + snippet da tutti i feed della lega
+      const articles: ArticleEntry[] = [];
       for (const feedUrl of feeds) {
         try {
           const feed = await parser.parseURL(feedUrl);
           feed.items.slice(0, 15).forEach((item) => {
-            if (item.title) titles.push(item.title.trim());
+            if (item.title) {
+              articles.push({
+                title: item.title.trim(),
+                snippet: (item.contentSnippet || item.content || '').replace(/<[^>]*>/g, '').trim().substring(0, 200) || undefined,
+              });
+            }
           });
         } catch (feedErr) {
           console.warn(`[cron/mercato] Feed error (${league}):`, feedErr);
         }
       }
+      const titles = articles.map(a => a.title);
 
       if (titles.length === 0) {
         leagueResults[league] = { aiCalled: false, inserted: 0 };
@@ -158,7 +174,7 @@ export async function GET(request: Request) {
 
       // 4. Chiama Gemini per estrarre i trasferimenti
       totalAiCalls++;
-      const transfers = await generateJSON<TransferItem[]>(buildPrompt(titles, league));
+      const transfers = await generateJSON<TransferItem[]>(buildPrompt(articles, league));
 
       // 5. Salva il log dell'hash
       await sql`

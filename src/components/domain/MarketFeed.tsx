@@ -55,6 +55,8 @@ function getAccentColor(type: string) {
 function TransferCard({ tr }: { tr: any }) {
   const isRumor = tr.status === 'Rumor';
   const accent  = isRumor ? '#F59E0B' : getAccentColor(tr.type);
+  const hasFee  = tr.fee && tr.fee !== 'N/D' && tr.fee !== '';
+  const hasDate = tr.date && tr.date !== '';
   const teamInfo = ALL_TEAMS.find(
     (t) =>
       t.id === tr.team_id ||
@@ -95,30 +97,61 @@ function TransferCard({ tr }: { tr: any }) {
         </div>
 
         {/* Giocatore */}
-        <div className="text-base font-black text-[var(--color-sport-text)] leading-tight mb-1 group-hover:text-white transition-colors">
+        <div className="text-base font-black text-[var(--color-sport-text)] leading-tight mb-2 group-hover:text-white transition-colors">
           {tr.player}
         </div>
 
-        {/* Footer */}
-        <div className="flex justify-between items-center text-xs mt-2">
-          <span className="text-[var(--color-sport-muted)]">
-            {tr['fromTo'] && tr['fromTo'] !== 'N/D' ? (
-              <>↔ <span className="text-[var(--color-sport-text)]/80">{tr['fromTo']}</span></>
-            ) : null}
-          </span>
-          <span className="font-black" style={{ color: accent }}>
-            {tr.fee && tr.fee !== 'N/D' ? tr.fee : ''}
-          </span>
-        </div>
-        {tr.date && (
-          <div className="text-[9px] text-[var(--color-sport-muted)] text-right mt-1 font-bold uppercase tracking-wider">
-            {tr.date}
+        {/* Provenienza/destinazione */}
+        {tr['fromTo'] && tr['fromTo'] !== 'N/D' && (
+          <div className="text-xs text-[var(--color-sport-muted)] mb-2 flex items-center gap-1">
+            <span style={{ color: accent }}>↔</span>
+            <span className="text-[var(--color-sport-text)]/70 font-medium">{tr['fromTo']}</span>
+          </div>
+        )}
+
+        {/* Fee + Data — riga ben visibile */}
+        {(hasFee || hasDate) && (
+          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/5">
+            {/* Fee / Cifra */}
+            {hasFee ? (
+              <div className="flex items-center gap-1.5">
+                <div
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black border"
+                  style={{
+                    backgroundColor: accent + '18',
+                    color: accent,
+                    borderColor: accent + '40',
+                  }}
+                >
+                  <span className="text-[11px]">€</span>
+                  {tr.fee}
+                </div>
+                {isRumor && (
+                  <span className="text-[9px] font-bold text-[var(--color-sport-muted)] uppercase tracking-wider">
+                    stimata
+                  </span>
+                )}
+              </div>
+            ) : (
+              <div className="text-[10px] text-[var(--color-sport-muted)] font-medium italic">
+                {isRumor ? 'Cifra non divulgata' : 'Quota non comunicata'}
+              </div>
+            )}
+
+            {/* Data */}
+            {hasDate && (
+              <div className="flex items-center gap-1 text-[9px] font-bold text-[var(--color-sport-muted)] uppercase tracking-wider">
+                <span>📅</span>
+                {tr.date}
+              </div>
+            )}
           </div>
         )}
       </div>
     </div>
   );
 }
+
 
 export default function MarketFeed() {
   const [leagueTab,   setLeagueTab]   = useState<LeagueKey>('A');

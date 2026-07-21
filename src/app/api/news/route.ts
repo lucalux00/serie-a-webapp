@@ -3,6 +3,10 @@ import { sql } from '@vercel/postgres';
 
 export const dynamic = 'force-dynamic';
 
+// Soglia: aggiorna le news se l'ultima inserita ha più di 30 minuti
+// (evita loop di richieste e rispetta i rate limit dei feed RSS)
+const UPDATE_INTERVAL_MS = 30 * 60 * 1000; // 30 minuti
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -14,34 +18,40 @@ export async function GET(request: Request) {
     const offset = (page - 1) * limit;
 
     // --- LAZY CRON LOGIC ---
-    // Poiché Vercel Hobby non permette cron ogni 5 minuti, aggiorniamo "pigramente" 
-    // se non ci sono nuove notizie da più di 5 minuti.
+    // Il cron Vercel gira ogni ora (0 * * * *), ma come fallback
+    // triggeriamo anche l'aggiornamento pigro se sono passati 30 minuti.
     try {
       const { rows: latest } = await sql`SELECT created_at FROM news ORDER BY created_at DESC LIMIT 1`;
       let shouldUpdate = false;
-      
+
       if (latest.length === 0) {
         shouldUpdate = true;
       } else {
         const lastDate = new Date(latest[0].created_at).getTime();
         const now = Date.now();
-        if (now - lastDate > 5 * 60 * 1000) { // 5 minuti
+        if (now - lastDate > UPDATE_INTERVAL_MS) {
           shouldUpdate = true;
         }
       }
 
       if (shouldUpdate) {
-        // Avviamo l'aggiornamento in background senza bloccare la risposta
-        // (Next.js Edge/Serverless lo esegue "best-effort")
-        fetch(new URL('/api/cron/news', request.url).toString()).catch(e => console.error("Lazy cron error", e));
+        // Fire-and-forget con auth header corretto.
+        // NOTA: passiamo il CRON_SECRET — senza di esso la cron route risponde 401.
+        const cronUrl = new URL('/api/cron/news', request.url).toString();
+        const cronSecret = process.env.CRON_SECRET;
+        fetch(cronUrl, {
+          method: 'GET',
+          headers: cronSecret ? { 'Authorization': `Bearer ${cronSecret}` } : {},
+        }).catch(e => console.error('[lazy-cron] Errore richiesta news:', e));
       }
     } catch (lazyError) {
-      console.warn("Lazy cron check failed", lazyError);
+      // Non blocca la risposta principale
+      console.warn('[lazy-cron] Check fallito:', lazyError);
     }
     // --- END LAZY CRON ---
 
     let query;
-    let teamFilter = team ? `%${team}%` : null;
+    const teamFilter = team ? `%${team}%` : null;
 
     if (type && status && team) {
       query = sql`
