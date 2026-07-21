@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
-import LoginPage from '@/components/domain/LoginPage';
+import { SubscriptionProvider } from '@/contexts/SubscriptionContext';
 import Header from '@/components/layout/Header';
 import BottomNav from '@/components/layout/BottomNav';
+import BannerStrip from '@/components/layout/BannerStrip';
 import CookieConsent from '@/components/layout/CookieConsent';
 import NewsTicker from '@/components/layout/NewsTicker';
 import { getTeamColors } from '@/utils/teamColors';
@@ -40,6 +41,8 @@ function AppContent({ children }: { children: React.ReactNode }) {
       <main className="min-h-screen pt-[120px] pb-8">
         {children}
       </main>
+      {/* Banner non-invasivo: appare sopra la BottomNav dopo 3s, max 1 per sessione */}
+      <BannerStrip />
       <NewsTicker />
       <CookieConsent />
     </div>
@@ -49,7 +52,9 @@ function AppContent({ children }: { children: React.ReactNode }) {
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
-      <AppContent>{children}</AppContent>
+      <SubscriptionProvider>
+        <AppContent>{children}</AppContent>
+      </SubscriptionProvider>
     </AuthProvider>
   );
 }

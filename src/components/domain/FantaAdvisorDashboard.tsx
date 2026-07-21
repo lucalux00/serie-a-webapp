@@ -2,12 +2,64 @@
 
 import React from 'react';
 import useSWR from 'swr';
-import { Cpu, Shield, AlertTriangle, TrendingUp, TrendingDown, Info, Loader2 } from 'lucide-react';
+import { Cpu, Shield, AlertTriangle, TrendingUp, TrendingDown, Info, Loader2, Lock, BarChart3, BrainCircuit, Zap } from 'lucide-react';
+import PremiumPaywall from '@/components/ui/PremiumPaywall';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
+// Componente demo delle stat premium (sfocato in background)
+function PremiumPreviewBlur() {
+  return (
+    <div className="relative rounded-2xl overflow-hidden">
+      {/* Contenuto demo sfocato */}
+      <div className="blur-sm pointer-events-none select-none space-y-3 opacity-70">
+        <div className="bg-[#1E293B] p-4 rounded-xl border border-[#334155]">
+          <div className="flex items-center gap-2 mb-3">
+            <BrainCircuit size={16} className="text-indigo-400" />
+            <span className="text-white font-black text-sm">Predizione Rendimento AI</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {['Martinez', 'Theo', 'Barella'].map(n => (
+              <div key={n} className="bg-[#0f172a] rounded-lg p-2 text-center">
+                <p className="text-xs text-[#94A3B8]">{n}</p>
+                <p className="text-[#10B981] font-black">7.{Math.floor(Math.random() * 5) + 1}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-[#1E293B] p-4 rounded-xl border border-[#334155]">
+          <div className="flex items-center gap-2 mb-3">
+            <BarChart3 size={16} className="text-purple-400" />
+            <span className="text-white font-black text-sm">Heat Map Forma Recente</span>
+          </div>
+          <div className="flex gap-1">
+            {[8, 6, 7, 5, 9, 7, 6, 8, 7, 9].map((v, i) => (
+              <div key={i} className="flex-1 rounded" style={{ height: 32, backgroundColor: `rgba(16,185,129,${v / 10})` }} />
+            ))}
+          </div>
+        </div>
+        <div className="bg-[#1E293B] p-4 rounded-xl border border-[#334155]">
+          <div className="flex items-center gap-2 mb-2">
+            <Zap size={16} className="text-[#F59E0B]" />
+            <span className="text-white font-black text-sm">Capitano Consigliato AI</span>
+          </div>
+          <p className="text-2xl font-black text-[#F59E0B]">Lautaro M.</p>
+          <p className="text-xs text-[#94A3B8]">Score predetto: 8.4 — Avversario debole in trasferta</p>
+        </div>
+      </div>
+
+      {/* Overlay lock */}
+      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/60 to-transparent">
+        <Lock className="text-[#F59E0B] w-10 h-10 drop-shadow-lg" />
+      </div>
+    </div>
+  );
+}
+
 export default function FantaAdvisorDashboard() {
   const { data, error, isLoading } = useSWR('/api/fantacalcio/advisor', fetcher);
+  const { isPremium } = useSubscription();
 
   if (isLoading) {
     return (
@@ -132,6 +184,41 @@ export default function FantaAdvisorDashboard() {
         )}
       </div>
 
+      {/* ==================== SEZIONE PREMIUM ==================== */}
+      <div className="relative">
+        {/* Divisore premium */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#F59E0B]/30 to-transparent" />
+          <div className="flex items-center gap-1.5 bg-[#F59E0B]/10 border border-[#F59E0B]/20 px-3 py-1.5 rounded-full">
+            <Shield size={12} className="text-[#F59E0B]" />
+            <span className="text-[10px] font-black text-[#F59E0B] uppercase tracking-widest">AI Pro</span>
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#F59E0B]/30 to-transparent" />
+        </div>
+
+        {isPremium ? (
+          // Contenuto premium sbloccato (placeholder per ora)
+          <div className="bg-[#1E293B] border border-[#F59E0B]/20 rounded-2xl p-6 text-center space-y-2">
+            <Zap className="w-8 h-8 text-[#F59E0B] mx-auto" />
+            <p className="text-white font-black">Sei un utente Pro! 🎉</p>
+            <p className="text-[#94A3B8] text-sm">Le statistiche avanzate AI saranno disponibili presto.</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {/* Preview sfocata */}
+            <PremiumPreviewBlur />
+            {/* Paywall */}
+            <PremiumPaywall
+              planName="AI Pro"
+              price="€0,99"
+              priceLabel="/ mese"
+              ctaLabel="Sblocca AI Pro"
+            />
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
+
