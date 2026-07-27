@@ -34,11 +34,26 @@ function normalizeTeamId(teamName: string): string | null {
   return null;
 }
 
+function shouldRunCron(): boolean {
+  const italianTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Rome' }));
+  const hour = italianTime.getHours();
+  // Runs only 7 AM - midnight (7:00 - 23:59)
+  return hour >= 7 && hour < 24;
+}
+
 export async function GET(request: Request) {
-  // Verifica se è una chiamata Vercel Cron (opzionale per test locale)
+  // Verifica se è una chiamata Vercel Cron
   const authHeader = request.headers.get('authorization');
   if (process.env.VERCEL_ENV === 'production' && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     // return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  if (!shouldRunCron()) {
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Outside business hours (7 AM - midnight)', 
+      timestamp: new Date().toISOString() 
+    });
   }
 
   if (!process.env.GEMINI_API_KEY) {
@@ -55,11 +70,24 @@ export async function GET(request: Request) {
     const result = await parseStringPromise(xml);
     const items = result?.rss?.channel?.[0]?.item || [];
     
+    // Se non ci sono notizie, non consumare token Gemini
+    if (!items || items.length === 0) {
+      return NextResponse.json({ 
+        success: true, 
+        message: 'No news found - skipped Gemini call to save tokens',
+        transfersInserted: 0 
+      });
+    }
+
     // Prendiamo i primi 15 titoli più recenti
     const newsTexts = items.slice(0, 15).map((item: any) => item.title?.[0]).join('\\n- ');
 
     if (!newsTexts.trim()) {
-      return NextResponse.json({ message: 'Nessuna news trovata' });
+      return NextResponse.json({ 
+        success: true, 
+        message: 'Empty news - skipped Gemini call to save tokens',
+        transfersInserted: 0 
+      });
     }
 
     // 2. Chiamata a Gemini per estrarre i trasferimenti
@@ -143,7 +171,9 @@ export async function GET(request: Request) {
     return NextResponse.json({ 
       success: true, 
       message: `Processato con successo. Righe inserite: ${insertedCount}`,
-      data: transfersExtracted 
+      transfersInserted: insertedCount,
+      transfersFound: transfersExtracted.length,
+      timestamp: new Date().toISOString()
     });
 
   } catch (error: any) {
