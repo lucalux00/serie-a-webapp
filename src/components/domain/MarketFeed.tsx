@@ -73,10 +73,16 @@ export default function MarketFeed() {
       </div>
       
       <div className="pl-2">
-        <div className="text-lg font-black text-[#F8FAFC] leading-tight mb-1">{tr.player}</div>
-        <div className="flex justify-between items-center text-xs">
-          <span className="text-[#94A3B8] font-medium">{tr.fromTo}</span>
-          <span className="font-bold text-[#10B981]">{tr.fee}</span>
+        <div className="text-lg font-black text-[#F8FAFC] leading-tight mb-2">{tr.player}</div>
+        <div className="space-y-1">
+          <div className="flex justify-between items-center text-xs">
+            <span className="text-[#94A3B8] font-medium">{tr.fromTo}</span>
+            <span className="font-bold text-[#10B981]">{tr.fee || 'N/D'}</span>
+          </div>
+          <div className="flex justify-between items-center text-xs">
+            <span className="text-[#94A3B8] font-medium">Stipendio</span>
+            <span className="font-bold text-[#F59E0B]">{tr.salary || 'Non specificato'}</span>
+          </div>
         </div>
       </div>
       <div className="absolute bottom-2 right-4 text-[9px] text-[#64748B] font-bold uppercase">{tr.date}</div>
@@ -214,10 +220,18 @@ export default function MarketFeed() {
                           </span>
                         </div>
                         <div className="pl-2">
-                          <div className="text-xl font-black text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
-                          <div className="flex justify-between items-center text-xs mt-2">
-                            <span className="text-[#94A3B8] font-medium">Da/A: <span className="text-white font-bold">{r.from}</span></span>
-                            <span className="font-black text-[#10B981]">{r.fee}</span>
+                          <div className="text-xl font-black text-[#F8FAFC] leading-tight mb-2">{r.player}</div>
+                          <div className="space-y-1">
+                            <div className="flex justify-between items-center text-xs">
+                              <span className="text-[#94A3B8] font-medium">Da/A: <span className="text-white font-bold">{r.from}</span></span>
+                              <span className="font-black text-[#10B981]">{r.fee || 'N/D'}</span>
+                            </div>
+                            {r.salary && (
+                              <div className="flex justify-between items-center text-xs">
+                                <span className="text-[#94A3B8] font-medium">Stipendio</span>
+                                <span className="font-bold text-[#F59E0B]">{r.salary}</span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -253,9 +267,17 @@ export default function MarketFeed() {
                             </div>
                             <div className="pl-2">
                               <div className="text-lg font-black text-[#F8FAFC] leading-tight mb-1">{r.player}</div>
-                              <div className="flex justify-between items-center text-xs">
-                                <span className="text-[#94A3B8] font-medium">Da/A: {r.from}</span>
-                                <span className="font-bold text-[#F59E0B]">{r.fee}</span>
+                              <div className="space-y-1">
+                                <div className="flex justify-between items-center text-xs">
+                                  <span className="text-[#94A3B8] font-medium">Da/A: {r.from}</span>
+                                  <span className="font-bold text-[#F59E0B]">{r.fee || 'N/D'}</span>
+                                </div>
+                                {r.salary && (
+                                  <div className="flex justify-between items-center text-xs">
+                                    <span className="text-[#94A3B8] font-medium">Stipendio</span>
+                                    <span className="font-bold text-[#F59E0B]">{r.salary}</span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
