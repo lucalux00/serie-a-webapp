@@ -94,21 +94,23 @@ export async function GET(request: Request) {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     
     const prompt = `
-      Sei un esperto giornalista di calciomercato. Leggi i seguenti titoli di giornale e identifica SOLO i trasferimenti UFFICIALI e CONCLUSI tra squadre di Serie A o verso la Serie A per la stagione estiva.
+      Sei un esperto giornalista di calciomercato italiano. Leggi i seguenti titoli di giornale e estrai ESATTAMENTE i trasferimenti UFFICIALI e CONCLUSI.
       
-      Regole:
-      - Estrai SOLO transazioni realmente concluse/ufficiali menzionate nei titoli.
-      - Se il costo del cartellino non è specificato, scrivi "Dettagli non noti" o stima in base alla fama (es. "Svincolato", "Prestito").
-      - Se lo stipendio non è specificato, usa la stringa "Non specificato".
+      REGOLE OBBLIGATORIE:
+      1. Estrai SOLO transazioni realmente UFFICIALI (non rumors).
+      2. Per fee: stima sempre un valore anche se non specificato (usa formati: "10M €", "5M €", "Gratuito", "Prestito").
+      3. Per salary: dai SEMPRE un valore annuale (usa formati: "2,5M €/anno", "3M €/anno", "Non specificato").
+      4. Se è un prestito, scrivi "Prestito" o "Prestito oneroso" come fee.
+      5. Se lo stipendio non è menzionato, stima basato sulla squadra e fama del giocatore (es. "1,5M €/anno" per giocatori giovani Serie A).
       
-      Rispondi ESATTAMENTE E SOLO con un JSON Array valido con questa struttura (niente markdown o backticks extra, solo il raw JSON array):
+      Rispondi SOLO con un JSON Array valido (niente markdown, niente backticks):
       [
         {
           "player": "Nome Giocatore",
-          "buying_team": "Nome Squadra che Compra (es. Napoli)",
-          "selling_team": "Nome Squadra che Vende (es. Inter)",
-          "fee": "Costo (es. 30M € o Gratuito)",
-          "salary": "Stipendio (es. 5M €/anno)",
+          "buying_team": "Napoli",
+          "selling_team": "Inter",
+          "fee": "30M €",
+          "salary": "3,5M €/anno",
           "date": "Oggi"
         }
       ]
@@ -128,8 +130,35 @@ export async function GET(request: Request) {
       rawJson = rawJson.replace(/```json/g, '').replace(/```/g, '').trim();
     }
     
-    const transfersExtracted = JSON.parse(rawJson);
+    let transfersExtracted: any[] = [];
+    try {
+      transfersExtracted = JSON.parse(rawJson);
+      if (!Array.isArray(transfersExtracted)) {
+        transfersExtracted = [];
+      }
+    } catch {
+      console.warn('Failed to parse Gemini response:', rawJson);
+      transfersExtracted = [];
+    }
+
     let insertedCount = 0;
+
+    // Funzione per normalizzare fee/salary
+    const normalizeFee = (fee: string | null): string => {
+      if (!fee) return 'N/D';
+      const f = fee.trim();
+      if (f.toLowerCase().includes('prestito')) return 'Prestito';
+      if (f.toLowerCase().includes('gratuito') || f.toLowerCase().includes('svincolato')) return 'Gratuito';
+      if (f.includes('€') || f.includes('M')) return f;
+      return f || 'N/D';
+    };
+
+    const normalizeSalary = (salary: string | null): string => {
+      if (!salary) return 'Non specificato';
+      const s = salary.trim();
+      if (s.includes('€') || s.includes('M') || s.includes('anno')) return s;
+      return s || 'Non specificato';
+    };
 
     // 3. Salvataggio nel database bidirezionale
     for (const t of transfersExtracted) {
@@ -138,18 +167,19 @@ export async function GET(request: Request) {
       const buyerId = normalizeTeamId(t.buying_team);
       const sellerId = normalizeTeamId(t.selling_team);
 
-      const fee = t.fee || 'N/D';
-      const salary = t.salary || 'Non specificato';
+      const fee = normalizeFee(t.fee);
+      const salary = normalizeSalary(t.salary);
       const dateLabel = t.date || 'Oggi';
 
       // Insert per il BUYER (Acquisto)
       if (buyerId) {
-        // Controllo duplicato (se c'è già un acquisto per questo giocatore e questo team)
+        // Controllo duplicato
         const checkBuyer = await sql`SELECT id FROM transfers WHERE team_id = ${buyerId} AND player ILIKE ${'%' + t.player + '%'} AND type = 'acquisto'`;
         if (checkBuyer.rowCount === 0) {
           await sql`
             INSERT INTO transfers (team_id, type, player, other_team, fee, salary, date, status)
             VALUES (${buyerId}, 'acquisto', ${t.player}, ${t.selling_team || 'Svincolato'}, ${fee}, ${salary}, ${dateLabel}, 'Ufficiale')
+            ON CONFLICT DO NOTHING
           `;
           insertedCount++;
         }
@@ -162,6 +192,7 @@ export async function GET(request: Request) {
           await sql`
             INSERT INTO transfers (team_id, type, player, other_team, fee, salary, date, status)
             VALUES (${sellerId}, 'cessione', ${t.player}, ${t.buying_team || 'Svincolato'}, ${fee}, ${salary}, ${dateLabel}, 'Ufficiale')
+            ON CONFLICT DO NOTHING
           `;
           insertedCount++;
         }
