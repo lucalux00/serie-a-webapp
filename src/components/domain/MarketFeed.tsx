@@ -8,7 +8,7 @@ import { TEAM_RUMORS } from '@/data/rumors';
 
 export default function MarketFeed() {
   const [leagueTab, setLeagueTab] = useState<'A' | 'B' | 'PL' | 'LL'>('A');
-  const [filterTab, setFilterTab] = useState<'acquisti' | 'prestiti' | 'svincolati' | 'trattative'>('acquisti');
+  const [filterTab, setFilterTab] = useState<'acquisti' | 'prestiti' | 'svincolati' | 'trattative' | 'by-team'>('acquisti');
   const [searchQuery, setSearchQuery] = useState('');
   const [liveData, setLiveData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -123,7 +123,8 @@ export default function MarketFeed() {
           { id: 'acquisti', label: 'Acquisti' },
           { id: 'prestiti', label: 'Prestiti' },
           { id: 'svincolati', label: 'Svincolati' },
-          { id: 'trattative', label: 'Trattative' }
+          { id: 'trattative', label: 'Trattative' },
+          { id: 'by-team', label: 'Per Squadra' }
         ].map(tab => (
           <button
             key={tab.id}
@@ -302,6 +303,47 @@ export default function MarketFeed() {
                 </div>
               </div>
             </section>
+            );
+          })()}
+
+          {filterTab === 'by-team' && (() => {
+            // Raggruppa i trasferimenti per squadra
+            const byTeam = new Map<string, any[]>();
+            currentData.forEach(transfer => {
+              const team = transfer.team;
+              if (!byTeam.has(team)) {
+                byTeam.set(team, []);
+              }
+              byTeam.get(team)!.push(transfer);
+            });
+
+            // Ordina le squadre alfabeticamente
+            const sortedTeams = Array.from(byTeam.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+
+            return (
+              <section className="space-y-6">
+                <h2 className="flex items-center text-[#10B981] font-black text-sm uppercase tracking-widest mb-4 border-b border-[#334155] pb-2">
+                  <CheckCircle2 size={16} className="mr-2" /> Trasferimenti per Squadra
+                </h2>
+
+                {sortedTeams.length > 0 ? (
+                  <div className="space-y-8">
+                    {sortedTeams.map(([teamName, transfers]) => (
+                      <div key={teamName} className="space-y-3">
+                        <div className="flex items-center space-x-2 px-2 py-2 bg-[#0F172A] rounded-lg border-l-4 border-[#10B981]">
+                          <span className="font-black text-lg text-[#F8FAFC]">{teamName}</span>
+                          <span className="text-xs font-bold bg-[#10B981]/20 text-[#10B981] px-2 py-1 rounded">{transfers.length} trasferimenti</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-2">
+                          {transfers.map(tr => renderTransferCard(tr))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-sm text-[#64748B]">Nessun trasferimento trovato per il filtro selezionato.</div>
+                )}
+              </section>
             );
           })()}
         </motion.div>
