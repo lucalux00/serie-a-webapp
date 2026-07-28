@@ -1,7 +1,7 @@
 /**
  * GET /api/pronostici/odierni
  *
- * Restituisce i pronostici AI per i prossimi 3 giorni.
+ * Restituisce i pronostici AI per i prossimi 14 giorni.
  *
  * LAZY CRON (fixed):
  * - Attiva il cron pronostici solo se NON esistono già partite future nel DB
@@ -57,7 +57,7 @@ export async function GET(request: Request) {
     }
     // ── FINE LAZY CRON ────────────────────────────────────────────────────
 
-    // Restituisci i pronostici per i prossimi 3 giorni
+    // Una finestra più ampia evita una pagina vuota nei giorni senza partite imminenti.
     const { rows } = await sql`
       SELECT
         match_id   AS id,
@@ -68,12 +68,12 @@ export async function GET(request: Request) {
         analysis
       FROM daily_ai_predictions
       WHERE match_date >= NOW()
-        AND match_date <= NOW() + INTERVAL '3 days'
+        AND match_date <= NOW() + INTERVAL '14 days'
       ORDER BY match_date ASC
       LIMIT 10
     `;
 
-    return NextResponse.json({ predictions: rows });
+    return NextResponse.json({ predictions: rows, windowDays: 14 });
 
   } catch (error: any) {
     console.error('[odierni] Errore:', error);

@@ -53,7 +53,7 @@ export default function NewsTicker() {
       }
     };
     loadNews();
-    const refresh = window.setInterval(loadNews, 300000);
+    const refresh = window.setInterval(loadNews, 60000);
     return () => {
       isActive = false;
       window.clearInterval(refresh);

@@ -18,6 +18,7 @@ import { sql } from '@vercel/postgres';
 import Parser from 'rss-parser';
 import { createHash } from 'crypto';
 import { generateJSON } from '@/lib/gemini';
+import { isOfficial, isSamePlayer } from '@/lib/transfers';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -176,26 +177,24 @@ export async function GET(request: Request) {
         if (t.player.trim().length > 60) continue;
         if (t.player.toLowerCase().includes('calciomercato')) continue;
 
-        // Check duplicato esatto
-        const { rows: existing } = await sql`
-          SELECT id FROM transfers
-          WHERE player = ${t.player}
-            AND team_id = ${t.team_id}
-            AND type = ${t.type}
-            AND (status = ${t.status} OR status = 'Ufficiale')
-          LIMIT 1
+        // Confronto tollerante: evita doppioni come "Jimenez" / "Álex Jiménez".
+        const { rows: candidates } = await sql`
+          SELECT id, player, status FROM transfers
+          WHERE team_id = ${t.team_id} AND type = ${t.type}
         `;
+        const existing = candidates.find((candidate) => isSamePlayer(candidate.player, t.player));
 
-        if (existing.length > 0) continue;
+        if (existing) {
+          // Una conferma ufficiale sostituisce il rumor; un rumor non degrada mai un dato ufficiale.
+          if (isOfficial(existing.status) && !isOfficial(t.status)) continue;
 
-        // Se arriva conferma ufficiale, rimuovi il rumor precedente
-        if (t.status === 'Ufficiale') {
           await sql`
-            DELETE FROM transfers
-            WHERE player = ${t.player}
-              AND team_id = ${t.team_id}
-              AND status = 'Rumor'
+            UPDATE transfers
+            SET league = ${t.league || league}, other_team = ${t.other_team || 'N/D'},
+                fee = ${t.fee || 'N/D'}, date = ${today}, status = ${t.status || 'Rumor'}
+            WHERE id = ${existing.id}
           `;
+          continue;
         }
 
         await sql`

@@ -24,8 +24,13 @@ function AppContent({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!isLoaded) {
-    return <div className="min-h-screen bg-[#0F172A] flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-[#10B981] border-t-transparent rounded-full animate-spin"></div>
+    return <div className="min-h-screen bg-[#0F172A] px-4 pt-6" aria-label="Caricamento dell'app">
+      <div className="mx-auto h-7 w-48 animate-pulse rounded bg-[#1E293B]" />
+      <div className="mt-6 h-16 animate-pulse rounded-xl border border-[#1E293B] bg-[#111C30]" />
+      <div className="mt-10 space-y-4">
+        <div className="h-5 w-28 animate-pulse rounded bg-[#1E293B]" />
+        <div className="h-36 animate-pulse rounded-3xl border border-[#1E293B] bg-[#111C30]" />
+      </div>
     </div>;
   }
 

@@ -1,19 +1,30 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
 
-const barlowCondensed = Barlow_Condensed({
-  variable: "--font-main",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Tattica & Pronostici",
-  description: "Il portale Mobile-First per il calcio italiano e pronostici algoritmici",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://webapp-two-nu-71.vercel.app'),
+  title: {
+    default: 'Tattica & Pronostici',
+    template: '%s | Tattica & Pronostici',
+  },
+  description: 'Analisi statistiche, calciomercato e dati sulle squadre di calcio: segui le competizioni e scopri i prossimi match.',
+  keywords: ['calcio', 'Serie A', 'pronostici statistici', 'calciomercato', 'fantacalcio', 'classifiche calcio'],
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    locale: 'it_IT',
+    url: '/',
+    siteName: 'Tattica & Pronostici',
+    title: 'Tattica & Pronostici',
+    description: 'Analisi statistiche, calciomercato e dati sulle squadre di calcio.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tattica & Pronostici',
+    description: 'Analisi statistiche, calciomercato e dati sulle squadre di calcio.',
+  },
+  robots: { index: true, follow: true },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -30,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="it" className="dark">
       <body
-        className={`${barlowCondensed.variable} antialiased bg-[#0F172A] text-[#F8FAFC]`}
+        className="antialiased bg-[#0F172A] text-[#F8FAFC]"
       >
         <ClientLayoutWrapper>
           {children}

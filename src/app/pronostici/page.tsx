@@ -183,8 +183,24 @@ export default function PronosticiPage() {
             ) : dailyPredictions.length === 0 ? (
               <div className="bg-[#1E293B] p-8 text-center rounded-2xl border border-[#334155]">
                 <CalendarClock className="w-12 h-12 text-[#64748B] mx-auto mb-3" />
-                <h3 className="text-white font-bold text-lg">Nessuna partita a breve</h3>
-                <p className="text-[#94A3B8] text-sm mt-2">I campionati supportati sono in pausa. Torna a visitare la pagina nei prossimi giorni.</p>
+                <h3 className="text-white font-bold text-lg">Nessun pronostico in calendario</h3>
+                <p className="text-[#94A3B8] text-sm mt-2 leading-relaxed">
+                  Non ci sono partite con analisi disponibili nei prossimi 14 giorni. Puoi comunque consultare le selezioni del modello oppure seguire il mercato.
+                </p>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <button
+                    onClick={() => setMainTab('mlops')}
+                    className="rounded-xl bg-[#10B981] px-4 py-3 text-sm font-black text-[#0B1120] transition-opacity hover:opacity-90"
+                  >
+                    Esplora le selezioni del modello
+                  </button>
+                  <a
+                    href="/mercato"
+                    className="rounded-xl border border-[#334155] px-4 py-3 text-sm font-black text-white transition-colors hover:bg-[#334155]"
+                  >
+                    Vai al calciomercato
+                  </a>
+                </div>
               </div>
             ) : (
               <div className="space-y-6">

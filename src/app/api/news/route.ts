@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 // Soglia: aggiorna le news se l'ultima inserita ha più di 30 minuti
 // (evita loop di richieste e rispetta i rate limit dei feed RSS)
-const UPDATE_INTERVAL_MS = 30 * 60 * 1000; // 30 minuti
+const UPDATE_INTERVAL_MS = 5 * 60 * 1000; // 5 minuti
 
 export async function GET(request: Request) {
   try {
@@ -35,6 +35,15 @@ export async function GET(request: Request) {
       }
 
       if (shouldUpdate) {
+        const { rows: lockRows } = await sql`
+          INSERT INTO cron_lock (job_name, created_at)
+          VALUES ('news', NOW())
+          ON CONFLICT (job_name) DO UPDATE SET created_at = NOW()
+          WHERE cron_lock.created_at < NOW() - INTERVAL '5 minutes'
+          RETURNING created_at
+        `;
+
+        if (lockRows.length > 0) {
         // Fire-and-forget con auth header corretto.
         // NOTA: passiamo il CRON_SECRET — senza di esso la cron route risponde 401.
         const cronUrl = new URL('/api/cron/news', request.url).toString();
@@ -43,6 +52,7 @@ export async function GET(request: Request) {
           method: 'GET',
           headers: cronSecret ? { 'Authorization': `Bearer ${cronSecret}` } : {},
         }).catch(e => console.error('[lazy-cron] Errore richiesta news:', e));
+        }
       }
     } catch (lazyError) {
       // Non blocca la risposta principale
