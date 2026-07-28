@@ -17,36 +17,37 @@ export default function Header() {
       localStorage.setItem('site_visitor_id', visitorId);
     }
 
-    const pingStats = async (isPageLoad: boolean) => {
+    const navigatorWithStandalone = navigator as Navigator & { standalone?: boolean };
+    const isInstalledApp = window.matchMedia('(display-mode: standalone)').matches || navigatorWithStandalone.standalone === true;
+    if (isInstalledApp) {
+      fetch('/api/stats/install', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visitorId }),
+      }).catch(() => undefined);
+    }
+
+    const pingStats = async () => {
       try {
         const res = await fetch('/api/stats', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId: visitorId, isNewSession: isPageLoad })
+          body: JSON.stringify({ visitorId })
         });
         const data = await res.json();
-        
-        // Traccia le visite (page views) per questo browser
-        let localVisits = parseInt(localStorage.getItem('my_extra_visits') || '0');
-        if (isPageLoad) {
-          localVisits++;
-          localStorage.setItem('my_extra_visits', localVisits.toString());
-        }
 
         if (data.online !== undefined) {
-          setStats({ online: data.online, total: data.total + localVisits });
+          setStats({ online: data.online, total: data.total });
         }
       } catch (e) {
         console.error('Stats ping error', e);
       }
     };
 
-    // Al mount del componente consideriamo sempre una nuova "page view" (visita)
-    pingStats(true);
+    pingStats();
     
     const interval = setInterval(() => {
-      // I ping successivi mantengono viva la sessione online, ma non aumentano il counter totale
-      pingStats(false);
+      pingStats();
     }, 30000);
 
     return () => clearInterval(interval);

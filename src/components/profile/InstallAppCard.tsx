@@ -32,7 +32,17 @@ export default function InstallAppCard() {
     await installPrompt.prompt();
     const choice = await installPrompt.userChoice;
     setInstallPrompt(null);
-    if (choice.outcome === 'accepted') setIsInstalled(true);
+    if (choice.outcome === 'accepted') {
+      setIsInstalled(true);
+      const visitorId = localStorage.getItem('site_visitor_id');
+      if (visitorId) {
+        fetch('/api/stats/install', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visitorId }),
+        }).catch(() => undefined);
+      }
+    }
   };
 
   if (isInstalled) return null;

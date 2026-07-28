@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check, Palette } from 'lucide-react';
 import Link from 'next/link';
 import useSWR from 'swr';
+import AdminStatsPanel from '@/components/admin/AdminStatsPanel';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -168,6 +169,8 @@ export default function AdminPage() {
             Brand Kit
           </Link>
         </div>
+
+        <AdminStatsPanel />
 
         <div className="flex space-x-2 mb-6">
           <button 
