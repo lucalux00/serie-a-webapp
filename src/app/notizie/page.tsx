@@ -9,6 +9,24 @@ import Link from 'next/link';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
+function formatPublicationDate(pubDate: string, time: string) {
+  const date = new Date(pubDate);
+  if (Number.isNaN(date.getTime())) return time || 'Data non disponibile';
+
+  const formattedDate = new Intl.DateTimeFormat('it-IT', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(date);
+
+  const formattedTime = time || new Intl.DateTimeFormat('it-IT', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+
+  return `${formattedDate} · ${formattedTime}`;
+}
+
 interface News {
   id: number;
   title: string;
@@ -118,7 +136,7 @@ export default function NotiziePage() {
                   </div>
                   <div className="flex items-center text-slate-400 text-xs font-semibold">
                     <Clock className="w-3 h-3 mr-1" />
-                    {item.time}
+                    {formatPublicationDate(item.pub_date, item.time)}
                   </div>
                 </div>
 
