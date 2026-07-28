@@ -11,13 +11,26 @@ type TickerNews = {
   source: string;
   pub_date: string;
   time: string;
+  created_at: string;
 };
 
-function formatTimestamp(pubDate: string, time: string) {
-  const date = new Date(pubDate);
-  if (Number.isNaN(date.getTime())) return time || '';
-  const day = new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit' }).format(date);
-  const hour = time || new Intl.DateTimeFormat('it-IT', { hour: '2-digit', minute: '2-digit' }).format(date);
+function parsePublicationDate(value: string, fallback: string) {
+  const directDate = new Date(value);
+  if (!Number.isNaN(directDate.getTime())) return directDate;
+
+  const match = value.match(/\w+,\s*(\d{1,2})\s+(\w{3})\s+(\d{4})\s+(\d{2}:\d{2}:\d{2})\s+GMT/i);
+  const months: Record<string, string> = { gen: '01', feb: '02', mar: '03', apr: '04', mag: '05', giu: '06', lug: '07', ago: '08', set: '09', ott: '10', nov: '11', dic: '12' };
+  if (match && months[match[2].toLowerCase()]) {
+    return new Date(`${match[3]}-${months[match[2].toLowerCase()]}-${match[1].padStart(2, '0')}T${match[4]}Z`);
+  }
+  return new Date(fallback);
+}
+
+function formatTimestamp(pubDate: string, time: string, createdAt: string) {
+  const date = parsePublicationDate(pubDate, createdAt);
+  if (Number.isNaN(date.getTime())) return time || 'Data non disponibile';
+  const day = new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Rome' }).format(date);
+  const hour = time || new Intl.DateTimeFormat('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(date);
   return `${day} · ${hour}`;
 }
 
@@ -76,7 +89,7 @@ export default function NewsTicker() {
             className="absolute inset-0 flex items-center px-3 hover:bg-white/5"
           >
             <span className="text-[var(--color-sport-secondary)] font-black text-xs mr-2 shrink-0">
-              {formatTimestamp(news[currentIndex].pub_date, news[currentIndex].time)}
+              {formatTimestamp(news[currentIndex].pub_date, news[currentIndex].time, news[currentIndex].created_at)}
             </span>
             <span className="text-[#F8FAFC] font-semibold text-xs truncate">
               {news[currentIndex].title}
