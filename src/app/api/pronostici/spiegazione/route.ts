@@ -4,16 +4,20 @@
  * Genera (o restituisce dalla cache) l'analisi testuale HTML per un singolo pronostico.
  *
  * Protezioni:
+ * - Riservato agli utenti PREMIUM (o admin): utenti free ricevono 403
  * - DB cache: ogni match_id viene generato una sola volta
- * - Rate limit: max 5 richieste/minuto per IP
+ * - Rate limit: max 5 richieste/minuto per IP (contro abuse anche tra premium)
  * - Prompt ottimizzato: ~60 parole, output max 300 caratteri
  * - SDK centralizzato da lib/gemini.ts
  */
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { generateText } from '@/lib/gemini';
+import { getUserFromCookie } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
+
+const ADMIN_EMAILS = ['luca.pinelli0000@gmail.com', 'lucapinelli0000@gmail.com'];
 
 export async function GET(request: Request) {
   try {
@@ -25,6 +29,35 @@ export async function GET(request: Request) {
     if (!matchId || !matchStr || !pick) {
       return NextResponse.json({ error: 'Parametri mancanti (match_id, match, pick)' }, { status: 400 });
     }
+
+    // ── CHECK PREMIUM ──────────────────────────────────────────────────────
+    const jwtUser = await getUserFromCookie();
+
+    if (!jwtUser) {
+      return NextResponse.json(
+        { error: 'premium_required', message: 'Accesso riservato agli utenti Premium. Effettua il login.' },
+        { status: 403 }
+      );
+    }
+
+    // Admin ha sempre accesso
+    const isAdmin = ADMIN_EMAILS.includes(jwtUser.email);
+
+    if (!isAdmin) {
+      // Verifica is_premium nel DB users
+      const { rows: userRows } = await sql`
+        SELECT is_premium FROM users WHERE id = ${jwtUser.userId} LIMIT 1
+      `;
+      const isPremium = userRows[0]?.is_premium === true;
+
+      if (!isPremium) {
+        return NextResponse.json(
+          { error: 'premium_required', message: 'Questa funzionalità è riservata agli utenti Premium.' },
+          { status: 403 }
+        );
+      }
+    }
+    // ── FINE CHECK PREMIUM ─────────────────────────────────────────────────
 
     // ── RATE LIMIT per IP ─────────────────────────────────────────────────
     const clientIp =
@@ -45,7 +78,7 @@ export async function GET(request: Request) {
       );
     }
 
-    // Registra questa richiesta (pulizia automatica in /api/migrate/setup)
+    // Registra questa richiesta
     await sql`INSERT INTO spiegazione_rate_limit (ip) VALUES (${clientIp})`;
     // ── FINE RATE LIMIT ───────────────────────────────────────────────────
 

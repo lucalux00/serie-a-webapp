@@ -1,13 +1,18 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Target, ExternalLink, Calculator, AlertTriangle, Loader2, ChevronDown, ChevronUp, Info, CalendarClock, BrainCircuit } from 'lucide-react';
+import { Target, ExternalLink, Calculator, AlertTriangle, Loader2, ChevronDown, ChevronUp, Info, CalendarClock, BrainCircuit, Lock, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getTeamLogoUrl } from '@/utils/teamLogos';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAuth } from '@/context/AuthContext';
 
 export default function PronosticiPage() {
   const bookmakerName = "SNAI";
   const affiliateLink = "https://www.snai.it/";
+
+  const { isPremium } = useSubscription();
+  const { user } = useAuth();
 
   const [mainTab, setMainTab] = useState<'odierni' | 'mlops'>('odierni');
 
@@ -26,7 +31,7 @@ export default function PronosticiPage() {
 
   // Spiegazioni MLOps
   const [expandedMlopsAnalysis, setExpandedMlopsAnalysis] = useState<string | null>(null);
-  const [mlopsExplanations, setMlopsExplanations] = useState<Record<string, {text: string, loading: boolean}>>({});
+  const [mlopsExplanations, setMlopsExplanations] = useState<Record<string, {text: string, loading: boolean, locked?: boolean}>>({});
 
   // Fetch Odierni (Default)
   useEffect(() => {
@@ -88,6 +93,13 @@ export default function PronosticiPage() {
       setMlopsExplanations(prev => ({ ...prev, [pred.id]: { text: '', loading: true } }));
       try {
         const res = await fetch(`/api/pronostici/spiegazione?match_id=${pred.id}&match=${encodeURIComponent(pred.match)}&pick=${encodeURIComponent(pred.pick)}`);
+        
+        // 403 = utente non premium
+        if (res.status === 403) {
+          setMlopsExplanations(prev => ({ ...prev, [pred.id]: { text: '', loading: false, locked: true } }));
+          return;
+        }
+
         const data = await res.json();
         setMlopsExplanations(prev => ({ ...prev, [pred.id]: { text: data.analysis || 'Analisi non disponibile.', loading: false } }));
       } catch (err) {
@@ -329,6 +341,23 @@ export default function PronosticiPage() {
                                      <div className="flex flex-col items-center justify-center py-4">
                                        <Loader2 className="animate-spin text-[#10B981] mb-2" size={24} />
                                        <span className="text-xs text-[#94A3B8] font-bold">Generazione Analisi in corso...</span>
+                                     </div>
+                                  ) : mlopsExplanations[pred.id]?.locked ? (
+                                     <div className="flex flex-col items-center justify-center py-5 text-center">
+                                       <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mb-3">
+                                         <Lock size={22} className="text-[#10B981]" />
+                                       </div>
+                                       <p className="text-white font-black text-sm mb-1">Funzione Premium</p>
+                                       <p className="text-[#94A3B8] text-xs mb-4 max-w-[220px]">
+                                         {user ? 'Aggiorna al piano Premium per sbloccare le analisi AI.' : 'Accedi o registrati con un piano Premium per le analisi AI.'}
+                                       </p>
+                                       <a
+                                         href="/profilo"
+                                         className="flex items-center gap-2 bg-[#10B981] text-white text-xs font-black px-5 py-2.5 rounded-xl hover:opacity-90 transition-opacity shadow-lg"
+                                       >
+                                         <Zap size={14} />
+                                         {user ? 'Passa a Premium' : 'Accedi'}
+                                       </a>
                                      </div>
                                   ) : (
                                      <div className="prose prose-invert text-sm text-[#cbd5e1] leading-relaxed max-w-none" dangerouslySetInnerHTML={{ __html: mlopsExplanations[pred.id]?.text }} />

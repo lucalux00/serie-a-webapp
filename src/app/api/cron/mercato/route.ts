@@ -1,12 +1,14 @@
 /**
  * GET /api/cron/mercato
  *
- * Aggiorna il database trasferimenti per TUTTE le leghe (Serie A, B, Premier, La Liga, Bundesliga, Ligue 1).
+ * Aggiorna il database trasferimenti per la Serie A.
  * Usa Gemini per estrarre calciatori/club/tipo dal testo dei feed RSS.
  *
  * Ottimizzazioni token:
+ * - Solo Serie A attiva (le altre leghe in stand-by → risparmio ~83% chiamate Gemini)
  * - Hash SHA-256 dei titoli: se identici all'ultimo run → skip Gemini (risparmio 100%)
  * - Fascia oraria 07:00-23:59 IT — niente chiamate notturne
+ * - Max 8 articoli per feed (invece di 15) → meno token di input
  * - Prompt compatto con output JSON minimo
  * - Deduplication DB prima dell'INSERT
  * - SDK centralizzato da lib/gemini.ts
@@ -30,7 +32,7 @@ interface TransferItem {
   fee: string;
 }
 
-// Mappa dei feed RSS per lega + query google news
+// Feed RSS Serie A — le altre leghe sono in stand-by per ridurre il consumo token Gemini
 const LEAGUE_FEEDS: Array<{ league: string; feeds: string[] }> = [
   {
     league: 'A',
@@ -39,36 +41,8 @@ const LEAGUE_FEEDS: Array<{ league: string; feeds: string[] }> = [
       'https://news.google.com/rss/search?q=calciomercato+serie+a+trattativa&hl=it&gl=IT&ceid=IT:it',
     ],
   },
-  {
-    league: 'B',
-    feeds: [
-      'https://news.google.com/rss/search?q=calciomercato+serie+b+ufficiale&hl=it&gl=IT&ceid=IT:it',
-    ],
-  },
-  {
-    league: 'PL',
-    feeds: [
-      'https://news.google.com/rss/search?q=premier+league+transfer+official+2026&hl=en&gl=GB&ceid=GB:en',
-    ],
-  },
-  {
-    league: 'LL',
-    feeds: [
-      'https://news.google.com/rss/search?q=la+liga+fichajes+oficial+2026&hl=es&gl=ES&ceid=ES:es',
-    ],
-  },
-  {
-    league: 'BL',
-    feeds: [
-      'https://news.google.com/rss/search?q=bundesliga+transfer+offiziell+2026&hl=de&gl=DE&ceid=DE:de',
-    ],
-  },
-  {
-    league: 'L1',
-    feeds: [
-      'https://news.google.com/rss/search?q=ligue+1+transfert+officiel+2026&hl=fr&gl=FR&ceid=FR:fr',
-    ],
-  },
+  // Le altre leghe (B, PL, LL, BL, L1) sono in stand-by.
+  // Per riattivarle, decommentare i blocchi corrispondenti.
 ];
 
 // Prompt per estrarre trasferimenti da titoli RSS
@@ -134,7 +108,8 @@ export async function GET(request: Request) {
       for (const feedUrl of feeds) {
         try {
           const feed = await parser.parseURL(feedUrl);
-          feed.items.slice(0, 15).forEach((item) => {
+          // Max 8 articoli per feed — bilancio qualità/token ottimale
+          feed.items.slice(0, 8).forEach((item) => {
             if (item.title) {
               articles.push({
                 title: item.title.trim(),
