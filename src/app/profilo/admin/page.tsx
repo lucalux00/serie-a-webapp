@@ -19,6 +19,7 @@ export default function AdminPage() {
 
   const { data: allNews, mutate: mutateNews } = useSWR('/api/news?limit=100', fetcher);
   const { data: socialDraft, mutate: mutateSocialDraft } = useSWR('/api/admin/social-draft', fetcher, { refreshInterval: 60000 });
+  const { data: storyDraft, mutate: mutateStoryDraft } = useSWR('/api/admin/social-stories', fetcher, { refreshInterval: 300000 });
 
   // Form Transfers
   const [form, setForm] = useState({
@@ -192,7 +193,7 @@ export default function AdminPage() {
             Notizie
           </button>
           <button
-            onClick={() => {setActiveTab('social'); setMessage(''); mutateSocialDraft();}}
+            onClick={() => {setActiveTab('social'); setMessage(''); mutateSocialDraft(); mutateStoryDraft();}}
             className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'social' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
           >
             Social
@@ -389,6 +390,19 @@ export default function AdminPage() {
                 <p className="text-center text-xs text-slate-500">La pubblicazione diretta richiede l&apos;integrazione autorizzata degli account Instagram e TikTok.</p>
               </>
             )}
+
+            <div className="border-t border-slate-700 pt-6">
+              <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+                <h2 className="font-black uppercase tracking-wider text-emerald-300">Piano Story della giornata</h2>
+                <p className="mt-2 text-sm text-slate-300">Una Story per ciascuna delle 20 squadre della giornata, piÃ¹ una Story-report con tutte le 10 partite.</p>
+              </div>
+              {!storyDraft ? <div className="p-5 text-center text-slate-400">Caricamento calendario editorialeâ€¦</div> : !storyDraft.hasDraft ? <div className="p-5 text-center text-slate-400">Nessuna giornata futura disponibile.</div> : <div className="mt-4 space-y-4">
+                <div className="flex items-center justify-between text-xs font-bold text-slate-400"><span>Giornata {storyDraft.matchday}</span><span>{storyDraft.stories.length} Story pronte</span></div>
+                <a href={storyDraft.overviewUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-black text-slate-950"><ExternalLink size={16} /> Apri Story report 1080Ã—1920</a>
+                <div className="rounded-2xl border border-slate-700 bg-slate-900/60 p-4"><div className="mb-3 flex items-center justify-between"><h3 className="font-black text-white">Testo report completo</h3><button onClick={() => copyDraft(storyDraft.report, 'Report giornata')} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div><pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-300">{storyDraft.report}</pre></div>
+                <div className="grid gap-3 sm:grid-cols-2">{storyDraft.stories.map((story: any) => <div key={story.team} className="rounded-xl border border-slate-700 bg-slate-900/60 p-3"><div className="font-black text-white">{story.team}</div><div className="mt-1 text-xs text-slate-400">vs {story.opponent} · {story.venue}</div><div className="mt-3 flex gap-2"><a href={story.visualUrl} target="_blank" rel="noreferrer" className="flex-1 rounded-lg bg-emerald-500/15 px-2 py-2 text-center text-xs font-bold text-emerald-300">Visual Story</a><button onClick={() => copyDraft(story.caption, `Story ${story.team}`)} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div></div>)}</div>
+              </div>}
+            </div>
           </div>
         )}
       </div>
