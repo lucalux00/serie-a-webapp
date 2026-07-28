@@ -9,6 +9,11 @@ import useSWR from 'swr';
 import LiveCommentary from '@/components/LiveCommentary';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
+const newsFetcher = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Impossibile caricare le news');
+  return response.json() as Promise<{ items: any[]; refreshedAt: string | null }>;
+};
 
 import { getTeamLogoUrl } from '@/utils/teamLogos';
 
@@ -232,12 +237,12 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   );
 
   // News fetching — solo quando la tab NEWS è attiva, aggiornamento ogni 5 minuti
-  const { data: news = initialNews } = useSWR(
+  const { data: newsPayload } = useSWR(
     activeTab === 'news'
-      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`
+      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}&meta=1`
       : null,
-    fetcher,
-    { fallbackData: initialNews, refreshInterval: 300000, revalidateOnFocus: false }
+    newsFetcher,
+    { fallbackData: { items: initialNews, refreshedAt: null }, refreshInterval: 60000, revalidateOnFocus: false }
   );
 
   // Mercato squadra — solo quando la tab MERCATO è attiva, dati dal DB filtrati per team
@@ -250,12 +255,10 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   );
   const teamTransfers: any[] = teamMercatoRaw?.transfers || squadData?.transfers || [];
 
-  const topNews = (news || []).slice(0, 4);
-  const otherNews = (news || []).slice(4);
-  const newestNewsDate = [...(news || [])]
-    .map(getCapturedNewsDate)
-    .filter((date): date is Date => Boolean(date))
-    .sort((a, b) => b.getTime() - a.getTime())[0];
+  const news = newsPayload?.items || initialNews;
+  const topNews = news.slice(0, 4);
+  const otherNews = news.slice(4);
+  const lastRefreshDate = parseNewsDate(newsPayload?.refreshedAt);
 
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
 
@@ -426,7 +429,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                     <span className="text-[10px] font-black uppercase tracking-widest text-[#64748B]">Ultime pillole</span>
                     <span className="flex items-center gap-1 text-[10px] font-bold text-[#94A3B8]">
                       <Clock size={12} />
-                      Prese: {newestNewsDate ? new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(newestNewsDate) : 'n/d'}
+                      Feed controllato: {lastRefreshDate ? new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(lastRefreshDate) : 'in attesa'}
                     </span>
                   </div>
                   <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-[#334155]" />

@@ -14,6 +14,7 @@ export async function GET(request: Request) {
     const type = searchParams.get('type');
     const status = searchParams.get('status');
     const team = searchParams.get('team');
+    const includeRefreshStatus = searchParams.get('meta') === '1';
     const page = parseInt(searchParams.get('page') || '1');
     const offset = (page - 1) * limit;
 
@@ -107,6 +108,13 @@ export async function GET(request: Request) {
     }
 
     const { rows } = await query;
+
+    if (includeRefreshStatus) {
+      const { rows: refreshRows } = await sql`
+        SELECT created_at FROM cron_lock WHERE job_name = 'news_refresh' LIMIT 1
+      `;
+      return NextResponse.json({ items: rows, refreshedAt: refreshRows[0]?.created_at || null });
+    }
 
     return NextResponse.json(rows);
   } catch (error: any) {

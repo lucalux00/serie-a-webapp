@@ -38,13 +38,21 @@ export async function GET(request: Request) {
       }
     }
 
+    // Memorizza il controllo riuscito anche quando tutti gli articoli erano già presenti.
+    await sql`
+      INSERT INTO cron_lock (job_name, created_at)
+      VALUES ('news_refresh', NOW())
+      ON CONFLICT (job_name) DO UPDATE SET created_at = NOW()
+    `;
+
     console.log(`Cron: Inserite ${inserted} nuove notizie nel DB.`);
 
     return NextResponse.json({
       success: true,
       message: 'News fetch and update completed',
       fetched: newsItems.length,
-      inserted
+      inserted,
+      refreshedAt: new Date().toISOString(),
     });
 
   } catch (error: any) {
