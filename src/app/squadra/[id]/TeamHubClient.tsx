@@ -17,11 +17,10 @@ const italianMonths: Record<string, string> = {
   lug: 'Jul', ago: 'Aug', set: 'Sep', ott: 'Oct', nov: 'Nov', dic: 'Dec',
 };
 
-function getNewsDate(item: any): Date | null {
-  const value = item?.pub_date || item?.pubDate || item?.created_at;
+function parseNewsDate(value: unknown): Date | null {
   if (!value) return null;
 
-  const directDate = new Date(value);
+  const directDate = new Date(String(value));
   if (!Number.isNaN(directDate.getTime())) return directDate;
 
   const normalized = String(value).replace(
@@ -32,8 +31,18 @@ function getNewsDate(item: any): Date | null {
   return Number.isNaN(normalizedDate.getTime()) ? null : normalizedDate;
 }
 
-function formatNewsDateTime(item: any) {
-  const date = getNewsDate(item);
+// L'ordine segue l'orario di pubblicazione dichiarato dalla fonte.
+function getPublishedNewsDate(item: any) {
+  return parseNewsDate(item?.pub_date || item?.pubDate || item?.created_at);
+}
+
+// L'orario visibile indica quando la notizia è stata acquisita dal sito.
+function getCapturedNewsDate(item: any) {
+  return parseNewsDate(item?.created_at || item?.pub_date || item?.pubDate);
+}
+
+function formatCapturedNewsDateTime(item: any) {
+  const date = getCapturedNewsDate(item);
   if (!date) return 'Data non disponibile';
 
   return new Intl.DateTimeFormat('it-IT', {
@@ -244,7 +253,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const topNews = (news || []).slice(0, 4);
   const otherNews = (news || []).slice(4);
   const newestNewsDate = [...(news || [])]
-    .map(getNewsDate)
+    .map(getCapturedNewsDate)
     .filter((date): date is Date => Boolean(date))
     .sort((a, b) => b.getTime() - a.getTime())[0];
 
@@ -417,22 +426,22 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                     <span className="text-[10px] font-black uppercase tracking-widest text-[#64748B]">Ultime pillole</span>
                     <span className="flex items-center gap-1 text-[10px] font-bold text-[#94A3B8]">
                       <Clock size={12} />
-                      Aggiornate: {newestNewsDate ? new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(newestNewsDate) : 'n/d'}
+                      Prese: {newestNewsDate ? new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(newestNewsDate) : 'n/d'}
                     </span>
                   </div>
                   <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-[#334155]" />
                   {[...news]
                     .sort((a: any, b: any) => {
-                       const tA = getNewsDate(a)?.getTime() || 0;
-                       const tB = getNewsDate(b)?.getTime() || 0;
+                       const tA = getPublishedNewsDate(a)?.getTime() || 0;
+                       const tB = getPublishedNewsDate(b)?.getTime() || 0;
                        return tB - tA;
                     })
                     .map((item: any, idx: number) => {
-                      const pubTs = getNewsDate(item)?.getTime() || 0;
+                      const pubTs = getPublishedNewsDate(item)?.getTime() || 0;
                       const isNew = pubTs > 0 && (Date.now() - pubTs < 24 * 60 * 60 * 1000);
                       const rawTitle = item.cleanTitle || item.title || 'Notizia senza titolo';
                       const displayTitle = typeof document !== 'undefined' ? (() => { const t = document.createElement('textarea'); t.innerHTML = rawTitle; return t.value; })() : rawTitle;
-                      const displayDate = formatNewsDateTime(item);
+                      const displayDate = formatCapturedNewsDateTime(item);
                       const snippet = item.snippet && item.snippet.length > 30 ? item.snippet : "Nessun estratto testuale disponibile.";
 
                       return (
