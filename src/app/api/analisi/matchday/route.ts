@@ -68,7 +68,7 @@ export async function GET() {
       const isDetailed = daysUntilMatch <= 3;
       const previewAnalysis = generateMatchAnalysis(homeTeam, awayTeam, matchId, currentMatchday);
       const markdownAnalysis = isDetailed
-        ? `${previewAnalysis}\n\n### Focus pre-partita (-3 giorni)\nL'analisi Ã¨ ora nella finestra editoriale: segui gli aggiornamenti su disponibilitÃ , probabili scelte e duelli tattici. Il report viene presentato come pre-partita e non come formazione ufficiale finchÃ© i dati non sono confermati.`
+        ? `${previewAnalysis}\n\n### Focus pre-partita (-3 giorni)\nL'analisi è ora nella finestra editoriale: segui gli aggiornamenti su disponibilità, probabili scelte e duelli tattici. Il report viene presentato come pre-partita e non come formazione ufficiale finché i dati non sono confermati.`
         : previewAnalysis;
 
       return {
