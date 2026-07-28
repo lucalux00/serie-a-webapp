@@ -5,7 +5,9 @@ export const dynamic = 'force-dynamic';
 
 // Soglia: aggiorna le news se l'ultima inserita ha più di 30 minuti
 // (evita loop di richieste e rispetta i rate limit dei feed RSS)
-const UPDATE_INTERVAL_MS = 30 * 60 * 1000; // 30 minuti
+// Il job automatico esterno usa questa stessa cadenza: una chiamata ogni 3 ore.
+// Il fallback qui sotto evita che le visite degli utenti possano generare aggiornamenti troppo frequenti.
+const UPDATE_INTERVAL_MS = 3 * 60 * 60 * 1000;
 
 export async function GET(request: Request) {
   try {

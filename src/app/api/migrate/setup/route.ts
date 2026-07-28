@@ -116,6 +116,12 @@ export async function GET(request: Request) {
     `;
     results.push('✅ ml_explanations: OK');
 
+    // Aggiunge colonna is_premium alla tabella users (per la spiegazione pronostici premium)
+    await sql`
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS is_premium BOOLEAN NOT NULL DEFAULT FALSE;
+    `;
+    results.push('✅ users.is_premium: colonna verificata');
+
     // Pulizia log vecchi (>30 giorni) per non far crescere le tabelle
     await sql`DELETE FROM mercato_cron_log WHERE created_at < NOW() - INTERVAL '30 days';`;
     await sql`DELETE FROM spiegazione_rate_limit WHERE created_at < NOW() - INTERVAL '1 day';`;

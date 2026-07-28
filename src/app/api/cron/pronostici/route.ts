@@ -1,13 +1,15 @@
 /**
  * GET /api/cron/pronostici
  *
- * Genera pronostici AI per i 4 match di cartello dei prossimi 3 giorni.
+ * Genera pronostici AI per i 3 match di cartello dei prossimi 3 giorni.
+ * Schedulato automaticamente 2x/settimana (lun + gio alle 07:30 IT) in vercel.json.
  * Usa DB cache (daily_ai_predictions) — non rigenera match già analizzati.
  *
  * Ottimizzazioni token:
  * - Prompt ridotto da ~350 a ~90 parole (risparmio ~73%)
  * - Analisi limitata a MAX 250 caratteri
- * - Top 4 match selezionati per priorità lega (CL > SA > PL > PD > BL1)
+ * - Top 3 match selezionati per priorità lega (CL > SA > PL > PD > BL1)
+ * - Schedulato 2x/settimana (lunedi + giovedì) invece che giornalmente
  * - SDK centralizzato da lib/gemini.ts
  */
 import { NextResponse } from 'next/server';
@@ -103,7 +105,7 @@ export async function GET(request: Request) {
         const pB = COMPETITION_PRIORITY[b.competition?.name] ?? 99;
         return pA - pB;
       })
-      .slice(0, 4);
+      .slice(0, 3); // Top 3 match — da 4 a 3 per risparmiare 1 chiamata Gemini per run
 
     if (matches.length === 0) {
       return NextResponse.json({ success: true, message: 'Nessun match disponibile nei prossimi 3 giorni' });

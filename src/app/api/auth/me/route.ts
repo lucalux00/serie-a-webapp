@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getUserFromCookie } from '@/lib/auth';
 import { sql } from '@vercel/postgres';
 import { ALL_TEAMS } from '@/data/teams';
+import { isAdminEmail } from '@/lib/admin';
 
 export async function GET() {
   try {
@@ -24,7 +25,7 @@ export async function GET() {
         email: dbUser.email,
         favoriteTeamId: dbUser.favorite_team,
         favoriteTeamName: favTeam ? favTeam.name : null,
-        isAdmin: dbUser.email === 'luca.pinelli0000@gmail.com' || dbUser.email === 'lucapinelli0000@gmail.com'
+        isAdmin: isAdminEmail(dbUser.email)
       } 
     });
   } catch (error) {
