@@ -10,6 +10,7 @@ import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
 import FantaRoster from '@/components/domain/FantaRoster';
 import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
+import InstallAppCard from '@/components/profile/InstallAppCard';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
@@ -113,6 +114,8 @@ export default function ProfiloPage() {
       <FantaRoster />
 
       <div className="space-y-3">
+        <InstallAppCard />
+
         <button 
           onClick={() => {
             setEditName(user.name || '');
