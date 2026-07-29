@@ -1,4 +1,5 @@
 import Parser from 'rss-parser';
+import { ALL_TEAMS } from '@/data/teams';
 
 export interface NewsItem {
   title: string;
@@ -11,7 +12,12 @@ export interface NewsItem {
   relatedSources?: string[]; // Per il sistema anti-duplicati
 }
 
-const parser = new Parser({ timeout: 8000 });
+const parser = new Parser({
+  timeout: 8000,
+  customFields: {
+    item: [['source', 'rssSource']],
+  },
+});
 
 const DIRECT_RSS_SOURCES: Record<string, string[]> = {
   // Feed RSS aperti sui principali portali di calcio italiano
@@ -26,6 +32,24 @@ const DIRECT_RSS_SOURCES: Record<string, string[]> = {
     'https://www.alfredopedulla.com/feed/',
   ]
 };
+
+// Multiple topic feeds improve coverage without sending any content to Gemini.
+const GOOGLE_NEWS_QUERIES = [
+  'serie a calcio',
+  'calciomercato',
+  'champions league calcio italiano',
+  'nazionale italiana calcio',
+];
+
+// Derivata dalle squadre mostrate dal sito, così non serve aggiornare una
+// seconda lista. Le query RSS non inviano contenuti a Gemini.
+const SERIE_A_TEAM_QUERIES = ALL_TEAMS
+  .filter((team) => team.league === 'A')
+  .map((team) => `"${team.name}" calcio`);
+
+function getGoogleNewsUrl(query: string, limit = 30) {
+  return `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=it&gl=IT&ceid=IT:it&num=${limit}`;
+}
 
 // Sfruttiamo la Vercel Data Cache (sostituto di Redis) tramite il parametro next: { revalidate }
 async function fetchFeed(url: string): Promise<Parser.Item[]> {
@@ -89,7 +113,16 @@ function itemToNewsItem(item: Parser.Item): NewsItem {
   const rawTitle = decodeHTMLEntities(item.title || '');
   const cleanTitle = rawTitle.split(' - ')[0].split(' | ')[0].trim();
 
-  // Ricava la fonte dal link
+  // Google News include il nome dell'editore nel tag <source>: usiamolo per
+  // attribuire correttamente l'articolo, anziché mostrare soltanto "news".
+  const rssSource = (item as Parser.Item & { rssSource?: unknown }).rssSource;
+  const sourceFromFeed = typeof rssSource === 'string'
+    ? decodeHTMLEntities(rssSource.replace(/<[^>]*>/g, '').trim())
+    : rssSource && typeof rssSource === 'object' && '#' in rssSource
+      ? decodeHTMLEntities(String((rssSource as { '#': unknown })['#']).trim())
+      : '';
+
+  // Ricava la fonte dal link quando il feed non fornisce l'editore
   let source = 'News';
   try {
     source = new URL(item.link || '').hostname.replace('www.', '').split('.')[0];
@@ -107,6 +140,7 @@ function itemToNewsItem(item: Parser.Item): NewsItem {
       if (source.toLowerCase().includes(k)) { source = v; break; }
     }
   } catch { /* usa 'News' */ }
+  if (sourceFromFeed) source = sourceFromFeed;
 
   return {
     title: rawTitle,
@@ -140,7 +174,7 @@ function deduplicateNews(items: NewsItem[]): NewsItem[] {
     let isDuplicate = false;
     for (const existing of deduped) {
       // Se la similarità tra i titoli è alta (> 0.55), la consideriamo la stessa notizia
-      if (calculateSimilarity(item.cleanTitle, existing.cleanTitle) > 0.55) {
+      if (calculateSimilarity(item.cleanTitle, existing.cleanTitle) > 0.78) {
         isDuplicate = true;
         // Aggiungiamo la fonte ai correlati se non è già presente
         if (item.source !== existing.source && !existing.relatedSources?.includes(item.source)) {
@@ -192,10 +226,9 @@ export async function fetchNewsForTeam(teamName: string, league: string = 'A'): 
 }
 
 export async function fetchGlobalNewsTicker(): Promise<NewsItem[]> {
-  const url = `https://news.google.com/rss/search?q=serie+a+calcio+calciomercato&hl=it&gl=IT&ceid=IT:it&num=20`;
   try {
-    const items = await fetchFeed(url);
-    const parsedItems = items.map(itemToNewsItem);
+    const results = await Promise.all(GOOGLE_NEWS_QUERIES.map((query) => fetchFeed(getGoogleNewsUrl(query, 20))));
+    const parsedItems = results.flat().map(itemToNewsItem);
     const sorted = parsedItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
     const deduped = deduplicateNews(sorted);
     
@@ -206,23 +239,21 @@ export async function fetchGlobalNewsTicker(): Promise<NewsItem[]> {
 }
 
 export async function fetchAllNewsForCron(): Promise<NewsItem[]> {
-  const googleUrl = `https://news.google.com/rss/search?q=serie+a+calcio+calciomercato&hl=it&gl=IT&ceid=IT:it&num=30`;
-  
   try {
-    const [googleItems, ...directResults] = await Promise.all([
-      fetchFeed(googleUrl),
-      ...DIRECT_RSS_SOURCES.base.map(url => fetchFeed(url)),
-    ]);
-
-    const allItems = [
-      ...googleItems.map(itemToNewsItem),
-      ...directResults.flat().map(itemToNewsItem),
+    const feeds = [
+      ...GOOGLE_NEWS_QUERIES.map((query) => ({ label: `Google News: ${query}`, url: getGoogleNewsUrl(query) })),
+      ...SERIE_A_TEAM_QUERIES.map((query) => ({ label: `Google News squadra: ${query}`, url: getGoogleNewsUrl(query, 20) })),
+      ...DIRECT_RSS_SOURCES.base.map((url) => ({ label: new URL(url).hostname, url })),
     ];
+    const results = await Promise.all(feeds.map(async (feed) => ({ ...feed, items: await fetchFeed(feed.url) })));
+    console.log('[news] RSS items by source:', results.map(({ label, items }) => `${label}=${items.length}`).join(' | '));
+
+    const allItems = results.flatMap(({ items }) => items.map(itemToNewsItem));
 
     const sorted = allItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
     const deduped = deduplicateNews(sorted);
     
-    return deduped.filter(item => item.title && item.link).slice(0, 50);
+    return deduped.filter(item => item.title && item.link).slice(0, 100);
   } catch (error) {
     console.error('Error fetching cron news:', error);
     return [];
