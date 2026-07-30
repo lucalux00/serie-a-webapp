@@ -50,7 +50,9 @@ export default function LiveCommentary({ teamName, isActive = false }: LiveComme
         <div className="text-4xl mb-3 opacity-50">🏟️</div>
         <p className="font-bold text-[#94A3B8]">Nessuna partita in corso</p>
         <p className="text-xs text-[#475569] mt-1">
-          La diretta testuale sarà attiva durante i match ufficiali di {teamName}.
+          {data?.reason === 'verified_live_source_not_configured'
+            ? 'La cronaca testuale sarà attivata solo con una fonte di eventi verificata: non mostriamo simulazioni o dati non confermati.'
+            : `Nessuna partita ufficiale di ${teamName} è in corso.`}
         </p>
       </div>
     );
