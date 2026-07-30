@@ -8,6 +8,7 @@ import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check, Palette,
 import Link from 'next/link';
 import useSWR from 'swr';
 import AdminStatsPanel from '@/components/admin/AdminStatsPanel';
+import AdminPromotions from '@/components/admin/AdminPromotions';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -15,7 +16,7 @@ export default function AdminPage() {
   const { user } = useAuth();
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState<'transfers' | 'news' | 'social'>('transfers');
+  const [activeTab, setActiveTab] = useState<'transfers' | 'news' | 'social' | 'promo'>('transfers');
 
   const { data: allNews, mutate: mutateNews } = useSWR('/api/news?limit=100', fetcher);
   const { data: socialDraft, mutate: mutateSocialDraft } = useSWR('/api/admin/social-draft', fetcher, { refreshInterval: 60000 });
@@ -180,7 +181,7 @@ export default function AdminPage() {
         <AdminStatsPanel />
 
         <div className="flex space-x-2 mb-6">
-          <button 
+          <button
             onClick={() => {setActiveTab('transfers'); setMessage('');}}
             className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'transfers' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
           >
@@ -198,6 +199,7 @@ export default function AdminPage() {
           >
             Social
           </button>
+          <button onClick={() => {setActiveTab('promo'); setMessage('');}} className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'promo' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>Pro & Codici</button>
         </div>
 
         {message && (
@@ -356,6 +358,7 @@ export default function AdminPage() {
           </div>
         )}
 
+        {activeTab === 'promo' && <AdminPromotions />}
         {activeTab === 'social' && (
           <div className="space-y-5">
             <div className="rounded-2xl border border-fuchsia-500/30 bg-fuchsia-500/10 p-4">
