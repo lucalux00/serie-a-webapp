@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getUserFromCookie } from '@/lib/auth';
-import { isAdminEmail } from '@/lib/admin';
+
+const ADMIN_EMAILS = new Set([
+  'luca.pinelli0000@gmail.com',
+  'lucapinelli0000@gmail.com',
+]);
 
 export const dynamic = 'force-dynamic';
 
@@ -11,7 +15,7 @@ export async function GET() {
     return NextResponse.json({ isPremium: false, plan: null, expiresAt: null });
   }
 
-  if (isAdminEmail(user.email)) {
+  if (user.email && ADMIN_EMAILS.has(user.email.trim().toLowerCase())) {
     return NextResponse.json({ isPremium: true, plan: 'pro', expiresAt: null });
   }
 
