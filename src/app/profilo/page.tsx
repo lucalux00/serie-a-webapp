@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import AuthForms from '@/components/auth/AuthForms';
 import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X } from 'lucide-react';
 import Link from 'next/link';
-import { usePushNotifications } from '@/hooks/usePushNotifications';
+import { NotificationPreferences, usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
 import FantaRoster from '@/components/domain/FantaRoster';
 import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
@@ -14,11 +14,14 @@ import InstallAppCard from '@/components/profile/InstallAppCard';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
-  const { isSupported, isSubscribed, subscribe, testNotification } = usePushNotifications(user?.id);
+  const { isSupported, isSubscribed, subscribe, unsubscribe, testNotification } = usePushNotifications(user?.id);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editName, setEditName] = useState(user?.name || '');
   const [editEmail, setEditEmail] = useState(user?.email || '');
   const [isSaving, setIsSaving] = useState(false);
+  const [isNotificationSettingsOpen, setIsNotificationSettingsOpen] = useState(false);
+  const [notificationPreferences, setNotificationPreferences] = useState<NotificationPreferences>({ teamNews: true, teamTransfers: true, matchStart: true });
+  const [isActivatingNotifications, setIsActivatingNotifications] = useState(false);
 
   const saveSettings = async () => {
     setIsSaving(true);
@@ -33,6 +36,13 @@ export default function ProfiloPage() {
       console.error(e);
       setIsSaving(false);
     }
+  };
+
+  const activateNotifications = async () => {
+    setIsActivatingNotifications(true);
+    await subscribe(notificationPreferences);
+    setIsActivatingNotifications(false);
+    setIsNotificationSettingsOpen(false);
   };
 
   if (!user) {
@@ -143,7 +153,7 @@ export default function ProfiloPage() {
             <div className="space-y-3">
               <p className="text-xs text-[#94A3B8]">Attiva le notifiche per ricevere aggiornamenti sui match della tua squadra del cuore.</p>
               <button 
-                onClick={subscribe}
+                onClick={() => setIsNotificationSettingsOpen(true)}
                 className="w-full bg-[#10B981] text-[#0F172A] font-black rounded-lg py-2 flex items-center justify-center text-sm"
               >
                 <BellRing className="w-4 h-4 mr-2" />
@@ -159,6 +169,7 @@ export default function ProfiloPage() {
               >
                 Testa Notifica (Finto Gol)
               </button>
+              <button onClick={unsubscribe} className="w-full border border-[#EF4444]/40 bg-[#EF4444]/10 text-[#EF4444] font-black rounded-lg py-2 text-sm">DISATTIVA NOTIFICHE</button>
             </div>
           )}
         </div>
@@ -192,6 +203,29 @@ export default function ProfiloPage() {
 
       {/* Settings Modal */}
       <AnimatePresence>
+        {isNotificationSettingsOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F172A]/80 p-4 backdrop-blur-sm">
+            <motion.div initial={{ scale: 0.95, y: 16 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 16 }} className="relative w-full max-w-sm rounded-3xl border border-[#334155] bg-[#1E293B] p-6 shadow-2xl">
+              <button onClick={() => setIsNotificationSettingsOpen(false)} className="absolute right-4 top-4 text-[#64748B] hover:text-white" aria-label="Chiudi"><X size={20} /></button>
+              <h2 className="text-xl font-black text-white">Cosa vuoi ricevere?</h2>
+              <p className="mt-2 text-sm text-[#94A3B8]">Solo aggiornamenti verificati sulla tua squadra del cuore.</p>
+              <div className="mt-5 space-y-3">
+                {([
+                  ['teamNews', 'News squadra', 'Nuovi articoli dal feed RSS attribuiti alla tua squadra.'],
+                  ['teamTransfers', 'Mercato squadra', 'Nuovi movimenti presenti nel mercato della tua squadra.'],
+                  ['matchStart', 'Inizio partita', "Promemoria all'orario della partita in calendario."],
+                ] as const).map(([key, label, description]) => (
+                  <label key={key} className="flex cursor-pointer gap-3 rounded-xl border border-[#334155] bg-[#0F172A] p-3">
+                    <input type="checkbox" checked={notificationPreferences[key]} onChange={(event) => setNotificationPreferences((current) => ({ ...current, [key]: event.target.checked }))} className="mt-1 h-4 w-4 accent-[#10B981]" />
+                    <span><span className="block text-sm font-bold text-white">{label}</span><span className="block text-xs leading-relaxed text-[#94A3B8]">{description}</span></span>
+                  </label>
+                ))}
+              </div>
+              <p className="mt-4 text-xs leading-relaxed text-[#64748B]">Gol, variazioni di punteggio e diretta testuale saranno disponibili solo con una fonte live verificata: non invieremo dati stimati.</p>
+              <button onClick={activateNotifications} disabled={isActivatingNotifications} className="mt-6 w-full rounded-xl bg-[#10B981] py-3 text-sm font-black text-[#0F172A] disabled:opacity-60">{isActivatingNotifications ? 'ATTIVAZIONE...' : 'SALVA E ATTIVA'}</button>
+            </motion.div>
+          </motion.div>
+        )}
         {isSettingsOpen && (
           <motion.div
             initial={{ opacity: 0 }}
