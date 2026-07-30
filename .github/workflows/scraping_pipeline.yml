@@ -4,7 +4,7 @@ on:
   schedule:
     # GitHub può ritardare le esecuzioni programmate, ma questa frequenza mantiene
     # il feed aggiornato senza dipendere dal cron giornaliero di Vercel Hobby.
-    - cron: '7,27,47 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 concurrency:
