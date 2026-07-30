@@ -91,11 +91,20 @@ export function usePushNotifications(userId?: string) {
     });
   };
 
+  const unsubscribe = async () => {
+    if (!subscription) return;
+    await fetch('/api/notifications/unsubscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ endpoint: subscription.endpoint }) });
+    await subscription.unsubscribe();
+    setSubscription(null);
+    setIsSubscribed(false);
+  };
+
   return {
     isSupported,
     isSubscribed,
     subscription,
     subscribe,
+    unsubscribe,
     testNotification
   };
 }

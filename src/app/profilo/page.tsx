@@ -14,7 +14,7 @@ import InstallAppCard from '@/components/profile/InstallAppCard';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
-  const { isSupported, isSubscribed, subscribe, testNotification } = usePushNotifications(user?.id);
+  const { isSupported, isSubscribed, subscribe, unsubscribe, testNotification } = usePushNotifications(user?.id);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editName, setEditName] = useState(user?.name || '');
   const [editEmail, setEditEmail] = useState(user?.email || '');
@@ -153,7 +153,7 @@ export default function ProfiloPage() {
             <div className="space-y-3">
               <p className="text-xs text-[#94A3B8]">Attiva le notifiche per ricevere aggiornamenti sui match della tua squadra del cuore.</p>
               <button 
-                onClick={testNotification}
+                onClick={() => setIsNotificationSettingsOpen(true)}
                 className="w-full bg-[#10B981] text-[#0F172A] font-black rounded-lg py-2 flex items-center justify-center text-sm"
               >
                 <BellRing className="w-4 h-4 mr-2" />
@@ -164,11 +164,12 @@ export default function ProfiloPage() {
             <div className="space-y-3">
               <p className="text-xs text-[#10B981] font-bold">✓ Notifiche Attive</p>
               <button 
-                onClick={() => setIsNotificationSettingsOpen(true)}
+                onClick={testNotification}
                 className="w-full bg-[#0F172A] border border-[#334155] text-white hover:bg-[#334155] font-black rounded-lg py-2 flex items-center justify-center text-sm transition-colors"
               >
                 Testa Notifica (Finto Gol)
               </button>
+              <button onClick={unsubscribe} className="w-full border border-[#EF4444]/40 bg-[#EF4444]/10 text-[#EF4444] font-black rounded-lg py-2 text-sm">DISATTIVA NOTIFICHE</button>
             </div>
           )}
         </div>
