@@ -8,8 +8,6 @@ import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X } from 'lucide
 import Link from 'next/link';
 import { NotificationPreferences, usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
-import FantaRoster from '@/components/domain/FantaRoster';
-import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
 import InstallAppCard from '@/components/profile/InstallAppCard';
 
 export default function ProfiloPage() {
@@ -120,8 +118,6 @@ export default function ProfiloPage() {
           </div>
         )}
       </motion.div>
-
-      <FantaRoster />
 
       <div className="space-y-3">
         <InstallAppCard userId={user.id} />
