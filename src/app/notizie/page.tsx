@@ -9,6 +9,35 @@ import Link from 'next/link';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
+function formatPublicationDate(pubDate: string, time: string, createdAt?: string) {
+  let date = new Date(pubDate);
+  if (Number.isNaN(date.getTime())) {
+    const match = pubDate.match(/\w+,\s*(\d{1,2})\s+(\w{3})\s+(\d{4})\s+(\d{2}:\d{2}:\d{2})\s+GMT/i);
+    const months: Record<string, string> = { gen: '01', feb: '02', mar: '03', apr: '04', mag: '05', giu: '06', lug: '07', ago: '08', set: '09', ott: '10', nov: '11', dic: '12' };
+    if (match && months[match[2].toLowerCase()]) {
+      date = new Date(`${match[3]}-${months[match[2].toLowerCase()]}-${match[1].padStart(2, '0')}T${match[4]}Z`);
+    } else if (createdAt) {
+      date = new Date(createdAt);
+    }
+  }
+  if (Number.isNaN(date.getTime())) return time || 'Data non disponibile';
+
+  const formattedDate = new Intl.DateTimeFormat('it-IT', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    timeZone: 'Europe/Rome',
+  }).format(date);
+
+  const formattedTime = time || new Intl.DateTimeFormat('it-IT', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Rome',
+  }).format(date);
+
+  return `${formattedDate} · ${formattedTime}`;
+}
+
 interface News {
   id: number;
   title: string;
@@ -16,6 +45,7 @@ interface News {
   pub_date: string;
   source: string;
   time: string;
+  created_at?: string;
   snippet: string | null;
   type: string;
   status: string;
@@ -118,7 +148,7 @@ export default function NotiziePage() {
                   </div>
                   <div className="flex items-center text-slate-400 text-xs font-semibold">
                     <Clock className="w-3 h-3 mr-1" />
-                    {item.time}
+                    {formatPublicationDate(item.pub_date, item.time, item.created_at)}
                   </div>
                 </div>
 

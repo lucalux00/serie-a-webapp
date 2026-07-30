@@ -1,39 +1,63 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+
+type TickerNews = {
+  id: number;
+  title: string;
+  link: string;
+  source: string;
+  pub_date: string;
+  time: string;
+  created_at: string;
+};
+
+function parsePublicationDate(value: string, fallback: string) {
+  const directDate = new Date(value);
+  if (!Number.isNaN(directDate.getTime())) return directDate;
+
+  const match = value.match(/\w+,\s*(\d{1,2})\s+(\w{3})\s+(\d{4})\s+(\d{2}:\d{2}:\d{2})\s+GMT/i);
+  const months: Record<string, string> = { gen: '01', feb: '02', mar: '03', apr: '04', mag: '05', giu: '06', lug: '07', ago: '08', set: '09', ott: '10', nov: '11', dic: '12' };
+  if (match && months[match[2].toLowerCase()]) {
+    return new Date(`${match[3]}-${months[match[2].toLowerCase()]}-${match[1].padStart(2, '0')}T${match[4]}Z`);
+  }
+  return new Date(fallback);
+}
+
+function formatTimestamp(pubDate: string, time: string, createdAt: string) {
+  const date = parsePublicationDate(pubDate, createdAt);
+  if (Number.isNaN(date.getTime())) return time || 'Data non disponibile';
+  const day = new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Rome' }).format(date);
+  const hour = time || new Intl.DateTimeFormat('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(date);
+  return `${day} · ${hour}`;
+}
 
 export default function NewsTicker() {
   const { user } = useAuth();
-  const [news, setNews] = useState<{title: string, time: string}[]>([]);
+  const [news, setNews] = useState<TickerNews[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // Caricamento asincrono lato client delle news per simulare il ticker
-    import('@/data/realNews.json')
-      .then(module => {
-        const data = module.default as Record<string, any[]>;
-        const allNews = Object.values(data).flat();
-        
-        let filteredNews = allNews;
-        if (user?.favoriteTeamName) {
-          const teamName = user.favoriteTeamName.toLowerCase();
-          filteredNews = allNews.filter(n => 
-            n.title?.toLowerCase().includes(teamName) || 
-            n.snippet?.toLowerCase().includes(teamName)
-          );
-        }
-
-        // Se non ci sono notizie per la squadra, mostriamo quelle generali
-        if (filteredNews.length === 0) {
-          filteredNews = allNews;
-        }
-
-        // Mescoliamo e prendiamo le prime 15 notizie
-        const shuffled = filteredNews.sort(() => 0.5 - Math.random()).slice(0, 15);
-        setNews(shuffled);
-      });
+    let isActive = true;
+    const loadNews = async () => {
+      const teamParam = user?.favoriteTeamName ? `&team=${encodeURIComponent(user.favoriteTeamName)}` : '';
+      try {
+        const response = await fetch(`/api/news?limit=15${teamParam}`);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (isActive && Array.isArray(data)) setNews(data);
+      } catch {
+        // Il ticker resta nascosto finché il feed non è disponibile.
+      }
+    };
+    loadNews();
+    const refresh = window.setInterval(loadNews, 60000);
+    return () => {
+      isActive = false;
+      window.clearInterval(refresh);
+    };
   }, [user?.favoriteTeamName]);
 
   // Logica per cambiare notizia ogni 4 secondi
@@ -59,23 +83,18 @@ export default function NewsTicker() {
 
       {/* Contenitore Animato della Notizia */}
       <div className="flex-1 overflow-hidden relative h-full bg-[#0F172A]">
-        <AnimatePresence mode="wait">
-          <motion.div
+          <Link
+            href={`/notizie/leggi?url=${encodeURIComponent(news[currentIndex].link)}&source=${encodeURIComponent(news[currentIndex].source || 'News')}`}
             key={currentIndex}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="absolute inset-0 flex items-center px-3"
+            className="absolute inset-0 flex items-center px-3 hover:bg-white/5"
           >
             <span className="text-[var(--color-sport-secondary)] font-black text-xs mr-2 shrink-0">
-              {news[currentIndex].time}
+              {formatTimestamp(news[currentIndex].pub_date, news[currentIndex].time, news[currentIndex].created_at)}
             </span>
             <span className="text-[#F8FAFC] font-semibold text-xs truncate">
               {news[currentIndex].title}
             </span>
-          </motion.div>
-        </AnimatePresence>
+          </Link>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@
  */
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { dedupeTransfers } from '@/lib/transfers';
 
 export const dynamic = 'force-dynamic';
 
@@ -88,7 +89,12 @@ export async function GET(request: Request) {
       rows = result.rows;
     }
 
-    return NextResponse.json({ transfers: rows });
+    const transfers = dedupeTransfers(rows);
+    return NextResponse.json({
+      transfers,
+      total: transfers.length,
+      lastUpdated: transfers[0]?.created_at || null,
+    });
 
   } catch (error: any) {
     console.error('[mercato/live] Errore DB:', error.message);

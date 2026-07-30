@@ -1,36 +1,27 @@
-name: Scraping Pipeline (Mercato e News)
+name: Aggiorna news RSS
 
 on:
-  push:
-    branches:
-      - main
   schedule:
-    # Le notizie RSS non usano Gemini: un controllo ogni 30 minuti mantiene il feed fresco.
-    - cron: '*/30 * * * *'
+    # GitHub può ritardare le esecuzioni programmate, ma questa frequenza mantiene
+    # il feed aggiornato senza dipendere dal cron giornaliero di Vercel Hobby.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
+concurrency:
+  group: refresh-news-rss
+  cancel-in-progress: false
+
 jobs:
-  run-scraping:
+  refresh-news:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 3
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-        cache: 'pip'
-        
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install psycopg2-binary requests beautifulsoup4 feedparser
-        
-    - name: Run Scrapers
-      env:
-        POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-      run: |
-        python scripts/scraping/scraper_mercato.py
-        python scripts/scraping/scraper_news.py
+      - name: Richiedi aggiornamento al feed centrale
+        env:
+          SITE_URL: https://webapp-two-nu-71.vercel.app
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_SECRET"
+          curl --fail --silent --show-error --retry 2 \
+            --header "Authorization: Bearer $CRON_SECRET" \
+            "$SITE_URL/api/cron/news"

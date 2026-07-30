@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { ALL_TEAMS } from '@/data/teams';
 import TeamLogo from '@/components/ui/TeamLogo';
+import { dedupeTransfers } from '@/lib/transfers';
 
 type LeagueKey = 'A' | 'B' | 'PL' | 'LL' | 'BL' | 'L1';
 type FilterKey = 'acquisti' | 'cessioni' | 'prestiti' | 'trattative';
@@ -160,15 +161,18 @@ export default function MarketFeed() {
   const [searchQuery,  setSearchQuery]  = useState('');
   const [allData,     setAllData]     = useState<any[]>([]);
   const [loading,     setLoading]     = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch(`/api/mercato/live?league=${leagueTab}&limit=200`);
       const json = await res.json();
-      setAllData(json.transfers || []);
+      setAllData(dedupeTransfers(json.transfers || []));
+      setLastUpdated(json.lastUpdated || null);
     } catch {
       setAllData([]);
+      setLastUpdated(null);
     } finally {
       setLoading(false);
     }
@@ -213,6 +217,10 @@ export default function MarketFeed() {
     trattative: trattative.length,
   };
 
+  const updatedLabel = lastUpdated
+    ? new Intl.DateTimeFormat('it-IT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(lastUpdated))
+    : null;
+
   return (
     <div className="w-full flex flex-col space-y-5">
 
@@ -226,6 +234,11 @@ export default function MarketFeed() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full bg-[var(--color-sport-card)]/70 border border-white/10 rounded-full py-3 pl-10 pr-4 text-sm text-[var(--color-sport-text)] placeholder-[var(--color-sport-muted)] focus:outline-none focus:border-[var(--color-sport-secondary)]/60 transition-colors"
         />
+      </div>
+
+      <div className="flex items-center justify-between gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-3 py-2 text-[10px] text-[var(--color-sport-muted)]">
+        <span>Dati aggregati automaticamente: le voci <strong className="text-[#F59E0B]">Rumor</strong> richiedono conferma.</span>
+        {updatedLabel && <span className="shrink-0 font-bold">Agg. {updatedLabel}</span>}
       </div>
 
       {/* ── Tabs Lega ── */}
