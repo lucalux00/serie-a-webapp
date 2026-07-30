@@ -62,7 +62,7 @@ export default function FantacalcioPage() {
           onClick={() => setActiveTab('news')}
           className={`flex items-center justify-center px-3 py-3 text-xs font-bold rounded-xl transition-all sm:min-w-28 ${activeTab === 'news' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
         >
-          <Newspaper size={16} className="mr-2" /> NEWS
+          <Newspaper size={16} className="mr-2" /> RADAR ROSA
         </button>
         </div>
       </div>
