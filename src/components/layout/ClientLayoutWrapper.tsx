@@ -10,10 +10,28 @@ import CookieConsent from '@/components/layout/CookieConsent';
 import NewsTicker from '@/components/layout/NewsTicker';
 import { getTeamColors } from '@/utils/teamColors';
 
+type InstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+};
+
+declare global {
+  interface Window {
+    deferredInstallPrompt?: InstallPromptEvent;
+  }
+}
+
 function AppContent({ children }: { children: React.ReactNode }) {
   const { user, isLoaded } = useAuth();
 
   React.useEffect(() => {
+    const captureInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      window.deferredInstallPrompt = event as InstallPromptEvent;
+      window.dispatchEvent(new Event('serie-a-install-prompt-ready'));
+    };
+
+    window.addEventListener('beforeinstallprompt', captureInstallPrompt);
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').catch(err => {
@@ -21,6 +39,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
         });
       });
     }
+    return () => window.removeEventListener('beforeinstallprompt', captureInstallPrompt);
   }, []);
 
   if (!isLoaded) {

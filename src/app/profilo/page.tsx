@@ -114,7 +114,7 @@ export default function ProfiloPage() {
       <FantaRoster />
 
       <div className="space-y-3">
-        <InstallAppCard />
+        <InstallAppCard userId={user.id} />
 
         <button 
           onClick={() => {
