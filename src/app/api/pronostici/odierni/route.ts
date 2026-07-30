@@ -21,6 +21,7 @@ export async function GET(request: Request) {
       const { rows: futureMatches } = await sql`
         SELECT id FROM daily_ai_predictions
         WHERE match_date >= NOW()
+          AND match_date <= NOW() + INTERVAL '14 days'
         LIMIT 1
       `;
 

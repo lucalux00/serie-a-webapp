@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { sql } from '@vercel/postgres';
+import { getUserFromCookie } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 
@@ -11,6 +12,14 @@ function parseQuotes(value: unknown): Quote[] {
 }
 
 export async function GET() {
+  const user = await getUserFromCookie();
+  if (!user) return new Response('Non autorizzato', { status: 401 });
+
+  const { rows: admins } = await sql`SELECT email FROM users WHERE id = ${user.userId}`;
+  if (!['lucapinelli0000@gmail.com', 'luca.pinelli0000@gmail.com'].includes(admins[0]?.email || '')) {
+    return new Response('Permesso negato', { status: 403 });
+  }
+
   const { rows } = await sql`
     SELECT home_team, away_team, competition, quotes
     FROM daily_ai_predictions

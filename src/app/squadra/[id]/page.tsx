@@ -22,14 +22,24 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
   let dbPlayersPromise: Promise<{ rows: any[] }> = Promise.resolve({ rows: [] });
   let dbTransfersPromise: Promise<{ rows: any[] }> = Promise.resolve({ rows: [] });
   if (process.env.POSTGRES_URL) {
-    dbPlayersPromise = sql`SELECT * FROM players WHERE team_id = ${teamId}`;
-    dbTransfersPromise = sql`SELECT * FROM transfers WHERE team_id = ${teamId} ORDER BY id DESC`;
+    dbPlayersPromise = sql`SELECT * FROM players WHERE team_id = ${teamId}`.catch((error) => {
+      console.warn('Players DB fetch failed, using local fallback:', error);
+      return { rows: [] };
+    });
+    dbTransfersPromise = sql`SELECT * FROM transfers WHERE team_id = ${teamId} ORDER BY id DESC`.catch((error) => {
+      console.warn('Transfers DB fetch failed, using local fallback:', error);
+      return { rows: [] };
+    });
   }
 
   // Risolvi tutto in parallelo! Le news vengono omesse per alleggerire il Server Side Rendering e rendere la pagina istantanea.
-  const [{ rows: players }, { rows: transfers }] = await Promise.all([
+  const [{ rows: players }, { rows: transfers }, rssNews] = await Promise.all([
     dbPlayersPromise,
-    dbTransfersPromise
+    dbTransfersPromise,
+    fetchNewsForTeam(team.name, team.league).catch((error) => {
+      console.warn('Team news RSS fetch failed:', error);
+      return [];
+    }),
   ]);
 
   const news: any[] = []; // Inietto array vuoto: il Client (SWR) si prenderà carico di caricare le news in modo asincrono.
@@ -134,5 +144,5 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
     console.error('Error loading trofei:', e);
   }
 
-  return <TeamHubClient team={team} news={news} squadData={squadData} trofeiData={trofeiData} initialTab={initialTab} />;
+  return <TeamHubClient team={team} news={rssNews} squadData={squadData} trofeiData={trofeiData} initialTab={initialTab} />;
 }
