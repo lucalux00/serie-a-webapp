@@ -104,7 +104,10 @@ export async function GET(request: Request) {
       }
 
       // Limita il punteggio tra 0 e 100
-      let finalScore = Math.max(0, Math.min(100, Math.round(baseScore)));
+      const finalScore = Math.max(0, Math.min(100, Math.round(baseScore)));
+      // Stima del rendimento positivo nella prossima giornata. Non è la probabilità
+      // di segnare: combina qualità della squadra, fattore campo e difficoltà avversario.
+      const successProbability = Math.max(35, Math.min(85, Math.round(50 + (finalScore - 70) * 1.4)));
 
       let recommendationLabel = "Schierabile";
       if (finalScore >= 80) recommendationLabel = "Top di Giornata";
@@ -113,6 +116,7 @@ export async function GET(request: Request) {
       return {
         ...player,
         score: finalScore,
+        successProbability,
         matchInfo,
         matchDifficulty,
         recommendationLabel
