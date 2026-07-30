@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PlayerSheet from '@/components/domain/PlayerSheet';
 import useSWR from 'swr';
 import LiveCommentary from '@/components/LiveCommentary';
+import ScoreAxisLiveWidget from '@/components/ScoreAxisLiveWidget';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -501,7 +502,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           {/* TAB: LIVE - DIRETTA TESTUALE */}
           {activeTab === 'live' && (
             <motion.div key="live" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
-              <LiveCommentary teamName={team.name} isActive={activeTab === 'live'} />
+              {['genoa', 'napoli'].includes(team.id) ? <ScoreAxisLiveWidget /> : <LiveCommentary teamName={team.name} isActive={activeTab === 'live'} />}
             </motion.div>
           )}
 
