@@ -19,6 +19,7 @@ import Parser from 'rss-parser';
 import { createHash } from 'crypto';
 import { generateJSON } from '@/lib/gemini';
 import { isOfficial, isSamePlayer } from '@/lib/transfers';
+import { ALL_TEAMS } from '@/data/teams';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -176,6 +177,8 @@ export async function GET(request: Request) {
         if (!t.player || !t.team_id || !t.type) continue;
         if (t.player.trim().length > 60) continue;
         if (t.player.toLowerCase().includes('calciomercato')) continue;
+        if (!['Acquisto', 'Cessione', 'Prestito'].includes(t.type)) continue;
+        if (!ALL_TEAMS.some((team) => team.id === t.team_id && team.league === league)) continue;
 
         // Confronto tollerante: evita doppioni come "Jimenez" / "Álex Jiménez".
         const { rows: candidates } = await sql`

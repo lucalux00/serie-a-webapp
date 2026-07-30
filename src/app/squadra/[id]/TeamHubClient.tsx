@@ -239,7 +239,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   // News fetching — solo quando la tab NEWS è attiva, aggiornamento ogni 5 minuti
   const { data: newsPayload } = useSWR(
     activeTab === 'news'
-      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}&meta=1`
+      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}&limit=20&meta=1`
       : null,
     newsFetcher,
     { fallbackData: { items: initialNews, refreshedAt: null }, refreshInterval: 60000, revalidateOnFocus: false }
@@ -255,7 +255,10 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   );
   const teamTransfers: any[] = teamMercatoRaw?.transfers || squadData?.transfers || [];
 
-  const news = newsPayload?.items || initialNews;
+  // Se il filtro testuale del DB ha ancora indicizzato poche notizie, non deve
+  // cancellare il feed RSS mirato disponibile al primo rendering.
+  const databaseNews = Array.isArray(newsPayload?.items) ? newsPayload.items : [];
+  const news = databaseNews.length >= 4 || initialNews.length === 0 ? databaseNews : initialNews;
   const topNews = news.slice(0, 4);
   const otherNews = news.slice(4);
   const lastRefreshDate = parseNewsDate(newsPayload?.refreshedAt);

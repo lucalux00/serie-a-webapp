@@ -123,7 +123,9 @@ export default function NotiziePage() {
                                item.status === 'trattativa' ? 'text-amber-400 border-amber-400/30 bg-amber-400/10' : 
                                'text-slate-300 border-slate-600 bg-slate-800';
 
-            const targetHref = isManual ? item.link : `/notizie/leggi?url=${encodeURIComponent(item.link)}&source=${encodeURIComponent(item.source || 'News')}`;
+            const targetHref = isManual
+              ? item.link
+              : `/notizie/leggi?url=${encodeURIComponent(item.link)}&source=${encodeURIComponent(item.source || 'News')}&title=${encodeURIComponent(item.title)}&snippet=${encodeURIComponent(item.snippet || '')}`;
 
             return (
               <motion.div

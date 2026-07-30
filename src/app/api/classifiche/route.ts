@@ -49,12 +49,10 @@ export async function GET(request: Request) {
       const cacheSeconds = season ? 86400 : 300;
       let data: any = {};
       let allStandings: any[] = [];
-      let totalPoints = 0;
 
       try {
         data = await fetchFromApi(`/competitions/${leagueCode}/standings?season=${targetSeason}`, cacheSeconds);
         allStandings = data.standings?.[0]?.table || [];
-        totalPoints = allStandings.reduce((sum: number, t: any) => sum + t.points, 0);
       } catch (err: any) {
         console.warn(`[classifiche API] Impossibile caricare standings per stagione ${targetSeason}: ${err.message}. Genero classifica vuota.`);
       }
@@ -72,17 +70,21 @@ export async function GET(request: Request) {
             goalsFor: 0, goalsAgainst: 0, goalDifference: 0,
             form: null,
           }));
-          totalPoints = 0;
           data.season = { startDate: `${targetSeason}-08-15`, endDate: `${Number(targetSeason)+1}-05-30` }; // dummy dates
         } catch (teamErr: any) {
           console.error(`[classifiche API] Errore nel caricare i team per stagione ${targetSeason}:`, teamErr.message);
         }
       }
 
-      const seasonNotStarted = !season && totalPoints === 0;
+      const totalPlayed = allStandings.reduce((sum: number, t: any) => sum + (t.playedGames || 0), 0);
+      const seasonNotStarted = !season && allStandings.length > 0 && totalPlayed === 0;
+      const orderedStandings = seasonNotStarted
+        ? [...allStandings].sort((a, b) => a.team.name.localeCompare(b.team.name, 'it'))
+        : allStandings;
 
-      const standings = allStandings.map((t: any) => ({
-        pos: t.position,
+      const standings = orderedStandings.map((t: any, index: number) => ({
+        // Before the first match, a sporting rank would be misleading.
+        pos: seasonNotStarted ? index + 1 : t.position,
         team: t.team.name,
         teamId: t.team.id,
         crest: t.team.crest,
@@ -105,6 +107,7 @@ export async function GET(request: Request) {
         season: currentSeason,
         currentMatchday: data.season?.currentMatchday || 1,
         seasonNotStarted,
+        standingsOrder: seasonNotStarted ? 'alphabetical' : 'sporting',
         winner: standings[0] || null,
         standings,
       });

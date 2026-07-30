@@ -1,7 +1,7 @@
 /**
  * GET /api/cron/pronostici
  *
- * Genera pronostici AI per i 3 match di cartello dei prossimi 3 giorni.
+ * Genera pronostici AI per i 3 match di cartello dei prossimi 14 giorni.
  * Schedulato automaticamente 2x/settimana (lun + gio alle 07:30 IT) in vercel.json.
  * Usa DB cache (daily_ai_predictions) — non rigenera match già analizzati.
  *
@@ -75,12 +75,13 @@ export async function GET(request: Request) {
       throw new Error('Manca FOOTBALL_DATA_API_KEY');
     }
 
-    // Fetch partite prossimi 3 giorni da 5 competizioni principali
+    // Copre la stessa finestra mostrata nella pagina pubblica, evitando stati vuoti
+    // quando il prossimo turno è oltre i tre giorni.
     const today = new Date();
-    const threeDays = new Date();
-    threeDays.setDate(today.getDate() + 3);
+    const fourteenDays = new Date();
+    fourteenDays.setDate(today.getDate() + 14);
     const dateFrom = today.toISOString().split('T')[0];
-    const dateTo = threeDays.toISOString().split('T')[0];
+    const dateTo = fourteenDays.toISOString().split('T')[0];
 
     const response = await fetch(
       `https://api.football-data.org/v4/matches?dateFrom=${dateFrom}&dateTo=${dateTo}&competitions=SA,PL,PD,BL1,CL,EL`,

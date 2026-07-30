@@ -12,6 +12,7 @@ import { dedupeTransfers } from '@/lib/transfers';
 
 type LeagueKey = 'A' | 'B' | 'PL' | 'LL' | 'BL' | 'L1';
 type FilterKey = 'acquisti' | 'cessioni' | 'prestiti' | 'trattative';
+type SortKey = 'recent' | 'team' | 'status';
 
 const LEAGUES: { id: LeagueKey; label: string }[] = [
   { id: 'A',  label: 'Serie A' },
@@ -53,11 +54,28 @@ function getAccentColor(type: string) {
   return '#F59E0B';
 }
 
+function formatAcquiredAt(value?: string | null) {
+  if (!value || Number.isNaN(new Date(value).getTime())) return null;
+  return new Intl.DateTimeFormat('it-IT', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+  }).format(new Date(value));
+}
+
+function getDayGroup(tr: any) {
+  const timestamp = tr.created_at ? new Date(tr.created_at) : null;
+  if (timestamp && !Number.isNaN(timestamp.getTime())) {
+    return new Intl.DateTimeFormat('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+      .format(timestamp);
+  }
+  return tr.date || 'Data non disponibile';
+}
+
 function TransferCard({ tr }: { tr: any }) {
   const isRumor = tr.status === 'Rumor';
   const accent  = isRumor ? '#F59E0B' : getAccentColor(tr.type);
   const hasFee  = tr.fee && tr.fee !== 'N/D' && tr.fee !== '';
   const hasDate = tr.date && tr.date !== '';
+  const acquiredAt = formatAcquiredAt(tr.created_at);
   const teamInfo = ALL_TEAMS.find(
     (t) =>
       t.id === tr.team_id ||
@@ -86,11 +104,13 @@ function TransferCard({ tr }: { tr: any }) {
             </span>
           </div>
           <div className="flex items-center gap-1.5">
-            {isRumor && (
-              <span className="text-[9px] font-black px-1.5 py-0.5 rounded uppercase border bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/40">
-                RUMOR
-              </span>
-            )}
+            <span className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase border ${
+              isRumor
+                ? 'bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/40'
+                : 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/35'
+            }`}>
+              {isRumor ? 'DA CONFERMARE' : 'UFFICIALE'}
+            </span>
             <span className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase border ${getBadge(tr.type)}`}>
               {tr.type}
             </span>
@@ -148,6 +168,11 @@ function TransferCard({ tr }: { tr: any }) {
             )}
           </div>
         )}
+
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[9px] font-semibold text-[var(--color-sport-muted)]">
+          <span>Fonte: dati aggregati</span>
+          {acquiredAt && <span>Acquisito: {acquiredAt}</span>}
+        </div>
       </div>
     </div>
   );
@@ -159,6 +184,7 @@ export default function MarketFeed() {
   const [filterTab,   setFilterTab]   = useState<FilterKey>('acquisti');
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [searchQuery,  setSearchQuery]  = useState('');
+  const [sortBy, setSortBy] = useState<SortKey>('recent');
   const [allData,     setAllData]     = useState<any[]>([]);
   const [loading,     setLoading]     = useState(true);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
@@ -206,6 +232,22 @@ export default function MarketFeed() {
     filterTab === 'prestiti'   ? prestiti : trattative;
 
   const activeFilter = FILTERS.find((f) => f.id === filterTab)!;
+
+  const sortedList = [...currentList].sort((a, b) => {
+    if (sortBy === 'team') return (a.team || a.team_id || '').localeCompare(b.team || b.team_id || '', 'it');
+    if (sortBy === 'status') {
+      const statusDifference = Number(a.status === 'Rumor') - Number(b.status === 'Rumor');
+      if (statusDifference !== 0) return statusDifference;
+    }
+    return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+  });
+  const groupedList = sortedList.reduce<Array<{ label: string; transfers: any[] }>>((groups, transfer) => {
+    const label = getDayGroup(transfer);
+    const currentGroup = groups.find((group) => group.label === label);
+    if (currentGroup) currentGroup.transfers.push(transfer);
+    else groups.push({ label, transfers: [transfer] });
+    return groups;
+  }, []);
 
   const teamsInLeague = ALL_TEAMS.filter((t) => t.league === leagueTab);
 
@@ -326,6 +368,24 @@ export default function MarketFeed() {
         </button>
       </div>
 
+      <div className="flex flex-col gap-2 rounded-xl border border-white/5 bg-white/[0.03] px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[10px] text-[var(--color-sport-muted)]">
+          {currentList.length} movimenti mostrati. Gli ufficiali e i rumor restano sempre distinguibili.
+        </p>
+        <label className="flex items-center gap-2 text-[10px] font-bold text-[var(--color-sport-muted)]">
+          Ordina per
+          <select
+            value={sortBy}
+            onChange={(event) => setSortBy(event.target.value as SortKey)}
+            className="rounded-lg border border-white/10 bg-[#0B1120] px-2 py-1 text-[10px] font-black text-white outline-none focus:border-[var(--color-sport-primary)]"
+          >
+            <option value="recent">Più recenti</option>
+            <option value="team">Squadra</option>
+            <option value="status">Stato</option>
+          </select>
+        </label>
+      </div>
+
       {/* ── Contenuto ── */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -342,7 +402,7 @@ export default function MarketFeed() {
                 Caricamento {activeFilter.label}...
               </span>
             </div>
-          ) : currentList.length > 0 ? (
+          ) : sortedList.length > 0 ? (
             <>
               <div className="flex items-center gap-2 mb-4">
                 <h2
@@ -358,12 +418,21 @@ export default function MarketFeed() {
                   )}
                 </h2>
                 <span className="text-[10px] font-bold text-[var(--color-sport-muted)] bg-white/5 px-2 py-0.5 rounded-full">
-                  {currentList.length} movimenti
+                  {sortedList.length} movimenti
                 </span>
               </div>
-              <div className="grid grid-cols-1 gap-3">
-                {currentList.map((tr) => (
-                  <TransferCard key={tr.id} tr={tr} />
+              <div className="space-y-6">
+                {groupedList.map((group) => (
+                  <section key={group.label} aria-label={`Movimenti del ${group.label}`}>
+                    <div className="mb-2 flex items-center gap-2">
+                      <span className="h-px flex-1 bg-white/10" />
+                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-sport-muted)]">{group.label}</h3>
+                      <span className="h-px flex-1 bg-white/10" />
+                    </div>
+                    <div className="grid grid-cols-1 gap-3">
+                      {group.transfers.map((tr) => <TransferCard key={tr.id} tr={tr} />)}
+                    </div>
+                  </section>
                 ))}
               </div>
             </>

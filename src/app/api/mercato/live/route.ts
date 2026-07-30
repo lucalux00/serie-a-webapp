@@ -13,6 +13,7 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { dedupeTransfers } from '@/lib/transfers';
+import { ALL_TEAMS } from '@/data/teams';
 
 export const dynamic = 'force-dynamic';
 
@@ -89,7 +90,15 @@ export async function GET(request: Request) {
       rows = result.rows;
     }
 
-    const transfers = dedupeTransfers(rows);
+    // Keep only movements tied to a known club in the requested competition.
+    // This prevents ambiguous RSS extractions from polluting the public feed.
+    const allowedTeamIds = new Set(
+      ALL_TEAMS.filter((team) => teamId ? team.id === teamId : league === 'ALL' || team.league === league).map((team) => team.id)
+    );
+    const transfers = dedupeTransfers(rows).filter((transfer) =>
+      allowedTeamIds.has(transfer.team_id) &&
+      ['Acquisto', 'Cessione', 'Prestito', 'Trattativa'].includes(transfer.type)
+    );
     return NextResponse.json({
       transfers,
       total: transfers.length,
