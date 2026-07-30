@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { NotificationPreferences, usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
 import InstallAppCard from '@/components/profile/InstallAppCard';
+import PromoCodeRedeemer from '@/components/profile/PromoCodeRedeemer';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
@@ -121,6 +122,7 @@ export default function ProfiloPage() {
 
       <div className="space-y-3">
         <InstallAppCard userId={user.id} />
+        <PromoCodeRedeemer />
 
         <button 
           onClick={() => {
