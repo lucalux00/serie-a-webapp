@@ -1,144 +1,47 @@
 const { sql } = require('@vercel/postgres');
 const Parser = require('rss-parser');
-const { GoogleGenAI } = require('@google/genai');
-const { createHash } = require('crypto');
 
-const parser = new Parser({
-    headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-    }
-});
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
+const parser = new Parser({ headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TatticaPronosticiRSS/1.0)' } });
 const FEEDS = [
-    'https://news.google.com/rss/search?q=calciomercato+serie+a+ufficiale&hl=it&gl=IT&ceid=IT:it',
-    'https://news.google.com/rss/search?q=calciomercato+serie+a+trattativa&hl=it&gl=IT&ceid=IT:it'
+  'https://news.google.com/rss/search?q=calciomercato+serie+a+ufficiale&hl=it&gl=IT&ceid=IT:it',
+  'https://news.google.com/rss/search?q=calciomercato+serie+a+trattativa&hl=it&gl=IT&ceid=IT:it',
 ];
+const TEAMS = ['atalanta', 'bologna', 'cagliari', 'como', 'fiorentina', 'genoa', 'inter', 'juventus', 'lazio', 'lecce', 'milan', 'napoli', 'parma', 'pisa', 'roma', 'sassuolo', 'torino', 'udinese', 'verona'];
 
-async function syncTransfers() {
-    console.log("🔄 Avvio sincronizzazione calciomercato RSS + Gemini...");
-    
-    if (!process.env.POSTGRES_URL) {
-        console.error("❌ ERRORE: POSTGRES_URL non impostato.");
-        process.exit(1);
-    }
-    if (!process.env.GEMINI_API_KEY) {
-        console.error("❌ ERRORE: GEMINI_API_KEY non impostato.");
-        process.exit(1);
-    }
-
-    let inserted = 0;
-    try {
-        const textsToAnalyze = [];
-        for (const feedUrl of FEEDS) {
-            console.log(`📡 Lettura feed: ${feedUrl}`);
-            const feed = await parser.parseURL(feedUrl);
-            const items = feed.items.slice(0, 15);
-            for (const item of items) {
-                if (item.title) textsToAnalyze.push(item.title);
-            }
-        }
-
-        if (textsToAnalyze.length === 0) {
-            console.log("Nessuna notizia trovata.");
-            return;
-        }
-
-        // Il workflow può controllare spesso i feed senza ripetere la stessa chiamata AI.
-        const titlesHash = createHash('sha256')
-            .update([...new Set(textsToAnalyze.map(title => title.trim()))].sort().join('|'))
-            .digest('hex');
-
-        await sql`
-            CREATE TABLE IF NOT EXISTS mercato_cron_log (
-                id SERIAL PRIMARY KEY,
-                titles_hash TEXT NOT NULL,
-                ai_called BOOLEAN DEFAULT FALSE,
-                inserted INTEGER DEFAULT 0,
-                created_at TIMESTAMPTZ DEFAULT NOW()
-            )
-        `;
-        await sql`DELETE FROM mercato_cron_log WHERE created_at < NOW() - INTERVAL '30 days'`;
-
-        const previousRun = await sql`
-            SELECT id FROM mercato_cron_log
-            WHERE titles_hash = ${titlesHash}
-            LIMIT 1
-        `;
-        if (previousRun.rows.length > 0) {
-            console.log("Nessun titolo nuovo: Gemini non viene chiamato.");
-            return;
-        }
-
-        console.log(`🤖 Invio ${textsToAnalyze.length} titoli a Gemini per estrazione...`);
-        const prompt = `Ecco una lista di titoli di articoli di calciomercato:
-${textsToAnalyze.join('\n')}
-
-Estrai tutti i trasferimenti o le trattative (anche solo rumors) delle squadre di Serie A.
-Ignora le notizie che non parlano di trasferimenti chiari o trattative tra giocatori e squadre.
-
-Restituisci ESCLUSIVAMENTE un JSON array di oggetti con i seguenti campi:
-- "player": nome del giocatore
-- "team_id": l'ID della squadra coinvolta. Usa questi esatti ID: atalanta, bologna, cagliari, como, fiorentina, frosinone, genoa, inter, juventus, lazio, lecce, milan, monza, napoli, parma, roma, sassuolo, torino, udinese, venezia.
-- "type": "Acquisto", "Cessione" o "Prestito"
-- "other_team": la squadra di provenienza o destinazione (stringa libera)
-- "status": "Ufficiale" se è un trasferimento concluso, altrimenti "Rumor"
-- "fee": il costo o "N/D"
-
-IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
-
-        const response = await ai.models.generateContent({
-            model: 'gemini-flash-lite-latest',
-            contents: prompt,
-        });
-
-        let jsonText = response.text.trim();
-        if (jsonText.startsWith('```json')) jsonText = jsonText.replace(/```json/g, '').replace(/```/g, '').trim();
-
-        const transfers = JSON.parse(jsonText);
-
-        await sql`
-            INSERT INTO mercato_cron_log (titles_hash, ai_called, inserted)
-            VALUES (${titlesHash}, TRUE, 0)
-        `;
-        console.log(`📊 Gemini ha identificato ${transfers.length} trasferimenti/rumors.`);
-
-        const today = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
-
-        for (const t of transfers) {
-            // Check if it already exists today to avoid duplicates
-            const existing = await sql`
-                SELECT id FROM transfers 
-                WHERE player = ${t.player} AND team_id = ${t.team_id} AND type = ${t.type} 
-                AND (status = ${t.status} OR status = 'Ufficiale')
-                LIMIT 1
-            `;
-
-            if (existing.rows.length === 0) {
-                // Remove any old rumor if an official one arrives
-                if (t.status === 'Ufficiale') {
-                     await sql`DELETE FROM transfers WHERE player = ${t.player} AND team_id = ${t.team_id} AND type = ${t.type} AND status = 'Rumor'`;
-                }
-
-                await sql`
-                    INSERT INTO transfers (team_id, type, player, other_team, fee, date, status)
-                    VALUES (${t.team_id}, ${t.type}, ${t.player}, ${t.other_team || 'N/D'}, ${t.fee || 'N/D'}, ${today}, ${t.status})
-                `;
-                console.log(`✅ Inserito: ${t.player} -> ${t.team_id} (${t.type} - ${t.status})`);
-                inserted++;
-            }
-        }
-
-        console.log(`✅ Sincronizzazione completata! ${inserted} nuovi record inseriti.`);
-        await sql`
-            UPDATE mercato_cron_log SET inserted = ${inserted}
-            WHERE titles_hash = ${titlesHash}
-        `;
-    } catch(e) {
-        console.error("❌ Errore durante lo script:", e);
-        process.exit(1);
-    }
+function inferTransfer(title) {
+  const text = title.toLowerCase();
+  const team = TEAMS.find((name) => text.includes(name));
+  if (!team) return null;
+  const isLoan = /prestito/.test(text);
+  const isOfficial = /ufficiale|firma|annuncia|acquistato|ceduto/.test(text);
+  const isOutgoing = /cessione|ceduto|addio|saluta/.test(text);
+  return {
+    team,
+    type: isLoan ? 'Prestito' : isOutgoing ? 'Cessione' : 'Acquisto',
+    status: isOfficial ? 'Ufficiale' : 'Rumor',
+  };
 }
 
-syncTransfers();
+async function syncTransfers() {
+  if (!process.env.POSTGRES_URL) throw new Error('POSTGRES_URL non impostato');
+  let inserted = 0;
+  for (const feedUrl of FEEDS) {
+    const feed = await parser.parseURL(feedUrl);
+    for (const item of feed.items.slice(0, 25)) {
+      const title = String(item.title || '').trim();
+      const transfer = inferTransfer(title);
+      if (!transfer) continue;
+      const exists = await sql`SELECT id FROM transfers WHERE player = ${title} AND team_id = ${transfer.team} LIMIT 1`;
+      if (exists.rows.length) continue;
+      const date = new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome', dateStyle: 'short', timeStyle: 'short' });
+      await sql`
+        INSERT INTO transfers (team_id, type, player, other_team, fee, date, status)
+        VALUES (${transfer.team}, ${transfer.type}, ${title}, ${item.link || 'Fonte RSS'}, 'N/D', ${date}, ${transfer.status})
+      `;
+      inserted++;
+    }
+  }
+  console.log(`RSS mercato completato: ${inserted} nuove voci.`);
+}
+
+syncTransfers().catch((error) => { console.error(error); process.exit(1); });

@@ -2,8 +2,8 @@ name: Scrape Mercato RSS
 
 on:
   schedule:
-    # Controlla i feed ogni 30 minuti; lo script chiama Gemini soltanto per titoli nuovi.
-    - cron: '*/30 * * * *'
+    # Feed RSS pubblico: nessun utilizzo di AI generativa.
+    - cron: '*/5 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 jobs:
@@ -27,4 +27,3 @@ jobs:
         run: node scripts/scrape_rss_transfers.js
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

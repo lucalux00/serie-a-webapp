@@ -59,11 +59,14 @@ export default function NotiziePage() {
   const typeParam = filter !== 'all' ? `&type=${filter}` : '';
 
   // Aggiornamento ogni 5 minuti (300.000 ms)
-  const { data: news, error, isValidating, mutate } = useSWR<News[]>(
-    `/api/news?limit=50${typeParam}${teamParam}`, 
+  const { data: payload, error, isValidating, mutate } = useSWR<{ items: News[]; refreshedAt: string | null }>(
+    `/api/news?limit=50&meta=1${typeParam}${teamParam}`, 
     fetcher, 
     { refreshInterval: 300000 }
   );
+  const news = payload?.items;
+  const latestUpdate = payload?.refreshedAt || news?.[0]?.created_at;
+  const latestUpdateLabel = latestUpdate ? new Intl.DateTimeFormat('it-IT', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/Rome' }).format(new Date(latestUpdate)) : 'in attesa del primo aggiornamento';
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -90,6 +93,10 @@ export default function NotiziePage() {
             <RefreshCw className="w-5 h-5" />
           </button>
         </div>
+      </div>
+      <div className="mb-5 flex items-center gap-2 rounded-xl border border-blue-400/20 bg-blue-500/10 px-4 py-3 text-xs font-bold text-blue-100">
+        <Clock className="h-4 w-4 shrink-0 text-blue-400" />
+        Ultimo aggiornamento notizie: {latestUpdateLabel}. Il feed viene controllato ogni 5 minuti.
       </div>
 
       {error && (
