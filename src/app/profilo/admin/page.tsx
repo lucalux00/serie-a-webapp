@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { ALL_TEAMS } from '@/data/teams';
 import { useRouter } from 'next/navigation';
-import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check, Palette } from 'lucide-react';
+import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check, Palette, Copy, ExternalLink, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import useSWR from 'swr';
+import AdminStatsPanel from '@/components/admin/AdminStatsPanel';
+import AdminPromotions from '@/components/admin/AdminPromotions';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -14,9 +16,11 @@ export default function AdminPage() {
   const { user } = useAuth();
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState<'transfers' | 'news'>('transfers');
+  const [activeTab, setActiveTab] = useState<'transfers' | 'news' | 'social' | 'promo'>('transfers');
 
   const { data: allNews, mutate: mutateNews } = useSWR('/api/news?limit=100', fetcher);
+  const { data: socialDraft, mutate: mutateSocialDraft } = useSWR('/api/admin/social-draft', fetcher, { refreshInterval: 60000 });
+  const { data: storyDraft, mutate: mutateStoryDraft } = useSWR('/api/admin/social-stories', fetcher, { refreshInterval: 300000 });
 
   // Form Transfers
   const [form, setForm] = useState({
@@ -153,6 +157,11 @@ export default function AdminPage() {
     }
   };
 
+  const copyDraft = async (text: string, label: string) => {
+    await navigator.clipboard.writeText(text);
+    setMessage(`Fatto: ${label} copiato negli appunti.`);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
       <Link href="/profilo" className="flex items-center text-emerald-500 font-bold mb-6 hover:text-emerald-400 transition-colors">
@@ -169,8 +178,10 @@ export default function AdminPage() {
           </Link>
         </div>
 
+        <AdminStatsPanel />
+
         <div className="flex space-x-2 mb-6">
-          <button 
+          <button
             onClick={() => {setActiveTab('transfers'); setMessage('');}}
             className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'transfers' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
           >
@@ -182,10 +193,17 @@ export default function AdminPage() {
           >
             Notizie
           </button>
+          <button
+            onClick={() => {setActiveTab('social'); setMessage(''); mutateSocialDraft(); mutateStoryDraft();}}
+            className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'social' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
+          >
+            Social
+          </button>
+          <button onClick={() => {setActiveTab('promo'); setMessage('');}} className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'promo' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>Pro & Codici</button>
         </div>
 
         {message && (
-          <div className={`p-4 rounded-xl mb-6 font-bold text-sm ${message.includes('✅') ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : (message.includes('⏳') ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20')}`}>
+          <div className={`p-4 rounded-xl mb-6 font-bold text-sm ${message.startsWith('Fatto:') ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : (message.includes('in corso') ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20')}`}>
             {message}
           </div>
         )}
@@ -337,6 +355,57 @@ export default function AdminPage() {
               </div>
             </div>
 
+          </div>
+        )}
+
+        {activeTab === 'promo' && <AdminPromotions />}
+        {activeTab === 'social' && (
+          <div className="space-y-5">
+            <div className="rounded-2xl border border-fuchsia-500/30 bg-fuchsia-500/10 p-4">
+              <div className="flex items-center gap-2 text-fuchsia-300">
+                <Share2 size={18} />
+                <h2 className="font-black uppercase tracking-wider">Bozza social dai pronostici</h2>
+              </div>
+              <p className="mt-2 text-sm text-slate-300">La bozza si aggiorna automaticamente quando arrivano nuovi pronostici. Copia il testo e scarica il visual prima della pubblicazione.</p>
+            </div>
+
+            {!socialDraft ? (
+              <div className="p-8 text-center text-slate-400">Caricamento bozza social…</div>
+            ) : !socialDraft.hasDraft ? (
+              <div className="rounded-2xl border border-slate-700 bg-slate-900/50 p-8 text-center text-slate-400">Non ci sono ancora pronostici futuri da trasformare in post.</div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                  <span>{socialDraft.predictions.length} match disponibili</span>
+                  <span>Nuova bozza generata</span>
+                </div>
+                <a href={socialDraft.visualUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-black text-slate-950 transition-opacity hover:opacity-90">
+                  <ExternalLink size={16} /> Apri visual 1080×1350
+                </a>
+                <div className="rounded-2xl border border-slate-700 bg-slate-900/60 p-4">
+                  <div className="mb-3 flex items-center justify-between"><h3 className="font-black text-white">Caption Instagram</h3><button onClick={() => copyDraft(socialDraft.instagramCaption, 'Caption Instagram')} className="rounded-lg bg-slate-700 p-2 text-slate-200 hover:bg-slate-600"><Copy size={15} /></button></div>
+                  <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-300">{socialDraft.instagramCaption}</pre>
+                </div>
+                <div className="rounded-2xl border border-slate-700 bg-slate-900/60 p-4">
+                  <div className="mb-3 flex items-center justify-between"><h3 className="font-black text-white">Script TikTok</h3><button onClick={() => copyDraft(socialDraft.tiktokScript, 'Script TikTok')} className="rounded-lg bg-slate-700 p-2 text-slate-200 hover:bg-slate-600"><Copy size={15} /></button></div>
+                  <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-300">{socialDraft.tiktokScript}</pre>
+                </div>
+                <p className="text-center text-xs text-slate-500">La pubblicazione diretta richiede l&apos;integrazione autorizzata degli account Instagram e TikTok.</p>
+              </>
+            )}
+
+            <div className="border-t border-slate-700 pt-6">
+              <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+                <h2 className="font-black uppercase tracking-wider text-emerald-300">Piano Story della giornata</h2>
+                <p className="mt-2 text-sm text-slate-300">Una Story per ciascuna delle 20 squadre della giornata, più una Story-report con tutte le 10 partite.</p>
+              </div>
+              {!storyDraft ? <div className="p-5 text-center text-slate-400">Caricamento calendario editoriale...</div> : !storyDraft.hasDraft ? <div className="p-5 text-center text-slate-400">Nessuna giornata futura disponibile.</div> : <div className="mt-4 space-y-4">
+                <div className="flex items-center justify-between text-xs font-bold text-slate-400"><span>Giornata {storyDraft.matchday}</span><span>{storyDraft.stories.length} Story pronte</span></div>
+                <a href={storyDraft.overviewUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-black text-slate-950"><ExternalLink size={16} /> Apri Story report 1080×1920</a>
+                <div className="rounded-2xl border border-slate-700 bg-slate-900/60 p-4"><div className="mb-3 flex items-center justify-between"><h3 className="font-black text-white">Testo report completo</h3><button onClick={() => copyDraft(storyDraft.report, 'Report giornata')} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div><pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-300">{storyDraft.report}</pre></div>
+                <div className="grid gap-3 sm:grid-cols-2">{storyDraft.stories.map((story: any) => <div key={story.team} className="rounded-xl border border-slate-700 bg-slate-900/60 p-3"><div className="font-black text-white">{story.team}</div><div className="mt-1 text-xs text-slate-400">vs {story.opponent} · {story.venue}</div><div className="mt-3 flex gap-2"><a href={story.visualUrl} target="_blank" rel="noreferrer" className="flex-1 rounded-lg bg-emerald-500/15 px-2 py-2 text-center text-xs font-bold text-emerald-300">Visual Story</a><button onClick={() => copyDraft(story.caption, `Story ${story.team}`)} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div></div>)}</div>
+              </div>}
+            </div>
           </div>
         )}
       </div>

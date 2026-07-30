@@ -22,9 +22,9 @@ export default function TeamSelector() {
   const filteredTeams = ALL_TEAMS.filter(t => t.league === activeTab);
 
   return (
-    <div className="w-full py-4">
+    <div className="w-full py-1">
       {/* Scrollable Tab Menu */}
-      <div className="flex overflow-x-auto space-x-3 mb-6 px-4 no-scrollbar pb-2">
+      <div className="no-scrollbar -mx-4 flex snap-x overflow-x-auto space-x-3 px-4 pb-2 mb-5" aria-label="Campionati disponibili">
         {LEAGUES.map((league) => (
           <button 
             key={league.id}
@@ -43,7 +43,7 @@ export default function TeamSelector() {
       {/* Grid of Teams */}
       <motion.div 
         key={activeTab} // re-animate on tab change
-        className="flex overflow-x-auto space-x-4 px-4 pb-4 snap-x no-scrollbar"
+        className="no-scrollbar -mx-4 flex snap-x overflow-x-auto space-x-4 px-4 pb-4"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}

@@ -6,17 +6,20 @@ on:
     - cron: '0 8,20 * * *'
   workflow_dispatch: # Permette esecuzione manuale da GitHub
 
+permissions:
+  contents: write
+
 jobs:
   update-squads:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
@@ -31,5 +34,9 @@ jobs:
           git config --global user.name 'GitHub Action Bot'
           git config --global user.email 'action@github.com'
           git add src/data/deepSquads.json
-          git commit -m "chore: auto-update squads data to 2026 via scraper" || exit 0
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica alle rose da pubblicare."
+            exit 0
+          fi
+          git commit -m "chore: auto-update squads data to 2026 via scraper"
           git push

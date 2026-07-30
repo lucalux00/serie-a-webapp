@@ -1,49 +1,44 @@
 import { NextResponse } from 'next/server';
+import { sql } from '@vercel/postgres';
 
-const START_DATE = new Date("2026-07-16T12:00:00Z").getTime();
-
-// Variabili per la sessione corrente del server
-let sessionExtraVisits = 0;
-let activeSessions = new Set<string>();
-
-export async function GET() {
-  return NextResponse.json({ success: true });
+async function ensureStatsTables() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS site_visits (
+      visitor_id TEXT PRIMARY KEY,
+      first_seen TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_seen TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS app_installs (
+      visitor_id TEXT PRIMARY KEY,
+      installed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { sessionId, isNewSession } = body || {};
-
-    if (isNewSession) {
-      sessionExtraVisits++;
-    }
-    
-    if (sessionId) {
-      activeSessions.add(sessionId);
-    }
-    
-    // Pulizia
-    if (activeSessions.size > 1000) {
-      activeSessions.clear();
-      if (sessionId) activeSessions.add(sessionId);
+    const { visitorId } = await request.json();
+    if (!visitorId || typeof visitorId !== 'string' || visitorId.length > 100) {
+      return NextResponse.json({ error: 'Identificativo visita non valido' }, { status: 400 });
     }
 
-    // Calcolo visite totali globali: 1200 + (visite naturali stimate dal lancio) + (visite extra registrate in questa istanza)
-    const now = Date.now();
-    const minutesSinceStart = Math.max(0, (now - START_DATE) / 60000);
-    const simulatedGlobal = Math.floor(minutesSinceStart * 0.5); // Circa 1 visita ogni 2 minuti
-    
-    const total = 1200 + simulatedGlobal + sessionExtraVisits;
+    await ensureStatsTables();
+    await sql`
+      INSERT INTO site_visits (visitor_id)
+      VALUES (${visitorId})
+      ON CONFLICT (visitor_id) DO UPDATE SET last_seen = NOW()
+    `;
 
-    // Per gli online, prendiamo la base (10) + una fluttuazione naturale + le sessioni reali attive nel server
-    const baseOnline = 10;
-    const fluctuation = Math.floor(Math.random() * 4); // 0-3
-    const online = baseOnline + fluctuation + activeSessions.size;
-
-    return NextResponse.json({ total, online });
-
+    const [{ count }] = (await sql`SELECT COUNT(*)::int AS count FROM site_visits`).rows;
+    const [{ online }] = (await sql`
+      SELECT COUNT(*)::int AS online FROM site_visits
+      WHERE last_seen > NOW() - INTERVAL '5 minutes'
+    `).rows;
+    return NextResponse.json({ total: count, online });
   } catch (error) {
-    return NextResponse.json({ total: 1200, online: 11 });
+    console.error('Stats tracking error:', error);
+    return NextResponse.json({ total: 0, online: 0 }, { status: 200 });
   }
 }

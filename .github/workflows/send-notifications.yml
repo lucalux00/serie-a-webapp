@@ -1,0 +1,21 @@
+name: Invia notifiche verificate
+
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: send-verified-notifications
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          SITE_URL: https://webapp-two-nu-71.vercel.app
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_SECRET"
+          curl --fail --silent --show-error --retry 2 --header "Authorization: Bearer $CRON_SECRET" "$SITE_URL/api/cron/notifications"

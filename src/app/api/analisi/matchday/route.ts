@@ -64,7 +64,12 @@ export async function GET() {
       const awayTeam = m.awayTeam.shortName || m.awayTeam.name;
       const matchId = m.id;
 
-      const markdownAnalysis = generateMatchAnalysis(homeTeam, awayTeam, matchId, currentMatchday);
+      const daysUntilMatch = Math.ceil((new Date(m.utcDate).getTime() - Date.now()) / 86_400_000);
+      const isDetailed = daysUntilMatch <= 3;
+      const previewAnalysis = generateMatchAnalysis(homeTeam, awayTeam, matchId, currentMatchday);
+      const markdownAnalysis = isDetailed
+        ? `${previewAnalysis}\n\n### Focus pre-partita (-3 giorni)\nL'analisi è ora nella finestra editoriale: segui gli aggiornamenti su disponibilità, probabili scelte e duelli tattici. Il report viene presentato come pre-partita e non come formazione ufficiale finché i dati non sono confermati.`
+        : previewAnalysis;
 
       return {
         id: matchId,
@@ -73,7 +78,9 @@ export async function GET() {
         awayTeam,
         awayCrest: m.awayTeam.crest,
         date: m.utcDate,
-        ticketCost: "Aggiornamento a -3gg",
+        analysisStatus: isDetailed ? 'dettagliata' : 'anteprima',
+        daysUntilMatch,
+        ticketCost: isDetailed ? "In aggiornamento" : "Aggiornamento a -3gg",
         attendance: "In attesa",
         markdownAnalysis
       };

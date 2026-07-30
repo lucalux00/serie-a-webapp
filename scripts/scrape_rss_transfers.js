@@ -1,6 +1,7 @@
 const { sql } = require('@vercel/postgres');
 const Parser = require('rss-parser');
 const { GoogleGenAI } = require('@google/genai');
+const { createHash } = require('crypto');
 
 const parser = new Parser({
     headers: {
@@ -44,6 +45,32 @@ async function syncTransfers() {
             return;
         }
 
+        // Il workflow può controllare spesso i feed senza ripetere la stessa chiamata AI.
+        const titlesHash = createHash('sha256')
+            .update([...new Set(textsToAnalyze.map(title => title.trim()))].sort().join('|'))
+            .digest('hex');
+
+        await sql`
+            CREATE TABLE IF NOT EXISTS mercato_cron_log (
+                id SERIAL PRIMARY KEY,
+                titles_hash TEXT NOT NULL,
+                ai_called BOOLEAN DEFAULT FALSE,
+                inserted INTEGER DEFAULT 0,
+                created_at TIMESTAMPTZ DEFAULT NOW()
+            )
+        `;
+        await sql`DELETE FROM mercato_cron_log WHERE created_at < NOW() - INTERVAL '30 days'`;
+
+        const previousRun = await sql`
+            SELECT id FROM mercato_cron_log
+            WHERE titles_hash = ${titlesHash}
+            LIMIT 1
+        `;
+        if (previousRun.rows.length > 0) {
+            console.log("Nessun titolo nuovo: Gemini non viene chiamato.");
+            return;
+        }
+
         console.log(`🤖 Invio ${textsToAnalyze.length} titoli a Gemini per estrazione...`);
         const prompt = `Ecco una lista di titoli di articoli di calciomercato:
 ${textsToAnalyze.join('\n')}
@@ -62,7 +89,7 @@ Restituisci ESCLUSIVAMENTE un JSON array di oggetti con i seguenti campi:
 IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-flash-lite-latest',
             contents: prompt,
         });
 
@@ -70,6 +97,11 @@ IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
         if (jsonText.startsWith('```json')) jsonText = jsonText.replace(/```json/g, '').replace(/```/g, '').trim();
 
         const transfers = JSON.parse(jsonText);
+
+        await sql`
+            INSERT INTO mercato_cron_log (titles_hash, ai_called, inserted)
+            VALUES (${titlesHash}, TRUE, 0)
+        `;
         console.log(`📊 Gemini ha identificato ${transfers.length} trasferimenti/rumors.`);
 
         const today = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -99,6 +131,10 @@ IMPORTANTE: Restituisci SOLO il JSON array. Niente formattazione markdown.`;
         }
 
         console.log(`✅ Sincronizzazione completata! ${inserted} nuovi record inseriti.`);
+        await sql`
+            UPDATE mercato_cron_log SET inserted = ${inserted}
+            WHERE titles_hash = ${titlesHash}
+        `;
     } catch(e) {
         console.error("❌ Errore durante lo script:", e);
         process.exit(1);

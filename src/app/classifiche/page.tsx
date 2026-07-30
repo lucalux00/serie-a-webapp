@@ -171,6 +171,7 @@ export default function ClassifichePage() {
   }, [displayMatchday]);
 
   const getZoneColor = (pos: number) => {
+    if (seasonNotStarted) return { bg: '', text: 'text-[#94A3B8]', dot: '#334155' };
     if (pos <= 4) return { bg: 'bg-[#10B981]/8', text: 'text-[#10B981]', dot: '#10B981' };
     if (pos <= 6) return { bg: '', text: 'text-[#0EA5E9]', dot: '#0EA5E9' };
     if (pos >= 18) return { bg: 'bg-[#EF4444]/8', text: 'text-[#EF4444]', dot: '#EF4444' };
@@ -280,7 +281,7 @@ export default function ClassifichePage() {
             <h1 className="text-2xl font-black">Campionati</h1>
             {season && (
               <p className="text-xs font-bold uppercase tracking-widest" style={{ color: league.color }}>
-                {seasonNotStarted ? `Stagione ${season} – Ultima disponibile` : `Stagione ${season}`}
+                {seasonNotStarted ? `Stagione ${season} – Calendario disponibile` : `Stagione ${season}`}
               </p>
             )}
           </div>
@@ -324,7 +325,35 @@ export default function ClassifichePage() {
         {/* ── CLASSIFICA ── */}
         {viewMode === 'standings' && (
           <>
-            {loading ? <Skeleton /> : standings.length > 0 ? (
+            {loading ? <Skeleton /> : seasonNotStarted ? (
+              <div className="bg-[#1E293B] rounded-2xl overflow-hidden border border-[#334155] shadow-xl">
+                <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
+                  <span className="text-xs font-black text-[#94A3B8] uppercase tracking-widest">{league.name} · {season}</span>
+                  <span className="text-[10px] font-bold px-2 py-1 rounded-full" style={{ color: league.color, backgroundColor: league.color + '15' }}>
+                    PRE-STAGIONE
+                  </span>
+                </div>
+                <div className="p-8 text-center">
+                  <span className="text-4xl" aria-hidden="true">🏁</span>
+                  <h2 className="mt-4 text-lg font-black text-white">La stagione non è ancora iniziata</h2>
+                  <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#94A3B8]">
+                    La classifica sarà pubblicata alla prima partita. Nel frattempo consulta il calendario della giornata.
+                  </p>
+                  <button onClick={() => setViewMode('calendar')} className="mt-5 rounded-xl px-4 py-3 text-sm font-black text-[#0B1120]" style={{ backgroundColor: league.color }}>
+                    Vai al calendario
+                  </button>
+                </div>
+                {standings.length > 0 && (
+                  <div className="border-t border-[#334155]">
+                    <div className="px-4 py-3 bg-[#F59E0B]/5 text-xs leading-relaxed text-[#CBD5E1]">
+                      <span className="font-black text-[#F59E0B]">Ordine provvisorio.</span>{' '}
+                      Le squadre sono elencate alfabeticamente fino alla prima partita. Seleziona una riga per aprire rosa, forma, calendario e mercato.
+                    </div>
+                    <StandingsTable rows={standings} />
+                  </div>
+                )}
+              </div>
+            ) : standings.length > 0 ? (
               <div className="bg-[#1E293B] rounded-2xl overflow-hidden border border-[#334155] shadow-xl">
                 <div className="bg-[#0F172A] px-4 py-3 border-b border-[#334155] flex items-center justify-between">
                   <span className="text-xs font-black text-[#94A3B8] uppercase tracking-widest">{league.name} · {season}</span>
@@ -333,17 +362,6 @@ export default function ClassifichePage() {
                     DATI REALI
                   </div>
                 </div>
-
-                {/* Banner pre-stagione */}
-                {seasonNotStarted && (
-                  <div className="mx-4 mt-3 mb-1 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-xl px-4 py-3 flex items-start gap-3">
-                    <span className="text-xl">🏁</span>
-                    <div>
-                      <p className="text-xs font-black text-[#F59E0B] uppercase tracking-wider">Stagione {season} – Non ancora iniziata</p>
-                      <p className="text-[11px] text-[#94A3B8] mt-0.5">Il calendario è disponibile. I punti si aggiorneranno automaticamente al fischio d'inizio della prima giornata.</p>
-                    </div>
-                  </div>
-                )}
 
                 {/* Legend */}
                 <div className="px-4 py-2 border-b border-[#334155]/50 flex gap-4 text-[9px] font-bold uppercase text-[#64748B]">

@@ -15,6 +15,7 @@
 :root {
   --background: var(--color-sport-bg);
   --foreground: var(--color-sport-text);
+  --font-main: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
 }
 
 @keyframes marquee {
@@ -24,6 +25,15 @@
 
 .animate-marquee {
   animation: marquee 35s linear infinite;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @layer base {

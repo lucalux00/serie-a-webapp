@@ -1,23 +1,30 @@
-name: Aggiorna calciomercato
+name: Scrape Mercato RSS
 
 on:
   schedule:
-    # GitHub Actions chiama l'API ogni 30 minuti. La route usa l'hash dei feed
-    # e chiama Gemini solo quando i titoli sono realmente cambiati.
+    # Controlla i feed ogni 30 minuti; lo script chiama Gemini soltanto per titoli nuovi.
     - cron: '*/30 * * * *'
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual trigger from GitHub UI
 
 jobs:
-  refresh-market:
+  scrape-and-update:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Aggiorna dati mercato
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run RSS Scraper
+        run: node scripts/scrape_rss_transfers.js
         env:
-          APP_URL: ${{ secrets.APP_URL }}
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-        run: |
-          test -n "$APP_URL"
-          test -n "$CRON_SECRET"
-          curl --fail --silent --show-error --retry 2 \
-            -H "Authorization: Bearer $CRON_SECRET" \
-            "${APP_URL%/}/api/cron/mercato"
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

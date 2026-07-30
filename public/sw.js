@@ -48,3 +48,20 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+
+self.addEventListener('push', event => {
+  const payload = event.data ? event.data.json() : {};
+  event.waitUntil(self.registration.showNotification(payload.title || 'Serie A & Pronostici', {
+    body: payload.body || 'Hai un nuovo aggiornamento.',
+    icon: payload.icon || '/icon-192x192.jpg',
+    badge: '/icon-192x192.jpg',
+    data: { url: payload.url || '/' },
+    tag: payload.tag || undefined,
+    renotify: Boolean(payload.tag),
+  }));
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil(clients.openWindow(event.notification.data?.url || '/'));
+});

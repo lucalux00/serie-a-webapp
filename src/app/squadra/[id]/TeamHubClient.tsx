@@ -6,12 +6,55 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlayerSheet from '@/components/domain/PlayerSheet';
 import useSWR from 'swr';
-import LiveCommentary from '@/components/LiveCommentary';
-import ScoreAxisLiveWidget from '@/components/ScoreAxisLiveWidget';
+import SerieALiveScores from '@/components/SerieALiveScores';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
+const newsFetcher = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Impossibile caricare le news');
+  return response.json() as Promise<{ items: any[]; refreshedAt: string | null }>;
+};
 
 import { getTeamLogoUrl } from '@/utils/teamLogos';
+
+const italianMonths: Record<string, string> = {
+  gen: 'Jan', feb: 'Feb', mar: 'Mar', apr: 'Apr', mag: 'May', giu: 'Jun',
+  lug: 'Jul', ago: 'Aug', set: 'Sep', ott: 'Oct', nov: 'Nov', dic: 'Dec',
+};
+
+function parseNewsDate(value: unknown): Date | null {
+  if (!value) return null;
+
+  const directDate = new Date(String(value));
+  if (!Number.isNaN(directDate.getTime())) return directDate;
+
+  const normalized = String(value).replace(
+    /\b(gen|feb|mar|apr|mag|giu|lug|ago|set|ott|nov|dic)\b/i,
+    (month: string) => italianMonths[month.toLowerCase()] || month,
+  );
+  const normalizedDate = new Date(normalized);
+  return Number.isNaN(normalizedDate.getTime()) ? null : normalizedDate;
+}
+
+// L'ordine segue l'orario di pubblicazione dichiarato dalla fonte.
+function getPublishedNewsDate(item: any) {
+  return parseNewsDate(item?.pub_date || item?.pubDate || item?.created_at);
+}
+
+// L'orario visibile indica quando la notizia è stata acquisita dal sito.
+function getCapturedNewsDate(item: any) {
+  return parseNewsDate(item?.created_at || item?.pub_date || item?.pubDate);
+}
+
+function formatCapturedNewsDateTime(item: any) {
+  const date = getCapturedNewsDate(item);
+  if (!date) return 'Data non disponibile';
+
+  return new Intl.DateTimeFormat('it-IT', {
+    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit',
+    timeZone: 'Europe/Rome',
+  }).format(date);
+}
 
 // Componente Partite con dati reali da football-data.org
 function PartiteTab({ team }: { team: any }) {
@@ -194,12 +237,12 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   );
 
   // News fetching — solo quando la tab NEWS è attiva, aggiornamento ogni 5 minuti
-  const { data: news = initialNews } = useSWR(
+  const { data: newsPayload } = useSWR(
     activeTab === 'news'
-      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}`
+      ? `/api/news?team=${encodeURIComponent(team.name)}&league=${encodeURIComponent(team.league)}&limit=20&meta=1`
       : null,
-    fetcher,
-    { fallbackData: initialNews, refreshInterval: 300000, revalidateOnFocus: false }
+    newsFetcher,
+    { fallbackData: { items: initialNews, refreshedAt: null }, refreshInterval: 60000, revalidateOnFocus: false }
   );
 
   // Mercato squadra — solo quando la tab MERCATO è attiva, dati dal DB filtrati per team
@@ -212,8 +255,13 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   );
   const teamTransfers: any[] = teamMercatoRaw?.transfers || squadData?.transfers || [];
 
-  const topNews = (news || []).slice(0, 4);
-  const otherNews = (news || []).slice(4);
+  // Se il filtro testuale del DB ha ancora indicizzato poche notizie, non deve
+  // cancellare il feed RSS mirato disponibile al primo rendering.
+  const databaseNews = Array.isArray(newsPayload?.items) ? newsPayload.items : [];
+  const news = databaseNews.length >= 4 || initialNews.length === 0 ? databaseNews : initialNews;
+  const topNews = news.slice(0, 4);
+  const otherNews = news.slice(4);
+  const lastRefreshDate = parseNewsDate(newsPayload?.refreshedAt);
 
   const activeSquad = rosterView === 'first' ? squadData?.firstTeam : squadData?.primavera;
 
@@ -380,21 +428,26 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
             <motion.div key="news" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
               {news.length > 0 ? (
                 <div className="space-y-3 relative">
+                  <div className="flex items-center justify-between gap-3 px-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#64748B]">Ultime pillole</span>
+                    <span className="flex items-center gap-1 text-[10px] font-bold text-[#94A3B8]">
+                      <Clock size={12} />
+                      Feed controllato: {lastRefreshDate ? new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(lastRefreshDate) : 'in attesa'}
+                    </span>
+                  </div>
                   <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-[#334155]" />
                   {[...news]
                     .sort((a: any, b: any) => {
-                       const tA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
-                       const tB = b.pubDate ? new Date(b.pubDate).getTime() : 0;
+                       const tA = getPublishedNewsDate(a)?.getTime() || 0;
+                       const tB = getPublishedNewsDate(b)?.getTime() || 0;
                        return tB - tA;
                     })
                     .map((item: any, idx: number) => {
-                      const pubTs = item.pubDate ? new Date(item.pubDate).getTime() : 0;
+                      const pubTs = getPublishedNewsDate(item)?.getTime() || 0;
                       const isNew = pubTs > 0 && (Date.now() - pubTs < 24 * 60 * 60 * 1000);
                       const rawTitle = item.cleanTitle || item.title || 'Notizia senza titolo';
                       const displayTitle = typeof document !== 'undefined' ? (() => { const t = document.createElement('textarea'); t.innerHTML = rawTitle; return t.value; })() : rawTitle;
-                      const displayDate = item.pubDate 
-                        ? new Date(item.pubDate).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
-                        : '';
+                      const displayDate = formatCapturedNewsDateTime(item);
                       const snippet = item.snippet && item.snippet.length > 30 ? item.snippet : "Nessun estratto testuale disponibile.";
 
                       return (
@@ -502,7 +555,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
           {/* TAB: LIVE - DIRETTA TESTUALE */}
           {activeTab === 'live' && (
             <motion.div key="live" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-6">
-              {['genoa', 'napoli'].includes(team.id) ? <ScoreAxisLiveWidget /> : <LiveCommentary teamName={team.name} isActive={activeTab === 'live'} />}
+              <SerieALiveScores />
             </motion.div>
           )}
 
