@@ -1219,19 +1219,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_gennaro_borrelli",
-          "name": "Gennaro Borrelli",
-          "position": "ATT",
-          "number": 29,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -3927,19 +3914,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_federico_ravaglia",
-          "name": "Federico Ravaglia",
-          "position": "POR",
-          "number": 13,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_torbj%C3%B8rn_heggem",
           "name": "Torbjørn Heggem",
           "position": "DIF",
@@ -3983,6 +3957,19 @@
           "name": "Nadir Zortea",
           "position": "DIF",
           "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_jens_odgaard",
+          "name": "Jens Odgaard",
+          "position": "ATT",
+          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -4278,6 +4265,19 @@
           "name": "David de Gea (capitano)",
           "position": "POR",
           "number": 43,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_nicol%C3%B2_fagioli",
+          "name": "Nicolò Fagioli",
+          "position": "CEN",
+          "number": 44,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
