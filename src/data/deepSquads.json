@@ -152,6 +152,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_bruno_galassi",
+          "name": "Bruno Galassi",
+          "position": "CEN",
+          "number": 16,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_nuno_tavares",
           "name": "Nuno Tavares",
           "position": "DIF",
@@ -221,19 +234,6 @@
           "name": "Matteo Cancellieri",
           "position": "ATT",
           "number": 22,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_alfonso_pedraza",
-          "name": "Alfonso Pedraza",
-          "position": "DIF",
-          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
