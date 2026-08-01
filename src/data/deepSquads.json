@@ -7756,19 +7756,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_pedro_obiang",
-          "name": "Pedro Obiang",
-          "position": "CEN",
-          "number": 14,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_filippo_delli_carri",
           "name": "Filippo Delli Carri",
           "position": "DIF",
@@ -7838,6 +7825,32 @@
           "name": "Nicolas Galazzi",
           "position": "CEN",
           "number": 23,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_adam_bakoune",
+          "name": "Adam Bakoune",
+          "position": "CEN",
+          "number": 24,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_patrick_ciurria",
+          "name": "Patrick Ciurria",
+          "position": "CEN",
+          "number": 26,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
