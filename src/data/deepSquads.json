@@ -2464,6 +2464,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_randal_kolo_muani",
+          "name": "Randal Kolo Muani",
+          "position": "ATT",
+          "number": 9,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Prestito",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_kenan_y%C4%B1ld%C4%B1z",
           "name": "Kenan Yıldız",
           "position": "ATT",
@@ -2533,19 +2546,6 @@
           "name": "Pierre Kalulu",
           "position": "DIF",
           "number": 15,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_michele_di_gregorio",
-          "name": "Michele Di Gregorio",
-          "position": "POR",
-          "number": 16,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -3940,8 +3940,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_lewis_ferguson_(vice_capitano)",
-          "name": "Lewis Ferguson (vice capitano)",
+          "id": "wp_lewis_ferguson",
+          "name": "Lewis Ferguson",
           "position": "CEN",
           "number": 19,
           "age": "N/A",
@@ -8941,6 +8941,19 @@
           "name": "Jan Ziółkowski",
           "position": "DIF",
           "number": 24,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_devis_v%C3%A1squez",
+          "name": "Devis Vásquez",
+          "position": "POR",
+          "number": 32,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
