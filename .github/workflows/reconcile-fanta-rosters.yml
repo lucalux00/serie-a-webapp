@@ -1,0 +1,15 @@
+name: Verifica integrità rose Fanta
+on:
+  schedule:
+    - cron: '20 5 * * *'
+  workflow_dispatch:
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          SITE_URL: https://webapp-two-nu-71.vercel.app
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_SECRET"
+          curl --fail --silent --show-error --retry 2 --header "Authorization: Bearer $CRON_SECRET" "$SITE_URL/api/cron/roster-integrity"

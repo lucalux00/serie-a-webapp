@@ -9,7 +9,7 @@ const getJwtSecretKey = () => {
   return new TextEncoder().encode(secret);
 };
 
-export const signJwt = async (payload: { userId: number; email: string; name: string }) => {
+export const signJwt = async (payload: { userId: string | number; email: string; name: string }) => {
   try {
     const secret = getJwtSecretKey();
     return await new SignJWT(payload)
@@ -26,7 +26,7 @@ export const verifyJwt = async (token: string) => {
   try {
     const secret = getJwtSecretKey();
     const { payload } = await jwtVerify(token, secret);
-    return payload as { userId: number; email: string; name: string; exp: number };
+    return payload as { userId: string | number; email: string; name: string; exp: number };
   } catch (error) {
     return null;
   }

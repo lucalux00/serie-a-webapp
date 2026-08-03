@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, User, ArrowRight, AlertCircle, Heart } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, AlertCircle, Heart, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { ALL_TEAMS } from '@/data/teams';
+import { passwordIssues, passwordStrength } from '@/lib/password';
 
 export default function AuthForms() {
   const { login, register } = useAuth();
@@ -20,6 +21,10 @@ export default function AuthForms() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [favoriteTeam, setFavoriteTeam] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const issues = passwordIssues(password, name, email);
+  const strength = passwordStrength(password, name, email);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +37,7 @@ export default function AuthForms() {
         await login(email, password);
       } else {
         if (!name || !email || !password || !confirmPassword) throw new Error('Compila tutti i campi.');
-        if (password.length < 6) throw new Error('La password deve essere di almeno 6 caratteri.');
+        if (issues.length) throw new Error(issues[0]);
         if (password !== confirmPassword) throw new Error('Le password non coincidono.');
         await register(name, email, password, favoriteTeam);
       }
@@ -122,13 +127,14 @@ export default function AuthForms() {
                 <Lock className="h-5 w-5 text-[#64748B]" />
               </div>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
-                className="w-full pl-10 pr-4 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white placeholder-[#64748B] focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
+                className="w-full pl-10 pr-12 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white placeholder-[#64748B] focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
               />
+              <button type="button" onClick={() => setShowPassword((value) => !value)} className="absolute inset-y-0 right-0 px-3 text-[#94A3B8] hover:text-white" aria-label={showPassword ? 'Nascondi password' : 'Mostra password'}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button>
             </div>
 
             {!isLogin && (
@@ -138,14 +144,16 @@ export default function AuthForms() {
                     <Lock className="h-5 w-5 text-[#64748B]" />
                   </div>
                   <input
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     placeholder="Conferma Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     disabled={loading}
-                    className="w-full pl-10 pr-4 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white placeholder-[#64748B] focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
+                    className="w-full pl-10 pr-12 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white placeholder-[#64748B] focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
                   />
+                  <button type="button" onClick={() => setShowConfirmPassword((value) => !value)} className="absolute inset-y-0 right-0 px-3 text-[#94A3B8] hover:text-white" aria-label={showConfirmPassword ? 'Nascondi conferma password' : 'Mostra conferma password'}>{showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button>
                 </div>
+                <div className="rounded-xl border border-[#334155] bg-[#0F172A] p-3 text-xs"><div className="mb-2 flex items-center justify-between"><span className="font-black text-white">Password {strength}</span><span className={strength === 'sicura' ? 'text-[#10B981]' : strength === 'discreta' ? 'text-[#F59E0B]' : 'text-[#EF4444]'}>{strength.toUpperCase()}</span></div><div className="h-1.5 overflow-hidden rounded bg-[#334155]"><div className={`h-full transition-all ${strength === 'sicura' ? 'w-full bg-[#10B981]' : strength === 'discreta' ? 'w-2/3 bg-[#F59E0B]' : 'w-1/3 bg-[#EF4444]'}`} /></div><div className="mt-2 space-y-1 text-[#94A3B8]">{['12+ caratteri, maiuscola, minuscola, numero e simbolo', ...issues].slice(0, 3).map((item, index) => <p key={item} className="flex items-center gap-1"><CheckCircle2 size={12} className={index === 0 && issues.length === 0 ? 'text-[#10B981]' : 'text-[#64748B]'} />{item}</p>)}</div>{confirmPassword && <p className={`mt-2 font-bold ${password === confirmPassword ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>{password === confirmPassword ? 'Le password coincidono' : 'Le password non coincidono'}</p>}</div>
                 <div className="relative mt-4">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Heart className="h-5 w-5 text-[#64748B]" />
