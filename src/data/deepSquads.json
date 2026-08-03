@@ -2540,19 +2540,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_pierre_kalulu",
-          "name": "Pierre Kalulu",
-          "position": "DIF",
-          "number": 15,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
