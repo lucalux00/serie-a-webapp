@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { verifyJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
+import { canonicalRole } from '@/lib/fantaRoster';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,7 +22,7 @@ export async function GET(request: Request) {
       ORDER BY created_at DESC
     `;
     
-    return NextResponse.json({ roster: rows });
+    return NextResponse.json({ roster: rows.map((row) => ({ ...row, role: canonicalRole(row.playerName, row.teamName, row.role) || row.role })) });
   } catch (error) {
     console.error('Error fetching roster:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
@@ -42,10 +43,12 @@ export async function POST(request: Request) {
 
     if (action === 'add') {
       if (!player_name) return NextResponse.json({ error: 'Missing name' }, { status: 400 });
+      const canonical = canonicalRole(player_name, team_name || '', role);
+      if (!canonical) return NextResponse.json({ error: 'Ruolo del giocatore non verificabile' }, { status: 422 });
       
       const { rows } = await sql`
         INSERT INTO fanta_rosters (user_id, player_name, team_name, role)
-        VALUES (${payload.userId}, ${player_name}, ${team_name || ''}, ${role || 'CEN'})
+        VALUES (${payload.userId}, ${player_name}, ${team_name || ''}, ${canonical})
         ON CONFLICT (user_id, player_name) DO NOTHING
         RETURNING id, player_name as "playerName", team_name as "teamName", role
       `;

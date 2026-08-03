@@ -11,8 +11,8 @@ const fetcher = (url: string) => fetch(url).then((response) => response.json());
 
 export default function FantaProHub({ onNavigate }: { onNavigate: (tab: 'rosa' | 'advisor' | 'mercato' | 'news') => void }) {
   const { isPremium, isLoading: subscriptionLoading } = useSubscription();
-  const { data, isLoading } = useSWR<{ matchday?: number; playerScores?: FantaScoredPlayer[]; suggestedCuts?: FantaScoredPlayer[] }>('/api/fantacalcio/advisor', fetcher);
-  if (subscriptionLoading || isLoading) return <div className="rounded-3xl border border-violet-400/20 bg-gradient-to-br from-violet-950 to-slate-900 p-8 text-center text-sm text-slate-300">Sto preparando la tua Fanta control room…</div>;
+  const { data, isLoading } = useSWR<{ matchday?: number; playerScores?: FantaScoredPlayer[]; suggestedCuts?: FantaScoredPlayer[] }>(isPremium ? '/api/fantacalcio/advisor' : null, fetcher);
+  if (subscriptionLoading || (isPremium && isLoading)) return <div className="rounded-3xl border border-violet-400/20 bg-gradient-to-br from-violet-950 to-slate-900 p-8 text-center text-sm text-slate-300">Sto preparando la tua Fanta control room…</div>;
   if (!isPremium) return <section className="space-y-4"><div className="rounded-3xl border border-amber-400/30 bg-gradient-to-br from-[#2A1A06] via-[#17133B] to-slate-900 p-6"><div className="flex items-center gap-3"><div className="rounded-2xl bg-amber-400/15 p-3 text-amber-300"><Crown /></div><div><p className="text-xs font-black uppercase tracking-[0.2em] text-amber-300">Fanta Pro Hub</p><h2 className="text-2xl font-black text-white">La tua stanza decisionale</h2></div></div><p className="mt-4 text-sm leading-relaxed text-slate-300">Confronti, calendario, segnali della rosa e priorità operative per arrivare pronto a ogni giornata.</p></div><PremiumPaywall planName="Fanta Pro" price="€0,99" priceLabel="/ mese" ctaLabel="Sblocca Fanta Pro" /></section>;
   const players = data?.playerScores ?? [];
   const captain = players[0];

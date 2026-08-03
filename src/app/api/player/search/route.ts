@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { ALL_TEAMS } from '@/data/teams';
+import { canonicalRole } from '@/lib/fantaRoster';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,10 +25,11 @@ export async function GET(request: Request) {
       LIMIT 10
     `;
     
-    const formattedRows = rows.map(r => ({
-      ...r,
-      team: ALL_TEAMS.find(t => t.id === r.team)?.name || r.team
-    }));
+    const formattedRows = rows.flatMap((r) => {
+      const team = ALL_TEAMS.find((t) => t.id === r.team)?.name || r.team;
+      const role = canonicalRole(r.name, r.team, r.role);
+      return role ? [{ ...r, role, team }] : [];
+    });
     
     return NextResponse.json({ results: formattedRows });
   } catch (error) {
