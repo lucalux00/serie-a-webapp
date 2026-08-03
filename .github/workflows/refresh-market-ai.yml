@@ -1,0 +1,27 @@
+name: Aggiorna mercato AI
+
+on:
+  schedule:
+    # Il job controlla i feed ogni 30 minuti. L'endpoint usa un hash dei titoli
+    # e chiama Gemini solo se ci sono effettive novita.
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: refresh-market-ai
+  cancel-in-progress: false
+
+jobs:
+  refresh-market:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Richiedi aggiornamento mercato
+        env:
+          SITE_URL: https://webapp-two-nu-71.vercel.app
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_SECRET"
+          curl --fail --silent --show-error --retry 2 \
+            --header "Authorization: Bearer $CRON_SECRET" \
+            "$SITE_URL/api/cron/mercato"
