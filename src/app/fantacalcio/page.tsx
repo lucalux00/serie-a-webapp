@@ -10,10 +10,12 @@ import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
 import FantaAdvisorDashboard from '@/components/domain/FantaAdvisorDashboard';
 import FantaRoster from '@/components/domain/FantaRoster';
 import FantaProHub from '@/components/domain/FantaProHub';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 export default function FantacalcioPage() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'hub' | 'rosa' | 'advisor' | 'mercato' | 'news'>('hub');
+  const { isPremium } = useSubscription();
+  const [activeTab, setActiveTab] = useState<'hub' | 'rosa' | 'advisor' | 'mercato' | 'news'>('rosa');
 
   if (!user) {
     return (
@@ -40,12 +42,12 @@ export default function FantacalcioPage() {
 
       <div className="mb-5 rounded-2xl border border-[#334155] bg-[#1E293B] p-1.5 shadow-md">
         <div className="grid grid-cols-2 gap-1 sm:flex sm:flex-wrap sm:justify-center">
-        <button
+        {isPremium && <button
           onClick={() => setActiveTab('hub')}
           className={`relative flex items-center justify-center px-3 py-3 text-xs font-black rounded-xl transition-all sm:min-w-32 ${activeTab === 'hub' ? 'bg-gradient-to-r from-[#F59E0B] to-[#FCD34D] text-[#0F172A] shadow-md' : 'text-[#FCD34D] hover:bg-[#F59E0B]/10'}`}
         >
           <Crown size={16} className="mr-2" /> HUB PRO
-        </button>
+        </button>}
         <button
           onClick={() => setActiveTab('rosa')}
           className={`flex items-center justify-center px-3 py-3 text-xs font-bold rounded-xl transition-all sm:min-w-32 ${activeTab === 'rosa' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
@@ -77,7 +79,7 @@ export default function FantacalcioPage() {
       <p className="mb-6 text-center text-xs text-[#94A3B8]">Non gestiamo la tua lega: ti aiutiamo a vincerla con scelte migliori.</p>
 
       <AnimatePresence mode="wait">
-        {activeTab === 'hub' && (
+        {isPremium && activeTab === 'hub' && (
           <motion.div key="hub" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
             <FantaProHub onNavigate={setActiveTab} />
           </motion.div>
