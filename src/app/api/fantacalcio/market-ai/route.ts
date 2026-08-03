@@ -39,7 +39,8 @@ export async function GET(request: NextRequest) {
   let premium = Boolean(user.email && ADMINS.has(user.email.toLowerCase()));
   if (!premium) { try { premium = (await sql`SELECT is_premium FROM users WHERE id = ${user.userId} LIMIT 1`).rows[0]?.is_premium === true; } catch { premium = false; } }
   if (!premium) return NextResponse.json({ error: 'Solo Pro' }, { status: 403 });
-  const roster = (await sql`SELECT player_name, team_name, role FROM fanta_rosters WHERE user_id = ${user.userId}`).rows.map((player) => ({ ...player, role: canonicalRole(player.player_name, player.team_name) }));
+  const rosterRows = (await sql`SELECT player_name, team_name, role FROM fanta_rosters WHERE user_id = ${user.userId}`).rows as Array<{ player_name: string; team_name: string | null; role: string | null }>;
+  const roster = rosterRows.map((player) => ({ ...player, role: canonicalRole(player.player_name, player.team_name) }));
   const owned = new Set(roster.map((player) => String(player.player_name).trim().toLocaleLowerCase('it')));
   const counts = { POR: 0, DIF: 0, CEN: 0, ATT: 0 };
   roster.forEach((player) => { const role = player.role; if (role && role in counts) counts[role as keyof typeof counts]++; });
