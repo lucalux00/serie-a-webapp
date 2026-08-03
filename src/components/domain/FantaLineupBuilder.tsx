@@ -152,10 +152,9 @@ export default function FantaLineupBuilder() {
   const renderPlayerList = (players: any[], type: 'titolare' | 'panchina' | 'roster') => {
     return players.map((p, idx) => {
       const pName = p.playerName || p.player_name;
-      const role = p.role || 'CEN';
-      const shortRole = role.substring(0, 3).toUpperCase();
+      const shortRole = p.role ? p.role.substring(0, 3).toUpperCase() : 'N/D';
       
-      let badgeColor = 'bg-[#3B82F6]';
+      let badgeColor = shortRole === 'N/D' ? 'bg-[#64748B]' : 'bg-[#3B82F6]';
       if (shortRole === 'POR') badgeColor = 'bg-[#F59E0B]';
       if (shortRole === 'DIF') badgeColor = 'bg-[#10B981]';
       if (shortRole === 'ATT') badgeColor = 'bg-[#EF4444]';

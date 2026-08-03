@@ -74,8 +74,8 @@ export default function FantaMatchdayVotes() {
 
   const renderPlayerRow = (p: any, index: number) => {
     const isEditing = editingPlayer === p.player_name;
-    const shortRole = p.role ? p.role.substring(0, 3).toUpperCase() : 'CEN';
-    let badgeColor = 'bg-[#3B82F6]';
+    const shortRole = p.role ? p.role.substring(0, 3).toUpperCase() : 'N/D';
+    let badgeColor = shortRole === 'N/D' ? 'bg-[#64748B]' : 'bg-[#3B82F6]';
     if (shortRole === 'POR') badgeColor = 'bg-[#F59E0B]';
     if (shortRole === 'DIF') badgeColor = 'bg-[#10B981]';
     if (shortRole === 'ATT') badgeColor = 'bg-[#EF4444]';

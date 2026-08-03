@@ -159,7 +159,7 @@ export default function FantaRoster() {
           <div className="absolute z-50 w-full mt-2 bg-[#0F172A] border border-[#334155] rounded-xl shadow-xl max-h-60 overflow-y-auto">
             {searchResults.map((player, idx) => {
               // Convert role safely for coloring
-              const shortRole = player.role ? (player.role.substring(0, 3).toUpperCase()) : 'CEN';
+              const shortRole = player.role ? (player.role.substring(0, 3).toUpperCase()) : 'N/D';
               return (
                 <button
                   key={idx}
@@ -189,7 +189,7 @@ export default function FantaRoster() {
       ) : (
         <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
           {roster.map(p => {
-             const shortRole = p.role ? (p.role.substring(0, 3).toUpperCase()) : 'CEN';
+             const shortRole = p.role ? (p.role.substring(0, 3).toUpperCase()) : 'N/D';
              return (
               <div key={p.id} className="flex items-center justify-between bg-[#0F172A] p-3 rounded-xl border border-[#334155]">
                 <div className="flex items-center space-x-3">
