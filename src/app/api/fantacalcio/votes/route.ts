@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { verifyJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
+import { canonicalRole } from '@/lib/fantaRoster';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
 
     // Retrieve the user's lineup for this matchday
     const lineupRes = await sql`
-      SELECT player_name, role, position_type, bench_order
+      SELECT player_name, team_name, role, position_type, bench_order
       FROM fanta_lineups
       WHERE user_id = ${String(payload.userId)} AND matchday = ${matchday}
     `;
@@ -36,6 +37,7 @@ export async function GET(request: Request) {
         const voteRecord = votesRes.rows.find(v => v.player_name === player.player_name);
         return {
             ...player,
+            role: canonicalRole(player.player_name, player.team_name) || 'N/D',
             base_vote: voteRecord ? voteRecord.base_vote : null,
             bonus_malus: voteRecord ? voteRecord.bonus_malus : null,
             final_vote: voteRecord ? voteRecord.final_vote : null,

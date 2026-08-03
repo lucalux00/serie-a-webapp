@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { verifyJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
+import { canonicalRole } from '@/lib/fantaRoster';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,7 +27,7 @@ export async function GET(request: Request) {
         bench_order ASC
     `;
     
-    return NextResponse.json({ lineup: rows });
+    return NextResponse.json({ lineup: rows.map((row) => ({ ...row, role: canonicalRole(row.player_name, row.team_name) || 'N/D', roleVerified: Boolean(canonicalRole(row.player_name, row.team_name)) })) });
   } catch (error) {
     console.error('Error fetching lineup:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
@@ -48,6 +49,10 @@ export async function POST(request: Request) {
     if (!matchday || !lineup || !Array.isArray(lineup)) {
       return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
     }
+    const normalizedLineup = lineup.map((player) => ({ ...player, role: canonicalRole(player.player_name, player.team_name || '') }));
+    if (normalizedLineup.some((player) => !player.role)) {
+      return NextResponse.json({ error: 'Uno o più giocatori non hanno un ruolo verificato.' }, { status: 422 });
+    }
 
     // Check if matchday is active and not completed
     const matchdayCheck = await sql`SELECT is_active, is_completed FROM fanta_matchdays WHERE matchday = ${matchday}`;
@@ -64,7 +69,7 @@ export async function POST(request: Request) {
         await client.sql`DELETE FROM fanta_lineups WHERE user_id = ${String(payload.userId)} AND matchday = ${matchday}`;
         
         // Insert new lineup
-        for (const player of lineup) {
+        for (const player of normalizedLineup) {
             await client.sql`
                 INSERT INTO fanta_lineups (user_id, matchday, player_name, team_name, role, position_type, bench_order)
                 VALUES (${String(payload.userId)}, ${matchday}, ${player.player_name}, ${player.team_name}, ${player.role}, ${player.position_type}, ${player.bench_order || null})

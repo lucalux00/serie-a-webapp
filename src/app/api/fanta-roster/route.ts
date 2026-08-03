@@ -22,7 +22,7 @@ export async function GET(request: Request) {
       ORDER BY created_at DESC
     `;
     
-    return NextResponse.json({ roster: rows.map((row) => ({ ...row, role: canonicalRole(row.playerName, row.teamName, row.role) || row.role })) });
+    return NextResponse.json({ roster: rows.map((row) => ({ ...row, role: canonicalRole(row.playerName, row.teamName) || 'N/D', roleVerified: Boolean(canonicalRole(row.playerName, row.teamName)) })) });
   } catch (error) {
     console.error('Error fetching roster:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 
     if (action === 'add') {
       if (!player_name) return NextResponse.json({ error: 'Missing name' }, { status: 400 });
-      const canonical = canonicalRole(player_name, team_name || '', role);
+      const canonical = canonicalRole(player_name, team_name || '');
       if (!canonical) return NextResponse.json({ error: 'Ruolo del giocatore non verificabile' }, { status: 422 });
       
       const { rows } = await sql`

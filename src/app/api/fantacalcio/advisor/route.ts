@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { verifyJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
+import { canonicalRole } from '@/lib/fantaRoster';
 
 // Pesi delle squadre per calcolare la difficoltà del match
 const TEAM_STRENGTH: Record<string, number> = {
@@ -27,14 +28,21 @@ export async function GET(request: Request) {
     const payload = await verifyJwt(token);
     if (!payload) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
+    if (new URL(request.url).searchParams.get('scope') === 'pro') {
+      const admin = ['luca.pinelli0000@gmail.com', 'lucapinelli0000@gmail.com'].includes(payload.email.toLowerCase());
+      const premium = admin || (await sql`SELECT is_premium FROM users WHERE id = ${payload.userId} LIMIT 1`).rows[0]?.is_premium === true;
+      if (!premium) return NextResponse.json({ error: 'Solo Pro' }, { status: 403 });
+    }
+
     // 1. Recupera la rosa dell'utente
-    const { rows: roster } = await sql`
+    const { rows: rawRoster } = await sql`
       SELECT id, player_name as "playerName", team_name as "teamName", role
       FROM fanta_rosters
       WHERE user_id = ${payload.userId}
     `;
 
-    if (!roster || roster.length === 0) {
+    const roster = rawRoster.map((player) => ({ ...player, role: canonicalRole(player.playerName, player.teamName) })).filter((player) => player.role);
+    if (!roster.length) {
       return NextResponse.json({ playerScores: [], recommendedLineup: [], suggestedCuts: [] });
     }
 

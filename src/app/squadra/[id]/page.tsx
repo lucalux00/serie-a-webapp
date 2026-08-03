@@ -77,7 +77,7 @@ export default async function SquadraPage({ params, searchParams }: { params: Pr
 
         // Mappa i ruoli italiani di Transfermarkt in 4 categorie UI
         const mapRole = (role: string): string => {
-          if (!role) return 'CEN';
+          if (!role) return 'N/D';
           const r = role.toLowerCase();
           if (r === 'por' || r.includes('portiere') || r.includes('keeper')) return 'POR';
           if (r === 'dif' || r.includes('difensore') || r.includes('terzino') || r.includes('libero') || r.includes('stopper') || r.includes('back')) return 'DIF';

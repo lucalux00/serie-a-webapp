@@ -51,6 +51,10 @@ export default function FantaLineupBuilder() {
       team_name: player.teamName || player.team_name,
       role: player.role,
     };
+    if (!['POR', 'DIF', 'CEN', 'ATT'].includes(formattedPlayer.role)) {
+      setSaveMessage('Giocatore bloccato: ruolo non verificato.');
+      return;
+    }
 
     if (target === 'titolare') {
       if (newTit.length >= 11) {

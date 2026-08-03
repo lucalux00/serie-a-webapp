@@ -74,7 +74,7 @@ export default function FantaRoster() {
     setNewPlayerName('');
     
     try {
-      await fetch('/api/fanta-roster', {
+      const response = await fetch('/api/fanta-roster', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -84,6 +84,7 @@ export default function FantaRoster() {
           team_name: player.team
         })
       });
+      if (!response.ok) throw new Error('Il ruolo del giocatore non è verificato.');
       mutate();
     } catch (err) {
       console.error(err);
@@ -170,7 +171,7 @@ export default function FantaRoster() {
                     <div className="text-sm font-bold text-white">{player.name}</div>
                     <div className="text-[10px] font-medium text-[#64748B] uppercase tracking-wider">{player.team}</div>
                   </div>
-                  <span className={`text-[10px] font-black px-2 py-1 rounded border ${roleColors[shortRole] || roleColors['CEN']}`}>
+                  <span className={`text-[10px] font-black px-2 py-1 rounded border ${roleColors[shortRole] || 'bg-[#64748B]/20 text-[#94A3B8] border-[#64748B]/50'}`}>
                     {shortRole}
                   </span>
                 </button>
@@ -193,7 +194,7 @@ export default function FantaRoster() {
              return (
               <div key={p.id} className="flex items-center justify-between bg-[#0F172A] p-3 rounded-xl border border-[#334155]">
                 <div className="flex items-center space-x-3">
-                  <span className={`text-[10px] font-black px-2 py-1 rounded border ${roleColors[shortRole] || roleColors['CEN']}`}>
+                  <span className={`text-[10px] font-black px-2 py-1 rounded border ${roleColors[shortRole] || 'bg-[#64748B]/20 text-[#94A3B8] border-[#64748B]/50'}`}>
                     {shortRole}
                   </span>
                   <div>

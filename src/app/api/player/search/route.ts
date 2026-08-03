@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     
     const formattedRows = rows.flatMap((r) => {
       const team = ALL_TEAMS.find((t) => t.id === r.team)?.name || r.team;
-      const role = canonicalRole(r.name, r.team, r.role);
+      const role = canonicalRole(r.name, r.team);
       return role ? [{ ...r, role, team }] : [];
     });
     

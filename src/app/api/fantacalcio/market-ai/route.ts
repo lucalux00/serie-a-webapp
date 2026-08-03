@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getUserFromCookie } from '@/lib/auth';
 import deepSquads from '@/data/deepSquads.json';
+import { canonicalRole } from '@/lib/fantaRoster';
 
 const TARGETS = { POR: 3, DIF: 8, CEN: 8, ATT: 6 } as const;
 const ROLES = Object.keys(TARGETS) as Array<keyof typeof TARGETS>;
@@ -38,10 +39,10 @@ export async function GET(request: NextRequest) {
   let premium = Boolean(user.email && ADMINS.has(user.email.toLowerCase()));
   if (!premium) { try { premium = (await sql`SELECT is_premium FROM users WHERE id = ${user.userId} LIMIT 1`).rows[0]?.is_premium === true; } catch { premium = false; } }
   if (!premium) return NextResponse.json({ error: 'Solo Pro' }, { status: 403 });
-  const roster = (await sql`SELECT player_name, role FROM fanta_rosters WHERE user_id = ${user.userId}`).rows;
+  const roster = (await sql`SELECT player_name, team_name, role FROM fanta_rosters WHERE user_id = ${user.userId}`).rows.map((player) => ({ ...player, role: canonicalRole(player.player_name, player.team_name) }));
   const owned = new Set(roster.map((player) => String(player.player_name).trim().toLocaleLowerCase('it')));
   const counts = { POR: 0, DIF: 0, CEN: 0, ATT: 0 };
-  roster.forEach((player) => { const role = String(player.role || '').slice(0, 3).toUpperCase(); if (role in counts) counts[role as keyof typeof counts]++; });
+  roster.forEach((player) => { const role = player.role; if (role && role in counts) counts[role as keyof typeof counts]++; });
   const gaps = ROLES.map((role) => ({ role, current: counts[role], target: TARGETS[role], missing: Math.max(0, TARGETS[role] - counts[role]) }));
   const role = request.nextUrl.searchParams.get('role')?.toUpperCase() as keyof typeof TARGETS | undefined;
   if (!role) return NextResponse.json({ total: roster.length, targetTotal: 25, gaps, methodology: 'Score: rating medio 35%, gol+assist/90 25%, presenze 20%, forma 10%, valore 10%.' });
