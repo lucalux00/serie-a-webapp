@@ -3797,6 +3797,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_emil_holm",
+          "name": "Emil Holm",
+          "position": "DIF",
+          "number": 2,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_tommaso_pobega",
           "name": "Tommaso Pobega",
           "position": "CEN",
@@ -3944,19 +3957,6 @@
           "name": "Nadir Zortea",
           "position": "DIF",
           "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_jens_odgaard",
-          "name": "Jens Odgaard",
-          "position": "ATT",
-          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -4160,7 +4160,7 @@
           "id": "wp_albert_gu%C3%B0mundsson",
           "name": "Albert Guðmundsson",
           "position": "ATT",
-          "number": 9,
+          "number": 10,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
