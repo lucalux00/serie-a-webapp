@@ -43,7 +43,7 @@ async function syncTransfers() {
       continue;
     }
     for (const item of feed.items.slice(0, 35)) {
-      const title = String(item.title || '').trim();
+      const title = String(item.title || '').trim().slice(0, 100);
       const transfer = inferTransfer(title);
       if (!transfer) continue;
       const existing = await sql`SELECT id FROM transfers WHERE player = ${title} AND team_id = ${transfer.team} LIMIT 1`;
