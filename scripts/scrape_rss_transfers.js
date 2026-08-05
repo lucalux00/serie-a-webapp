@@ -48,7 +48,7 @@ async function syncTransfers() {
       if (!transfer) continue;
       const existing = await sql`SELECT id FROM transfers WHERE player = ${title} AND team_id = ${transfer.team} LIMIT 1`;
       const date = new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome', dateStyle: 'short', timeStyle: 'short' });
-      const sourceName = String(item.creator || item['dc:creator'] || 'Google News').slice(0, 120);
+      const sourceName = String(item.creator || item['dc:creator'] || 'Google News').slice(0, 100);
       if (existing.rows.length) {
         await sql`UPDATE transfers SET date = ${date}, source_url = ${item.link || null}, source_name = ${sourceName} WHERE id = ${existing.rows[0].id}`;
         continue;
