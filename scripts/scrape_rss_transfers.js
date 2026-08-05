@@ -35,7 +35,13 @@ async function syncTransfers() {
   await sql`ALTER TABLE transfers ADD COLUMN IF NOT EXISTS source_name VARCHAR(120)`;
   let inserted = 0;
   for (const feedUrl of FEEDS) {
-    const feed = await parser.parseURL(feedUrl);
+    let feed;
+    try {
+      feed = await parser.parseURL(feedUrl);
+    } catch (error) {
+      console.warn(`Feed RSS non disponibile, continuo con gli altri: ${feedUrl}`, error.message);
+      continue;
+    }
     for (const item of feed.items.slice(0, 35)) {
       const title = String(item.title || '').trim();
       const transfer = inferTransfer(title);
