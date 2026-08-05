@@ -2091,6 +2091,19 @@
       "staff": [],
       "players": [
         {
+          "id": "wp_mario_mitaj",
+          "name": "Mario Mitaj",
+          "position": "DIF",
+          "number": 2,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_aar%C3%B3n_mart%C3%ADn",
           "name": "Aarón Martín",
           "position": "DIF",
@@ -8759,19 +8772,6 @@
           "name": "Devyne Rensch",
           "position": "DIF",
           "number": 2,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_angeli%C3%B1o",
-          "name": "Angeliño",
-          "position": "DIF",
-          "number": 3,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
