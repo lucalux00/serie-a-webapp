@@ -220,7 +220,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
   const searchParams = useSearchParams();
   const yearParam = searchParams.get('year');
   const [activeTab, setActiveTab] = useState<'news' | 'analisi' | 'partite' | 'live' | 'rosa' | 'mercato' | 'stats' | 'trofei'>(initialTab as any);
-  const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('acquisti');
+  const [teamMercatoFilter, setTeamMercatoFilter] = useState<'acquisti' | 'cessioni' | 'prestiti' | 'trattative'>('trattative');
   const [rosterView, setRosterView] = useState<'first' | 'primavera'>('first');
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [selectedTrophyGroup, setSelectedTrophyGroup] = useState<any>(null);
@@ -251,7 +251,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
       ? `/api/mercato/live?team_id=${encodeURIComponent(team.id)}&limit=100`
       : null,
     fetcher,
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false, refreshInterval: 60_000 }
   );
   const teamTransfers: any[] = teamMercatoRaw?.transfers || squadData?.transfers || [];
 
@@ -725,6 +725,11 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                         <div className="text-[9px] mt-1 text-right text-[#64748B] font-bold uppercase tracking-widest">
                           {tr.date}
                         </div>
+                        {tr.source_url && (
+                          <a href={tr.source_url} target="_blank" rel="noreferrer" className="mt-2 inline-flex text-[10px] font-black uppercase tracking-wider text-[#F59E0B] hover:text-[#FCD34D]">
+                            Fonte: {tr.source_name || 'apri articolo'}
+                          </a>
+                        )}
                       </div>
                     </div>
                   );
@@ -767,7 +772,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
                           <CheckCircle2 size={32} className="opacity-20" />
                           <p className="text-sm font-bold">Nessun movimento registrato</p>
                           <p className="text-xs text-center max-w-xs">
-                            I dati vengono aggiornati dal cron mercato quotidiano.
+                            I rumor vengono aggiornati automaticamente ogni pochi minuti.
                             {teamTransfers.length === 0 && ' Assicurati di aver lanciato /api/migrate/setup.'}
                           </p>
                         </div>

@@ -40,7 +40,9 @@ export async function GET(request: Request) {
           other_team  AS "fromTo",
           fee,
           date,
-          created_at
+          created_at,
+          source_url,
+          source_name
         FROM transfers
         WHERE team_id = ${teamId}
         ORDER BY id DESC
@@ -61,7 +63,9 @@ export async function GET(request: Request) {
           other_team AS "fromTo",
           fee,
           date,
-          created_at
+          created_at,
+          source_url,
+          source_name
         FROM transfers
         ORDER BY id DESC
         LIMIT ${limit}
@@ -81,7 +85,9 @@ export async function GET(request: Request) {
           other_team AS "fromTo",
           fee,
           date,
-          created_at
+          created_at,
+          source_url,
+          source_name
         FROM transfers
         WHERE league = ${league}
         ORDER BY id DESC

@@ -170,7 +170,11 @@ function TransferCard({ tr }: { tr: any }) {
         )}
 
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[9px] font-semibold text-[var(--color-sport-muted)]">
-          <span>Fonte: dati aggregati</span>
+          {tr.source_url ? (
+            <a href={tr.source_url} target="_blank" rel="noreferrer" className="text-[#F59E0B] hover:text-[#FCD34D]">
+              Fonte: {tr.source_name || 'apri articolo'}
+            </a>
+          ) : <span>Fonte: dati aggregati</span>}
           {acquiredAt && <span>Acquisito: {acquiredAt}</span>}
         </div>
       </div>
@@ -181,7 +185,7 @@ function TransferCard({ tr }: { tr: any }) {
 
 export default function MarketFeed() {
   const [leagueTab,   setLeagueTab]   = useState<LeagueKey>('A');
-  const [filterTab,   setFilterTab]   = useState<FilterKey>('acquisti');
+  const [filterTab,   setFilterTab]   = useState<FilterKey>('trattative');
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [searchQuery,  setSearchQuery]  = useState('');
   const [sortBy, setSortBy] = useState<SortKey>('recent');
@@ -208,6 +212,8 @@ export default function MarketFeed() {
     loadData();
     setSelectedTeam(null);
     setSearchQuery('');
+    const interval = window.setInterval(loadData, 60_000);
+    return () => window.clearInterval(interval);
   }, [loadData]);
 
   // Filtra per squadra e ricerca

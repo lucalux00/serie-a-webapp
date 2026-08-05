@@ -51,6 +51,12 @@ export async function GET(request: Request) {
     await sql`
       ALTER TABLE transfers ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
     `;
+    await sql`
+      ALTER TABLE transfers ADD COLUMN IF NOT EXISTS source_url TEXT;
+    `;
+    await sql`
+      ALTER TABLE transfers ADD COLUMN IF NOT EXISTS source_name VARCHAR(120);
+    `;
     results.push('✅ transfers: colonne league/created_at verificate');
 
     // ── NUOVE TABELLE ─────────────────────────────────────────────────────
