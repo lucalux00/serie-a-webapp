@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Target, Shield, Newspaper, Sparkles, Users, Crown } from 'lucide-react';
+import { Target, Shield, Newspaper, Sparkles, Users, Crown, ClipboardList } from 'lucide-react';
 import FantaMarketDashboard from '@/components/domain/FantaMarketDashboard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
@@ -15,7 +15,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 export default function FantacalcioPage() {
   const { user } = useAuth();
   const { isPremium } = useSubscription();
-  const [activeTab, setActiveTab] = useState<'hub' | 'rosa' | 'advisor' | 'mercato' | 'news'>('rosa');
+  const [activeTab, setActiveTab] = useState<'lineup' | 'rosa' | 'advisor' | 'mercato' | 'news' | 'pro'>('lineup');
 
   if (!user) {
     return (
@@ -42,12 +42,12 @@ export default function FantacalcioPage() {
 
       <div className="mb-5 rounded-2xl border border-[#334155] bg-[#1E293B] p-1.5 shadow-md">
         <div className="grid grid-cols-2 gap-1 sm:flex sm:flex-wrap sm:justify-center">
-        {isPremium && <button
-          onClick={() => setActiveTab('hub')}
-          className={`relative flex items-center justify-center px-3 py-3 text-xs font-black rounded-xl transition-all sm:min-w-32 ${activeTab === 'hub' ? 'bg-gradient-to-r from-[#F59E0B] to-[#FCD34D] text-[#0F172A] shadow-md' : 'text-[#FCD34D] hover:bg-[#F59E0B]/10'}`}
+        <button
+          onClick={() => setActiveTab('lineup')}
+          className={`flex items-center justify-center px-3 py-3 text-xs font-bold rounded-xl transition-all sm:min-w-32 ${activeTab === 'lineup' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
         >
-          <Crown size={16} className="mr-2" /> HUB PRO
-        </button>}
+          <ClipboardList size={16} className="mr-2" /> FORMAZIONE
+        </button>
         <button
           onClick={() => setActiveTab('rosa')}
           className={`flex items-center justify-center px-3 py-3 text-xs font-bold rounded-xl transition-all sm:min-w-32 ${activeTab === 'rosa' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
@@ -59,7 +59,6 @@ export default function FantacalcioPage() {
           className={`relative flex items-center justify-center px-3 py-3 text-sm font-black rounded-xl transition-all sm:min-w-48 ${activeTab === 'advisor' ? 'bg-gradient-to-r from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-white shadow-[0_4px_20px_rgba(79,70,229,0.45)]' : 'bg-[#334155] text-white hover:bg-[#475569]'}`}
         >
           <Sparkles size={17} className="mr-2" /> CONSIGLI AI
-          <span className="absolute -top-2 right-2 rounded-full bg-[#F59E0B] px-1.5 py-0.5 text-[8px] font-black text-[#0F172A]">IL FULCRO</span>
         </button>
         <button
           onClick={() => setActiveTab('mercato')}
@@ -73,21 +72,26 @@ export default function FantacalcioPage() {
         >
           <Newspaper size={16} className="mr-2" /> RADAR ROSA
         </button>
+        <button
+          onClick={() => setActiveTab('pro')}
+          className={`relative flex items-center justify-center px-3 py-3 text-xs font-black rounded-xl transition-all sm:min-w-32 ${activeTab === 'pro' ? 'bg-gradient-to-r from-[#F59E0B] to-[#FCD34D] text-[#0F172A] shadow-md' : 'text-[#FCD34D] hover:bg-[#F59E0B]/10'}`}
+        >
+          <Crown size={16} className="mr-2" /> {isPremium ? 'HUB PRO' : 'SCOPRI PRO'}
+        </button>
         </div>
       </div>
 
-      <p className="mb-6 text-center text-xs text-[#94A3B8]">Non gestiamo la tua lega: ti aiutiamo a vincerla con scelte migliori.</p>
+      <p className="mb-6 text-center text-xs text-[#94A3B8]">Rosa, formazione, decisioni e notizie: una tab per ogni azione, senza duplicazioni.</p>
 
       <AnimatePresence mode="wait">
-        {isPremium && activeTab === 'hub' && (
-          <motion.div key="hub" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            <FantaProHub onNavigate={setActiveTab} />
+        {activeTab === 'lineup' && (
+          <motion.div key="lineup" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <FantaLineupBuilder />
           </motion.div>
         )}
         {activeTab === 'rosa' && (
           <motion.div key="rosa" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
              <FantaRoster />
-             <FantaLineupBuilder />
           </motion.div>
         )}
         {activeTab === 'advisor' && (
@@ -103,6 +107,11 @@ export default function FantacalcioPage() {
         {activeTab === 'news' && (
           <motion.div key="news" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
             <FantaNewsFeed />
+          </motion.div>
+        )}
+        {activeTab === 'pro' && (
+          <motion.div key="pro" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <FantaProHub />
           </motion.div>
         )}
       </AnimatePresence>

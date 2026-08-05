@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
   const user = await getUserFromCookie();
   if (!user) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 });
   let premium = Boolean(user.email && ADMINS.has(user.email.toLowerCase()));
-  if (!premium) { try { premium = (await sql`SELECT is_premium FROM users WHERE id = ${user.userId} LIMIT 1`).rows[0]?.is_premium === true; } catch { premium = false; } }
+  if (!premium) { try { const row = (await sql`SELECT is_premium, to_jsonb(users)->>'premium_until' AS premium_until FROM users WHERE id = ${user.userId} LIMIT 1`).rows[0]; premium = row?.is_premium === true && (!row?.premium_until || new Date(row.premium_until) > new Date()); } catch { premium = false; } }
   if (!premium) return NextResponse.json({ error: 'Solo Pro' }, { status: 403 });
   const rosterRows = (await sql`SELECT player_name, team_name, role FROM fanta_rosters WHERE user_id = ${user.userId}`).rows as Array<{ player_name: string; team_name: string | null; role: string | null }>;
   const roster = rosterRows.map((player) => ({ ...player, role: canonicalRole(player.player_name, player.team_name || '') }));

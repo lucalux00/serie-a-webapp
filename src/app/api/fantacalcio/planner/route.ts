@@ -22,9 +22,10 @@ export async function GET() {
   const user = token ? await verifyJwt(token) : null;
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { rows: userRows } = await sql`SELECT is_premium FROM users WHERE id = ${user.userId} LIMIT 1`;
+  const { rows: userRows } = await sql`SELECT is_premium, to_jsonb(users)->>'premium_until' AS premium_until FROM users WHERE id = ${user.userId} LIMIT 1`;
   const admin = ['luca.pinelli0000@gmail.com', 'lucapinelli0000@gmail.com'].includes((user.email ?? '').toLowerCase());
-  if (!admin && userRows[0]?.is_premium !== true) return NextResponse.json({ error: 'Pro required' }, { status: 403 });
+  const premiumUntil = userRows[0]?.premium_until ? new Date(userRows[0].premium_until) : null;
+  if (!admin && !(userRows[0]?.is_premium === true && (!premiumUntil || premiumUntil > new Date()))) return NextResponse.json({ error: 'Pro required' }, { status: 403 });
 
   const { rows: roster } = await sql`SELECT DISTINCT team_name FROM fanta_rosters WHERE user_id = ${user.userId}`;
   const teams = roster.map((row) => String(row.team_name ?? '')).filter(Boolean);

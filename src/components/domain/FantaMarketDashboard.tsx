@@ -2,13 +2,18 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { Check, Plus, Target } from 'lucide-react';
+import PremiumPaywall from '@/components/ui/PremiumPaywall';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 const fetcher = async (url: string) => { const response = await fetch(url); return { status: response.status, body: await response.json() }; };
 type Candidate = { name: string; team: string; marketValue: string; costBand: string; score: number; priority: number; reason: string; stats: { seasons: number; appearances: number; minutes: number; goals: number; assists: number; rating: number; goalActions90: number; formDelta: number } };
 
 export default function FantaMarketDashboard({ onOpenRoster: _ }: { onOpenRoster: () => void }) {
   const [role, setRole] = useState<string | null>(null); const [adding, setAdding] = useState<string | null>(null); const [added, setAdded] = useState<string[]>([]);
-  const { data, mutate } = useSWR('/api/fantacalcio/market-ai', fetcher); const { data: recommendations, mutate: refresh } = useSWR(role ? `/api/fantacalcio/market-ai?role=${role}` : null, fetcher);
+  const { isPremium, isLoading: subscriptionLoading } = useSubscription();
+  const { data, mutate } = useSWR(isPremium ? '/api/fantacalcio/market-ai' : null, fetcher); const { data: recommendations, mutate: refresh } = useSWR(isPremium && role ? `/api/fantacalcio/market-ai?role=${role}` : null, fetcher);
+  if (subscriptionLoading) return <p className="p-6 text-slate-400">Verifico il tuo accesso Fanta Pro…</p>;
+  if (!isPremium) return <section className="space-y-4"><div className="rounded-3xl border border-amber-400/30 bg-gradient-to-br from-[#35200a] via-[#1E293B] to-[#162033] p-6"><Target className="mb-2 text-amber-400"/><p className="text-xs font-black uppercase tracking-widest text-amber-300">Mercato AI · Fanta Pro</p><h2 className="mt-1 text-2xl font-black text-white">Rinforzi calcolati sulla tua rosa</h2><p className="mt-3 text-sm leading-relaxed text-slate-300">Scopri i reparti scoperti, i sostituti verificati e la priorità d’acquisto: i risultati si attivano con Fanta Pro.</p></div><PremiumPaywall planName="Fanta Pro" price="€0,99" priceLabel="/ mese" ctaLabel="Scopri l’accesso Pro" /></section>;
   async function add(candidate: Candidate) { if (!role) return; setAdding(candidate.name); const response = await fetch('/api/fanta-roster', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'add', player_name: candidate.name, team_name: candidate.team, role }) }); if (response.ok) { setAdded((items) => [...items, candidate.name]); await Promise.all([mutate(), refresh()]); } setAdding(null); }
   if (!data) return <p className="p-6 text-slate-400">Analisi statistica in corso…</p>;
   const market = data.body; const candidates: Candidate[] = recommendations?.body.candidates || [];

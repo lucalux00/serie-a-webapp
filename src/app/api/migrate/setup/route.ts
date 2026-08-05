@@ -128,6 +128,11 @@ export async function GET(request: Request) {
     `;
     results.push('✅ users.is_premium: colonna verificata');
 
+    await sql`
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS premium_until TIMESTAMPTZ;
+    `;
+    results.push('Premium expiry column verified');
+
     // Pulizia log vecchi (>30 giorni) per non far crescere le tabelle
     await sql`DELETE FROM mercato_cron_log WHERE created_at < NOW() - INTERVAL '30 days';`;
     await sql`DELETE FROM spiegazione_rate_limit WHERE created_at < NOW() - INTERVAL '1 day';`;

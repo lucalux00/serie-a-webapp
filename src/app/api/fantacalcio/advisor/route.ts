@@ -30,7 +30,8 @@ export async function GET(request: Request) {
 
     if (new URL(request.url).searchParams.get('scope') === 'pro') {
       const admin = ['luca.pinelli0000@gmail.com', 'lucapinelli0000@gmail.com'].includes(payload.email.toLowerCase());
-      const premium = admin || (await sql`SELECT is_premium FROM users WHERE id = ${payload.userId} LIMIT 1`).rows[0]?.is_premium === true;
+      const row = (await sql`SELECT is_premium, to_jsonb(users)->>'premium_until' AS premium_until FROM users WHERE id = ${payload.userId} LIMIT 1`).rows[0];
+      const premium = admin || (row?.is_premium === true && (!row?.premium_until || new Date(row.premium_until) > new Date()));
       if (!premium) return NextResponse.json({ error: 'Solo Pro' }, { status: 403 });
     }
 
