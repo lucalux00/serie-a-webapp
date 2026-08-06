@@ -25,7 +25,7 @@ function PlayerRow({ player }: { player: AdvicePlayer }) {
   return <article className="flex items-center justify-between gap-3 rounded-xl border border-[#334155] bg-[#0F172A] p-3"><div className="min-w-0"><div className="flex items-center gap-2"><span className={`rounded px-1.5 py-0.5 text-[9px] font-black ${roleColors[role] ?? 'bg-slate-700 text-slate-300'}`}>{role}</span><h3 className="truncate text-sm font-black text-white">{player.playerName}</h3></div><p className="mt-1 truncate text-xs text-[#94A3B8]">{player.matchInfo}</p></div><ScoreBadge player={player} /></article>;
 }
 
-export default function FantaAdviceCenter({ onNavigate }: { onNavigate: (tab: 'lineup' | 'rosa' | 'mercato' | 'news') => void }) {
+export default function FantaAdviceCenter({ onNavigate }: { onNavigate: (tab: 'lineup' | 'rosa' | 'mercato') => void }) {
   const [tab, setTab] = useState<AdviceTab>('giornata');
   const [role, setRole] = useState('ATT');
   const { data, isLoading, error } = useSWR<AdvisorResponse>('/api/fantacalcio/advisor', fetcher);

@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Target, Shield, Newspaper, Sparkles, Users, Crown, ClipboardList } from 'lucide-react';
+import { Target, Shield, Sparkles, Users, Crown, ClipboardList } from 'lucide-react';
 import FantaMarketDashboard from '@/components/domain/FantaMarketDashboard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import FantaLineupBuilder from '@/components/domain/FantaLineupBuilder';
-import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
 import FantaAdviceCenter from '@/components/domain/FantaAdviceCenter';
 import FantaRoster from '@/components/domain/FantaRoster';
 import FantaProHub from '@/components/domain/FantaProHub';
@@ -15,7 +14,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 export default function FantacalcioPage() {
   const { user } = useAuth();
   const { isPremium } = useSubscription();
-  const [activeTab, setActiveTab] = useState<'lineup' | 'rosa' | 'advisor' | 'mercato' | 'news' | 'pro'>('lineup');
+  const [activeTab, setActiveTab] = useState<'lineup' | 'rosa' | 'advisor' | 'mercato' | 'pro'>('lineup');
 
   if (!user) {
     return (
@@ -67,12 +66,6 @@ export default function FantacalcioPage() {
           <Target size={16} className="mr-2" /> MERCATO AI
         </button>
         <button
-          onClick={() => setActiveTab('news')}
-          className={`flex items-center justify-center px-3 py-3 text-xs font-bold rounded-xl transition-all sm:min-w-28 ${activeTab === 'news' ? 'bg-[#10B981] text-[#0F172A] shadow-md' : 'text-[#94A3B8] hover:text-white'}`}
-        >
-          <Newspaper size={16} className="mr-2" /> RADAR ROSA
-        </button>
-        <button
           onClick={() => setActiveTab('pro')}
           className={`relative flex items-center justify-center px-3 py-3 text-xs font-black rounded-xl transition-all sm:min-w-32 ${activeTab === 'pro' ? 'bg-gradient-to-r from-[#F59E0B] to-[#FCD34D] text-[#0F172A] shadow-md' : 'text-[#FCD34D] hover:bg-[#F59E0B]/10'}`}
         >
@@ -81,7 +74,7 @@ export default function FantacalcioPage() {
         </div>
       </div>
 
-      <p className="mb-6 text-center text-xs text-[#94A3B8]">Rosa, formazione, decisioni e notizie: una tab per ogni azione, senza duplicazioni.</p>
+      <p className="mb-6 text-center text-xs text-[#94A3B8]">Rosa, formazione, consigli e mercato: una tab per ogni azione, senza duplicazioni.</p>
 
       <AnimatePresence mode="wait">
         {activeTab === 'lineup' && (
@@ -102,11 +95,6 @@ export default function FantacalcioPage() {
         {activeTab === 'mercato' && (
           <motion.div key="mercato" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
             <FantaMarketDashboard onOpenRoster={() => setActiveTab('rosa')} />
-          </motion.div>
-        )}
-        {activeTab === 'news' && (
-          <motion.div key="news" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            <FantaNewsFeed />
           </motion.div>
         )}
         {activeTab === 'pro' && (

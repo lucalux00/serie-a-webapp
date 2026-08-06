@@ -7,7 +7,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 import FantaFixturePlanner from '@/components/domain/FantaFixturePlanner';
 import FantaPlayerCompare, { FantaScoredPlayer } from '@/components/domain/FantaPlayerCompare';
 
-type FantaTab = 'lineup' | 'rosa' | 'advisor' | 'mercato' | 'news';
+type FantaTab = 'lineup' | 'rosa' | 'advisor' | 'mercato';
 type AdvisorData = { matchday?: number; playerScores?: FantaScoredPlayer[]; suggestedCuts?: FantaScoredPlayer[]; recommendedLineup?: FantaScoredPlayer[] };
 type RosterData = { roster?: unknown[] };
 const fetcher = (url: string) => fetch(url).then((response) => response.json());
