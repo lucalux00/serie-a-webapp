@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import FantaLineupBuilder from '@/components/domain/FantaLineupBuilder';
 import FantaNewsFeed from '@/components/domain/FantaNewsFeed';
-import FantaAdvisorDashboard from '@/components/domain/FantaAdvisorDashboard';
+import FantaAdviceCenter from '@/components/domain/FantaAdviceCenter';
 import FantaRoster from '@/components/domain/FantaRoster';
 import FantaProHub from '@/components/domain/FantaProHub';
 import { useSubscription } from '@/contexts/SubscriptionContext';
@@ -58,7 +58,7 @@ export default function FantacalcioPage() {
           onClick={() => setActiveTab('advisor')}
           className={`relative flex items-center justify-center px-3 py-3 text-sm font-black rounded-xl transition-all sm:min-w-48 ${activeTab === 'advisor' ? 'bg-gradient-to-r from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-white shadow-[0_4px_20px_rgba(79,70,229,0.45)]' : 'bg-[#334155] text-white hover:bg-[#475569]'}`}
         >
-          <Sparkles size={17} className="mr-2" /> CONSIGLI AI
+          <Sparkles size={17} className="mr-2" /> CONSIGLI
         </button>
         <button
           onClick={() => setActiveTab('mercato')}
@@ -96,7 +96,7 @@ export default function FantacalcioPage() {
         )}
         {activeTab === 'advisor' && (
           <motion.div key="advisor" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            <FantaAdvisorDashboard />
+            <FantaAdviceCenter onNavigate={setActiveTab} />
           </motion.div>
         )}
         {activeTab === 'mercato' && (
