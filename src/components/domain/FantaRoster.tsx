@@ -117,14 +117,20 @@ export default function FantaRoster() {
 
   return (
     <div className="bg-[#1E293B] rounded-3xl p-6 shadow-2xl border border-[#334155] mb-6 relative">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-black text-white flex items-center">
-          <Shield className="w-5 h-5 mr-2 text-[#3B82F6]" />
-          Il Mio Fanta-Roster
-        </h2>
+      <div className="mb-6 rounded-2xl border border-[#3B82F6]/25 bg-gradient-to-r from-[#172554] to-[#1E293B] p-4">
+        <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#60A5FA]">La tua squadra</p>
+          <h2 className="mt-1 flex items-center text-xl font-black text-white">
+            <Shield className="mr-2 h-5 w-5 text-[#3B82F6]" />
+            Inserisci qui la tua rosa
+          </h2>
+          <p className="mt-2 text-sm text-[#CBD5E1]">Ti accompagniamo alla vittoria del Fantacalcio, una scelta alla volta.</p>
+        </div>
         <span className="text-xs font-bold bg-[#0F172A] text-[#94A3B8] px-3 py-1 rounded-full">
           {roster.length} Giocatori
         </span>
+        </div>
       </div>
 
       <div className="relative mb-6" ref={dropdownRef}>
@@ -185,7 +191,7 @@ export default function FantaRoster() {
         <div className="text-center py-8 bg-[#0F172A] rounded-xl border border-dashed border-[#334155]">
           <User className="w-8 h-8 mx-auto text-[#64748B] mb-2" />
           <p className="text-[#64748B] text-sm font-medium">Nessun giocatore in rosa.</p>
-          <p className="text-[#64748B] text-xs mt-1">Aggiungi i tuoi campioni per ricevere news mirate!</p>
+          <p className="text-[#64748B] text-xs mt-1">Cerca e seleziona i tuoi giocatori: da qui partono consigli, formazione e mercato personalizzati.</p>
         </div>
       ) : (
         <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
