@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import { Activity, AlertTriangle, BrainCircuit, ChevronRight, HeartPulse, ShieldCheck, Sparkles, TrendingUp, Users } from 'lucide-react';
 import FantaAdvisorDashboard from '@/components/domain/FantaAdvisorDashboard';
+import FantaUsageGuide from '@/components/ui/FantaUsageGuide';
 
 type AdviceTab = 'giornata' | 'ruoli' | 'disponibilita' | 'indicatori' | 'rosa';
 type AdvicePlayer = { id: string | number; playerName: string; teamName?: string; role: string; score: number; successProbability?: number; matchInfo: string };
@@ -15,6 +16,13 @@ type RadarResponse = { items: RadarItem[] };
 const fetcher = (url: string) => fetch(url).then((response) => response.json());
 const roleLabels: Record<string, string> = { POR: 'Portieri', DIF: 'Difensori', CEN: 'Centrocampisti', ATT: 'Attaccanti' };
 const roleColors: Record<string, string> = { POR: 'text-amber-300 bg-amber-400/10 border-amber-400/20', DIF: 'text-emerald-300 bg-emerald-400/10 border-emerald-400/20', CEN: 'text-sky-300 bg-sky-400/10 border-sky-400/20', ATT: 'text-rose-300 bg-rose-400/10 border-rose-400/20' };
+const adviceGuides: Record<AdviceTab, string[]> = {
+  giornata: ['Leggi modulo e giocatori consigliati.', 'Apri Formazione per applicarli o adattarli.', 'Controlla anche i profili Da monitorare prima di salvare.'],
+  ruoli: ['Scegli il reparto del tuo dubbio.', 'Confronta gli indici con la prossima partita.', 'Usa il risultato per sciogliere un ballottaggio, non come verdetto automatico.'],
+  disponibilita: ['Apri il segnale che riguarda un tuo giocatore.', 'Verifica fonte e data della notizia.', 'Aggiorna formazione o panchina se il segnale cambia la disponibilita.'],
+  indicatori: ['Usa l’indice per ordinare le alternative.', 'Considera avversario e stato del giocatore.', 'Verifica la disponibilita prima della decisione finale.'],
+  rosa: ['Esamina i suggerimenti collegati ai tuoi giocatori.', 'Confronta le alternative proposte.', 'Passa a Formazione o Mercato quando hai individuato un’azione.'],
+};
 
 function ScoreBadge({ player }: { player: AdvicePlayer }) {
   return <div className="min-w-14 rounded-xl border border-emerald-400/25 bg-emerald-400/10 px-2 py-1.5 text-center"><strong className="block text-base leading-none text-emerald-300">{player.score}</strong><span className="text-[9px] font-bold uppercase text-emerald-200">indice</span></div>;
@@ -42,6 +50,8 @@ export default function FantaAdviceCenter({ onNavigate }: { onNavigate: (tab: 'l
   return <section className="space-y-5"><header className="relative overflow-hidden rounded-3xl border border-indigo-400/30 bg-gradient-to-br from-indigo-950 via-[#1E293B] to-[#0F172A] p-6"><Sparkles className="absolute -right-5 -top-5 h-28 w-28 text-indigo-300/10" /><div className="relative"><p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-300">Consigli Fanta</p><h2 className="mt-1 text-2xl font-black text-white">Decidi meglio, prima del gong</h2><p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300">Consigli basati su ruolo, prossima partita e segnali dalle fonti. Apri la tua rosa per rendere ogni decisione personale.</p></div></header>
 
     <div className="flex gap-2 overflow-x-auto rounded-2xl border border-[#334155] bg-[#1E293B] p-1.5">{tabs.map((item) => <button type="button" key={item.id} onClick={() => setTab(item.id)} className={`whitespace-nowrap rounded-xl px-3 py-2.5 text-xs font-black transition ${tab === item.id ? 'bg-indigo-500 text-white shadow-md' : 'text-[#94A3B8] hover:text-white'}`}>{item.label}</button>)}</div>
+
+    <FantaUsageGuide title={`Come usare ${tabs.find((item) => item.id === tab)?.label ?? 'questa sezione'}`} steps={adviceGuides[tab]} accentClassName="text-indigo-300" />
 
     {isLoading && tab !== 'disponibilita' ? <div className="rounded-2xl border border-[#334155] bg-[#1E293B] p-8 text-center text-sm text-[#94A3B8]">Calcolo i consigli per la prossima giornata…</div> : null}
     {error ? <div className="rounded-2xl border border-rose-400/25 bg-rose-400/10 p-5 text-sm text-rose-100">Non riesco a calcolare i consigli in questo momento. Riprova tra poco.</div> : null}

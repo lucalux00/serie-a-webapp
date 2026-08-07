@@ -125,7 +125,7 @@ export default function FantaRoster() {
             <Shield className="mr-2 h-5 w-5 text-[#3B82F6]" />
             Inserisci qui la tua rosa
           </h2>
-          <p className="mt-2 text-sm text-[#CBD5E1]">Ti accompagniamo alla vittoria del Fantacalcio, una scelta alla volta.</p>
+          <p className="mt-2 text-sm text-[#CBD5E1]">Cerca, seleziona e mantieni aggiornata solo la rosa della tua lega: tutte le altre schede useranno questi dati.</p>
         </div>
         <span className="text-xs font-bold bg-[#0F172A] text-[#94A3B8] px-3 py-1 rounded-full">
           {roster.length} Giocatori
@@ -134,6 +134,7 @@ export default function FantaRoster() {
       </div>
 
       <div className="relative mb-6" ref={dropdownRef}>
+        <p className="mb-2 text-xs text-[#94A3B8]">Scrivi almeno due lettere, poi tocca il giocatore corretto nei risultati per aggiungerlo.</p>
         <div className="flex space-x-2">
           <div className="relative flex-1">
             <input

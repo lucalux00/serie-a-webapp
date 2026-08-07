@@ -244,6 +244,7 @@ export default function FantaLineupBuilder() {
                 {titolari.length}/11
               </span>
             </h3>
+            <p className="-mt-1 mb-3 text-xs text-[#94A3B8]">Sposta qui 11 giocatori con TIT. Usa X per riportarli nella rosa.</p>
             <div className="min-h-[300px] bg-[#0F172A]/50 rounded-lg p-2">
               {titolari.length === 0 ? <p className="text-[#64748B] text-xs text-center mt-4">Nessun titolare scelto</p> : renderPlayerList(titolari, 'titolare')}
             </div>
@@ -255,6 +256,7 @@ export default function FantaLineupBuilder() {
                 <span>Panchina</span>
                 <span className="text-xs text-[#94A3B8]">{panchina.length}/7</span>
               </h3>
+              <p className="-mt-1 mb-3 text-xs text-[#94A3B8]">Metti le alternative con PAN: l’ordine rappresenta la tua priorita.</p>
               <div className="min-h-[150px] bg-[#0F172A]/50 rounded-lg p-2">
                 {panchina.length === 0 ? <p className="text-[#64748B] text-xs text-center mt-4">Panchina vuota</p> : renderPlayerList(panchina, 'panchina')}
               </div>
@@ -262,6 +264,7 @@ export default function FantaLineupBuilder() {
 
             <div className="bg-[#1E293B] p-4 rounded-xl border border-[#334155]">
               <h3 className="text-[#94A3B8] font-bold mb-3 text-sm">Rosa Disponibile</h3>
+              <p className="-mt-1 mb-3 text-xs text-[#64748B]">Qui trovi chi non e ancora schierato: scegli TIT o PAN per utilizzarlo.</p>
               <div className="max-h-[200px] overflow-y-auto bg-[#0F172A]/50 rounded-lg p-2 custom-scrollbar">
                 {availablePlayers.length === 0 ? <p className="text-[#64748B] text-xs text-center mt-4">Tutti schierati</p> : renderPlayerList(availablePlayers, 'roster')}
               </div>

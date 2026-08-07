@@ -10,6 +10,30 @@ import FantaAdviceCenter from '@/components/domain/FantaAdviceCenter';
 import FantaRoster from '@/components/domain/FantaRoster';
 import FantaProHub from '@/components/domain/FantaProHub';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import FantaUsageGuide from '@/components/ui/FantaUsageGuide';
+
+const tabGuides = {
+  lineup: {
+    title: 'Come usare Formazione',
+    steps: ['Parti dalla Rosa disponibile e usa TIT o PAN per spostare ogni giocatore.', 'Completa 11 titolari; Auto-schiera propone una base, ma puoi modificarla.', 'Controlla titolari e panchina, poi premi Salva prima della chiusura della giornata.'],
+  },
+  rosa: {
+    title: 'Come usare La mia rosa',
+    steps: ['Cerca un calciatore per nome e selezionalo dal menu dei risultati.', 'Aggiungi solo i giocatori che possiedi nella tua lega.', 'Rimuovi con il cestino chi non fa piu parte della rosa: consigli e formazione si aggiornano da qui.'],
+  },
+  advisor: {
+    title: 'Come usare Consigli',
+    steps: ['Scegli la sotto-tab in base al dubbio che devi risolvere.', 'Leggi indice, partita e segnali di disponibilita come supporto alla scelta.', 'Quando hai deciso, passa a Formazione per applicare il consiglio.'],
+  },
+  mercato: {
+    title: 'Come usare Mercato AI',
+    steps: ['Guarda prima i reparti scoperti nella sezione Analisi per reparto.', 'Confronta Top, Valore e Scommesse in base al tuo budget e al rischio.', 'Usa Aggiungi solo per inserire un acquisto reale nella tua rosa.'],
+  },
+  pro: {
+    title: 'Come usare Hub Pro',
+    steps: ['Segui le tre priorita nell’ordine proposto per preparare la giornata.', 'Usa il confronto per un ballottaggio tra due giocatori della tua rosa.', 'Controlla il planner prima di confermare formazione o operazioni di mercato.'],
+  },
+} as const;
 
 export default function FantacalcioPage() {
   const { user } = useAuth();
@@ -75,6 +99,14 @@ export default function FantacalcioPage() {
       </div>
 
       <p className="mb-6 text-center text-xs text-[#94A3B8]">Rosa, formazione, consigli e mercato: una tab per ogni azione, senza duplicazioni.</p>
+
+      <div className="mb-5">
+        <FantaUsageGuide
+          title={tabGuides[activeTab].title}
+          steps={[...tabGuides[activeTab].steps]}
+          accentClassName={activeTab === 'advisor' || activeTab === 'pro' ? 'text-violet-300' : activeTab === 'mercato' ? 'text-amber-300' : 'text-emerald-300'}
+        />
+      </div>
 
       <AnimatePresence mode="wait">
         {activeTab === 'lineup' && (
