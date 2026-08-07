@@ -1,90 +1,88 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-export const dynamic = 'force-dynamic'; // Forza Next.js a non usare la cache statica per questa route API
+export const dynamic = 'force-dynamic';
+
+type Prediction = {
+  id: string;
+  match: string;
+  competition: string | null;
+  pick: string;
+  odds: number | string;
+  commence_time: string;
+  confidence_score: number | string | null;
+};
+
+const MAX_SINGLES_PER_COMPETITION = 6;
+
+function totalOdds(matches: Prediction[]) {
+  return Math.round(matches.reduce((total, match) => total * Number(match.odds), 1) * 100) / 100;
+}
+
+function createMultiples(competition: string, picks: Prediction[]) {
+  const balanced = [...picks].sort((a, b) => Number(a.odds) - Number(b.odds));
+  const value = [...picks].sort((a, b) => Number(b.odds) - Number(a.odds));
+  const multiples = [];
+
+  if (balanced.length >= 2) {
+    const matches = balanced.slice(0, 2);
+    multiples.push({
+      id: `${competition}-doppia`,
+      title: `Doppia ${competition}`,
+      description: 'Due selezioni dello stesso campionato, pensate per una quota piu contenuta.',
+      matches,
+      totalOdds: totalOdds(matches),
+    });
+  }
+
+  if (value.length >= 3) {
+    const matches = value.slice(0, 3);
+    multiples.push({
+      id: `${competition}-tripla`,
+      title: `Tripla valore ${competition}`,
+      description: 'Tre selezioni dello stesso campionato, con un profilo quota piu alto.',
+      matches,
+      totalOdds: totalOdds(matches),
+    });
+  }
+
+  return multiples;
+}
 
 export async function GET() {
   try {
-    // 1. Fetch partite direttamente dal nostro database MLOps (Vercel Postgres)
-    const { rows: allPicks } = await sql`
-      SELECT id, match_name as match, competition, pick, odds, match_date as commence_time, confidence_score
+    const { rows } = await sql`
+      SELECT id, match_name AS match, competition, pick, odds, match_date AS commence_time, confidence_score
       FROM ml_predictions
       WHERE match_date > NOW()
-      ORDER BY match_date ASC
-      LIMIT 100
+      ORDER BY competition ASC NULLS LAST, match_date ASC
+      LIMIT 150
     `;
 
-    // Se l'algoritmo non ha calcolato nulla o non ci sono partite future
-    if (allPicks.length === 0) {
-        return NextResponse.json({ 
-            error: 'Nessuna previsione disponibile al momento. L\'algoritmo è in attesa di nuove partite.',
-            singlePredictions: [],
-            bollette: []
-        }, { status: 200 });
-    }
-
-    // Convertiamo i valori numerici che Postgres potrebbe restituire come stringhe
-    const formattedPicks = allPicks.map(p => ({
-        ...p,
-        odds: Number(p.odds)
+    const predictions = (rows as Prediction[]).map((prediction) => ({
+      ...prediction,
+      competition: prediction.competition || 'Altri campionati',
+      odds: Number(prediction.odds),
     }));
 
-    // 3. Creazione Singole Sicure (le 4 con la quota più bassa, indice di altissima probabilità)
-    const singlePredictions = [...formattedPicks].sort((a: any, b: any) => a.odds - b.odds).slice(0, 4);
+    const byCompetition = predictions.reduce<Record<string, Prediction[]>>((groups, prediction) => {
+      const competition = prediction.competition || 'Altri campionati';
+      groups[competition] = [...(groups[competition] ?? []), prediction];
+      return groups;
+    }, {});
 
-    // 4. Multiple
-    const bollette = [];
+    const competitions = Object.entries(byCompetition).map(([competition, picks]) => ({
+      competition,
+      singles: [...picks]
+        .sort((a, b) => Number(a.odds) - Number(b.odds))
+        .slice(0, MAX_SINGLES_PER_COMPETITION),
+      multiples: createMultiples(competition, picks),
+      totalMatches: picks.length,
+    }));
 
-    // Troviamo le partite che assomigliano alla Serie A o alle Coppe per categorizzarle (euristica per UI)
-    const saPicks = formattedPicks.filter((p: any) => p.match.includes('Juventus') || p.match.includes('Inter') || p.match.includes('Milan') || p.match.includes('Napoli') || p.match.includes('Roma') || p.match.includes('Lazio'));
-    const euroPicks = formattedPicks.filter((p: any) => !saPicks.includes(p));
-
-    // Multipla Principale (Le top 4 più bilanciate)
-    if (formattedPicks.length >= 4) {
-      const selected = formattedPicks.slice(0, 4);
-      const totalOdds = selected.reduce((acc: number, curr: any) => acc * curr.odds, 1);
-      bollette.push({
-        id: 'bolletta_main',
-        title: 'La Multipla Algoritmica',
-        type: 'principale',
-        matches: selected,
-        totalOdds: Math.round(totalOdds * 100) / 100
-      });
-    }
-
-    // Raddoppio del Giorno
-    if (formattedPicks.length >= 2) {
-      // Cerchiamo due partite che combinate danno circa quota 2.0 (es. 1.4 x 1.4)
-      const raddoppioMatches = [...formattedPicks].filter((p: any) => p.odds >= 1.25 && p.odds <= 1.6).slice(0, 2);
-      if (raddoppioMatches.length === 2) {
-        bollette.push({
-          id: 'raddoppio',
-          title: 'Il Raddoppio Statistico',
-          type: 'raddoppio',
-          matches: raddoppioMatches,
-          totalOdds: Math.round(raddoppioMatches[0].odds * raddoppioMatches[1].odds * 100) / 100
-        });
-      }
-    }
-
-    // Multipla Azzardo (quote più alte)
-    if (formattedPicks.length >= 8) {
-      const mixed = [...formattedPicks].sort((a: any, b: any) => b.odds - a.odds).slice(0, 4); // Le 4 più alte
-      const totalOdds = mixed.reduce((acc: number, curr: any) => acc * curr.odds, 1);
-      bollette.push({
-        id: 'bollettone',
-        title: 'La Multipla Valore (Quote Alte)',
-        type: 'alta',
-        matches: mixed,
-        totalOdds: Math.round(totalOdds * 100) / 100
-      });
-    }
-
-    return NextResponse.json({ singlePredictions, bollette });
-
+    return NextResponse.json({ competitions });
   } catch (error) {
-    console.error("GET /api/pronostici error:", error);
-    // Ritorno 200 con array vuoti per evitare che Next.js fallisca la build su Vercel se il DB non è ancora migrato
-    return NextResponse.json({ singlePredictions: [], bollette: [] }, { status: 200 });
+    console.error('GET /api/pronostici error:', error);
+    return NextResponse.json({ competitions: [] }, { status: 200 });
   }
 }
