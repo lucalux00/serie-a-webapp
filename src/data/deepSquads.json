@@ -2195,19 +2195,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_alessandro_vogliacco",
-          "name": "Alessandro Vogliacco",
-          "position": "DIF",
-          "number": 14,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_brooke_norton-cuffy",
           "name": "Brooke Norton-Cuffy",
           "position": "DIF",
@@ -4265,6 +4252,19 @@
           "name": "Nicolò Fagioli",
           "position": "CEN",
           "number": 44,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_oliver_christensen",
+          "name": "Oliver Christensen",
+          "position": "POR",
+          "number": 53,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7409,8 +7409,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_maxence_caqueret",
-          "name": "Maxence Caqueret",
+          "id": "wp_luis_milla",
+          "name": "Luis Milla",
           "position": "CEN",
           "number": 6,
           "age": "N/A",
@@ -7426,6 +7426,19 @@
           "name": "Álvaro Morata",
           "position": "ATT",
           "number": 7,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_maxence_caqueret",
+          "name": "Maxence Caqueret",
+          "position": "CEN",
+          "number": 8,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
