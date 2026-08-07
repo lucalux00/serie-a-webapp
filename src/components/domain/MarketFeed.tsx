@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw,
   CheckCircle2, Search, Clock, Loader2, TrendingUp,
+  ExternalLink,
 } from 'lucide-react';
 import { ALL_TEAMS } from '@/data/teams';
 import TeamLogo from '@/components/ui/TeamLogo';
@@ -70,12 +71,24 @@ function getDayGroup(tr: any) {
   return tr.date || 'Data non disponibile';
 }
 
+function getSafeSourceUrl(value?: string | null) {
+  if (!value) return null;
+
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 function TransferCard({ tr }: { tr: any }) {
   const isRumor = tr.status === 'Rumor';
   const accent  = isRumor ? '#F59E0B' : getAccentColor(tr.type);
   const hasFee  = tr.fee && tr.fee !== 'N/D' && tr.fee !== '';
   const hasDate = tr.date && tr.date !== '';
   const acquiredAt = formatAcquiredAt(tr.created_at);
+  const sourceUrl = getSafeSourceUrl(tr.source_url);
   const teamInfo = ALL_TEAMS.find(
     (t) =>
       t.id === tr.team_id ||
@@ -118,9 +131,21 @@ function TransferCard({ tr }: { tr: any }) {
         </div>
 
         {/* Giocatore */}
-        <div className="text-base font-black text-[var(--color-sport-text)] leading-tight mb-2 group-hover:text-white transition-colors">
-          {tr.player}
-        </div>
+        {sourceUrl ? (
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mb-2 inline-flex items-center gap-1 text-base font-black leading-tight text-[var(--color-sport-text)] transition-colors hover:text-[#FCD34D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
+          >
+            {tr.player}
+            <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-label="Apri la fonte originale" />
+          </a>
+        ) : (
+          <div className="mb-2 text-base font-black leading-tight text-[var(--color-sport-text)] transition-colors group-hover:text-white">
+            {tr.player}
+          </div>
+        )}
 
         {/* Provenienza/destinazione */}
         {tr['fromTo'] && tr['fromTo'] !== 'N/D' && (
@@ -170,9 +195,9 @@ function TransferCard({ tr }: { tr: any }) {
         )}
 
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[9px] font-semibold text-[var(--color-sport-muted)]">
-          {tr.source_url ? (
-            <a href={tr.source_url} target="_blank" rel="noreferrer" className="text-[#F59E0B] hover:text-[#FCD34D]">
-              Fonte: {tr.source_name || 'apri articolo'}
+          {sourceUrl ? (
+            <a href={sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[#F59E0B] hover:text-[#FCD34D]">
+              Leggi notizia: {tr.source_name || 'apri articolo'} <ExternalLink className="h-3 w-3" aria-hidden="true" />
             </a>
           ) : <span>Fonte: dati aggregati</span>}
           {acquiredAt && <span>Acquisito: {acquiredAt}</span>}

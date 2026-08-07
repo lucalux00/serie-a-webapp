@@ -8,6 +8,8 @@ import BottomNav from '@/components/layout/BottomNav';
 import BannerStrip from '@/components/layout/BannerStrip';
 import CookieConsent from '@/components/layout/CookieConsent';
 import NewsTicker from '@/components/layout/NewsTicker';
+import LegalFooter from '@/components/layout/LegalFooter';
+import AdBanner from '@/components/monetization/AdBanner';
 import { getTeamColors } from '@/utils/teamColors';
 
 type InstallPromptEvent = Event & {
@@ -65,6 +67,8 @@ function AppContent({ children }: { children: React.ReactNode }) {
       <main className="min-h-screen pt-[120px] pb-8">
         {children}
       </main>
+      <AdBanner slotId="0000000000" format="horizontal" />
+      <LegalFooter />
       {/* Banner non-invasivo: appare sopra la BottomNav dopo 3s, max 1 per sessione */}
       <BannerStrip />
       <NewsTicker />
