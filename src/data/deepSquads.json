@@ -2232,6 +2232,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_stefano_sabelli",
+          "name": "Stefano Sabelli",
+          "position": "DIF",
+          "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -4252,19 +4265,6 @@
           "name": "Nicolò Fagioli",
           "position": "CEN",
           "number": 44,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_oliver_christensen",
-          "name": "Oliver Christensen",
-          "position": "POR",
-          "number": 53,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
