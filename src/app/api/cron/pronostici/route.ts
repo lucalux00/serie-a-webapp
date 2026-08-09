@@ -21,7 +21,6 @@ type GeneratedQuote = {
   tier: "safe" | "balanced" | "high";
   type: string;
   pick: string;
-  odds: number;
   confidence: number;
 };
 
@@ -112,25 +111,25 @@ function fallbackPrediction(match: FootballMatch): GeneratedPrediction {
     {
       analysis: "Gara da approcciare con prudenza: il modello privilegia una copertura sul risultato e un totale reti contenuto.",
       quotes: [
-        { tier: "safe", type: "Doppia chance", pick: "1X", odds: 1.42, confidence: 64 },
-        { tier: "balanced", type: "Totale gol", pick: "Over 1.5 gol", odds: 1.67, confidence: 57 },
-        { tier: "high", type: "Esito + gol", pick: "1 + Over 1.5", odds: 2.28, confidence: 44 },
+        { tier: "safe", type: "Doppia chance", pick: "1X", confidence: 64 },
+        { tier: "balanced", type: "Totale gol", pick: "Over 1.5 gol", confidence: 57 },
+        { tier: "high", type: "Esito + gol", pick: "1 + Over 1.5", confidence: 44 },
       ],
     },
     {
       analysis: "Il profilo della sfida suggerisce equilibrio: copertura sull'ospite e mercato gol come opzione intermedia.",
       quotes: [
-        { tier: "safe", type: "Doppia chance", pick: "X2", odds: 1.48, confidence: 62 },
-        { tier: "balanced", type: "Gol/No Gol", pick: "Entrambe segnano", odds: 1.78, confidence: 54 },
-        { tier: "high", type: "Esito finale", pick: "Pareggio", odds: 3.15, confidence: 39 },
+        { tier: "safe", type: "Doppia chance", pick: "X2", confidence: 62 },
+        { tier: "balanced", type: "Gol/No Gol", pick: "Entrambe segnano", confidence: 54 },
+        { tier: "high", type: "Esito finale", pick: "Pareggio", confidence: 39 },
       ],
     },
     {
       analysis: "La stima favorisce una partita con almeno due reti, mantenendo una selezione più prudente sul totale gol.",
       quotes: [
-        { tier: "safe", type: "Totale gol", pick: "Over 1.5 gol", odds: 1.39, confidence: 66 },
-        { tier: "balanced", type: "Totale gol", pick: "Under 3.5 gol", odds: 1.72, confidence: 56 },
-        { tier: "high", type: "Totale gol", pick: "Over 2.5 gol", odds: 2.06, confidence: 47 },
+        { tier: "safe", type: "Totale gol", pick: "Over 1.5 gol", confidence: 66 },
+        { tier: "balanced", type: "Totale gol", pick: "Under 3.5 gol", confidence: 56 },
+        { tier: "high", type: "Totale gol", pick: "Over 2.5 gol", confidence: 47 },
       ],
     },
   ] satisfies Array<{ analysis: string; quotes: GeneratedQuote[] }>;

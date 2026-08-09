@@ -76,7 +76,7 @@ export default function NewsTicker() {
     <div className="fixed bottom-0 left-0 right-0 h-10 bg-[#1E293B] border-y border-[#334155] flex items-center overflow-hidden z-30 shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
       {/* Badge Fisso "ULTIM'ORA" */}
       <div className="bg-[#EF4444] h-full flex items-center px-3 z-10 font-black text-[10px] text-white tracking-widest uppercase shrink-0 shadow-lg relative">
-        ULTIM'ORA
+        ULTIM&apos;ORA
         {/* Effetto pulsante per dare senso di live */}
         <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>
       </div>
@@ -84,7 +84,7 @@ export default function NewsTicker() {
       {/* Contenitore Animato della Notizia */}
       <div className="flex-1 overflow-hidden relative h-full bg-[#0F172A]">
           <Link
-            href={`/notizie/leggi?url=${encodeURIComponent(news[currentIndex].link)}&source=${encodeURIComponent(news[currentIndex].source || 'News')}`}
+            href={`/notizie/leggi?id=${news[currentIndex].id}`}
             key={currentIndex}
             className="absolute inset-0 flex items-center px-3 hover:bg-white/5"
           >

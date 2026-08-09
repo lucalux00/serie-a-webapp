@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 import { verifyJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
 import { canonicalRole } from '@/lib/fantaRoster';
+import { getSerieAContext } from '@/lib/fantaData';
 
 export const dynamic = 'force-dynamic';
 
@@ -54,9 +55,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Uno o più giocatori non hanno un ruolo verificato.' }, { status: 422 });
     }
 
-    // Check if matchday is active and not completed
-    const matchdayCheck = await sql`SELECT is_active, is_completed FROM fanta_matchdays WHERE matchday = ${matchday}`;
-    if (matchdayCheck.rows.length === 0 || matchdayCheck.rows[0].is_completed) {
+    const starters = normalizedLineup.filter((player) => player.position_type === 'titolare');
+    const bench = normalizedLineup.filter((player) => player.position_type === 'panchina');
+    const uniquePlayers = new Set(normalizedLineup.map((player) => String(player.player_name).trim().toLocaleLowerCase('it')));
+    if (starters.length !== 11 || bench.length > 7 || uniquePlayers.size !== normalizedLineup.length) {
+      return NextResponse.json({ error: 'Formazione non valida: servono 11 titolari, massimo 7 riserve e nessun duplicato.' }, { status: 422 });
+    }
+    const roleCounts = starters.reduce<Record<string, number>>((counts, player) => {
+      counts[player.role] = (counts[player.role] || 0) + 1;
+      return counts;
+    }, {});
+    const validFormation = roleCounts.POR === 1 && roleCounts.DIF >= 3 && roleCounts.DIF <= 5 && roleCounts.CEN >= 3 && roleCounts.CEN <= 5 && roleCounts.ATT >= 1 && roleCounts.ATT <= 3;
+    if (!validFormation) {
+      return NextResponse.json({ error: 'Modulo non valido: 1 POR, 3-5 DIF, 3-5 CEN e 1-3 ATT.' }, { status: 422 });
+    }
+
+    const [matchdayCheck, context] = await Promise.all([
+      sql`SELECT is_active, is_completed FROM fanta_matchdays WHERE matchday = ${matchday}`,
+      getSerieAContext(),
+    ]);
+    let canEdit = matchdayCheck.rows[0]?.is_active === true && matchdayCheck.rows[0]?.is_completed !== true;
+    if (context.matches.length) {
+      const currentMatches = context.matches.filter((item) => item.matchday === Number(matchday));
+      const deadline = currentMatches.map((item) => new Date(item.utcDate).getTime()).filter(Number.isFinite).sort((left, right) => left - right)[0];
+      canEdit = Number(matchday) === context.currentMatchday && Boolean(deadline && Date.now() < deadline);
+    }
+    if (!canEdit) {
       return NextResponse.json({ error: 'Matchday chiusa, impossibile modificare.' }, { status: 400 });
     }
 

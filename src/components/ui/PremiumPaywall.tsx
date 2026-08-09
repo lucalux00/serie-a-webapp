@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Lock, Zap, TrendingUp, BrainCircuit, BarChart3, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -15,7 +15,24 @@ const DEFAULT_FEATURES: PremiumFeature[] = [
 ];
 
 export default function PremiumPaywall({ planName = 'AI Pro', price = '€0,99', priceLabel = '/ mese', ctaLabel = 'Scopri l’accesso Pro', features = DEFAULT_FEATURES, onCta }: PremiumPaywallProps) {
-  const handleCta = () => onCta ? onCta() : window.location.assign('/profilo');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCta = async () => {
+    if (onCta) return onCta();
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/stripe/checkout', { method: 'POST' });
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 401) return window.location.assign('/profilo?subscribe=1');
+      if (!response.ok || !data.url) throw new Error(data.error || 'Checkout non disponibile.');
+      window.location.assign(data.url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Checkout non disponibile.');
+      setIsLoading(false);
+    }
+  };
 
   return <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="relative overflow-hidden rounded-2xl border border-white/10" id="premium-paywall">
     <div className="absolute inset-0 bg-gradient-to-br from-[#1e1040] via-[#0f172a] to-[#0c1a2e]" />
@@ -24,7 +41,7 @@ export default function PremiumPaywall({ planName = 'AI Pro', price = '€0,99',
       <div className="flex items-center justify-between"><div className="flex items-center gap-2"><div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--color-sport-warning)]/20 text-[var(--color-sport-warning)]"><Zap size={18} /></div><div><p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-sport-muted)]">Piano</p><h3 className="text-base font-black leading-none text-white">{planName}</h3></div></div><div className="text-right"><div className="text-2xl font-black leading-none text-[var(--color-sport-warning)]">{price}</div><div className="text-[10px] font-bold text-[var(--color-sport-muted)]">{priceLabel}</div></div></div>
       <div className="h-px bg-white/5" />
       <div className="space-y-3">{features.map((feature, index) => <div key={index} className="flex items-start gap-3"><div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-400">{feature.icon}</div><div><p className="text-xs font-black text-white">{feature.title}</p><p className="text-[11px] text-[var(--color-sport-muted)]">{feature.description}</p></div></div>)}</div>
-      <div className="space-y-2 pt-1"><motion.button whileTap={{ scale: 0.97 }} whileHover={{ scale: 1.02 }} onClick={handleCta} id="premium-cta-btn" className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--color-sport-warning)] to-amber-500 py-3.5 text-sm font-black uppercase tracking-wide text-[#0f172a] shadow-[0_4px_20px_rgba(245,158,11,0.35)]"><Lock size={14} />{ctaLabel}</motion.button><p className="text-center text-[10px] text-[var(--color-sport-muted)]">Hai un codice Pro? Attivalo dal Profilo. Il checkout online sarà disponibile prossimamente.</p></div>
+      <div className="space-y-2 pt-1"><motion.button whileTap={{ scale: 0.97 }} whileHover={{ scale: 1.02 }} onClick={handleCta} disabled={isLoading} id="premium-cta-btn" className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--color-sport-warning)] to-amber-500 py-3.5 text-sm font-black uppercase tracking-wide text-[#0f172a] shadow-[0_4px_20px_rgba(245,158,11,0.35)] disabled:cursor-wait disabled:opacity-60"><Lock size={14} />{isLoading ? 'Apertura checkout…' : ctaLabel}</motion.button>{error && <p role="alert" className="text-center text-[10px] font-bold text-rose-300">{error}</p>}<p className="text-center text-[10px] text-[var(--color-sport-muted)]">Pagamento sicuro su Stripe. Puoi annullare dal portale di fatturazione.</p></div>
     </div>
   </motion.div>;
 }

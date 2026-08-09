@@ -4,11 +4,8 @@ import { useState } from "react";
 import useSWR from "swr";
 import {
   AlertTriangle,
-  ArrowUpRight,
   CalendarDays,
-  ChartNoAxesCombined,
   Layers3,
-  ShieldCheck,
   Sparkles,
   Target,
 } from "lucide-react";
@@ -37,7 +34,7 @@ const multipleStyles: Record<MultiplePrediction["type"], string> = {
   "Alta Quota": "border-amber-400/30 from-amber-400/10",
 };
 
-const formatOdds = (odds: number) => odds.toFixed(2).replace(".", ",");
+const formatOdds = (odds: number | null) => odds === null ? "n.d." : odds.toFixed(2).replace(".", ",");
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat("it-IT", {
@@ -49,8 +46,13 @@ const formatDate = (date: string) =>
     timeZone: "Europe/Rome",
   }).format(new Date(date));
 
-const calculateTotalOdds = (multiple: MultiplePrediction) =>
-  multiple.matches.reduce((total, match) => total * match.odds, 1);
+const formatOddsUpdate = (date?: string) => date ? new Intl.DateTimeFormat("it-IT", {
+  day: "2-digit",
+  month: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "Europe/Rome",
+}).format(new Date(date)) : null;
 
 function SectionHeading({
   id,
@@ -95,7 +97,7 @@ function SingleCard({ prediction }: { prediction: SinglePrediction }) {
           </div>
           <div className="shrink-0 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-right">
             <span className="block text-[10px] font-black uppercase tracking-wider text-emerald-300/70">
-              Quota modello
+              Media quota reale
             </span>
             <span className="text-xl font-black text-emerald-300">{formatOdds(prediction.odds)}</span>
           </div>
@@ -129,33 +131,16 @@ function SingleCard({ prediction }: { prediction: SinglePrediction }) {
         </div>
 
         <p className="mt-4 flex-1 text-sm leading-6 text-slate-300">{prediction.analysis}</p>
-
         <div className="mt-5 border-t border-slate-800 pt-4">
-          <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-slate-400">
-            <ChartNoAxesCombined className="size-4 text-emerald-300" aria-hidden="true" />
-            Confronta sui siti ufficiali
-          </p>
-          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-            {prediction.affiliateLinks.map((affiliate) => (
-              <a
-                key={affiliate.operator}
-                href={affiliate.link}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
-                aria-label={`Vedi la scheda informativa su ${affiliate.operator}`}
-                className="group rounded-xl border border-slate-700 bg-slate-950/70 p-3 transition hover:border-sky-400/50 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-              >
-                <span className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-black text-white">{affiliate.operator}</span>
-                  <ArrowUpRight className="size-3.5 text-sky-300 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-                </span>
-                <span className="mt-2 block text-[11px] font-bold text-sky-300">Vedi su {affiliate.operator}</span>
-              </a>
-            ))}
-          </div>
-          <p className="mt-2 text-[10px] leading-4 text-slate-500">
-            {prediction.affiliateLinks[0]?.bonusInfo}
-          </p>
+          {prediction.oddsSource === "market" ? (
+            <p className="text-xs leading-5 text-slate-400">
+              Fonte {prediction.oddsProvider} · media aritmetica delle migliori {prediction.bookmakerCount} quote
+              {formatOddsUpdate(prediction.oddsUpdatedAt) ? ` · agg. ${formatOddsUpdate(prediction.oddsUpdatedAt)}` : ""}
+              {prediction.oddsMin && prediction.oddsMax ? ` · intervallo ${formatOdds(prediction.oddsMin)}–${formatOdds(prediction.oddsMax)}` : ""}
+            </p>
+          ) : (
+            <p className="text-xs leading-5 text-slate-500">Quota pre-match reale non ancora disponibile dal provider.</p>
+          )}
         </div>
       </div>
     </article>
@@ -163,8 +148,6 @@ function SingleCard({ prediction }: { prediction: SinglePrediction }) {
 }
 
 function MultipleCard({ multiple }: { multiple: MultiplePrediction }) {
-  const calculatedOdds = calculateTotalOdds(multiple);
-
   return (
     <article
       className={`flex h-full flex-col rounded-2xl border bg-gradient-to-b ${multipleStyles[multiple.type]} to-slate-900/90 p-5 shadow-xl shadow-black/10`}
@@ -175,8 +158,8 @@ function MultipleCard({ multiple }: { multiple: MultiplePrediction }) {
           <h3 className="mt-1 text-xl font-black text-white">{multiple.type}</h3>
         </div>
         <div className="rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-right">
-          <span className="block text-[10px] font-black uppercase tracking-wider text-slate-500">Quota totale</span>
-          <span className="text-xl font-black text-emerald-300">{formatOdds(calculatedOdds)}</span>
+          <span className="block text-[10px] font-black uppercase tracking-wider text-slate-500">Bolletta consigliata</span>
+          <span className="text-xs font-black uppercase tracking-wide text-emerald-300">Selezioni pronte</span>
         </div>
       </div>
 
@@ -189,41 +172,16 @@ function MultipleCard({ multiple }: { multiple: MultiplePrediction }) {
               </span>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-xs font-bold text-slate-400">{match.match}</p>
-                <div className="mt-1 flex items-end justify-between gap-2">
-                  <p className="text-sm font-black text-white">{match.pick}</p>
-                  <p className="shrink-0 text-sm font-black text-emerald-300">{formatOdds(match.odds)}</p>
-                </div>
+                <p className="mt-1 text-sm font-black text-white">{match.pick}</p>
               </div>
             </div>
           </li>
         ))}
       </ol>
-
       <div className="border-t border-slate-700/70 pt-4">
-        <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-slate-400">
-          <ShieldCheck className="size-4 text-sky-300" aria-hidden="true" />
-          Comparazione informativa
+        <p className="text-[11px] leading-5 text-slate-500">
+          Bolletta finale consigliata a scopo puramente informativo: non mostra quote numeriche e non contiene collegamenti a operatori.
         </p>
-        <div className="space-y-2">
-          {multiple.affiliateLinks.map((affiliate) => (
-            <a
-              key={affiliate.operator}
-              href={affiliate.link}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-2.5 transition hover:border-sky-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-            >
-              <span>
-                <span className="block text-xs font-black text-white">{affiliate.operator}</span>
-                <span className="block text-[10px] text-slate-500">{affiliate.bonusInfo}</span>
-              </span>
-              <span className="flex shrink-0 items-center gap-1 text-[11px] font-black text-sky-300">
-                Info scheda bonus
-                <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-              </span>
-            </a>
-          ))}
-        </div>
       </div>
     </article>
   );
@@ -265,7 +223,7 @@ export default function PredictionsSection({ initialData }: PredictionsSectionPr
                 Pronostici per campionato
               </h1>
               <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400 sm:text-base">
-                La prossima giornata di ogni campionato, aggiornata automaticamente ogni mattina. La tab Oggi e domani raccoglie le gare disponibili per iniziare subito.
+                La prossima giornata di ogni campionato, aggiornata automaticamente ogni mattina. Per i singoli mostriamo la media aritmetica delle migliori 3-4 quote pre-match reali; se non ci sono almeno tre rilevazioni il valore resta n.d.
               </p>
               {response?.generatedAt ? (
                 <p className="mt-3 text-xs font-bold text-slate-500">
@@ -364,11 +322,9 @@ export default function PredictionsSection({ initialData }: PredictionsSectionPr
           <div className="flex items-start gap-3">
             <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-300" aria-hidden="true" />
             <div>
-              <p className="font-black text-amber-200">
-                18+ | Il gioco può causare dipendenza patologica | Verifica T&amp;C dei bonus sui siti ufficiali
-              </p>
+              <p className="font-black text-amber-200">Contenuto informativo e puramente pronostico; nessun collegamento affiliato è presente.</p>
               <p className="mt-2 text-xs leading-5 text-slate-400">
-                Le quote visualizzate sono stime indicative del modello, non quote bookmaker in tempo reale. I collegamenti agli operatori sono informativi e possono essere affiliati.
+                Le quote dei singoli sono la media aritmetica delle migliori 3-4 rilevazioni pre-match restituite da API-Football e possono cambiare fino all&#39;evento. “n.d.” significa che il provider non ha ancora restituito almeno tre valori verificabili; non viene sostituito con un numero simulato. Le multiple restano tre combinazioni consigliate senza quote numeriche.
               </p>
             </div>
           </div>

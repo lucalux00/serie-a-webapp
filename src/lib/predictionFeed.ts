@@ -1,8 +1,7 @@
 import { sql } from "@vercel/postgres";
+import { getMarketOdds, type MarketOddsTier, type MarketOddsValue } from "@/lib/marketOdds";
 import {
   LEAGUE_CONFIGS,
-  createAffiliateLinks,
-  createMultipleAffiliateLinks,
   type LeaguePredictions,
   type MultipleMatch,
   type MultiplePrediction,
@@ -11,7 +10,7 @@ import {
   type SinglePrediction,
 } from "@/data/predictionsData";
 
-type PredictionTier = "safe" | "balanced" | "high";
+type PredictionTier = MarketOddsTier;
 
 type StoredQuote = {
   tier?: PredictionTier;
@@ -23,6 +22,12 @@ type StoredQuote = {
   o?: number;
   confidence?: number;
   c?: number;
+  oddsSource?: "market";
+  oddsProvider?: string;
+  oddsUpdatedAt?: string;
+  bookmakerCount?: number;
+  oddsMin?: number;
+  oddsMax?: number;
 };
 
 type PredictionRow = {
@@ -44,8 +49,15 @@ type NormalizedQuote = {
   tier?: PredictionTier;
   type: string;
   pick: string;
-  odds: number;
+  odds: number | null;
+  rankingOdds: number;
   confidence: number;
+  oddsSource: "market" | "unavailable";
+  oddsProvider?: string;
+  oddsUpdatedAt?: string;
+  bookmakerCount?: number;
+  oddsMin?: number;
+  oddsMax?: number;
 };
 
 export async function ensurePredictionSchema() {
@@ -76,81 +88,103 @@ function normalizeQuotes(rawQuotes: PredictionRow["quotes"]): NormalizedQuote[] 
     quotes = [];
   }
 
-  return quotes
-    .map((quote) => ({
+  return quotes.map((quote) => {
+    const rawOdds = Number(quote.odds ?? quote.o);
+    const hasRealOdds = quote.oddsSource === "market" && Number.isFinite(rawOdds) && rawOdds > 1;
+    return {
       tier: quote.tier,
       type: quote.type || quote.t || "Esito",
       pick: quote.pick || quote.p || "Analisi in aggiornamento",
-      odds: Number(quote.odds ?? quote.o ?? 1.5),
+      odds: hasRealOdds ? rawOdds : null,
+      rankingOdds: Number.isFinite(rawOdds) && rawOdds > 1 ? rawOdds : 1.5,
       confidence: Number(quote.confidence ?? quote.c ?? 60),
-    }))
-    .filter((quote) => quote.pick && Number.isFinite(quote.odds) && quote.odds > 1);
+      oddsSource: hasRealOdds ? "market" as const : "unavailable" as const,
+      oddsProvider: hasRealOdds ? quote.oddsProvider : undefined,
+      oddsUpdatedAt: hasRealOdds ? quote.oddsUpdatedAt : undefined,
+      bookmakerCount: hasRealOdds ? quote.bookmakerCount : undefined,
+      oddsMin: hasRealOdds ? quote.oddsMin : undefined,
+      oddsMax: hasRealOdds ? quote.oddsMax : undefined,
+    };
+  }).filter((quote) => quote.pick);
 }
 
-function pickQuote(row: PredictionRow, tier: PredictionTier): NormalizedQuote {
+function withExternalOdds(quote: NormalizedQuote, externalOdds?: MarketOddsValue): NormalizedQuote {
+  if (!externalOdds) return quote;
+  return {
+    ...quote,
+    odds: externalOdds.odds,
+    oddsSource: "market",
+    oddsProvider: externalOdds.provider,
+    oddsUpdatedAt: externalOdds.updatedAt,
+    bookmakerCount: externalOdds.bookmakerCount,
+    oddsMin: externalOdds.oddsMin,
+    oddsMax: externalOdds.oddsMax,
+  };
+}
+
+function pickQuote(row: PredictionRow, tier: PredictionTier, externalOdds?: MarketOddsValue): NormalizedQuote {
   const quotes = normalizeQuotes(row.quotes);
   const explicit = quotes.find((quote) => quote.tier === tier);
-  if (explicit) return explicit;
+  if (explicit) return withExternalOdds(explicit, externalOdds);
 
   if (quotes.length > 0) {
-    const ordered = [...quotes].sort((a, b) => a.odds - b.odds);
-    if (tier === "safe") return ordered[0];
-    if (tier === "high") return ordered.at(-1) || ordered[0];
-    return ordered[Math.floor(ordered.length / 2)];
+    const ordered = [...quotes].sort((a, b) => a.rankingOdds - b.rankingOdds);
+    if (tier === "safe") return withExternalOdds(ordered[0], externalOdds);
+    if (tier === "high") return withExternalOdds(ordered.at(-1) || ordered[0], externalOdds);
+    return withExternalOdds(ordered[Math.floor(ordered.length / 2)], externalOdds);
   }
 
   const fallback = {
-    safe: { type: "Multigol", pick: "2-4 gol", odds: 1.45, confidence: 62 },
-    balanced: { type: "Gol/No Gol", pick: "Entrambe segnano", odds: 1.75, confidence: 55 },
-    high: { type: "Totale gol", pick: "Over 2.5 gol", odds: 2.05, confidence: 46 },
+    safe: { type: "Multigol", pick: "2-4 gol", odds: null, rankingOdds: 1.45, confidence: 62, oddsSource: "unavailable" as const },
+    balanced: { type: "Gol/No Gol", pick: "Entrambe segnano", odds: null, rankingOdds: 1.75, confidence: 55, oddsSource: "unavailable" as const },
+    high: { type: "Totale gol", pick: "Over 2.5 gol", odds: null, rankingOdds: 2.05, confidence: 46, oddsSource: "unavailable" as const },
   } satisfies Record<PredictionTier, Omit<NormalizedQuote, "tier">>;
 
-  return fallback[tier];
+  return withExternalOdds(fallback[tier], externalOdds);
 }
 
 function cleanAnalysis(analysis: string) {
   return analysis.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim() || "Analisi statistica in aggiornamento.";
 }
 
-function toSingle(row: PredictionRow): SinglePrediction {
-  const quote = pickQuote(row, "safe");
+function toSingle(row: PredictionRow, marketOdds: Map<number, Map<PredictionTier, MarketOddsValue>>): SinglePrediction {
+  const quote = pickQuote(row, "safe", marketOdds.get(row.match_id)?.get("safe"));
   return {
     id: String(row.match_id),
     match: `${row.home_team} - ${row.away_team}`,
     date: new Date(row.match_date).toISOString(),
     pick: quote.pick,
     odds: quote.odds,
+    oddsSource: quote.oddsSource,
+    oddsProvider: quote.oddsProvider,
+    oddsUpdatedAt: quote.oddsUpdatedAt,
+    bookmakerCount: quote.bookmakerCount,
+    oddsMin: quote.oddsMin,
+    oddsMax: quote.oddsMax,
     confidence: Math.min(99, Math.max(1, Math.round(quote.confidence))),
     analysis: cleanAnalysis(row.analysis),
-    affiliateLinks: createAffiliateLinks(quote.odds),
   };
 }
 
-function createMultiple(type: MultipleType, rows: PredictionRow[], tier: PredictionTier): MultiplePrediction {
-  const matches: MultipleMatch[] = rows.map((row) => {
-    const quote = pickQuote(row, tier);
-    return {
-      match: `${row.home_team} - ${row.away_team}`,
-      pick: quote.pick,
-      odds: quote.odds,
-    };
-  });
+function createMultiple(type: MultipleType, rows: PredictionRow[], tier: PredictionTier, marketOdds: Map<number, Map<PredictionTier, MarketOddsValue>>): MultiplePrediction {
+  const matches: MultipleMatch[] = rows.map((row) => ({
+    match: `${row.home_team} - ${row.away_team}`,
+    pick: pickQuote(row, tier, marketOdds.get(row.match_id)?.get(tier)).pick,
+  }));
 
   return {
     type,
-    totalOdds: Number(matches.reduce((total, match) => total * match.odds, 1).toFixed(2)),
     matches,
-    affiliateLinks: createMultipleAffiliateLinks(),
   };
 }
 
-function buildMultiples(rows: PredictionRow[]): MultiplePrediction[] {
+function buildMultiples(rows: PredictionRow[], marketOdds: Map<number, Map<PredictionTier, MarketOddsValue>>): MultiplePrediction[] {
   if (rows.length < 2) return [];
   const balancedRows = rows.slice(0, Math.min(3, rows.length));
   return [
-    createMultiple("Raddoppio", rows.slice(0, 2), "safe"),
-    createMultiple("Bilanciata", balancedRows, "balanced"),
-    createMultiple("Alta Quota", balancedRows, "high"),
+    createMultiple("Raddoppio", rows.slice(0, 2), "safe", marketOdds),
+    createMultiple("Bilanciata", balancedRows, "balanced", marketOdds),
+    createMultiple("Alta Quota", balancedRows, "high", marketOdds),
   ];
 }
 
@@ -169,7 +203,7 @@ function selectNextRound(rows: PredictionRow[]) {
   return ordered.filter((row) => new Date(row.match_date).getTime() <= cutoff).slice(0, 4);
 }
 
-function buildLeague(config: (typeof LEAGUE_CONFIGS)[number], allRows: PredictionRow[]): LeaguePredictions {
+function buildLeague(config: (typeof LEAGUE_CONFIGS)[number], allRows: PredictionRow[], marketOdds: Map<number, Map<PredictionTier, MarketOddsValue>>): LeaguePredictions {
   const isImmediate = config.code === "IMMEDIATE";
   const matchingRows = isImmediate
     ? allRows.filter((row) => row.is_immediate).slice(0, 4)
@@ -186,8 +220,8 @@ function buildLeague(config: (typeof LEAGUE_CONFIGS)[number], allRows: Predictio
         : formatStage(first?.stage || null),
     startsAt: first ? new Date(first.match_date).toISOString() : null,
     isImmediate,
-    singles: matchingRows.map(toSingle),
-    multiples: buildMultiples(matchingRows),
+    singles: matchingRows.map((row) => toSingle(row, marketOdds)),
+    multiples: buildMultiples(matchingRows, marketOdds),
   };
 }
 
@@ -220,8 +254,17 @@ export async function getPredictionsFeed(): Promise<PredictionsResponse> {
     return createdAt > latest ? createdAt : latest;
   }, 0);
 
+  const marketOdds = await getMarketOdds(rows.map((row) => ({
+    matchId: row.match_id,
+    homeTeam: row.home_team,
+    awayTeam: row.away_team,
+    matchDate: row.match_date,
+    competitionCode: row.competition_code,
+    quotes: normalizeQuotes(row.quotes).map((quote) => ({ tier: quote.tier, type: quote.type, pick: quote.pick })),
+  })));
+
   return {
     generatedAt: new Date(generatedAt || Date.now()).toISOString(),
-    leagues: LEAGUE_CONFIGS.map((config) => buildLeague(config, rows)),
+    leagues: LEAGUE_CONFIGS.map((config) => buildLeague(config, rows, marketOdds)),
   };
 }

@@ -132,7 +132,7 @@ export default function NotiziePage() {
 
             const targetHref = isManual
               ? item.link
-              : `/notizie/leggi?url=${encodeURIComponent(item.link)}&source=${encodeURIComponent(item.source || 'News')}&title=${encodeURIComponent(item.title)}&snippet=${encodeURIComponent(item.snippet || '')}`;
+              : `/notizie/leggi?id=${item.id}`;
 
             return (
               <motion.div

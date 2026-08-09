@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { UserPlus, Trash2, Shield, User, Loader2 } from 'lucide-react';
 import useSWR from 'swr';
+import FantaPlayerInsightCard, { FantaInsightPlayer } from '@/components/domain/FantaPlayerInsightCard';
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+const fetcher = async (url: string) => { const response = await fetch(url); const body = await response.json(); if (!response.ok) throw new Error(body.error || 'Richiesta non riuscita'); return body; };
 
 interface RosterPlayer {
   id: number;
@@ -21,8 +22,10 @@ interface SearchResult {
 
 export default function FantaRoster() {
   const { data, mutate, error } = useSWR('/api/fanta-roster', fetcher);
+  const { data: advisorData, isLoading: advisorLoading, mutate: refreshAdvisor } = useSWR<{ playerScores?: FantaInsightPlayer[] }>('/api/fantacalcio/advisor', fetcher, { dedupingInterval: 60000 });
   const [newPlayerName, setNewPlayerName] = useState('');
   const [isAdding, setIsAdding] = useState(false);
+  const [actionMessage, setActionMessage] = useState('');
   
   // Autocomplete state
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -85,9 +88,10 @@ export default function FantaRoster() {
         })
       });
       if (!response.ok) throw new Error('Il ruolo del giocatore non è verificato.');
-      mutate();
-    } catch (err) {
-      console.error(err);
+      await Promise.all([mutate(), refreshAdvisor()]);
+      setActionMessage(`${player.name} aggiunto e analizzato.`);
+    } catch (err: unknown) {
+      setActionMessage(err instanceof Error ? err.message : 'Impossibile aggiungere il giocatore.');
     } finally {
       setIsAdding(false);
     }
@@ -95,14 +99,16 @@ export default function FantaRoster() {
 
   const handleRemove = async (id: number) => {
     try {
-      await fetch('/api/fanta-roster', {
+      const response = await fetch('/api/fanta-roster', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'remove', id })
       });
-      mutate();
-    } catch (err) {
-      console.error(err);
+      if (!response.ok) throw new Error('Rimozione non riuscita.');
+      await Promise.all([mutate(), refreshAdvisor()]);
+      setActionMessage('Giocatore rimosso dalla rosa.');
+    } catch (err: unknown) {
+      setActionMessage(err instanceof Error ? err.message : 'Rimozione non riuscita.');
     }
   };
 
@@ -157,7 +163,7 @@ export default function FantaRoster() {
             disabled={true}
             className="bg-[#334155] text-[#94A3B8] p-2 rounded-xl transition-colors flex items-center justify-center w-10 cursor-not-allowed"
           >
-            <UserPlus className="w-4 h-4" />
+            {isAdding ? <Loader2 className="h-4 w-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
           </button>
         </div>
 
@@ -170,8 +176,9 @@ export default function FantaRoster() {
               return (
                 <button
                   key={idx}
+                  disabled={isAdding}
                   onClick={() => addPlayer(player)}
-                  className="w-full text-left px-4 py-3 hover:bg-[#1E293B] border-b border-[#334155]/50 flex items-center justify-between transition-colors last:border-0"
+                  className="w-full text-left px-4 py-3 hover:bg-[#1E293B] border-b border-[#334155]/50 flex items-center justify-between transition-colors last:border-0 disabled:opacity-50"
                 >
                   <div>
                     <div className="text-sm font-bold text-white">{player.name}</div>
@@ -187,6 +194,8 @@ export default function FantaRoster() {
         )}
       </div>
 
+      {actionMessage ? <div className="mb-4 rounded-xl border border-[#334155] bg-[#0F172A] p-3 text-center text-xs font-bold text-[#CBD5E1]">{actionMessage}</div> : null}
+
       {roster.length === 0 ? (
         <div className="text-center py-8 bg-[#0F172A] rounded-xl border border-dashed border-[#334155]">
           <User className="w-8 h-8 mx-auto text-[#64748B] mb-2" />
@@ -194,9 +203,11 @@ export default function FantaRoster() {
           <p className="text-[#64748B] text-xs mt-1">Cerca e seleziona i tuoi giocatori: da qui partono consigli, formazione e mercato personalizzati.</p>
         </div>
       ) : (
-        <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+        <div className="space-y-3 max-h-[680px] overflow-y-auto pr-2 custom-scrollbar">
           {roster.map(p => {
              const shortRole = p.role ? (p.role.substring(0, 3).toUpperCase()) : 'N/D';
+             const insight = advisorData?.playerScores?.find((player) => (player.playerName || player.name)?.toLocaleLowerCase('it') === p.playerName.toLocaleLowerCase('it'));
+             if (insight) return <FantaPlayerInsightCard key={p.id} player={insight} action={<button onClick={() => handleRemove(p.id)} className="rounded-lg border border-rose-400/20 bg-rose-400/10 p-2 text-rose-300 transition hover:bg-rose-400/20" title="Rimuovi giocatore" aria-label={`Rimuovi ${p.playerName}`}><Trash2 className="h-4 w-4" /></button>} />;
              return (
               <div key={p.id} className="flex items-center justify-between bg-[#0F172A] p-3 rounded-xl border border-[#334155]">
                 <div className="flex items-center space-x-3">
@@ -206,6 +217,7 @@ export default function FantaRoster() {
                   <div>
                     <span className="text-white font-bold text-sm block leading-tight">{p.playerName}</span>
                     <span className="text-[#64748B] text-[10px] font-medium uppercase">{p.teamName}</span>
+                    <span className="mt-1 block text-[10px] text-[#94A3B8]">{advisorLoading ? 'Incrocio statistiche e calendario…' : 'Copertura individuale in aggiornamento'}</span>
                   </div>
                 </div>
                 <button

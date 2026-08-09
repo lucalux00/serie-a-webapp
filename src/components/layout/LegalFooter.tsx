@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CookiePreferencesButton from "@/components/layout/CookiePreferencesButton";
 
 export default function LegalFooter() {
   return (
@@ -7,6 +8,7 @@ export default function LegalFooter() {
         <Link className="transition-colors hover:text-[#F8FAFC]" href="/privacy-policy">Privacy Policy</Link>
         <Link className="transition-colors hover:text-[#F8FAFC]" href="/terms">Termini e Condizioni</Link>
         <Link className="transition-colors hover:text-[#F8FAFC]" href="/contacts">Contatti</Link>
+        <CookiePreferencesButton />
       </nav>
     </footer>
   );

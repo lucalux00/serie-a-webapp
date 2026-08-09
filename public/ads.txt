@@ -1,2 +1,1 @@
-# Google AdSense publisher placeholder: replace ca-pub-XXXXXXXXXXXXXXXX with the production publisher ID.
-# google.com, ca-pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-3348994958760953, DIRECT, f08c47fec0942fa0

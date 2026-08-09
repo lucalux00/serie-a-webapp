@@ -267,7 +267,7 @@ export default function TeamHubClient({ team, news: initialNews, squadData, trof
 
   const openNewsModal = async (item: any) => {
     const isManual = item.source === 'Redazione';
-    const targetHref = isManual ? item.link : `/notizie/leggi?url=${encodeURIComponent(item.link)}&source=${encodeURIComponent(item.source || 'News')}`;
+    const targetHref = isManual ? item.link : `/notizie/leggi?id=${item.id}`;
     router.push(targetHref);
   };
 

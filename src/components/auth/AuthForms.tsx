@@ -41,15 +41,16 @@ export default function AuthForms() {
         if (password !== confirmPassword) throw new Error('Le password non coincidono.');
         await register(name, email, password, favoriteTeam);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Operazione non riuscita. Riprova.');
     } finally {
       setLoading(false);
     }
   };
 
-  const toggleMode = () => {
-    setIsLogin(!isLogin);
+  const selectMode = (nextIsLogin: boolean) => {
+    if (loading || nextIsLogin === isLogin) return;
+    setIsLogin(nextIsLogin);
     setError(null);
   };
 
@@ -58,18 +59,28 @@ export default function AuthForms() {
       <div className="bg-[#1E293B] rounded-3xl p-6 md:p-8 shadow-2xl border border-[#334155] relative overflow-hidden">
         
         {/* Header Tabs */}
-        <div className="flex mb-8 border-b border-[#334155]">
+        <div className="flex mb-8 border-b border-[#334155]" role="tablist" aria-label="Accesso o registrazione">
           <button 
             type="button"
+            id="login-tab"
+            role="tab"
+            aria-selected={isLogin}
+            aria-controls="auth-panel"
+            disabled={loading}
             className={`flex-1 pb-3 text-center font-black transition-colors ${isLogin ? 'text-[#10B981] border-b-2 border-[#10B981]' : 'text-[#64748B] hover:text-white'}`}
-            onClick={() => !loading && setIsLogin(true)}
+            onClick={() => selectMode(true)}
           >
             ACCEDI
           </button>
           <button 
             type="button"
+            id="register-tab"
+            role="tab"
+            aria-selected={!isLogin}
+            aria-controls="auth-panel"
+            disabled={loading}
             className={`flex-1 pb-3 text-center font-black transition-colors ${!isLogin ? 'text-[#10B981] border-b-2 border-[#10B981]' : 'text-[#64748B] hover:text-white'}`}
-            onClick={() => !loading && setIsLogin(false)}
+            onClick={() => selectMode(false)}
           >
             REGISTRATI
           </button>
@@ -83,6 +94,9 @@ export default function AuthForms() {
             exit={{ opacity: 0, x: isLogin ? 20 : -20 }}
             transition={{ duration: 0.3 }}
             onSubmit={handleSubmit}
+            id="auth-panel"
+            role="tabpanel"
+            aria-labelledby={isLogin ? 'login-tab' : 'register-tab'}
             className="space-y-4"
           >
             {error && (
@@ -94,11 +108,16 @@ export default function AuthForms() {
 
             {!isLogin && (
               <div className="relative">
+                <label className="sr-only" htmlFor="register-name">Nome utente</label>
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-[#64748B]" />
                 </div>
                 <input
+                  id="register-name"
+                  name="name"
                   type="text"
+                  autoComplete="name"
+                  required
                   placeholder="Nome utente"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -109,11 +128,16 @@ export default function AuthForms() {
             )}
 
             <div className="relative">
+              <label className="sr-only" htmlFor="auth-email">Indirizzo email</label>
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Mail className="h-5 w-5 text-[#64748B]" />
               </div>
               <input
+                id="auth-email"
+                name="email"
                 type="email"
+                autoComplete="email"
+                required
                 placeholder="Indirizzo Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -123,11 +147,16 @@ export default function AuthForms() {
             </div>
 
             <div className="relative">
+              <label className="sr-only" htmlFor="auth-password">Password</label>
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Lock className="h-5 w-5 text-[#64748B]" />
               </div>
               <input
+                id="auth-password"
+                name="password"
                 type={showPassword ? 'text' : 'password'}
+                autoComplete={isLogin ? 'current-password' : 'new-password'}
+                required
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -140,11 +169,16 @@ export default function AuthForms() {
             {!isLogin && (
               <>
                 <div className="relative">
+                  <label className="sr-only" htmlFor="register-confirm-password">Conferma password</label>
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Lock className="h-5 w-5 text-[#64748B]" />
                   </div>
                   <input
+                    id="register-confirm-password"
+                    name="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
+                    autoComplete="new-password"
+                    required
                     placeholder="Conferma Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -155,17 +189,20 @@ export default function AuthForms() {
                 </div>
                 <div className="rounded-xl border border-[#334155] bg-[#0F172A] p-3 text-xs"><div className="mb-2 flex items-center justify-between"><span className="font-black text-white">Password {strength}</span><span className={strength === 'sicura' ? 'text-[#10B981]' : strength === 'discreta' ? 'text-[#F59E0B]' : 'text-[#EF4444]'}>{strength.toUpperCase()}</span></div><div className="h-1.5 overflow-hidden rounded bg-[#334155]"><div className={`h-full transition-all ${strength === 'sicura' ? 'w-full bg-[#10B981]' : strength === 'discreta' ? 'w-2/3 bg-[#F59E0B]' : 'w-1/3 bg-[#EF4444]'}`} /></div><div className="mt-2 space-y-1 text-[#94A3B8]">{['12+ caratteri, maiuscola, minuscola, numero e simbolo', ...issues].slice(0, 3).map((item, index) => <p key={item} className="flex items-center gap-1"><CheckCircle2 size={12} className={index === 0 && issues.length === 0 ? 'text-[#10B981]' : 'text-[#64748B]'} />{item}</p>)}</div>{confirmPassword && <p className={`mt-2 font-bold ${password === confirmPassword ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>{password === confirmPassword ? 'Le password coincidono' : 'Le password non coincidono'}</p>}</div>
                 <div className="relative mt-4">
+                  <label className="sr-only" htmlFor="favorite-team">Squadra del cuore</label>
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Heart className="h-5 w-5 text-[#64748B]" />
                   </div>
                   <select
+                    id="favorite-team"
+                    name="favoriteTeam"
                     value={favoriteTeam}
                     onChange={(e) => setFavoriteTeam(e.target.value)}
                     disabled={loading}
                     className="w-full pl-10 pr-4 py-3 bg-[#0F172A] border border-[#334155] rounded-xl text-white appearance-none focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-colors"
                   >
                     <option value="">Nessuna squadra del cuore (Opzionale)</option>
-                    {ALL_TEAMS.map((team: any) => (
+                    {ALL_TEAMS.map((team) => (
                       <option key={team.id} value={team.id}>{team.name}</option>
                     ))}
                   </select>

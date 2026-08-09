@@ -4,15 +4,17 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import AuthForms from '@/components/auth/AuthForms';
-import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X } from 'lucide-react';
+import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 import { NotificationPreferences, usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
 import InstallAppCard from '@/components/profile/InstallAppCard';
 import PromoCodeRedeemer from '@/components/profile/PromoCodeRedeemer';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
+  const { isPremium, expiresAt } = useSubscription();
   const { isSupported, isSubscribed, subscribe, unsubscribe, testNotification } = usePushNotifications(user?.id);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editName, setEditName] = useState(user?.name || '');
@@ -21,6 +23,24 @@ export default function ProfiloPage() {
   const [isNotificationSettingsOpen, setIsNotificationSettingsOpen] = useState(false);
   const [notificationPreferences, setNotificationPreferences] = useState<NotificationPreferences>({ teamNews: true, teamTransfers: true, matchStart: true });
   const [isActivatingNotifications, setIsActivatingNotifications] = useState(false);
+  const [isOpeningBilling, setIsOpeningBilling] = useState(false);
+  const [billingError, setBillingError] = useState<string | null>(null);
+
+  const openBillingPortal = async () => {
+    setIsOpeningBilling(true);
+    setBillingError(null);
+    try {
+      const response = await fetch('/api/stripe/portal', { method: 'POST' });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.url) {
+        throw new Error(data.error || 'Portale di fatturazione non disponibile.');
+      }
+      window.location.assign(data.url);
+    } catch (error) {
+      setBillingError(error instanceof Error ? error.message : 'Impossibile aprire il portale Stripe.');
+      setIsOpeningBilling(false);
+    }
+  };
 
   const saveSettings = async () => {
     setIsSaving(true);
@@ -124,6 +144,24 @@ export default function ProfiloPage() {
         <InstallAppCard userId={user.id} />
         <PromoCodeRedeemer />
 
+        {isPremium ? (
+          <div className="rounded-xl border border-emerald-400/30 bg-emerald-400/10 p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="flex items-center text-sm font-black text-white">
+                  <CreditCard className="mr-2 h-5 w-5 text-[#10B981]" />
+                  Abbonamento Fanta Pro attivo
+                </p>
+                {expiresAt ? <p className="mt-1 text-xs text-emerald-200">Rinnovo/accesso fino al {new Date(expiresAt).toLocaleDateString('it-IT')}</p> : <p className="mt-1 text-xs text-emerald-200">Accesso amministratore</p>}
+              </div>
+              <button type="button" onClick={openBillingPortal} disabled={isOpeningBilling} className="shrink-0 rounded-lg border border-emerald-300/40 px-3 py-2 text-xs font-black text-emerald-100 transition-colors hover:bg-emerald-300/15 disabled:opacity-60">
+                {isOpeningBilling ? 'APERTURA...' : 'GESTISCI'}
+              </button>
+            </div>
+            {billingError ? <p className="mt-2 text-xs font-semibold text-red-300">{billingError}</p> : null}
+          </div>
+        ) : null}
+
         <button 
           onClick={() => {
             setEditName(user.name || '');
@@ -195,7 +233,7 @@ export default function ProfiloPage() {
           className="w-full bg-[#EF4444]/10 hover:bg-[#EF4444]/20 border border-[#EF4444]/50 text-[#EF4444] rounded-xl p-4 flex items-center justify-center font-black transition-colors mt-8"
         >
           <LogOut className="w-5 h-5 mr-2" />
-          ESCI DALL'ACCOUNT
+          ESCI DALL&apos;ACCOUNT
         </button>
       </div>
 

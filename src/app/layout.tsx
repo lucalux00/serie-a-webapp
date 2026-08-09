@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
+import ConsentScripts from "@/components/layout/ConsentScripts";
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 const analyticsEnabled = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
 const cmpScriptSrc = process.env.NEXT_PUBLIC_CMP_SCRIPT_SRC;
+const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://webapp-two-nu-71.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://tatticaepronostici.it'),
   title: {
     default: 'Tattica & Pronostici',
     template: '%s | Tattica & Pronostici',
@@ -28,6 +30,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Tattica & Pronostici',
     description: 'Analisi statistiche, calciomercato e dati sulle squadre di calcio.',
+  },
+  other: {
+    'ga-site-verification': 'HQDCGvQBBk35TIElVkih_D3N',
   },
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
@@ -52,10 +57,7 @@ export default function RootLayout({
           {children}
         </ClientLayoutWrapper>
         {cmpScriptSrc && <Script id="cmp-provider" src={cmpScriptSrc} strategy="beforeInteractive" />}
-        {gaId && analyticsEnabled && <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
-          <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${gaId}', { anonymize_ip: true });`}</Script>
-        </>}
+        <ConsentScripts adsenseClient={adsenseClient} analyticsEnabled={analyticsEnabled} gaId={gaId} />
       </body>
     </html>
   );
