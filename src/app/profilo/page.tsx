@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import AuthForms from '@/components/auth/AuthForms';
-import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X, CreditCard } from 'lucide-react';
+import { LogOut, User, Settings, Heart, Trophy, Bell, BellRing, X, CreditCard, Gift } from 'lucide-react';
 import Link from 'next/link';
 import { NotificationPreferences, usePushNotifications } from '@/hooks/usePushNotifications';
 import { ALL_TEAMS } from '@/data/teams';
@@ -14,7 +14,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 
 export default function ProfiloPage() {
   const { user, logout } = useAuth();
-  const { isPremium, expiresAt } = useSubscription();
+  const { isPremium, expiresAt, source } = useSubscription();
   const { isSupported, isSubscribed, subscribe, unsubscribe, testNotification } = usePushNotifications(user?.id);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editName, setEditName] = useState(user?.name || '');
@@ -149,14 +149,22 @@ export default function ProfiloPage() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="flex items-center text-sm font-black text-white">
-                  <CreditCard className="mr-2 h-5 w-5 text-[#10B981]" />
-                  Abbonamento Fanta Pro attivo
+                  {source === 'signup-pro-2026' ? <Gift className="mr-2 h-5 w-5 text-[#10B981]" /> : <CreditCard className="mr-2 h-5 w-5 text-[#10B981]" />}
+                  {source === 'signup-pro-2026' ? 'Fanta Pro gratuito attivo' : 'Abbonamento Fanta Pro attivo'}
                 </p>
-                {expiresAt ? <p className="mt-1 text-xs text-emerald-200">Rinnovo/accesso fino al {new Date(expiresAt).toLocaleDateString('it-IT')}</p> : <p className="mt-1 text-xs text-emerald-200">Accesso amministratore</p>}
+                {source === 'signup-pro-2026' && expiresAt ? (
+                  <p className="mt-1 text-xs text-emerald-200">Regalo registrazione fino al {new Date(expiresAt).toLocaleDateString('it-IT')}. Nessun rinnovo automatico.</p>
+                ) : expiresAt ? (
+                  <p className="mt-1 text-xs text-emerald-200">Rinnovo/accesso fino al {new Date(expiresAt).toLocaleDateString('it-IT')}</p>
+                ) : (
+                  <p className="mt-1 text-xs text-emerald-200">Accesso amministratore</p>
+                )}
               </div>
-              <button type="button" onClick={openBillingPortal} disabled={isOpeningBilling} className="shrink-0 rounded-lg border border-emerald-300/40 px-3 py-2 text-xs font-black text-emerald-100 transition-colors hover:bg-emerald-300/15 disabled:opacity-60">
-                {isOpeningBilling ? 'APERTURA...' : 'GESTISCI'}
-              </button>
+              {source === 'stripe' ? (
+                <button type="button" onClick={openBillingPortal} disabled={isOpeningBilling} className="shrink-0 rounded-lg border border-emerald-300/40 px-3 py-2 text-xs font-black text-emerald-100 transition-colors hover:bg-emerald-300/15 disabled:opacity-60">
+                  {isOpeningBilling ? 'APERTURA...' : 'GESTISCI'}
+                </button>
+              ) : null}
             </div>
             {billingError ? <p className="mt-2 text-xs font-semibold text-red-300">{billingError}</p> : null}
           </div>

@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, User, ArrowRight, AlertCircle, Heart, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, AlertCircle, Heart, Eye, EyeOff, CheckCircle2, Gift } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { ALL_TEAMS } from '@/data/teams';
 import { passwordIssues, passwordStrength } from '@/lib/password';
+import { getProSignupPromoState } from '@/lib/proSignupPromo';
 
 export default function AuthForms() {
   const { login, register } = useAuth();
@@ -25,6 +26,7 @@ export default function AuthForms() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const issues = passwordIssues(password, name, email);
   const strength = passwordStrength(password, name, email);
+  const signupPromo = getProSignupPromoState();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +59,18 @@ export default function AuthForms() {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="bg-[#1E293B] rounded-3xl p-6 md:p-8 shadow-2xl border border-[#334155] relative overflow-hidden">
+        {signupPromo.active ? (
+          <div className="mb-6 rounded-2xl border border-amber-400/40 bg-amber-400/10 p-4 text-left">
+            <div className="flex items-start gap-3">
+              <Gift className="mt-0.5 shrink-0 text-amber-300" size={22} />
+              <div>
+                <p className="text-sm font-black text-amber-200">Due mesi di Fanta Pro in regalo</p>
+                <p className="mt-1 text-xs leading-5 text-[#CBD5E1]">Crea un nuovo account entro il 16 agosto 2026: tutte le funzioni Pro del Fantacalcio saranno attive per due mesi. Nessuna carta e nessun rinnovo automatico.</p>
+                {isLogin ? <button type="button" onClick={() => selectMode(false)} className="mt-3 text-xs font-black text-amber-300 underline decoration-amber-300/40 underline-offset-4">Registrati e attiva il regalo</button> : null}
+              </div>
+            </div>
+          </div>
+        ) : null}
         
         {/* Header Tabs */}
         <div className="flex mb-8 border-b border-[#334155]" role="tablist" aria-label="Accesso o registrazione">

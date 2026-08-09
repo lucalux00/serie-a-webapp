@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getSiteUrl, getStripe, ensureStripeUserColumns, isActiveSubscriptionStatus } from '@/lib/stripe';
 import { getUserFromCookie } from '@/lib/auth';
+import { getProSignupPromoState } from '@/lib/proSignupPromo';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,12 +10,8 @@ export async function POST() {
   const user = await getUserFromCookie();
   if (!user) return NextResponse.json({ error: 'Accedi prima di attivare Fanta Pro.' }, { status: 401 });
 
-  const priceId = process.env.STRIPE_PRO_PRICE_ID;
-  if (!priceId) return NextResponse.json({ error: 'Stripe non è ancora configurato: manca STRIPE_PRO_PRICE_ID.' }, { status: 503 });
-
   try {
     await ensureStripeUserColumns();
-    const stripe = getStripe();
     const { rows } = await sql`
       SELECT email, stripe_customer_id, stripe_subscription_id, stripe_subscription_status
       FROM users WHERE id = ${user.userId} LIMIT 1
@@ -24,12 +21,25 @@ export async function POST() {
 
     const existingStatus = dbUser.stripe_subscription_status as string | null;
     if (isActiveSubscriptionStatus(existingStatus) && dbUser.stripe_customer_id) {
-      const portal = await stripe.billingPortal.sessions.create({
+      const portal = await getStripe().billingPortal.sessions.create({
         customer: dbUser.stripe_customer_id,
         return_url: `${getSiteUrl()}/profilo`,
       });
       return NextResponse.json({ url: portal.url, mode: 'portal' });
     }
+
+    const signupPromo = getProSignupPromoState();
+    if (signupPromo.active) {
+      return NextResponse.json({
+        error: 'I nuovi abbonamenti a pagamento sono in pausa fino al 16 agosto. La promozione gratuita è riservata ai nuovi account.',
+        checkoutPaused: true,
+        promo: signupPromo,
+      }, { status: 409 });
+    }
+
+    const priceId = process.env.STRIPE_PRO_PRICE_ID;
+    if (!priceId) return NextResponse.json({ error: 'Stripe non è ancora configurato: manca STRIPE_PRO_PRICE_ID.' }, { status: 503 });
+    const stripe = getStripe();
 
     const customer = dbUser.stripe_customer_id
       ? dbUser.stripe_customer_id

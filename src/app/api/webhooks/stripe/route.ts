@@ -22,7 +22,8 @@ async function syncSubscription(subscription: Stripe.Subscription) {
           stripe_subscription_status = ${subscription.status},
           stripe_price_id = ${priceId},
           is_premium = ${isPremium},
-          premium_until = ${periodEnd}
+          premium_until = ${periodEnd},
+          premium_source = 'stripe'
       WHERE id = ${userId}
     `;
     return;
@@ -34,7 +35,8 @@ async function syncSubscription(subscription: Stripe.Subscription) {
         stripe_subscription_status = ${subscription.status},
         stripe_price_id = ${priceId},
         is_premium = ${isPremium},
-        premium_until = ${periodEnd}
+        premium_until = ${periodEnd},
+        premium_source = 'stripe'
     WHERE stripe_customer_id = ${customerId}
   `;
 }

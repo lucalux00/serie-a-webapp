@@ -28,6 +28,7 @@ export async function ensureStripeUserColumns() {
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS stripe_subscription_status TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS stripe_price_id TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS premium_until TIMESTAMPTZ`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS premium_source TEXT`;
 }
 
 export function isActiveSubscriptionStatus(status: string | null | undefined): boolean {

@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { signJwt } from '@/lib/auth';
 import { cookies } from 'next/headers';
 import { passwordIssues } from '@/lib/password';
+import { getProSignupPromoState } from '@/lib/proSignupPromo';
 
 export async function POST(request: Request) {
   try {
@@ -30,6 +31,8 @@ export async function POST(request: Request) {
       );
     `;
     await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_premium BOOLEAN DEFAULT FALSE`;
+    await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS premium_until TIMESTAMPTZ`;
+    await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS premium_source TEXT`;
 
     // Verifica se l'email esiste già
     const existingUser = await sql`SELECT id FROM users WHERE email = ${email}`;
@@ -41,11 +44,29 @@ export async function POST(request: Request) {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // Inserimento utente
+    const signupPromo = getProSignupPromoState();
+
+    // Inserimento utente e assegnazione atomica dell'accesso promozionale.
     const result = await sql`
-      INSERT INTO users (name, email, password_hash, favorite_team)
-      VALUES (${name}, ${email}, ${passwordHash}, ${favoriteTeam || null})
-      RETURNING id, name, email, favorite_team;
+      INSERT INTO users (
+        name,
+        email,
+        password_hash,
+        favorite_team,
+        is_premium,
+        premium_until,
+        premium_source
+      )
+      VALUES (
+        ${name},
+        ${email},
+        ${passwordHash},
+        ${favoriteTeam || null},
+        ${signupPromo.active},
+        CASE WHEN ${signupPromo.active} THEN NOW() + INTERVAL '2 months' ELSE NULL END,
+        CASE WHEN ${signupPromo.active} THEN ${signupPromo.code} ELSE NULL END
+      )
+      RETURNING id, name, email, favorite_team, is_premium, premium_until;
     `;
 
     const newUser = result.rows[0];
@@ -63,8 +84,17 @@ export async function POST(request: Request) {
       maxAge: 7 * 24 * 60 * 60, // 7 giorni
     });
 
-    return NextResponse.json({ success: true, user: { name: newUser.name, email: newUser.email } }, { status: 201 });
-  } catch (error: any) {
+    return NextResponse.json({
+      success: true,
+      user: { id: newUser.id, name: newUser.name, email: newUser.email },
+      proAccess: newUser.is_premium ? {
+        granted: true,
+        source: signupPromo.code,
+        expiresAt: new Date(newUser.premium_until).toISOString(),
+        renewsAutomatically: false,
+      } : { granted: false },
+    }, { status: 201 });
+  } catch (error: unknown) {
     console.error('Registration error:', error);
     return NextResponse.json({ error: 'Errore interno del server' }, { status: 500 });
   }
