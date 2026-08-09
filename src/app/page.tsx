@@ -9,18 +9,17 @@ import { ArrowRight, CalendarDays, Newspaper, Star, Target, UserRound } from 'lu
 export default function Home() {
   const { user } = useAuth();
 
-  // Mappa colori per squadra (semplificata per le big, fallback per le altre)
-  const getTeamColor = (id: string | null) => {
+  const getTeamAccent = (id: string | null) => {
     switch (id) {
-      case 'napoli': return 'from-[#0EA5E9] to-[#0284C7] shadow-[0_0_40px_rgba(14,165,233,0.3)] border-[#0EA5E9]/50';
-      case 'inter': return 'from-[#1E3A8A] to-[#000000] shadow-[0_0_40px_rgba(30,58,138,0.3)] border-[#1E3A8A]/50';
-      case 'milan': return 'from-[#DC2626] to-[#000000] shadow-[0_0_40px_rgba(220,38,38,0.3)] border-[#DC2626]/50';
-      case 'juventus': return 'from-[#475569] to-[#000000] shadow-[0_0_40px_rgba(255,255,255,0.2)] border-[#94A3B8]/50';
-      case 'roma': return 'from-[#B91C1C] to-[#D97706] shadow-[0_0_40px_rgba(185,28,28,0.3)] border-[#D97706]/50';
-      case 'lazio': return 'from-[#38BDF8] to-[#0F172A] shadow-[0_0_40px_rgba(56,189,248,0.3)] border-[#38BDF8]/50';
-      case 'atalanta': return 'from-[#1E3A8A] to-[#0F172A] shadow-[0_0_40px_rgba(30,58,138,0.3)] border-[#38BDF8]/50';
-      case 'fiorentina': return 'from-[#7C3AED] to-[#4C1D95] shadow-[0_0_40px_rgba(124,58,237,0.3)] border-[#7C3AED]/50';
-      default: return 'from-[#10B981] to-[#059669] shadow-[0_0_40px_rgba(16,185,129,0.3)] border-[#10B981]/50';
+      case 'napoli': return 'border-[#0EA5E9]/35 shadow-[inset_3px_0_0_#0EA5E9]';
+      case 'inter': return 'border-[#3B82F6]/35 shadow-[inset_3px_0_0_#2563EB]';
+      case 'milan': return 'border-[#EF4444]/35 shadow-[inset_3px_0_0_#DC2626]';
+      case 'juventus': return 'border-[#CBD5E1]/35 shadow-[inset_3px_0_0_#CBD5E1]';
+      case 'roma': return 'border-[#F59E0B]/35 shadow-[inset_3px_0_0_#D97706]';
+      case 'lazio': return 'border-[#38BDF8]/35 shadow-[inset_3px_0_0_#38BDF8]';
+      case 'atalanta': return 'border-[#38BDF8]/35 shadow-[inset_3px_0_0_#2563EB]';
+      case 'fiorentina': return 'border-[#A78BFA]/35 shadow-[inset_3px_0_0_#7C3AED]';
+      default: return 'border-[#10B981]/35 shadow-[inset_3px_0_0_#10B981]';
     }
   };
 
@@ -56,26 +55,6 @@ export default function Home() {
             </a>
           </div>
         </section>
-      )}
-
-      {/* Banner Squadra Preferita */}
-      {user?.favoriteTeamId && (
-        <Link
-          href={`/squadra/${user.favoriteTeamId}`}
-          className={`relative block overflow-hidden p-6 rounded-3xl bg-gradient-to-br border active:scale-95 transition-transform ${getTeamColor(user.favoriteTeamId)}`}
-        >
-          <div className="absolute top-0 right-0 p-4 opacity-10">
-            <Star size={100} />
-          </div>
-          <div className="flex items-center text-white/80 font-bold text-xs uppercase tracking-widest mb-1">
-            <Star size={12} className="mr-1" /> La Tua Squadra
-          </div>
-          <h2 className="text-4xl font-black text-white mb-4 drop-shadow-md capitalize">{user.favoriteTeamName}</h2>
-          
-          <span className="inline-flex bg-white/20 text-white font-black py-2 px-4 rounded-xl items-center backdrop-blur-sm text-sm">
-            Entra nel Club Hub <ArrowRight size={16} className="ml-2" />
-          </span>
-        </Link>
       )}
 
       <section className="mx-auto w-full max-w-5xl py-3 sm:py-7" aria-labelledby="centro-del-sito">
@@ -139,6 +118,25 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {user?.favoriteTeamId && (
+        <Link
+          href={`/squadra/${user.favoriteTeamId}`}
+          className={`group relative mx-auto flex w-full max-w-5xl items-center gap-3 overflow-hidden rounded-2xl border bg-gradient-to-r from-[#182337] to-[#111827] px-4 py-3 transition-colors hover:bg-[#1E293B] sm:gap-4 sm:px-5 sm:py-4 ${getTeamAccent(user.favoriteTeamId)}`}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.07] text-white/80">
+            <Star size={18} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[9px] font-black uppercase tracking-[0.2em] text-[#94A3B8]">La tua squadra</span>
+            <span className="mt-0.5 block truncate text-lg font-black capitalize text-white sm:text-xl">{user.favoriteTeamName}</span>
+          </span>
+          <span className="inline-flex shrink-0 items-center text-xs font-black text-[#CBD5E1]">
+            <span className="hidden sm:inline">Club Hub</span>
+            <ArrowRight size={17} className="ml-0 transition-transform group-hover:translate-x-1 sm:ml-2" />
+          </span>
+        </Link>
+      )}
 
       <div id="esplora-squadre" className="mx-auto w-full max-w-5xl">
         <h2 className="text-lg font-black mb-4">Esplora altre squadre</h2>
