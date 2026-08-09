@@ -141,6 +141,12 @@ export async function GET(request: Request) {
     `;
     results.push('✅ daily_ai_predictions: OK');
 
+    await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS competition_code VARCHAR(20)`;
+    await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS matchday INTEGER`;
+    await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS stage VARCHAR(80)`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_daily_predictions_schedule ON daily_ai_predictions (competition_code, match_date)`;
+    results.push('daily_ai_predictions: calendario dinamico OK');
+
     // ml_explanations — cache spiegazioni testuali on-demand
     await sql`
       CREATE TABLE IF NOT EXISTS ml_explanations (

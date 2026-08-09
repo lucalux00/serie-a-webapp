@@ -6,7 +6,7 @@
     },
     {
       "path": "/api/cron/pronostici",
-      "schedule": "30 7 * * 1,4"
+      "schedule": "30 6 * * *"
     }
   ]
 }
