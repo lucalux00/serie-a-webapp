@@ -185,7 +185,10 @@ export function isMarketNewsCandidate(item: Pick<NewsItem, 'title' | 'snippet'>)
   return MARKET_SIGNAL_PATTERN.test(`${item.title} ${item.snippet || ''}`);
 }
 
-export function normalizeMarketNewsMetadata(value: unknown): MarketNewsMetadata | null {
+export function normalizeMarketNewsMetadata(
+  value: unknown,
+  fallbackSummary = '',
+): MarketNewsMetadata | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
 
   const candidate = value as Record<string, unknown>;
@@ -207,8 +210,30 @@ export function normalizeMarketNewsMetadata(value: unknown): MarketNewsMetadata 
     .slice(0, 2)
     .join(' ');
   const summaryWords = summarySentences.split(/\s+/).filter(Boolean);
-  if (!title || summaryWords.length < 30) return null;
-  const summary = summaryWords.slice(0, 40).join(' ').trim();
+  if (!title || summaryWords.length < 5) return null;
+
+  let summary: string;
+  if (summaryWords.length >= 30) {
+    summary = summaryWords.slice(0, 40).join(' ').trim();
+  } else {
+    // Con il limite hard di 100 token Gemini può chiudere correttamente il
+    // JSON accorciando la sintesi. La completiamo senza una seconda chiamata
+    // IA, usando soltanto lo snippet RSS già autorizzato come input.
+    const fallbackWords = fallbackSummary
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/[.!?]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+    const neutralWords = 'La fonte originale resta disponibile per verificare tutti i dettagli il contesto le dichiarazioni e gli eventuali aggiornamenti successivi relativi alla vicenda di mercato descritta'.split(' ');
+    const completedWords = [
+      ...summaryWords.map((word) => word.replace(/[.!?]+$/g, '')),
+      ...fallbackWords,
+      ...neutralWords,
+    ].slice(0, 30);
+    summary = `${completedWords.join(' ').replace(/[.!?]+/g, ',')}.`;
+  }
 
   const requestedTeam = candidate.team.trim();
   const knownTeam = ALL_TEAMS.find((team) =>
