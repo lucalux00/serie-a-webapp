@@ -21,7 +21,7 @@ export async function GET(request: Request) {
         SELECT created_at
         FROM cron_lock
         WHERE job_name = 'pronostici-live-feed'
-          AND created_at > NOW() - INTERVAL '6 hours'
+          AND created_at > NOW() - INTERVAL '2 minutes'
       `;
 
       if (rows.length === 0) {
