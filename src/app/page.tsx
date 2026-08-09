@@ -4,7 +4,7 @@ import React from 'react';
 import TeamSelector from '@/components/domain/TeamSelector';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
-import { ArrowRight, CalendarDays, Newspaper, Star, UserRound } from 'lucide-react';
+import { ArrowRight, CalendarDays, Newspaper, Star, Target, UserRound } from 'lucide-react';
 
 export default function Home() {
   const { user } = useAuth();
@@ -78,27 +78,81 @@ export default function Home() {
         </Link>
       )}
 
-      <div id="esplora-squadre">
+      <section className="mx-auto w-full max-w-5xl py-3 sm:py-7" aria-labelledby="centro-del-sito">
+        <header className="mx-auto mb-6 max-w-2xl text-center">
+          <p className="text-[11px] font-black uppercase tracking-[0.34em] text-[#10B981]">Il cuore del sito</p>
+          <h2 id="centro-del-sito" className="mt-2 font-serif text-3xl font-black tracking-tight text-white sm:text-5xl">
+            Pronostici <span className="text-[#64748B]">&amp;</span> Fanta
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-[#94A3B8] sm:text-base">
+            Le analisi della prossima giornata e gli strumenti per decidere la tua formazione.
+          </p>
+        </header>
+
+        <div className="grid gap-5 md:grid-cols-2">
+          <Link
+            href="/pronostici"
+            className="group relative min-h-64 overflow-hidden rounded-[2rem] border border-[#10B981]/40 bg-gradient-to-br from-[#123C35] via-[#172A32] to-[#111827] p-7 shadow-[0_24px_70px_rgba(16,185,129,0.14)] transition duration-300 hover:-translate-y-1 hover:border-[#34D399] sm:p-9"
+          >
+            <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-[#10B981]/15 blur-2xl" />
+            <div className="relative flex h-full flex-col">
+              <div className="mb-8 flex items-center justify-between">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#34D399]/30 bg-[#10B981]/15 text-[#6EE7B7]">
+                  <CalendarDays size={28} />
+                </span>
+                <span className="rounded-full border border-[#34D399]/25 bg-[#10B981]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#6EE7B7]">
+                  Prossima giornata
+                </span>
+              </div>
+              <h3 className="font-serif text-3xl font-black text-white sm:text-4xl">Pronostici</h3>
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#CBD5E1]">
+                Quattro singole e tre multiple per campionato, aggiornate seguendo il calendario reale.
+              </p>
+              <span className="mt-auto inline-flex items-center pt-7 text-sm font-black text-[#6EE7B7]">
+                Vai ai pronostici <ArrowRight size={17} className="ml-2 transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </Link>
+
+          <Link
+            href="/fantacalcio"
+            className="group relative min-h-64 overflow-hidden rounded-[2rem] border border-violet-400/40 bg-gradient-to-br from-[#31205F] via-[#20213F] to-[#111827] p-7 shadow-[0_24px_70px_rgba(139,92,246,0.16)] transition duration-300 hover:-translate-y-1 hover:border-violet-300 sm:p-9"
+          >
+            <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-violet-500/20 blur-2xl" />
+            <div className="relative flex h-full flex-col">
+              <div className="mb-8 flex items-center justify-between">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-300/30 bg-violet-400/15 text-violet-200">
+                  <Target size={28} />
+                </span>
+                <span className="rounded-full border border-violet-300/25 bg-violet-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-violet-200">
+                  Formazione e rosa
+                </span>
+              </div>
+              <h3 className="font-serif text-3xl font-black text-white sm:text-4xl">Fanta Hub</h3>
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#CBD5E1]">
+                Consigli di formazione, gestione della rosa e segnali di mercato raccolti in un unico spazio.
+              </p>
+              <span className="mt-auto inline-flex items-center pt-7 text-sm font-black text-violet-200">
+                Entra nel Fanta Hub <ArrowRight size={17} className="ml-2 transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      <div id="esplora-squadre" className="mx-auto w-full max-w-5xl">
         <h2 className="text-lg font-black mb-4">Esplora altre squadre</h2>
         <TeamSelector />
       </div>
 
-      <section className="grid gap-3 sm:grid-cols-2" aria-label="Scorciatoie principali">
-        <Link href="/pronostici" className="group rounded-2xl border border-[#334155] bg-[#1E293B] p-4 transition-colors hover:border-[#10B981] hover:bg-[#243247]">
-          <div className="mb-3 flex items-center justify-between">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10B981]/15 text-[#10B981]"><CalendarDays size={19} /></span>
-            <ArrowRight size={17} className="text-[#64748B] transition-transform group-hover:translate-x-1" />
+      <section className="mx-auto w-full max-w-5xl" aria-label="Altri contenuti">
+        <Link href="/mercato" className="group flex items-center gap-4 rounded-2xl border border-[#334155] bg-[#1E293B] p-4 transition-colors hover:border-[#0EA5E9] hover:bg-[#243247] sm:p-5">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0EA5E9]/15 text-[#0EA5E9]"><Newspaper size={21} /></span>
+          <div className="min-w-0 flex-1">
+            <h2 className="font-black text-white">Calciomercato</h2>
+            <p className="mt-1 text-xs leading-relaxed text-[#94A3B8]">Notizie, trattative e aggiornamenti in tempo reale.</p>
           </div>
-          <h2 className="font-black text-white">Prossimi pronostici</h2>
-          <p className="mt-1 text-xs leading-relaxed text-[#94A3B8]">Match in programma, quote e analisi statistiche.</p>
-        </Link>
-        <Link href="/mercato" className="group rounded-2xl border border-[#334155] bg-[#1E293B] p-4 transition-colors hover:border-[#0EA5E9] hover:bg-[#243247]">
-          <div className="mb-3 flex items-center justify-between">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0EA5E9]/15 text-[#0EA5E9]"><Newspaper size={19} /></span>
-            <ArrowRight size={17} className="text-[#64748B] transition-transform group-hover:translate-x-1" />
-          </div>
-          <h2 className="font-black text-white">Calciomercato</h2>
-          <p className="mt-1 text-xs leading-relaxed text-[#94A3B8]">Notizie, trattative e aggiornamenti in tempo reale.</p>
+          <ArrowRight size={18} className="shrink-0 text-[#64748B] transition-transform group-hover:translate-x-1" />
         </Link>
       </section>
     </div>
