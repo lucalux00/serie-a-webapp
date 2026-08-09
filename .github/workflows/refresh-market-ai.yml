@@ -1,10 +1,8 @@
-name: Aggiorna mercato AI
+name: Aggiorna mercato AI (manuale)
 
 on:
-  schedule:
-    # Il job controlla i feed ogni 30 minuti. L'endpoint usa un hash dei titoli
-    # e chiama Gemini solo se ci sono effettive novita.
-    - cron: '*/30 * * * *'
+  # Lo Smart Aggregator usa il cron RSS centrale ogni 5 minuti. Questa vecchia
+  # estrazione resta disponibile solo come manutenzione manuale dei trasferimenti.
   workflow_dispatch:
 
 concurrency:

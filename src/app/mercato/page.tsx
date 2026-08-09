@@ -11,10 +11,10 @@ export default function MercatoPage() {
         </div>
         <div className="text-center md:text-left">
           <h1 className="text-4xl font-black text-[var(--color-sport-text)] uppercase tracking-tighter mb-2">
-            Live <span className="text-[var(--color-sport-primary)]">Calciomercato</span>
+            Smart <span className="text-[var(--color-sport-primary)]">Calciomercato</span>
           </h1>
           <p className="text-[var(--color-sport-muted)] font-medium">
-            Tutte le ultime trattative, ufficialità e indiscrezioni in tempo reale.
+            La rassegna stampa di mercato per ogni squadra di Serie A, filtrata e sintetizzata in tempo reale.
           </p>
         </div>
       </div>

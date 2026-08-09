@@ -1,79 +1,78 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  ArrowRightLeft, ArrowRight, ArrowLeft, RefreshCw,
-  CheckCircle2, Search, Clock, Loader2, TrendingUp,
+  Clock3,
   ExternalLink,
+  LoaderCircle,
+  Newspaper,
+  RefreshCw,
+  Search,
+  ShieldCheck,
 } from 'lucide-react';
 import { ALL_TEAMS } from '@/data/teams';
 import TeamLogo from '@/components/ui/TeamLogo';
-import { dedupeTransfers } from '@/lib/transfers';
+import type { MarketNewsCategory } from '@/lib/news';
 
-type LeagueKey = 'A' | 'B' | 'PL' | 'LL' | 'BL' | 'L1';
-type FilterKey = 'acquisti' | 'cessioni' | 'prestiti' | 'trattative';
-type SortKey = 'recent' | 'team' | 'status';
+type CategoryFilter = 'TUTTE' | MarketNewsCategory;
 
-const LEAGUES: { id: LeagueKey; label: string }[] = [
-  { id: 'A',  label: 'Serie A' },
-  { id: 'B',  label: 'Serie B' },
-  { id: 'PL', label: 'Premier' },
-  { id: 'LL', label: 'La Liga' },
-  { id: 'BL', label: 'Bundesliga' },
-  { id: 'L1', label: 'Ligue 1' },
+interface MarketArticle {
+  id: number;
+  title: string;
+  summary: string;
+  team: string;
+  category: MarketNewsCategory;
+  source: string;
+  link: string;
+  pub_date: string;
+  created_at: string;
+}
+
+const SERIE_A_TEAMS = ALL_TEAMS.filter((team) => team.league === 'A');
+const TEAM_BY_NAME = new Map(SERIE_A_TEAMS.map((team) => [team.name.toLocaleLowerCase('it-IT'), team]));
+
+const CATEGORY_CONFIG: Record<MarketNewsCategory, { label: string; dot: string; badge: string }> = {
+  UFFICIALE_ACQUISTO: {
+    label: 'UFFICIALE ACQUISTO',
+    dot: 'bg-emerald-400',
+    badge: 'border-emerald-400/40 bg-emerald-400/15 text-emerald-300',
+  },
+  UFFICIALE_CESSIONE: {
+    label: 'UFFICIALE CESSIONE',
+    dot: 'bg-red-400',
+    badge: 'border-red-400/40 bg-red-400/15 text-red-300',
+  },
+  TRATTATIVA: {
+    label: 'TRATTATIVA',
+    dot: 'bg-orange-400',
+    badge: 'border-orange-400/40 bg-orange-400/15 text-orange-300',
+  },
+  PRESTITO: {
+    label: 'PRESTITO',
+    dot: 'bg-yellow-300',
+    badge: 'border-yellow-300/40 bg-yellow-300/15 text-yellow-200',
+  },
+  RUMOR: {
+    label: 'RUMOR',
+    dot: 'bg-slate-100',
+    badge: 'border-slate-200/30 bg-white/10 text-slate-100',
+  },
+};
+
+const CATEGORY_FILTERS: CategoryFilter[] = [
+  'TUTTE',
+  'UFFICIALE_ACQUISTO',
+  'UFFICIALE_CESSIONE',
+  'TRATTATIVA',
+  'PRESTITO',
+  'RUMOR',
 ];
 
-const FILTERS: { id: FilterKey; label: string; color: string }[] = [
-  { id: 'acquisti',  label: 'Acquisti',  color: '#10B981' },
-  { id: 'cessioni',  label: 'Cessioni',  color: '#EF4444' },
-  { id: 'prestiti',  label: 'Prestiti',  color: '#0EA5E9' },
-  { id: 'trattative', label: 'Rumors',   color: '#F59E0B' },
-];
-
-function getTypeIcon(type: string) {
-  const t = (type || '').toLowerCase();
-  if (t === 'acquisto')  return <ArrowRight  className="text-[#10B981] w-4 h-4" />;
-  if (t === 'cessione')  return <ArrowLeft   className="text-[#EF4444] w-4 h-4" />;
-  if (t === 'prestito')  return <ArrowRightLeft className="text-[#0EA5E9] w-4 h-4" />;
-  return <RefreshCw className="text-[#F59E0B] w-4 h-4" />;
+function isMarketCategory(value: unknown): value is MarketNewsCategory {
+  return typeof value === 'string' && value in CATEGORY_CONFIG;
 }
 
-function getBadge(type: string) {
-  const t = (type || '').toLowerCase();
-  if (t === 'acquisto')  return 'bg-[#10B981]/20 text-[#10B981] border-[#10B981]/40';
-  if (t === 'cessione')  return 'bg-[#EF4444]/20 text-[#EF4444] border-[#EF4444]/40';
-  if (t === 'prestito')  return 'bg-[#0EA5E9]/20 text-[#0EA5E9] border-[#0EA5E9]/40';
-  return 'bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/40';
-}
-
-function getAccentColor(type: string) {
-  const t = (type || '').toLowerCase();
-  if (t === 'acquisto') return '#10B981';
-  if (t === 'cessione') return '#EF4444';
-  if (t === 'prestito') return '#0EA5E9';
-  return '#F59E0B';
-}
-
-function formatAcquiredAt(value?: string | null) {
-  if (!value || Number.isNaN(new Date(value).getTime())) return null;
-  return new Intl.DateTimeFormat('it-IT', {
-    day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
-  }).format(new Date(value));
-}
-
-function getDayGroup(tr: any) {
-  const timestamp = tr.created_at ? new Date(tr.created_at) : null;
-  if (timestamp && !Number.isNaN(timestamp.getTime())) {
-    return new Intl.DateTimeFormat('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
-      .format(timestamp);
-  }
-  return tr.date || 'Data non disponibile';
-}
-
-function getSafeSourceUrl(value?: string | null) {
-  if (!value) return null;
-
+function getSafeUrl(value: string) {
   try {
     const url = new URL(value);
     return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : null;
@@ -82,406 +81,280 @@ function getSafeSourceUrl(value?: string | null) {
   }
 }
 
-function TransferCard({ tr }: { tr: any }) {
-  const isRumor = tr.status === 'Rumor';
-  const accent  = isRumor ? '#F59E0B' : getAccentColor(tr.type);
-  const hasFee  = tr.fee && tr.fee !== 'N/D' && tr.fee !== '';
-  const hasDate = tr.date && tr.date !== '';
-  const acquiredAt = formatAcquiredAt(tr.created_at);
-  const sourceUrl = getSafeSourceUrl(tr.source_url);
-  const teamInfo = ALL_TEAMS.find(
-    (t) =>
-      t.id === tr.team_id ||
-      t.name.toLowerCase() === tr.team?.toLowerCase()
-  );
+function formatPublishedAt(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return 'Data non disponibile';
+  return new Intl.DateTimeFormat('it-IT', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+}
+
+function NewsCard({ article }: { article: MarketArticle }) {
+  const category = CATEGORY_CONFIG[article.category];
+  const team = TEAM_BY_NAME.get(article.team.toLocaleLowerCase('it-IT'));
+  const sourceUrl = getSafeUrl(article.link);
 
   return (
-    <div className="bg-[var(--color-sport-card)]/60 backdrop-blur-sm border border-white/5 rounded-xl p-4 shadow-sm relative overflow-hidden hover:border-white/15 transition-all duration-200 group">
-      {/* Barra colore sinistra */}
-      <div
-        className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl transition-all"
-        style={{ backgroundColor: accent }}
-      />
+    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[var(--color-sport-card)]/75 p-5 shadow-lg transition hover:-translate-y-0.5 hover:border-white/20">
+      <div className={`absolute inset-y-0 left-0 w-1 ${category.dot}`} aria-hidden="true" />
 
-      <div className="pl-3">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-2">
-          <div className="flex items-center gap-2">
-            {teamInfo ? (
-              <TeamLogo src={teamInfo.logoUrl} alt={teamInfo.name} fallbackText={teamInfo.logo} className="w-5 h-5 rounded-full" />
-            ) : (
-              getTypeIcon(tr.type)
-            )}
-            <span className="text-xs font-bold text-[var(--color-sport-muted)] truncate max-w-[120px]">
-              {teamInfo?.name || tr.team || tr.team_id}
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 pl-1">
+        <div className="flex items-center gap-2.5">
+          {team ? (
+            <TeamLogo
+              src={team.logoUrl}
+              alt={team.name}
+              fallbackText={team.logo}
+              className="h-7 w-7 rounded-full"
+            />
+          ) : (
+            <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5">
+              <Newspaper className="h-3.5 w-3.5 text-slate-300" aria-hidden="true" />
             </span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase border ${
-              isRumor
-                ? 'bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/40'
-                : 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/35'
-            }`}>
-              {isRumor ? 'DA CONFERMARE' : 'UFFICIALE'}
-            </span>
-            <span className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase border ${getBadge(tr.type)}`}>
-              {tr.type}
-            </span>
-          </div>
+          )}
+          <span className="text-xs font-black uppercase tracking-wide text-[var(--color-sport-text)]">
+            {team?.name || 'Generale'}
+          </span>
         </div>
 
-        {/* Giocatore */}
+        <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-black tracking-wide ${category.badge}`}>
+          <span className={`h-1.5 w-1.5 rounded-full ${category.dot}`} aria-hidden="true" />
+          {category.label}
+        </span>
+      </div>
+
+      <h2 className="pl-1 text-lg font-black leading-snug text-[var(--color-sport-text)] sm:text-xl">
+        {article.title}
+      </h2>
+      <p className="mt-2 pl-1 text-sm leading-6 text-[var(--color-sport-muted)]">
+        {article.summary}
+      </p>
+
+      <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 pl-1 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-bold text-[var(--color-sport-muted)]">
+          <span className="inline-flex items-center gap-1">
+            <Clock3 className="h-3 w-3" aria-hidden="true" />
+            {formatPublishedAt(article.pub_date)}
+          </span>
+          <span>Fonte: {article.source}</span>
+        </div>
+
         {sourceUrl ? (
           <a
             href={sourceUrl}
             target="_blank"
-            rel="noreferrer"
-            className="mb-2 inline-flex items-center gap-1 text-base font-black leading-tight text-[var(--color-sport-text)] transition-colors hover:text-[#FCD34D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-sport-primary)] px-4 py-2.5 text-xs font-black text-white shadow-md transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
           >
-            {tr.player}
-            <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-label="Apri la fonte originale" />
+            Leggi la notizia completa su {article.source}
+            <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           </a>
-        ) : (
-          <div className="mb-2 text-base font-black leading-tight text-[var(--color-sport-text)] transition-colors group-hover:text-white">
-            {tr.player}
-          </div>
-        )}
-
-        {/* Provenienza/destinazione */}
-        {tr['fromTo'] && tr['fromTo'] !== 'N/D' && (
-          <div className="text-xs text-[var(--color-sport-muted)] mb-2 flex items-center gap-1">
-            <span style={{ color: accent }}>↔</span>
-            <span className="text-[var(--color-sport-text)]/70 font-medium">{tr['fromTo']}</span>
-          </div>
-        )}
-
-        {/* Fee + Data — riga ben visibile */}
-        {(hasFee || hasDate) && (
-          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/5">
-            {/* Fee / Cifra */}
-            {hasFee ? (
-              <div className="flex items-center gap-1.5">
-                <div
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black border"
-                  style={{
-                    backgroundColor: accent + '18',
-                    color: accent,
-                    borderColor: accent + '40',
-                  }}
-                >
-                  <span className="text-[11px]">€</span>
-                  {tr.fee}
-                </div>
-                {isRumor && (
-                  <span className="text-[9px] font-bold text-[var(--color-sport-muted)] uppercase tracking-wider">
-                    stimata
-                  </span>
-                )}
-              </div>
-            ) : (
-              <div className="text-[10px] text-[var(--color-sport-muted)] font-medium italic">
-                {isRumor ? 'Cifra non divulgata' : 'Quota non comunicata'}
-              </div>
-            )}
-
-            {/* Data */}
-            {hasDate && (
-              <div className="flex items-center gap-1 text-[9px] font-bold text-[var(--color-sport-muted)] uppercase tracking-wider">
-                <span>📅</span>
-                {tr.date}
-              </div>
-            )}
-          </div>
-        )}
-
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[9px] font-semibold text-[var(--color-sport-muted)]">
-          {sourceUrl ? (
-            <a href={sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[#F59E0B] hover:text-[#FCD34D]">
-              Leggi notizia: {tr.source_name || 'apri articolo'} <ExternalLink className="h-3 w-3" aria-hidden="true" />
-            </a>
-          ) : <span>Fonte: dati aggregati</span>}
-          {acquiredAt && <span>Acquisito: {acquiredAt}</span>}
-        </div>
+        ) : null}
       </div>
-    </div>
+    </article>
   );
 }
 
-
 export default function MarketFeed() {
-  const [leagueTab,   setLeagueTab]   = useState<LeagueKey>('A');
-  const [filterTab,   setFilterTab]   = useState<FilterKey>('trattative');
-  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
-  const [searchQuery,  setSearchQuery]  = useState('');
-  const [sortBy, setSortBy] = useState<SortKey>('recent');
-  const [allData,     setAllData]     = useState<any[]>([]);
-  const [loading,     setLoading]     = useState(true);
+  const [articles, setArticles] = useState<MarketArticle[]>([]);
+  const [selectedTeam, setSelectedTeam] = useState<string>('TUTTE');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('TUTTE');
+  const [searchQuery, setSearchQuery] = useState('');
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadData = useCallback(async () => {
-    setLoading(true);
+  const loadData = useCallback(async (background = false) => {
+    if (background) setRefreshing(true);
+    else setLoading(true);
+
     try {
-      const res = await fetch(`/api/mercato/live?league=${leagueTab}&limit=200`);
-      const json = await res.json();
-      setAllData(dedupeTransfers(json.transfers || []));
-      setLastUpdated(json.lastUpdated || null);
-    } catch {
-      setAllData([]);
-      setLastUpdated(null);
+      const response = await fetch('/api/mercato/live?league=A&limit=300', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const nextArticles = Array.isArray(payload.articles)
+        ? payload.articles.filter((article: Partial<MarketArticle>) =>
+            Boolean(
+              article.id &&
+              article.title &&
+              article.summary &&
+              article.team &&
+              article.source &&
+              article.link &&
+              isMarketCategory(article.category),
+            ),
+          )
+        : [];
+
+      setArticles(nextArticles);
+      setLastUpdated(payload.lastUpdated || null);
+      setError(null);
+    } catch (loadError) {
+      console.error('[MarketFeed] Impossibile caricare le notizie:', loadError);
+      setError('Aggiornamento non disponibile. Riprova tra poco.');
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
-  }, [leagueTab]);
-
-  useEffect(() => {
-    loadData();
-    setSelectedTeam(null);
-    setSearchQuery('');
-    const interval = window.setInterval(loadData, 60_000);
-    return () => window.clearInterval(interval);
-  }, [loadData]);
-
-  // Filtra per squadra e ricerca
-  const filtered = allData.filter((d) => {
-    const matchTeam  = !selectedTeam || d.team_id === selectedTeam || d.team?.toLowerCase() === selectedTeam.toLowerCase();
-    const matchQuery = !searchQuery  ||
-      d.player?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      d.team?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      d['fromTo']?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchTeam && matchQuery;
-  });
-
-  // Dividi per categoria
-  const acquisti   = filtered.filter((d) => (d.type || '').toLowerCase() === 'acquisto' && d.status !== 'Rumor');
-  const cessioni   = filtered.filter((d) => (d.type || '').toLowerCase() === 'cessione' && d.status !== 'Rumor');
-  const prestiti   = filtered.filter((d) => (d.type || '').toLowerCase() === 'prestito' && d.status !== 'Rumor');
-  const trattative = filtered.filter((d) => d.status === 'Rumor' || (d.type || '').toLowerCase() === 'trattativa');
-
-  const currentList =
-    filterTab === 'acquisti'   ? acquisti :
-    filterTab === 'cessioni'   ? cessioni :
-    filterTab === 'prestiti'   ? prestiti : trattative;
-
-  const activeFilter = FILTERS.find((f) => f.id === filterTab)!;
-
-  const sortedList = [...currentList].sort((a, b) => {
-    if (sortBy === 'team') return (a.team || a.team_id || '').localeCompare(b.team || b.team_id || '', 'it');
-    if (sortBy === 'status') {
-      const statusDifference = Number(a.status === 'Rumor') - Number(b.status === 'Rumor');
-      if (statusDifference !== 0) return statusDifference;
-    }
-    return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
-  });
-  const groupedList = sortedList.reduce<Array<{ label: string; transfers: any[] }>>((groups, transfer) => {
-    const label = getDayGroup(transfer);
-    const currentGroup = groups.find((group) => group.label === label);
-    if (currentGroup) currentGroup.transfers.push(transfer);
-    else groups.push({ label, transfers: [transfer] });
-    return groups;
   }, []);
 
-  const teamsInLeague = ALL_TEAMS.filter((t) => t.league === leagueTab);
+  useEffect(() => {
+    const initialLoad = window.setTimeout(() => void loadData(), 0);
+    const interval = window.setInterval(() => loadData(true), 5 * 60 * 1000);
+    return () => {
+      window.clearTimeout(initialLoad);
+      window.clearInterval(interval);
+    };
+  }, [loadData]);
 
-  // Counter per ogni tab
-  const counts = {
-    acquisti:   acquisti.length,
-    cessioni:   cessioni.length,
-    prestiti:   prestiti.length,
-    trattative: trattative.length,
-  };
+  const categoryCounts = useMemo(() => {
+    const counts = new Map<MarketNewsCategory, number>();
+    for (const article of articles) {
+      counts.set(article.category, (counts.get(article.category) || 0) + 1);
+    }
+    return counts;
+  }, [articles]);
 
-  const updatedLabel = lastUpdated
+  const filteredArticles = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLocaleLowerCase('it-IT');
+    return articles.filter((article) => {
+      const matchesTeam = selectedTeam === 'TUTTE' || article.team === selectedTeam;
+      const matchesCategory = selectedCategory === 'TUTTE' || article.category === selectedCategory;
+      const matchesSearch = !normalizedQuery ||
+        `${article.title} ${article.summary} ${article.team} ${article.source}`
+          .toLocaleLowerCase('it-IT')
+          .includes(normalizedQuery);
+      return matchesTeam && matchesCategory && matchesSearch;
+    });
+  }, [articles, searchQuery, selectedCategory, selectedTeam]);
+
+  const updatedLabel = lastUpdated && !Number.isNaN(new Date(lastUpdated).getTime())
     ? new Intl.DateTimeFormat('it-IT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(lastUpdated))
     : null;
 
   return (
-    <div className="w-full flex flex-col space-y-5">
+    <div className="flex w-full flex-col gap-5">
+      <div className="grid gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div>
+          <div className="flex items-center gap-2 text-sm font-black text-[var(--color-sport-text)]">
+            <ShieldCheck className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+            Rassegna stampa intelligente
+          </div>
+          <p className="mt-1 text-xs leading-5 text-[var(--color-sport-muted)]">
+            Titolo e sintesi sono rielaborati dal feed RSS. La fonte originale resta sempre il riferimento completo.
+          </p>
+        </div>
+        <div className="flex items-center justify-between gap-3 text-[10px] font-bold text-[var(--color-sport-muted)] sm:justify-end">
+          {updatedLabel ? <span>Aggiornato {updatedLabel}</span> : null}
+          <button
+            type="button"
+            onClick={() => loadData(true)}
+            disabled={refreshing}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-white transition hover:bg-white/5 disabled:opacity-50"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? 'animate-spin' : ''}`} aria-hidden="true" />
+            Aggiorna
+          </button>
+        </div>
+      </div>
 
-      {/* ── Barra di Ricerca ── */}
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-sport-muted)] w-4 h-4 pointer-events-none" />
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-sport-muted)]" aria-hidden="true" />
         <input
-          type="text"
-          placeholder="Cerca giocatore, squadra o club..."
+          type="search"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-[var(--color-sport-card)]/70 border border-white/10 rounded-full py-3 pl-10 pr-4 text-sm text-[var(--color-sport-text)] placeholder-[var(--color-sport-muted)] focus:outline-none focus:border-[var(--color-sport-secondary)]/60 transition-colors"
+          onChange={(event) => setSearchQuery(event.target.value)}
+          placeholder="Cerca squadra, titolo o fonte..."
+          aria-label="Cerca nelle notizie di calciomercato"
+          className="w-full rounded-full border border-white/10 bg-[var(--color-sport-card)]/70 py-3 pl-11 pr-4 text-sm text-[var(--color-sport-text)] outline-none transition placeholder:text-[var(--color-sport-muted)] focus:border-[var(--color-sport-primary)]/70"
         />
       </div>
 
-      <div className="flex items-center justify-between gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-3 py-2 text-[10px] text-[var(--color-sport-muted)]">
-        <span>Dati aggregati automaticamente: le voci <strong className="text-[#F59E0B]">Rumor</strong> richiedono conferma.</span>
-        {updatedLabel && <span className="shrink-0 font-bold">Agg. {updatedLabel}</span>}
-      </div>
-
-      {/* ── Tabs Lega ── */}
-      <div className="flex bg-[var(--color-sport-card)] p-1 rounded-2xl border border-white/5 overflow-x-auto no-scrollbar">
-        {LEAGUES.map((lg) => (
+      <nav className="flex gap-2 overflow-x-auto pb-2 no-scrollbar" aria-label="Filtra per squadra di Serie A">
+        <button
+          type="button"
+          onClick={() => setSelectedTeam('TUTTE')}
+          aria-pressed={selectedTeam === 'TUTTE'}
+          className={`shrink-0 rounded-full border px-4 py-2 text-xs font-black transition ${
+            selectedTeam === 'TUTTE'
+              ? 'border-[var(--color-sport-primary)] bg-[var(--color-sport-primary)] text-white'
+              : 'border-white/10 bg-[var(--color-sport-card)] text-[var(--color-sport-muted)] hover:text-white'
+          }`}
+        >
+          Tutte
+        </button>
+        {SERIE_A_TEAMS.map((team) => (
           <button
-            key={lg.id}
-            onClick={() => setLeagueTab(lg.id)}
-            className={`flex-1 py-2.5 px-2 text-[10px] sm:text-xs font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${
-              leagueTab === lg.id
-                ? 'bg-gradient-to-r from-[var(--color-sport-primary)] to-[var(--color-sport-secondary)] text-white shadow-md'
-                : 'text-[var(--color-sport-muted)] hover:text-white'
+            key={team.id}
+            type="button"
+            onClick={() => setSelectedTeam(team.name)}
+            aria-pressed={selectedTeam === team.name}
+            className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold transition ${
+              selectedTeam === team.name
+                ? 'border-[var(--color-sport-primary)] bg-[var(--color-sport-primary)]/15 text-white'
+                : 'border-white/10 bg-[var(--color-sport-card)] text-[var(--color-sport-muted)] hover:border-white/20 hover:text-white'
             }`}
           >
-            {lg.label}
+            <TeamLogo src={team.logoUrl} alt={team.name} fallbackText={team.logo} className="h-5 w-5 rounded-full" />
+            {team.name}
           </button>
         ))}
-      </div>
+      </nav>
 
-      {/* ── Selettore Squadra ── */}
-      {teamsInLeague.length > 0 && (
-        <div className="flex overflow-x-auto space-x-2 pb-2 no-scrollbar">
-          <button
-            onClick={() => setSelectedTeam(null)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full font-bold text-xs transition-all ${
-              !selectedTeam
-                ? 'bg-[var(--color-sport-primary)] text-white shadow-md'
-                : 'bg-[var(--color-sport-card)] text-[var(--color-sport-muted)] border border-white/10 hover:bg-white/5'
-            }`}
-          >
-            Tutte
-          </button>
-          {teamsInLeague.map((team) => (
+      <nav className="flex gap-2 overflow-x-auto pb-1 no-scrollbar" aria-label="Filtra per categoria di mercato">
+        {CATEGORY_FILTERS.map((category) => {
+          const config = category === 'TUTTE' ? null : CATEGORY_CONFIG[category];
+          const label = config?.label || 'TUTTE';
+          const count = category === 'TUTTE' ? articles.length : categoryCounts.get(category) || 0;
+          return (
             <button
-              key={team.id}
-              onClick={() => setSelectedTeam(team.id)}
-              className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold transition-all ${
-                selectedTeam === team.id
-                  ? 'border-[var(--color-sport-primary)] bg-[var(--color-sport-primary)]/10 text-white'
-                  : 'bg-[var(--color-sport-card)] border-white/10 text-[var(--color-sport-muted)] hover:bg-white/5 hover:border-white/20'
+              key={category}
+              type="button"
+              onClick={() => setSelectedCategory(category)}
+              aria-pressed={selectedCategory === category}
+              className={`inline-flex shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-[10px] font-black tracking-wide transition ${
+                selectedCategory === category
+                  ? config?.badge || 'border-white/30 bg-white/10 text-white'
+                  : 'border-white/10 bg-white/[0.03] text-[var(--color-sport-muted)] hover:text-white'
               }`}
             >
-              <TeamLogo src={team.logoUrl} alt={team.name} fallbackText={team.logo} className="w-4 h-4 rounded-full flex-shrink-0" />
-              <span>{team.name}</span>
+              {config ? <span className={`h-2 w-2 rounded-full ${config.dot}`} aria-hidden="true" /> : null}
+              {label}
+              <span className="rounded-full bg-black/20 px-1.5 py-0.5">{count}</span>
             </button>
-          ))}
+          );
+        })}
+      </nav>
+
+      <div className="flex items-center justify-between gap-3 text-xs text-[var(--color-sport-muted)]">
+        <span>{filteredArticles.length} notizie nella rassegna</span>
+        {selectedTeam !== 'TUTTE' ? <span className="font-bold text-white">{selectedTeam}</span> : null}
+      </div>
+
+      {loading ? (
+        <div className="flex min-h-64 flex-col items-center justify-center gap-3 rounded-2xl border border-white/5 bg-white/[0.02]">
+          <LoaderCircle className="h-8 w-8 animate-spin text-[var(--color-sport-primary)]" aria-hidden="true" />
+          <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-sport-muted)]">Caricamento rassegna</span>
+        </div>
+      ) : error ? (
+        <div className="rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center text-sm text-red-200">{error}</div>
+      ) : filteredArticles.length > 0 ? (
+        <div className="grid gap-4">
+          {filteredArticles.map((article) => <NewsCard key={article.id} article={article} />)}
+        </div>
+      ) : (
+        <div className="flex min-h-64 flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-6 text-center">
+          <Newspaper className="h-10 w-10 text-white/20" aria-hidden="true" />
+          <p className="font-bold text-[var(--color-sport-text)]">Nessuna notizia per questi filtri</p>
+          <p className="max-w-md text-xs leading-5 text-[var(--color-sport-muted)]">
+            La rassegna si popola automaticamente dai feed RSS verificati. Prova a selezionare tutte le squadre o tutte le categorie.
+          </p>
         </div>
       )}
-
-      {/* ── Tabs Filtro Categoria ── */}
-      <div className="flex bg-[var(--color-sport-bg)] border-b border-white/5 overflow-x-auto no-scrollbar rounded-t-xl">
-        {FILTERS.map((f) => (
-          <button
-            key={f.id}
-            onClick={() => setFilterTab(f.id)}
-            className={`flex items-center gap-1.5 px-4 py-3 text-xs font-black whitespace-nowrap border-b-2 transition-all ${
-              filterTab === f.id
-                ? 'border-current'
-                : 'border-transparent text-[var(--color-sport-muted)] hover:text-white'
-            }`}
-            style={filterTab === f.id ? { color: f.color, borderColor: f.color } : {}}
-          >
-            {f.label}
-            <span
-              className="text-[9px] font-black px-1.5 py-0.5 rounded-full"
-              style={
-                filterTab === f.id
-                  ? { backgroundColor: f.color + '30', color: f.color }
-                  : { backgroundColor: '#334155', color: '#94A3B8' }
-              }
-            >
-              {counts[f.id]}
-            </span>
-          </button>
-        ))}
-
-        {/* Refresh */}
-        <button
-          onClick={loadData}
-          disabled={loading}
-          className="ml-auto px-3 text-[var(--color-sport-muted)] hover:text-white transition-colors disabled:opacity-50"
-          title="Aggiorna"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-        </button>
-      </div>
-
-      <div className="flex flex-col gap-2 rounded-xl border border-white/5 bg-white/[0.03] px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[10px] text-[var(--color-sport-muted)]">
-          {currentList.length} movimenti mostrati. Gli ufficiali e i rumor restano sempre distinguibili.
-        </p>
-        <label className="flex items-center gap-2 text-[10px] font-bold text-[var(--color-sport-muted)]">
-          Ordina per
-          <select
-            value={sortBy}
-            onChange={(event) => setSortBy(event.target.value as SortKey)}
-            className="rounded-lg border border-white/10 bg-[#0B1120] px-2 py-1 text-[10px] font-black text-white outline-none focus:border-[var(--color-sport-primary)]"
-          >
-            <option value="recent">Più recenti</option>
-            <option value="team">Squadra</option>
-            <option value="status">Stato</option>
-          </select>
-        </label>
-      </div>
-
-      {/* ── Contenuto ── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={`${leagueTab}-${filterTab}-${selectedTeam}`}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.2 }}
-        >
-          {loading ? (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <Loader2 className="w-8 h-8 animate-spin" style={{ color: activeFilter.color }} />
-              <span className="text-xs text-[var(--color-sport-muted)] font-bold uppercase tracking-widest">
-                Caricamento {activeFilter.label}...
-              </span>
-            </div>
-          ) : sortedList.length > 0 ? (
-            <>
-              <div className="flex items-center gap-2 mb-4">
-                <h2
-                  className="font-black text-sm uppercase tracking-widest flex items-center gap-2"
-                  style={{ color: activeFilter.color }}
-                >
-                  <TrendingUp size={14} />
-                  {activeFilter.label}
-                  {selectedTeam && (
-                    <span className="text-[var(--color-sport-muted)] font-bold normal-case tracking-normal text-xs">
-                      — {ALL_TEAMS.find((t) => t.id === selectedTeam)?.name}
-                    </span>
-                  )}
-                </h2>
-                <span className="text-[10px] font-bold text-[var(--color-sport-muted)] bg-white/5 px-2 py-0.5 rounded-full">
-                  {sortedList.length} movimenti
-                </span>
-              </div>
-              <div className="space-y-6">
-                {groupedList.map((group) => (
-                  <section key={group.label} aria-label={`Movimenti del ${group.label}`}>
-                    <div className="mb-2 flex items-center gap-2">
-                      <span className="h-px flex-1 bg-white/10" />
-                      <h3 className="text-[10px] font-black uppercase tracking-widest text-[var(--color-sport-muted)]">{group.label}</h3>
-                      <span className="h-px flex-1 bg-white/10" />
-                    </div>
-                    <div className="grid grid-cols-1 gap-3">
-                      {group.transfers.map((tr) => <TransferCard key={tr.id} tr={tr} />)}
-                    </div>
-                  </section>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-16 gap-3 text-[var(--color-sport-muted)]">
-              <CheckCircle2 className="w-10 h-10 opacity-20" />
-              <p className="font-bold text-sm">Nessun {activeFilter.label.toLowerCase()} trovato</p>
-              <p className="text-xs text-center max-w-xs">
-                {filterTab === 'trattative'
-                  ? 'Nessuna trattativa o rumor registrata per questa selezione.'
-                  : `Il cron aggiorna i dati quotidianamente. Controlla di aver lanciato /api/migrate/setup e che il cron mercato abbia già girato.`}
-              </p>
-            </div>
-          )}
-        </motion.div>
-      </AnimatePresence>
-
-      <style dangerouslySetInnerHTML={{__html: `.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}`}} />
     </div>
   );
 }

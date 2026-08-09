@@ -12,22 +12,41 @@ export interface NewsItem {
   relatedSources?: string[]; // Per il sistema anti-duplicati
 }
 
+export const MARKET_NEWS_CATEGORIES = [
+  'UFFICIALE_ACQUISTO',
+  'UFFICIALE_CESSIONE',
+  'TRATTATIVA',
+  'RUMOR',
+  'PRESTITO',
+] as const;
+
+export type MarketNewsCategory = (typeof MARKET_NEWS_CATEGORIES)[number];
+
+export interface MarketNewsMetadata {
+  title: string;
+  summary: string;
+  team: string;
+  category: MarketNewsCategory;
+}
+
 const parser = new Parser({
   timeout: 8000,
   customFields: {
-    item: [['source', 'rssSource']],
+    item: [
+      ['source', 'rssSource'],
+      ['description', 'rssDescription'],
+    ],
   },
 });
 
 const DIRECT_RSS_SOURCES: Record<string, string[]> = {
   // Feed RSS aperti sui principali portali di calcio italiano
   base: [
-    'https://www.calciomercato.com/rss',
-    'https://www.gianlucadimarzio.com/feed',
-    'https://www.tuttomercatoweb.com/rss.xml',
+    'https://www.gianlucadimarzio.com/rss/?section=2',
+    'https://www.tuttomercatoweb.com/rss/',
+    'https://www.gazzetta.it/dynamic-feed/rss/section/Calciomercato.xml',
     'https://www.corrieredellosport.it/rss/calcio',
     'https://sport.sky.it/rss/sport_calcio.xml',
-    'https://www.sportmediaset.mediaset.it/rss/calcio.xml',
     'https://www.tuttosport.com/rss/calcio',
     'https://www.alfredopedulla.com/feed/',
   ]
@@ -46,6 +65,12 @@ const GOOGLE_NEWS_QUERIES = [
 const SERIE_A_TEAM_QUERIES = ALL_TEAMS
   .filter((team) => team.league === 'A')
   .map((team) => `"${team.name}" calcio`);
+
+const SERIE_A_MARKET_QUERIES = ALL_TEAMS
+  .filter((team) => team.league === 'A')
+  .map((team) => `"${team.name}" calciomercato`);
+
+const MARKET_SIGNAL_PATTERN = /\b(calciomercato|mercato|acquist[oi]|cession[ei]|cedut[oa]|prestito|trattativ[ae]|rumor|indiscrezion[ei]|offerta|firma|accordo|interess[ea]|obiettivo|vicin[oa]|scambio)\b/i;
 
 function getGoogleNewsUrl(query: string, limit = 30) {
   return `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=it&gl=IT&ceid=IT:it&num=${limit}`;
@@ -69,7 +94,8 @@ function filterByTeam(items: Parser.Item[], teamName: string): Parser.Item[] {
   const lowerTeam = teamName.toLowerCase();
   const words = lowerTeam.split(' ').filter(w => w.length > 2);
   return items.filter(item => {
-    const text = ((item.title || '') + ' ' + (item.contentSnippet || '') + ' ' + (item.content || '')).toLowerCase();
+    const rssDescription = (item as Parser.Item & { rssDescription?: string }).rssDescription || '';
+    const text = ((item.title || '') + ' ' + (item.contentSnippet || '') + ' ' + rssDescription).toLowerCase();
     return words.some(w => text.includes(w));
   });
 }
@@ -106,8 +132,9 @@ function itemToNewsItem(item: Parser.Item): NewsItem {
   const time = date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
   
   // Estrai uno snippet pulito e decodifica entità
-  const rawSnippet = item.contentSnippet || item.content || '';
-  const snippet = decodeHTMLEntities(rawSnippet.replace(/<[^>]*>/g, '').trim().substring(0, 600));
+  const rssDescription = (item as Parser.Item & { rssDescription?: string }).rssDescription || '';
+  const rawSnippet = item.contentSnippet || rssDescription;
+  const snippet = decodeHTMLEntities(rawSnippet.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 400));
 
   // Pulisci titolo e decodifica entità
   const rawTitle = decodeHTMLEntities(item.title || '');
@@ -151,6 +178,51 @@ function itemToNewsItem(item: Parser.Item): NewsItem {
     time,
     snippet,
     relatedSources: [],
+  };
+}
+
+export function isMarketNewsCandidate(item: Pick<NewsItem, 'title' | 'snippet'>): boolean {
+  return MARKET_SIGNAL_PATTERN.test(`${item.title} ${item.snippet || ''}`);
+}
+
+export function normalizeMarketNewsMetadata(value: unknown): MarketNewsMetadata | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+
+  const candidate = value as Record<string, unknown>;
+  if (
+    typeof candidate.title !== 'string' ||
+    typeof candidate.summary !== 'string' ||
+    typeof candidate.team !== 'string' ||
+    typeof candidate.category !== 'string' ||
+    !MARKET_NEWS_CATEGORIES.includes(candidate.category as MarketNewsCategory)
+  ) {
+    return null;
+  }
+
+  const title = candidate.title.replace(/\s+/g, ' ').trim().slice(0, 180);
+  const summarySentences = candidate.summary
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(/(?<=[.!?])\s+/)
+    .slice(0, 2)
+    .join(' ');
+  const summaryWords = summarySentences.split(/\s+/).filter(Boolean);
+  if (!title || summaryWords.length < 30) return null;
+  const summary = summaryWords.slice(0, 40).join(' ').trim();
+
+  const requestedTeam = candidate.team.trim();
+  const knownTeam = ALL_TEAMS.find((team) =>
+    team.league === 'A' && (
+      team.name.toLocaleLowerCase('it-IT') === requestedTeam.toLocaleLowerCase('it-IT') ||
+      team.id.toLocaleLowerCase('it-IT') === requestedTeam.toLocaleLowerCase('it-IT')
+    )
+  );
+
+  return {
+    title,
+    summary,
+    team: knownTeam?.name || 'Generale',
+    category: candidate.category as MarketNewsCategory,
   };
 }
 
@@ -243,6 +315,7 @@ export async function fetchAllNewsForCron(): Promise<NewsItem[]> {
     const feeds = [
       ...GOOGLE_NEWS_QUERIES.map((query) => ({ label: `Google News: ${query}`, url: getGoogleNewsUrl(query) })),
       ...SERIE_A_TEAM_QUERIES.map((query) => ({ label: `Google News squadra: ${query}`, url: getGoogleNewsUrl(query, 20) })),
+      ...SERIE_A_MARKET_QUERIES.map((query) => ({ label: `Google News mercato: ${query}`, url: getGoogleNewsUrl(query, 20) })),
       ...DIRECT_RSS_SOURCES.base.map((url) => ({ label: new URL(url).hostname, url })),
     ];
     const results = await Promise.all(feeds.map(async (feed) => ({ ...feed, items: await fetchFeed(feed.url) })));
@@ -253,7 +326,7 @@ export async function fetchAllNewsForCron(): Promise<NewsItem[]> {
     const sorted = allItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
     const deduped = deduplicateNews(sorted);
     
-    return deduped.filter(item => item.title && item.link).slice(0, 100);
+    return deduped.filter(item => item.title && item.link).slice(0, 200);
   } catch (error) {
     console.error('Error fetching cron news:', error);
     return [];
