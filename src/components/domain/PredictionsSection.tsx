@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import useSWR from "swr";
 import {
   AlertTriangle,
   ArrowUpRight,
@@ -14,12 +15,21 @@ import {
 import type {
   LeaguePredictions,
   MultiplePrediction,
+  PredictionsResponse,
   SinglePrediction,
 } from "@/data/predictionsData";
 
 type PredictionsSectionProps = {
-  data: readonly LeaguePredictions[];
+  initialData?: PredictionsResponse;
 };
+
+const fetcher = async (url: string): Promise<PredictionsResponse> => {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) throw new Error("Pronostici non disponibili");
+  return response.json();
+};
+
+const EMPTY_LEAGUES: readonly LeaguePredictions[] = [];
 
 const multipleStyles: Record<MultiplePrediction["type"], string> = {
   Raddoppio: "border-emerald-400/30 from-emerald-400/10",
@@ -85,7 +95,7 @@ function SingleCard({ prediction }: { prediction: SinglePrediction }) {
           </div>
           <div className="shrink-0 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-right">
             <span className="block text-[10px] font-black uppercase tracking-wider text-emerald-300/70">
-              Quota media
+              Quota modello
             </span>
             <span className="text-xl font-black text-emerald-300">{formatOdds(prediction.odds)}</span>
           </div>
@@ -123,7 +133,7 @@ function SingleCard({ prediction }: { prediction: SinglePrediction }) {
         <div className="mt-5 border-t border-slate-800 pt-4">
           <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-slate-400">
             <ChartNoAxesCombined className="size-4 text-emerald-300" aria-hidden="true" />
-            Confronta quota
+            Confronta sui siti ufficiali
           </p>
           <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
             {prediction.affiliateLinks.map((affiliate) => (
@@ -132,17 +142,14 @@ function SingleCard({ prediction }: { prediction: SinglePrediction }) {
                 href={affiliate.link}
                 target="_blank"
                 rel="sponsored nofollow noopener noreferrer"
-                aria-label={`Vedi quota ${formatOdds(affiliate.oddsValue)} su ${affiliate.operator}`}
+                aria-label={`Vedi la scheda informativa su ${affiliate.operator}`}
                 className="group rounded-xl border border-slate-700 bg-slate-950/70 p-3 transition hover:border-sky-400/50 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
               >
                 <span className="flex items-center justify-between gap-2">
                   <span className="text-xs font-black text-white">{affiliate.operator}</span>
-                  <span className="font-black text-emerald-300">{formatOdds(affiliate.oddsValue)}</span>
+                  <ArrowUpRight className="size-3.5 text-sky-300 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                 </span>
-                <span className="mt-2 flex items-center justify-between gap-2 text-[11px] font-bold text-sky-300">
-                  Vedi su {affiliate.operator}
-                  <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-                </span>
+                <span className="mt-2 block text-[11px] font-bold text-sky-300">Vedi su {affiliate.operator}</span>
               </a>
             ))}
           </div>
@@ -222,11 +229,26 @@ function MultipleCard({ multiple }: { multiple: MultiplePrediction }) {
   );
 }
 
-export default function PredictionsSection({ data }: PredictionsSectionProps) {
-  const [activeLeagueId, setActiveLeagueId] = useState(data[0]?.leagueId ?? "");
+export default function PredictionsSection({ initialData }: PredictionsSectionProps) {
+  const { data: response, error, isLoading } = useSWR<PredictionsResponse>(
+    "/api/pronostici/campionati",
+    fetcher,
+    { fallbackData: initialData, refreshInterval: 5 * 60 * 1000, revalidateOnFocus: true },
+  );
+  const data: readonly LeaguePredictions[] = response?.leagues ?? EMPTY_LEAGUES;
+  const [activeLeagueId, setActiveLeagueId] = useState("oggi-domani");
   const activeLeague = data.find((league) => league.leagueId === activeLeagueId) ?? data[0];
 
-  if (!activeLeague) return null;
+  if (!activeLeague) {
+    return (
+      <section className="w-full px-4 pb-24 pt-5 sm:px-6" aria-label="Pronostici">
+        <div className="mx-auto max-w-7xl rounded-3xl border border-slate-700 bg-slate-900/80 p-8 text-center">
+          <p className="font-black text-white">{error ? "Pronostici temporaneamente non disponibili" : "Aggiornamento del calendario in corso"}</p>
+          <p className="mt-2 text-sm text-slate-400">{isLoading ? "Stiamo caricando le prossime giornate." : "Il sistema riproverà automaticamente."}</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full px-4 pb-24 pt-5 sm:px-6" aria-labelledby="predictions-title">
@@ -243,14 +265,20 @@ export default function PredictionsSection({ data }: PredictionsSectionProps) {
                 Pronostici per campionato
               </h1>
               <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400 sm:text-base">
-                Singole e multiple organizzate per competizione, con quote e condizioni presentate in forma comparativa.
+                La prossima giornata di ogni campionato, aggiornata automaticamente ogni mattina. La tab Oggi e domani raccoglie le gare disponibili per iniziare subito.
               </p>
+              {response?.generatedAt ? (
+                <p className="mt-3 text-xs font-bold text-slate-500">
+                  Ultimo aggiornamento: {formatDate(response.generatedAt)}
+                </p>
+              ) : null}
             </div>
             <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/60 p-3">
               <Target className="size-8 text-sky-300" aria-hidden="true" />
               <div>
                 <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Campionato attivo</p>
                 <p className="font-black text-white">{activeLeague.leagueName}</p>
+                <p className="text-xs font-bold text-emerald-300">{activeLeague.roundLabel}</p>
               </div>
             </div>
           </div>
@@ -293,31 +321,43 @@ export default function PredictionsSection({ data }: PredictionsSectionProps) {
             <SectionHeading
               id="singles-title"
               icon={<Target className="size-5" aria-hidden="true" />}
-              eyebrow={`${activeLeague.singles.length} selezioni`}
+              eyebrow={`${activeLeague.roundLabel} · ${activeLeague.singles.length} selezioni`}
               title="Pronostici Singoli"
-              description="Ogni scheda riporta l'esito statistico, la confidenza del modello e un confronto neutrale delle quote disponibili."
+              description="Le quattro selezioni seguono il primo turno schedulato della competizione scelta; le stime vengono rigenerate quando cambia la giornata."
             />
-            <div className="grid gap-5 lg:grid-cols-2">
-              {activeLeague.singles.map((prediction) => (
-                <SingleCard key={prediction.id} prediction={prediction} />
-              ))}
-            </div>
+            {activeLeague.singles.length > 0 ? (
+              <div className="grid gap-5 lg:grid-cols-2">
+                {activeLeague.singles.map((prediction) => (
+                  <SingleCard key={prediction.id} prediction={prediction} />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 p-8 text-center">
+                <CalendarDays className="mx-auto size-8 text-slate-600" aria-hidden="true" />
+                <p className="mt-3 font-black text-white">
+                  {activeLeague.isImmediate ? "Nessuna gara disponibile tra oggi e domani" : "Calendario della prossima giornata non ancora disponibile"}
+                </p>
+                <p className="mt-2 text-sm text-slate-400">Il controllo automatico viene eseguito ogni mattina.</p>
+              </div>
+            )}
           </section>
 
-          <section className="mt-14" aria-labelledby="multiples-title">
-            <SectionHeading
-              id="multiples-title"
-              icon={<Layers3 className="size-5" aria-hidden="true" />}
-              eyebrow="3 combinazioni"
-              title="Schedine Multiple"
-              description="Tre profili distinti. La quota totale visualizzata è calcolata automaticamente dal prodotto delle singole quote."
-            />
-            <div className="grid gap-5 lg:grid-cols-3">
-              {activeLeague.multiples.map((multiple) => (
-                <MultipleCard key={multiple.type} multiple={multiple} />
-              ))}
-            </div>
-          </section>
+          {activeLeague.multiples.length > 0 ? (
+            <section className="mt-14" aria-labelledby="multiples-title">
+              <SectionHeading
+                id="multiples-title"
+                icon={<Layers3 className="size-5" aria-hidden="true" />}
+                eyebrow="3 combinazioni della stessa giornata"
+                title="Schedine Multiple"
+                description="Raddoppio, Bilanciata e Alta Quota usano esclusivamente le gare mostrate nella tab attiva."
+              />
+              <div className="grid gap-5 lg:grid-cols-3">
+                {activeLeague.multiples.map((multiple) => (
+                  <MultipleCard key={multiple.type} multiple={multiple} />
+                ))}
+              </div>
+            </section>
+          ) : null}
         </div>
 
         <aside className="mt-10 rounded-2xl border border-amber-400/30 bg-amber-400/[0.07] p-5" aria-label="Informazioni legali">
@@ -328,7 +368,7 @@ export default function PredictionsSection({ data }: PredictionsSectionProps) {
                 18+ | Il gioco può causare dipendenza patologica | Verifica T&amp;C dei bonus sui siti ufficiali
               </p>
               <p className="mt-2 text-xs leading-5 text-slate-400">
-                Contenuto statistico e comparativo. Quote soggette a variazione. I collegamenti agli operatori sono informativi e possono essere affiliati.
+                Le quote visualizzate sono stime indicative del modello, non quote bookmaker in tempo reale. I collegamenti agli operatori sono informativi e possono essere affiliati.
               </p>
             </div>
           </div>
