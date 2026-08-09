@@ -2,57 +2,51 @@ import React from 'react';
 import { ShieldCheck, TrendingUp, BarChart3, Info } from 'lucide-react';
 import Link from 'next/link';
 import { sql } from '@vercel/postgres';
+import { ensurePredictionSchema } from '@/lib/predictionSchema';
 
 export const dynamic = 'force-dynamic';
 
 export default async function MLStoricoPage() {
-  let stats = {
+  const stats = {
     totalPredictions: 0,
     correctPredictions: 0,
     hitRate: 0,
-    averageOdds: 0,
-    yield: 0
+    brierScore: 0,
+    modelVersion: 'baseline-v1',
+    modelSampleSize: 0,
   };
 
   try {
-    const { rows } = await sql`
+    await ensurePredictionSchema();
+    const [evaluations, models] = await Promise.all([sql`
       SELECT 
         COUNT(*) as total,
         SUM(CASE WHEN is_correct = true THEN 1 ELSE 0 END) as correct,
-        AVG(odds) as avg_odds
-      FROM ml_predictions
-      WHERE actual_result IS NOT NULL
-    `;
+        AVG(brier_score) as avg_brier
+      FROM prediction_evaluations
+      WHERE is_correct IS NOT NULL
+    `, sql`
+      SELECT version, sample_size
+      FROM prediction_model_weights
+      ORDER BY active DESC, created_at DESC
+      LIMIT 1
+    `]);
+    const rows = evaluations.rows;
     
     if (rows && rows.length > 0 && rows[0].total > 0) {
       const total = parseInt(rows[0].total);
       const correct = parseInt(rows[0].correct) || 0;
-      const avgOdds = parseFloat(rows[0].avg_odds) || 0;
+      const brierScore = parseFloat(rows[0].avg_brier) || 0;
       
       stats.totalPredictions = total;
       stats.correctPredictions = correct;
       stats.hitRate = (correct / total) * 100;
-      stats.averageOdds = avgOdds;
-      
-      // Calcolo Yield Approssimativo (Return on Investment)
-      // Se puntiamo 1 unità su ogni prediction:
-      const totalInvested = total;
-      const totalReturned = correct * avgOdds;
-      stats.yield = ((totalReturned - totalInvested) / totalInvested) * 100;
+      stats.brierScore = brierScore;
     }
+    stats.modelVersion = String(models.rows[0]?.version || 'baseline-v1');
+    stats.modelSampleSize = Number(models.rows[0]?.sample_size || 0);
   } catch (error) {
     console.error("Errore fetching stats:", error);
-  }
-
-  // Fallback demo stats if DB is empty to show the UI anyway
-  if (stats.totalPredictions === 0) {
-    stats = {
-      totalPredictions: 124,
-      correctPredictions: 89,
-      hitRate: 71.77,
-      averageOdds: 1.85,
-      yield: 32.7
-    };
   }
 
   return (
@@ -82,18 +76,17 @@ export default async function MLStoricoPage() {
           </div>
           
           <div className="bg-[#0F172A] p-4 rounded-xl border border-[#334155]">
-            <p className="text-xs text-[#94A3B8] uppercase font-bold tracking-wider mb-1">Yield (ROI)</p>
-            <p className={`text-3xl font-black ${stats.yield > 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
-              {stats.yield > 0 ? '+' : ''}{stats.yield.toFixed(1)}%
-            </p>
-            <p className="text-[10px] text-[#64748B] mt-1">Su stake fisso 1u</p>
+            <p className="text-xs text-[#94A3B8] uppercase font-bold tracking-wider mb-1">Brier Score</p>
+            <p className="text-3xl font-black text-[#0EA5E9]">{stats.brierScore.toFixed(3)}</p>
+            <p className="text-[10px] text-[#64748B] mt-1">Errore di calibrazione: più basso è meglio</p>
           </div>
 
           <div className="bg-[#0F172A] p-4 rounded-xl border border-[#334155] col-span-2">
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-xs text-[#94A3B8] uppercase font-bold tracking-wider mb-1">Quota Media Vincente</p>
-                <p className="text-xl font-black text-[#0EA5E9]">{stats.averageOdds.toFixed(2)}</p>
+                <p className="text-xs text-[#94A3B8] uppercase font-bold tracking-wider mb-1">Modello attivo</p>
+                <p className="text-xl font-black text-[#0EA5E9]">{stats.modelVersion}</p>
+                <p className="mt-1 text-[10px] text-[#64748B]">{stats.modelSampleSize} valutazioni nella ricalibrazione</p>
               </div>
               <TrendingUp className="text-[#0EA5E9] opacity-50" size={32} />
             </div>
@@ -107,8 +100,8 @@ export default async function MLStoricoPage() {
           <h3 className="text-[#3B82F6] font-bold">Come funziona?</h3>
         </div>
         <p className="text-sm text-[#cbd5e1] leading-relaxed">
-          Il nostro algoritmo di Machine Learning (MLOps) si auto-addestra ogni settimana utilizzando i risultati reali. 
-          Il <strong>Yield</strong> rappresenta il ritorno sull'investimento teorico se si fosse scommesso 1€ su ogni singola previsione fornita dal sistema.
+          La pipeline acquisisce i risultati reali, confronta ogni selezione con l&apos;esito finale e registra accuratezza e Brier Score.
+          Ogni settimana i nuovi dati ricalibrano i pesi usati esclusivamente dai pronostici futuri; i pronostici già generati restano immutabili.
         </p>
       </div>
 

@@ -1,122 +1,117 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Trophy, ArrowLeft, CheckCircle2 } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
+import useSWR from "swr";
+import { ArrowLeft, CheckCircle2, Image as ImageIcon, Share2, Smartphone, Trophy } from "lucide-react";
+
+type WonPrediction = {
+  id: number;
+  match: string;
+  competition: string;
+  date: string;
+  pick: string;
+  confidence: number;
+  result: string;
+  analysis: string;
+  modelVersion: string;
+};
+
+const fetcher = async (url: string): Promise<{ predictions: WonPrediction[] }> => {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) throw new Error("Storico non disponibile");
+  return response.json();
+};
 
 export default function WonPredictionsPage() {
-  const [predictions, setPredictions] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, error, isLoading } = useSWR("/api/profile/predictions/won", fetcher);
+  const [sharing, setSharing] = useState<string | null>(null);
 
-  useEffect(() => {
-    // In a real app, this would fetch from /api/predictions/won
-    // For now we use mocked data to show the layout
-    setTimeout(() => {
-      setPredictions([
-        {
-          id: 1,
-          title: "Raddoppio Serie A",
-          win_date: "2024-05-18",
-          total_odds: "2.10",
-          matches: [
-            { match: "Inter - Juventus", prediction: "1X", result: "1-0", status: "won" },
-            { match: "Milan - Napoli", prediction: "Over 1.5", result: "2-1", status: "won" }
-          ]
-        },
-        {
-          id: 2,
-          title: "Quota Alta Europei",
-          win_date: "2024-06-20",
-          total_odds: "12.50",
-          matches: [
-            { match: "Italia - Spagna", prediction: "X", result: "1-1", status: "won" },
-            { match: "Germania - Francia", prediction: "Gol", result: "2-2", status: "won" },
-            { match: "Inghilterra - Olanda", prediction: "1", result: "2-0", status: "won" }
-          ]
-        }
-      ]);
-      setLoading(false);
-    }, 1000);
-  }, []);
+  const share = async (prediction: WonPrediction, format: "post" | "story") => {
+    const key = `${prediction.id}-${format}`;
+    setSharing(key);
+    const imageUrl = `/api/social/prediction-card?id=${prediction.id}&format=${format}`;
+    try {
+      const response = await fetch(imageUrl);
+      if (!response.ok) throw new Error("Visual non disponibile");
+      const blob = await response.blob();
+      const file = new File([blob], `pronostico-${prediction.id}-${format}.png`, { type: "image/png" });
+      const shareData = { title: "Tattica & Pronostici", text: `${prediction.match}: ${prediction.pick} (${prediction.result})`, files: [file] };
+      if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
+        await navigator.share(shareData);
+      } else {
+        const link = document.createElement("a");
+        link.href = imageUrl;
+        link.download = file.name;
+        link.click();
+      }
+    } catch (shareError) {
+      if (shareError instanceof Error && shareError.name !== "AbortError") window.open(imageUrl, "_blank", "noopener,noreferrer");
+    } finally {
+      setSharing(null);
+    }
+  };
+
+  const predictions = data?.predictions || [];
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-lg">
-      <Link href="/profilo" className="flex items-center text-[#94A3B8] hover:text-white mb-6 transition-colors">
-        <ArrowLeft className="w-5 h-5 mr-2" />
-        Torna al Profilo
+    <div className="container mx-auto max-w-2xl px-4 py-8 pb-24">
+      <Link href="/profilo" className="mb-6 flex items-center text-[#94A3B8] transition-colors hover:text-white">
+        <ArrowLeft className="mr-2 h-5 w-5" /> Torna al Profilo
       </Link>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
-        <div className="flex items-center space-x-3 mb-2">
-          <div className="p-3 bg-[#F59E0B]/20 rounded-xl">
-            <Trophy className="w-8 h-8 text-[#F59E0B]" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-black text-white tracking-tight uppercase italic">Pronostici <span className="text-[#F59E0B]">Vinti</span></h1>
-            <p className="text-[#94A3B8] text-sm">Lo storico globale delle scommesse centrate dal nostro algoritmo</p>
-          </div>
+      <header className="mb-8 flex items-center gap-3">
+        <div className="rounded-xl bg-[#F59E0B]/20 p-3"><Trophy className="h-8 w-8 text-[#F59E0B]" /></div>
+        <div>
+          <h1 className="text-2xl font-black uppercase italic tracking-tight text-white">I Miei <span className="text-[#F59E0B]">Pronostici</span></h1>
+          <p className="text-sm text-[#94A3B8]">Storico reale dei pronostici pubblicati e verificati dalla pipeline risultati.</p>
         </div>
-      </motion.div>
+      </header>
 
-      {loading ? (
-        <div className="flex justify-center py-10">
-          <div className="w-8 h-8 border-4 border-[#F59E0B] border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {predictions.map((p, i) => (
-            <motion.div 
-              key={p.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-[#1E293B] border border-[#F59E0B]/30 rounded-2xl p-5 shadow-lg relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#F59E0B]/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
-              
-              <div className="flex justify-between items-center mb-4 border-b border-[#334155] pb-3">
-                <h3 className="text-white font-black text-lg">{p.title}</h3>
-                <div className="text-right">
-                  <span className="block text-xs text-[#94A3B8]">{p.win_date}</span>
-                  <span className="block text-[#F59E0B] font-black">Quota: {p.total_odds}</span>
-                </div>
-              </div>
+      {isLoading ? <div className="py-12 text-center text-[#94A3B8]">Caricamento storico…</div> : null}
+      {error ? <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">Impossibile caricare lo storico.</div> : null}
 
-              <div className="space-y-3">
-                {p.matches.map((m: any, idx: number) => (
-                  <div key={idx} className="flex justify-between items-center bg-[#0F172A] p-3 rounded-xl border border-[#334155]/50">
-                    <div>
-                      <div className="text-white font-bold text-sm mb-1">{m.match}</div>
-                      <div className="text-xs text-[#94A3B8]">
-                        Pronostico: <span className="text-white font-bold">{m.prediction}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="text-center px-3 py-1 bg-[#10B981]/10 rounded-lg border border-[#10B981]/20">
-                        <span className="block text-[10px] text-[#10B981] font-black uppercase mb-0.5">Risultato</span>
-                        <span className="block text-white font-black text-sm">{m.result}</span>
-                      </div>
-                      <CheckCircle2 className="text-[#10B981] w-5 h-5" />
-                    </div>
-                  </div>
-                ))}
+      <div className="space-y-5">
+        {predictions.map((prediction) => (
+          <article key={prediction.id} className="relative overflow-hidden rounded-2xl border border-[#F59E0B]/30 bg-[#1E293B] p-5 shadow-lg">
+            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#F59E0B]/5 blur-3xl" />
+            <div className="relative flex flex-wrap items-start justify-between gap-3 border-b border-[#334155] pb-4">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-wider text-[#F59E0B]">{prediction.competition} · {prediction.modelVersion}</p>
+                <h2 className="mt-1 text-lg font-black text-white">{prediction.match}</h2>
+                <p className="mt-1 text-xs text-[#94A3B8]">{new Date(prediction.date).toLocaleDateString("it-IT")}</p>
               </div>
-            </motion.div>
-          ))}
-          
-          {predictions.length === 0 && (
-            <div className="text-center py-10 bg-[#1E293B] rounded-2xl border border-[#334155]">
-              <Trophy className="w-12 h-12 text-[#334155] mx-auto mb-3" />
-              <p className="text-[#94A3B8]">Nessun pronostico vinto registrato al momento.</p>
+              <div className="flex items-center gap-2 rounded-xl border border-[#10B981]/30 bg-[#10B981]/10 px-3 py-2">
+                <CheckCircle2 className="h-5 w-5 text-[#10B981]" />
+                <div><p className="text-[10px] font-black uppercase text-[#10B981]">Risultato</p><p className="font-black text-white">{prediction.result}</p></div>
+              </div>
             </div>
-          )}
+
+            <div className="relative mt-4 rounded-xl border border-[#334155] bg-[#0F172A] p-4">
+              <p className="text-[10px] font-black uppercase tracking-wider text-[#64748B]">Pronostico centrato</p>
+              <p className="mt-1 text-lg font-black text-[#10B981]">{prediction.pick}</p>
+              {prediction.confidence ? <p className="mt-1 text-xs text-[#94A3B8]">Confidenza iniziale {prediction.confidence}%</p> : null}
+              <p className="mt-3 text-sm leading-6 text-[#CBD5E1]">{prediction.analysis}</p>
+            </div>
+
+            <div className="relative mt-4 grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => share(prediction, "post")} disabled={sharing !== null} className="flex items-center justify-center gap-2 rounded-xl bg-[#10B981] px-3 py-3 text-xs font-black text-[#0F172A] disabled:opacity-50">
+                {sharing === `${prediction.id}-post` ? <ImageIcon size={16} /> : <Share2 size={16} />} POST 4:5
+              </button>
+              <button type="button" onClick={() => share(prediction, "story")} disabled={sharing !== null} className="flex items-center justify-center gap-2 rounded-xl border border-[#10B981]/40 bg-[#10B981]/10 px-3 py-3 text-xs font-black text-[#A7F3D0] disabled:opacity-50">
+                <Smartphone size={16} /> STORIA 9:16
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {!isLoading && !error && predictions.length === 0 ? (
+        <div className="rounded-2xl border border-[#334155] bg-[#1E293B] py-12 text-center">
+          <Trophy className="mx-auto mb-3 h-12 w-12 text-[#334155]" />
+          <p className="text-[#94A3B8]">Nessun pronostico vinto e verificato al momento.</p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

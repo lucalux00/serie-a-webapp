@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getUserFromCookie } from '@/lib/auth';
+import { ensurePredictionSchema } from '@/lib/predictionSchema';
 
 type Quote = { type?: string; pick?: string; odds?: number | string };
 
@@ -17,11 +18,13 @@ export async function GET() {
   if (!admins[0] || !['lucapinelli0000@gmail.com', 'luca.pinelli0000@gmail.com'].includes(admins[0].email)) {
     return NextResponse.json({ error: 'Permesso negato' }, { status: 403 });
   }
+  await ensurePredictionSchema();
 
   const { rows } = await sql`
     SELECT match_id, home_team, away_team, competition, match_date, quotes, created_at
     FROM daily_ai_predictions
-    WHERE match_date >= NOW()
+    WHERE status = 'PUBLISHED'
+      AND match_date >= NOW()
     ORDER BY match_date ASC, created_at DESC
     LIMIT 3
   `;

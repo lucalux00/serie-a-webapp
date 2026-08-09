@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { getMarketOdds, type MarketOddsTier, type MarketOddsValue } from "@/lib/marketOdds";
+import { ensurePredictionSchema } from "@/lib/predictionSchema";
 import {
   LEAGUE_CONFIGS,
   type LeaguePredictions,
@@ -60,25 +61,7 @@ type NormalizedQuote = {
   oddsMax?: number;
 };
 
-export async function ensurePredictionSchema() {
-  await sql`
-    CREATE TABLE IF NOT EXISTS daily_ai_predictions (
-      id SERIAL PRIMARY KEY,
-      match_id INTEGER NOT NULL UNIQUE,
-      home_team VARCHAR(200) NOT NULL,
-      away_team VARCHAR(200) NOT NULL,
-      match_date TIMESTAMPTZ NOT NULL,
-      competition VARCHAR(100),
-      quotes JSONB NOT NULL DEFAULT '[]',
-      analysis TEXT NOT NULL DEFAULT '',
-      created_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS competition_code VARCHAR(20)`;
-  await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS matchday INTEGER`;
-  await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS stage VARCHAR(80)`;
-  await sql`CREATE INDEX IF NOT EXISTS idx_daily_predictions_schedule ON daily_ai_predictions (competition_code, match_date)`;
-}
+export { ensurePredictionSchema };
 
 function normalizeQuotes(rawQuotes: PredictionRow["quotes"]): NormalizedQuote[] {
   let quotes: StoredQuote[] = [];
@@ -244,7 +227,8 @@ export async function getPredictionsFeed(): Promise<PredictionsResponse> {
         (NOW() AT TIME ZONE 'Europe/Rome')::date AND
         (NOW() AT TIME ZONE 'Europe/Rome')::date + 1) AS is_immediate
     FROM daily_ai_predictions
-    WHERE match_date >= NOW() - INTERVAL '2 hours'
+    WHERE status = 'PUBLISHED'
+      AND match_date >= NOW() - INTERVAL '2 hours'
       AND match_date <= NOW() + INTERVAL '45 days'
     ORDER BY match_date ASC
   `;

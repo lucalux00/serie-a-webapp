@@ -5,6 +5,7 @@
  */
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { ensurePredictionSchema } from '@/lib/predictionSchema';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -146,6 +147,9 @@ export async function GET(request: Request) {
     await sql`ALTER TABLE daily_ai_predictions ADD COLUMN IF NOT EXISTS stage VARCHAR(80)`;
     await sql`CREATE INDEX IF NOT EXISTS idx_daily_predictions_schedule ON daily_ai_predictions (competition_code, match_date)`;
     results.push('daily_ai_predictions: calendario dinamico OK');
+
+    await ensurePredictionSchema();
+    results.push('prediction learning: draft, risultati, valutazioni e pesi verificati');
 
     // ml_explanations — cache spiegazioni testuali on-demand
     await sql`

@@ -10,11 +10,13 @@
  */
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { ensurePredictionSchema } from '@/lib/predictionSchema';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
+    await ensurePredictionSchema();
     // ── LAZY CRON — con cooldown e protezione anti-loop ──────────────────
     try {
       // 1. Ci sono già partite FUTURE nel DB?
@@ -68,7 +70,8 @@ export async function GET(request: Request) {
         quotes,
         analysis
       FROM daily_ai_predictions
-      WHERE match_date >= NOW()
+      WHERE status = 'PUBLISHED'
+        AND match_date >= NOW()
         AND match_date <= NOW() + INTERVAL '14 days'
       ORDER BY match_date ASC
       LIMIT 10
@@ -76,7 +79,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ predictions: rows, windowDays: 14 });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('[odierni] Errore:', error);
     return NextResponse.json({ error: 'Errore interno' }, { status: 500 });
   }

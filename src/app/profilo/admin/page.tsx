@@ -3,20 +3,38 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { ALL_TEAMS } from '@/data/teams';
-import { useRouter } from 'next/navigation';
-import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Check, Palette, Copy, ExternalLink, Share2 } from 'lucide-react';
+import { ShieldAlert, ArrowLeft, RefreshCw, Trash2, Edit2, Plus, Palette, Copy, ExternalLink, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import AdminStatsPanel from '@/components/admin/AdminStatsPanel';
 import AdminPromotions from '@/components/admin/AdminPromotions';
+import AdminPredictions from '@/components/admin/AdminPredictions';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
+type AdminNewsItem = {
+  id: number;
+  title?: string;
+  snippet?: string;
+  link?: string;
+  type?: string;
+  status?: string;
+  source?: string;
+  pub_date?: string;
+  time?: string;
+};
+
+type AdminStory = {
+  team: string;
+  opponent: string;
+  venue: string;
+  visualUrl: string;
+  caption: string;
+};
+
 export default function AdminPage() {
   const { user } = useAuth();
-  const router = useRouter();
-
-  const [activeTab, setActiveTab] = useState<'transfers' | 'news' | 'social' | 'promo'>('transfers');
+  const [activeTab, setActiveTab] = useState<'predictions' | 'transfers' | 'news' | 'social' | 'promo'>('predictions');
 
   const { data: allNews, mutate: mutateNews } = useSWR('/api/news?limit=100', fetcher);
   const { data: socialDraft, mutate: mutateSocialDraft } = useSWR('/api/admin/social-draft', fetcher, { refreshInterval: 60000 });
@@ -74,7 +92,7 @@ export default function AdminPage() {
       } else {
         setMessage(`❌ Errore: ${data.error}`);
       }
-    } catch (err) {
+    } catch {
       setMessage('❌ Errore di rete');
     }
     setLoading(false);
@@ -105,7 +123,7 @@ export default function AdminPage() {
       } else {
         setMessage(`❌ Errore: ${data.error}`);
       }
-    } catch (err) {
+    } catch {
       setMessage('❌ Errore di rete');
     }
     setLoading(false);
@@ -119,12 +137,12 @@ export default function AdminPage() {
         setMessage('✅ Notizia eliminata.');
         mutateNews();
       }
-    } catch (e) {
+    } catch {
       setMessage('❌ Errore durante l\'eliminazione');
     }
   };
 
-  const handleEditNews = (news: any) => {
+  const handleEditNews = (news: AdminNewsItem) => {
     setEditingNewsId(news.id);
     setNewsForm({
       title: news.title || '',
@@ -152,7 +170,7 @@ export default function AdminPage() {
       } else {
         setMessage(`❌ Errore cron: ${data.error}`);
       }
-    } catch (err) {
+    } catch {
       setMessage('❌ Errore di rete');
     }
   };
@@ -180,26 +198,32 @@ export default function AdminPage() {
 
         <AdminStatsPanel />
 
-        <div className="flex space-x-2 mb-6">
+        <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-5">
+          <button
+            onClick={() => {setActiveTab('predictions'); setMessage('');}}
+            className={`py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'predictions' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
+          >
+            Pronostici
+          </button>
           <button
             onClick={() => {setActiveTab('transfers'); setMessage('');}}
-            className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'transfers' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
+            className={`py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'transfers' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
           >
             Mercato
           </button>
           <button 
             onClick={() => {setActiveTab('news'); setMessage('');}}
-            className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'news' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
+            className={`py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'news' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
           >
             Notizie
           </button>
           <button
             onClick={() => {setActiveTab('social'); setMessage(''); mutateSocialDraft(); mutateStoryDraft();}}
-            className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'social' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
+            className={`py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'social' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
           >
             Social
           </button>
-          <button onClick={() => {setActiveTab('promo'); setMessage('');}} className={`flex-1 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'promo' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>Pro & Codici</button>
+          <button onClick={() => {setActiveTab('promo'); setMessage('');}} className={`py-2 rounded-xl text-sm font-bold uppercase transition-colors ${activeTab === 'promo' ? 'bg-fuchsia-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>Pro & Codici</button>
         </div>
 
         {message && (
@@ -207,6 +231,8 @@ export default function AdminPage() {
             {message}
           </div>
         )}
+
+        {activeTab === 'predictions' && <AdminPredictions />}
 
         {/* --- TAB MERCATO --- */}
         {activeTab === 'transfers' && (
@@ -329,7 +355,7 @@ export default function AdminPage() {
                 {(!allNews || allNews.length === 0) ? (
                   <div className="text-slate-500 text-sm italic">Nessuna notizia nel database.</div>
                 ) : (
-                  allNews.map((newsItem: any) => (
+                  allNews.map((newsItem: AdminNewsItem) => (
                     <div key={newsItem.id} className="bg-slate-900/50 border border-slate-700 rounded-xl p-4 flex flex-col gap-2">
                       <div className="flex justify-between items-start">
                         <span className="text-[10px] font-bold px-2 py-1 bg-slate-800 text-slate-300 rounded uppercase">
@@ -346,7 +372,7 @@ export default function AdminPage() {
                       </div>
                       <h3 className="text-sm font-bold text-white leading-tight">{newsItem.title}</h3>
                       <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                        <span>{new Date(newsItem.pub_date).toLocaleDateString('it-IT')} {newsItem.time}</span>
+                        <span>{newsItem.pub_date ? new Date(newsItem.pub_date).toLocaleDateString('it-IT') : 'Data n.d.'} {newsItem.time}</span>
                         <span>{newsItem.type} / {newsItem.status}</span>
                       </div>
                     </div>
@@ -403,7 +429,7 @@ export default function AdminPage() {
                 <div className="flex items-center justify-between text-xs font-bold text-slate-400"><span>Giornata {storyDraft.matchday}</span><span>{storyDraft.stories.length} Story pronte</span></div>
                 <a href={storyDraft.overviewUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-black text-slate-950"><ExternalLink size={16} /> Apri Story report 1080×1920</a>
                 <div className="rounded-2xl border border-slate-700 bg-slate-900/60 p-4"><div className="mb-3 flex items-center justify-between"><h3 className="font-black text-white">Testo report completo</h3><button onClick={() => copyDraft(storyDraft.report, 'Report giornata')} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div><pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-300">{storyDraft.report}</pre></div>
-                <div className="grid gap-3 sm:grid-cols-2">{storyDraft.stories.map((story: any) => <div key={story.team} className="rounded-xl border border-slate-700 bg-slate-900/60 p-3"><div className="font-black text-white">{story.team}</div><div className="mt-1 text-xs text-slate-400">vs {story.opponent} · {story.venue}</div><div className="mt-3 flex gap-2"><a href={story.visualUrl} target="_blank" rel="noreferrer" className="flex-1 rounded-lg bg-emerald-500/15 px-2 py-2 text-center text-xs font-bold text-emerald-300">Visual Story</a><button onClick={() => copyDraft(story.caption, `Story ${story.team}`)} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div></div>)}</div>
+                <div className="grid gap-3 sm:grid-cols-2">{storyDraft.stories.map((story: AdminStory) => <div key={story.team} className="rounded-xl border border-slate-700 bg-slate-900/60 p-3"><div className="font-black text-white">{story.team}</div><div className="mt-1 text-xs text-slate-400">vs {story.opponent} · {story.venue}</div><div className="mt-3 flex gap-2"><a href={story.visualUrl} target="_blank" rel="noreferrer" className="flex-1 rounded-lg bg-emerald-500/15 px-2 py-2 text-center text-xs font-bold text-emerald-300">Visual Story</a><button onClick={() => copyDraft(story.caption, `Story ${story.team}`)} className="rounded-lg bg-slate-700 p-2 text-slate-200"><Copy size={15} /></button></div></div>)}</div>
               </div>}
             </div>
           </div>
