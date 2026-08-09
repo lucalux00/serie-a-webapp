@@ -1219,6 +1219,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_gennaro_borrelli",
+          "name": "Gennaro Borrelli",
+          "position": "ATT",
+          "number": 29,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -1503,6 +1516,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_lorenzo_lucca",
+          "name": "Lorenzo Lucca",
+          "position": "ATT",
+          "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_matteo_politano",
           "name": "Matteo Politano",
           "position": "ATT",
@@ -1598,19 +1624,6 @@
           "name": "Sam Beukema",
           "position": "DIF",
           "number": 31,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_vanja_milinkovi%C4%87-savi%C4%87",
-          "name": "Vanja Milinković-Savić",
-          "position": "POR",
-          "number": 32,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8820,6 +8833,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_lorenzo_pellegrini",
+          "name": "Lorenzo Pellegrini",
+          "position": "CEN",
+          "number": 7,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_neil_el_aynaoui",
           "name": "Neil El Aynaoui",
           "position": "CEN",
@@ -8928,19 +8954,6 @@
           "name": "Jan Ziółkowski",
           "position": "DIF",
           "number": 24,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_devis_v%C3%A1squez",
-          "name": "Devis Vásquez",
-          "position": "POR",
-          "number": 32,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
