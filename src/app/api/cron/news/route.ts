@@ -77,7 +77,10 @@ async function enrichMarketArticle(article: ClaimedArticle): Promise<boolean> {
     maxOutputTokens: AI_MAX_TOKENS,
     temperature: 0,
   });
-  const metadata = normalizeMarketNewsMetadata(rawMetadata);
+  const metadata = normalizeMarketNewsMetadata(
+    rawMetadata,
+    article.item.snippet || article.item.cleanTitle,
+  );
 
   if (!metadata) {
     console.warn('[news] Output IA non valido, articolo lasciato senza classificazione', article.item.link);
