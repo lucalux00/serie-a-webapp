@@ -59,6 +59,35 @@ export async function GET(request: Request) {
     `;
     results.push('✅ transfers: colonne league/created_at verificate');
 
+    // news — unica tabella condivisa da Notizie e Smart Aggregator.
+    await sql`
+      CREATE TABLE IF NOT EXISTS news (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(500) NOT NULL,
+        link TEXT NOT NULL UNIQUE,
+        pub_date TIMESTAMPTZ NOT NULL,
+        source VARCHAR(100) NOT NULL,
+        clean_title VARCHAR(500),
+        time VARCHAR(50),
+        snippet TEXT,
+        ai_title VARCHAR(500),
+        ai_summary TEXT,
+        team VARCHAR(100),
+        category VARCHAR(40),
+        ai_processed_at TIMESTAMPTZ,
+        type VARCHAR(50) DEFAULT 'live',
+        status VARCHAR(50) DEFAULT 'published',
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `;
+    await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS snippet TEXT`;
+    await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS ai_title VARCHAR(500)`;
+    await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS ai_summary TEXT`;
+    await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS team VARCHAR(100)`;
+    await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS category VARCHAR(40)`;
+    await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS ai_processed_at TIMESTAMPTZ`;
+    results.push('✅ news Smart Aggregator: schema verificato');
+
     // ── NUOVE TABELLE ─────────────────────────────────────────────────────
 
     // cron_lock — previene il loop infinito del lazy cron pronostici
@@ -144,11 +173,12 @@ export async function GET(request: Request) {
       details: results,
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Errore sconosciuto';
     console.error('[migrate/setup] Error:', error);
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: message,
       completedSteps: results,
     }, { status: 500 });
   }

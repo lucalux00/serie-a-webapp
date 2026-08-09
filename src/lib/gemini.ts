@@ -4,7 +4,7 @@
  * Sostituisce l'uso duplicato di @google/genai e @google/generative-ai.
  * Tutte le route devono importare da qui.
  */
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI, type GenerationConfig } from '@google/generative-ai';
 
 if (!process.env.GEMINI_API_KEY) {
   console.warn('[gemini.ts] GEMINI_API_KEY non configurata.');
@@ -35,11 +35,19 @@ export async function generateText(prompt: string): Promise<string | null> {
 /**
  * Genera JSON strutturato (responseMimeType: application/json)
  */
-export async function generateJSON<T = unknown>(prompt: string): Promise<T | null> {
+type JSONGenerationOptions = Pick<GenerationConfig, 'maxOutputTokens' | 'responseSchema' | 'temperature'>;
+
+export async function generateJSON<T = unknown>(
+  prompt: string,
+  options: JSONGenerationOptions = {},
+): Promise<T | null> {
   try {
     const model = genAI.getGenerativeModel({
       model: GEMINI_MODEL,
-      generationConfig: { responseMimeType: 'application/json' },
+      generationConfig: {
+        responseMimeType: 'application/json',
+        ...options,
+      },
     });
     const result = await model.generateContent(prompt);
     const raw = result.response.text().trim();

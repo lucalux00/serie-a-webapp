@@ -91,6 +91,11 @@ export async function GET(request: Request) {
         clean_title VARCHAR(500),
         time VARCHAR(50),
         snippet TEXT,
+        ai_title VARCHAR(500),
+        ai_summary TEXT,
+        team VARCHAR(100),
+        category VARCHAR(40),
+        ai_processed_at TIMESTAMP WITH TIME ZONE,
         type VARCHAR(50) DEFAULT 'live',
         status VARCHAR(50) DEFAULT 'published',
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
