@@ -15,7 +15,6 @@ import type {
   PredictionsResponse,
   SinglePrediction,
 } from "@/data/predictionsData";
-import OperatorOddsComparison from "@/components/domain/OperatorOddsComparison";
 
 type PredictionsSectionProps = {
   initialData?: PredictionsResponse;
@@ -318,8 +317,6 @@ export default function PredictionsSection({ initialData }: PredictionsSectionPr
             </section>
           ) : null}
         </div>
-
-        <OperatorOddsComparison />
 
         <aside className="mt-10 rounded-2xl border border-amber-400/30 bg-amber-400/[0.07] p-5" aria-label="Informazioni legali">
           <div className="flex items-start gap-3">
