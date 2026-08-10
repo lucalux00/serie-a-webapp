@@ -35,7 +35,7 @@ export default function FantacalcioPage() {
         </div>
         <div>
           <h1 className="text-2xl font-black text-white">Fanta Copilota</h1>
-          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Vinci la tua lega, ovunque tu giochi</p>
+          <p className="text-xs text-[#94A3B8] font-bold uppercase tracking-widest">Analisi e strumenti per la tua lega</p>
         </div>
       </div>
 

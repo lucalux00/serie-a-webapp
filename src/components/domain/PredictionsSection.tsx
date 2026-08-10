@@ -15,6 +15,7 @@ import type {
   PredictionsResponse,
   SinglePrediction,
 } from "@/data/predictionsData";
+import OperatorOddsComparison from "@/components/domain/OperatorOddsComparison";
 
 type PredictionsSectionProps = {
   initialData?: PredictionsResponse;
@@ -158,8 +159,8 @@ function MultipleCard({ multiple }: { multiple: MultiplePrediction }) {
           <h3 className="mt-1 text-xl font-black text-white">{multiple.type}</h3>
         </div>
         <div className="rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-right">
-          <span className="block text-[10px] font-black uppercase tracking-wider text-slate-500">Bolletta consigliata</span>
-          <span className="text-xs font-black uppercase tracking-wide text-emerald-300">Selezioni pronte</span>
+          <span className="block text-[10px] font-black uppercase tracking-wider text-slate-500">Quadro combinato</span>
+          <span className="text-xs font-black uppercase tracking-wide text-emerald-300">Selezioni analizzate</span>
         </div>
       </div>
 
@@ -180,7 +181,7 @@ function MultipleCard({ multiple }: { multiple: MultiplePrediction }) {
       </ol>
       <div className="border-t border-slate-700/70 pt-4">
         <p className="text-[11px] leading-5 text-slate-500">
-          Bolletta finale consigliata a scopo puramente informativo: non mostra quote numeriche e non contiene collegamenti a operatori.
+          Combinazione statistica a scopo puramente informativo: non mostra quote numeriche e non contiene collegamenti a operatori.
         </p>
       </div>
     </article>
@@ -306,8 +307,8 @@ export default function PredictionsSection({ initialData }: PredictionsSectionPr
                 id="multiples-title"
                 icon={<Layers3 className="size-5" aria-hidden="true" />}
                 eyebrow="3 combinazioni della stessa giornata"
-                title="Schedine Multiple"
-                description="Raddoppio, Bilanciata e Alta Quota usano esclusivamente le gare mostrate nella tab attiva."
+                title="Combinazioni statistiche"
+                description="Raddoppio, Bilanciata e Alta Quota aggregano esclusivamente le gare mostrate nella tab attiva, senza indicazioni di puntata."
               />
               <div className="grid gap-5 lg:grid-cols-3">
                 {activeLeague.multiples.map((multiple) => (
@@ -318,13 +319,15 @@ export default function PredictionsSection({ initialData }: PredictionsSectionPr
           ) : null}
         </div>
 
+        <OperatorOddsComparison />
+
         <aside className="mt-10 rounded-2xl border border-amber-400/30 bg-amber-400/[0.07] p-5" aria-label="Informazioni legali">
           <div className="flex items-start gap-3">
             <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-300" aria-hidden="true" />
             <div>
               <p className="font-black text-amber-200">Contenuto informativo e puramente pronostico; nessun collegamento affiliato è presente.</p>
               <p className="mt-2 text-xs leading-5 text-slate-400">
-                Le quote dei singoli sono la media aritmetica delle migliori 3-4 rilevazioni pre-match restituite da API-Football e possono cambiare fino all&#39;evento. “n.d.” significa che il provider non ha ancora restituito almeno tre valori verificabili; non viene sostituito con un numero simulato. Le multiple restano tre combinazioni consigliate senza quote numeriche.
+                Le quote dei singoli sono la media aritmetica delle migliori 3-4 rilevazioni pre-match restituite da API-Football e possono cambiare fino all&#39;evento. “n.d.” significa che il provider non ha ancora restituito almeno tre valori verificabili; non viene sostituito con un numero simulato. Le combinazioni multiple restano analisi statistiche senza quote numeriche.
               </p>
             </div>
           </div>

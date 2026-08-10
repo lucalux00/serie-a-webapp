@@ -93,7 +93,7 @@ export async function GET() {
         const postText = [
           ...common,
           "",
-          "Bolletta consigliata senza quote numeriche.",
+          "Combinazione statistica senza quote numeriche.",
           DISCLAIMER,
           HASHTAGS,
         ].join("\n");

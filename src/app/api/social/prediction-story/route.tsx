@@ -70,7 +70,7 @@ export async function GET(request: Request) {
           </div>
         ))}
       </div>
-      <div style={{ display: "flex", marginTop: 26, color: "#FCD34D", fontSize: 23, fontWeight: 800 }}>Bolletta consigliata · senza quote numeriche</div>
+      <div style={{ display: "flex", marginTop: 26, color: "#FCD34D", fontSize: 23, fontWeight: 800 }}>Combinazione statistica · senza quote numeriche</div>
     </>
   ) : (
     <>

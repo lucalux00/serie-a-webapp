@@ -7,7 +7,6 @@ import ConsentScripts from "@/components/layout/ConsentScripts";
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 const analyticsEnabled = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
 const cmpScriptSrc = process.env.NEXT_PUBLIC_CMP_SCRIPT_SRC;
-const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://tatticaepronostici.it'),
@@ -57,7 +56,7 @@ export default function RootLayout({
           {children}
         </ClientLayoutWrapper>
         {cmpScriptSrc && <Script id="cmp-provider" src={cmpScriptSrc} strategy="beforeInteractive" />}
-        <ConsentScripts adsenseClient={adsenseClient} analyticsEnabled={analyticsEnabled} gaId={gaId} />
+        <ConsentScripts analyticsEnabled={analyticsEnabled} gaId={gaId} />
       </body>
     </html>
   );
