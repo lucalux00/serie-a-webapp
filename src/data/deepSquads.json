@@ -3669,19 +3669,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_berat_djimsiti",
-          "name": "Berat Djimsiti",
-          "position": "DIF",
-          "number": "-",
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -6793,19 +6780,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_nahuel_est%C3%A9vez",
-          "name": "Nahuel Estévez",
-          "position": "CEN",
-          "number": 8,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_mateo_pellegrino",
           "name": "Mateo Pellegrino",
           "position": "ATT",
@@ -6914,6 +6888,19 @@
           "name": "Oliver Sørensen",
           "position": "CEN",
           "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_nesta_elphege",
+          "name": "Nesta Elphege",
+          "position": "ATT",
+          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8659,19 +8646,6 @@
           "name": "Fikayo Tomori",
           "position": "DIF",
           "number": 23,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_zachary_athekame",
-          "name": "Zachary Athekame",
-          "position": "DIF",
-          "number": 24,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
