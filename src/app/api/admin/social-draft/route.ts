@@ -76,6 +76,7 @@ export async function GET() {
           odds: prediction.odds,
           postText,
           storyText,
+          storyVisualUrl: `/api/social/prediction-story?kind=single&league=${encodeURIComponent(league.leagueName)}&round=${encodeURIComponent(league.roundLabel)}&match=${encodeURIComponent(prediction.match)}&pick=${encodeURIComponent(prediction.pick)}&confidence=${prediction.confidence}${prediction.odds === null ? "" : `&odds=${encodeURIComponent(prediction.odds.toFixed(2))}`}`,
         };
       });
 
@@ -109,6 +110,7 @@ export async function GET() {
           matches: multiple.matches,
           postText,
           storyText,
+          storyVisualUrl: `/api/social/prediction-story?kind=multiple&league=${encodeURIComponent(league.leagueName)}&round=${encodeURIComponent(league.roundLabel)}&type=${encodeURIComponent(multiple.type)}&selections=${encodeURIComponent(JSON.stringify(multiple.matches))}`,
         };
       });
 

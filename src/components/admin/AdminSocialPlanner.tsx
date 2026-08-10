@@ -15,6 +15,7 @@ type SocialSingle = {
   odds: number | null;
   postText: string;
   storyText: string;
+  storyVisualUrl: string;
 };
 
 type SocialMultiple = {
@@ -23,6 +24,7 @@ type SocialMultiple = {
   matches: Array<{ match: string; pick: string }>;
   postText: string;
   storyText: string;
+  storyVisualUrl: string;
 };
 
 type SocialLeague = {
@@ -91,6 +93,21 @@ function DraftPreview({ text }: { text: string }) {
       onFocus={(event) => event.currentTarget.select()}
       className="mt-4 min-h-64 w-full resize-y rounded-xl border border-slate-700 bg-slate-950/80 p-4 font-sans text-sm leading-6 text-slate-300 outline-none focus:border-emerald-400"
     />
+  );
+}
+
+function StoryVisual({ url, alt }: { url: string; alt: string }) {
+  return (
+    <div className="mt-4 rounded-2xl border border-emerald-400/20 bg-slate-950/70 p-3">
+      <div className="mx-auto max-w-[270px] overflow-hidden rounded-xl border border-slate-700 bg-slate-950 shadow-xl">
+        {/* The image is an authenticated dynamic route, so next/image optimization cannot forward the admin cookie. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={url} alt={alt} loading="lazy" className="aspect-[9/16] w-full object-cover" />
+      </div>
+      <a href={url} target="_blank" rel="noreferrer" className="mt-3 flex items-center justify-center rounded-xl bg-emerald-500 px-4 py-3 text-center text-xs font-black text-slate-950 transition hover:bg-emerald-400">
+        Apri / scarica visual Story 9:16
+      </a>
+    </div>
   );
 }
 
@@ -177,6 +194,7 @@ export default function AdminSocialPlanner({ onCopy }: AdminSocialPlannerProps) 
                     </div>
                     <CopyButton compact label={`Copia ${formatLabel}`} onClick={() => onCopy(text, `${single.match} · ${formatLabel}`)} />
                   </div>
+                  {format === "story" ? <StoryVisual url={single.storyVisualUrl} alt={`Story ${single.match}`} /> : null}
                   <DraftPreview text={text} />
                 </article>
               );
@@ -210,6 +228,7 @@ export default function AdminSocialPlanner({ onCopy }: AdminSocialPlannerProps) 
                     </div>
                     <CopyButton compact label={`Copia ${formatLabel}`} onClick={() => onCopy(text, `Multipla ${multiple.type} · ${formatLabel}`)} />
                   </div>
+                  {format === "story" ? <StoryVisual url={multiple.storyVisualUrl} alt={`Story multipla ${multiple.type}`} /> : null}
                   <DraftPreview text={text} />
                 </article>
               );
