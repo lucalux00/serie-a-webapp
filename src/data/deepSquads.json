@@ -6446,19 +6446,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_seid_kora%C4%8D",
-          "name": "Seid Korač",
-          "position": "DIF",
-          "number": 2,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_jo%C3%ABl_schingtienne",
           "name": "Joël Schingtienne",
           "position": "DIF",
@@ -6511,19 +6498,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_issa_doumbia",
-          "name": "Issa Doumbia",
-          "position": "CEN",
-          "number": 8,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_andrea_adorante",
           "name": "Andrea Adorante",
           "position": "ATT",
@@ -6554,19 +6528,6 @@
           "name": "Marko Farji",
           "position": "ATT",
           "number": 11,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_stefano_minelli",
-          "name": "Stefano Minelli",
-          "position": "POR",
-          "number": 14,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7023,19 +6984,6 @@
       "staff": [],
       "players": [
         {
-          "id": "wp_christian_fr%C3%BCchtl",
-          "name": "Christian Früchtl",
-          "position": "POR",
-          "number": 1,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_corrie_ndaba",
           "name": "Corrie Ndaba",
           "position": "DIF",
@@ -7066,19 +7014,6 @@
           "name": "Jamil Siebert",
           "position": "DIF",
           "number": 5,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_%C3%A1lex_sala",
-          "name": "Álex Sala",
-          "position": "CEN",
-          "number": 6,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7153,8 +7088,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_%C3%BE%C3%B3rir_j%C3%B3hann_helgason",
-          "name": "Þórir Jóhann Helgason",
+          "id": "wp_youssef_maleh",
+          "name": "Youssef Maleh",
           "position": "CEN",
           "number": 14,
           "age": "N/A",
@@ -7209,19 +7144,6 @@
           "name": "Lameck Banda",
           "position": "ATT",
           "number": 19,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_ylber_ramadani",
-          "name": "Ylber Ramadani",
-          "position": "CEN",
-          "number": 20,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -9102,19 +9024,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_m'bala_nzola",
-          "name": "M'Bala Nzola",
-          "position": "ATT",
-          "number": 8,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_domenico_berardi_(vice_capitano)",
           "name": "Domenico Berardi (vice capitano)",
           "position": "ATT",
@@ -9206,49 +9115,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_filippo_romagna_(capitano)",
-          "name": "Filippo Romagna (capitano)",
-          "position": "DIF",
-          "number": 19,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_alieu_fadera",
-          "name": "Alieu Fadera",
-          "position": "ATT",
-          "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_jay_idzes",
           "name": "Jay Idzes",
           "position": "DIF",
           "number": 21,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_ulisses_garcia",
-          "name": "Ulisses Garcia",
-          "position": "DIF",
-          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
