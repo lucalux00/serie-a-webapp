@@ -1,26 +1,23 @@
 import Image from "next/image";
-import { ExternalLink, Info, Scale } from "lucide-react";
+import { Info, LockKeyhole, Scale } from "lucide-react";
 import ComplianceMarks from "@/components/legal/ComplianceMarks";
 
 const OPERATORS = [
   {
     name: "Sisal",
     concession: "16020",
-    href: "https://www.sisal.it/",
     logo: "/legal/sisal.svg",
     logoClassName: "h-10 w-28",
   },
   {
     name: "Lottomatica",
     concession: "16010",
-    href: "https://www.lottomatica.it/",
     logo: "/legal/lottomatica.svg",
     logoClassName: "h-8 w-36",
   },
   {
     name: "bet365",
     concession: "16030",
-    href: "https://www.bet365.it/",
     logo: null,
     logoClassName: "",
   },
@@ -104,16 +101,16 @@ export default function OperatorOddsComparison() {
               <th scope="row" className="px-4 py-5 text-xs font-black uppercase tracking-wider text-slate-500">Approfondimento</th>
               {OPERATORS.map((operator) => (
                 <td key={operator.name} className="border-l border-slate-800 px-5 py-5 text-center">
-                  <a
-                    href={operator.href}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-600 bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-100 transition hover:border-slate-500 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-                    aria-label={`Visita il sito di ${operator.name} in una nuova scheda`}
+                  <button
+                    type="button"
+                    disabled
+                    className="inline-flex cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm font-bold text-slate-500 opacity-60 grayscale"
+                    aria-label={`Collegamento al sito di ${operator.name} temporaneamente disattivato`}
+                    title="Collegamento temporaneamente disattivato"
                   >
                     Visita il sito
-                    <ExternalLink className="size-3.5" aria-hidden="true" />
-                  </a>
+                    <LockKeyhole className="size-3.5" aria-hidden="true" />
+                  </button>
                 </td>
               ))}
             </tr>
@@ -123,7 +120,7 @@ export default function OperatorOddsComparison() {
 
       <p className="mt-3 flex items-start gap-2 text-xs leading-5 text-slate-500">
         <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
-        Ordine non preferenziale. I collegamenti sono diretti, non affiliati e non costituiscono un invito al gioco.
+        Ordine non preferenziale. I collegamenti esterni sono temporaneamente disattivati e i pulsanti non permettono di raggiungere i siti degli operatori.
       </p>
     </section>
   );
