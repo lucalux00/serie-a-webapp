@@ -1169,19 +1169,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_giuseppe_ciocci",
-          "name": "Giuseppe Ciocci",
-          "position": "POR",
-          "number": 24,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_yerry_mina",
           "name": "Yerry Mina",
           "position": "DIF",
@@ -1225,6 +1212,19 @@
           "name": "Gennaro Borrelli",
           "position": "ATT",
           "number": 29,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_paul_mendy",
+          "name": "Paul Mendy",
+          "position": "ATT",
+          "number": 31,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
