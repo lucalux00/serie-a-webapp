@@ -100,19 +100,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_san%C3%A1_fernandes",
-          "name": "Saná Fernandes",
-          "position": "ATT",
-          "number": 11,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_alessio_romagnoli",
           "name": "Alessio Romagnoli",
           "position": "DIF",
@@ -234,6 +221,19 @@
           "name": "Matteo Cancellieri",
           "position": "ATT",
           "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_alfonso_pedraza",
+          "name": "Alfonso Pedraza",
+          "position": "DIF",
+          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -1065,10 +1065,49 @@
           "curiosities": null
         },
         {
+          "id": "wp_z%C3%A9_pedro",
+          "name": "Zé Pedro",
+          "position": "DIF",
+          "number": 2,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_riyad_idrissi",
           "name": "Riyad Idrissi",
           "position": "DIF",
           "number": 3,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_alessandro_romano",
+          "name": "Alessandro Romano",
+          "position": "CEN",
+          "number": 4,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_harry_winks",
+          "name": "Harry Winks",
+          "position": "CEN",
+          "number": 6,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -1091,6 +1130,32 @@
           "curiosities": null
         },
         {
+          "id": "wp_kevin_carlos",
+          "name": "Kevin Carlos",
+          "position": "ATT",
+          "number": 9,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_jacopo_fazzini",
+          "name": "Jacopo Fazzini",
+          "position": "CEN",
+          "number": 10,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_alen_sherri",
           "name": "Alen Sherri",
           "position": "POR",
@@ -1104,8 +1169,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_alessandro_deiola",
-          "name": "Alessandro Deiola",
+          "id": "wp_alessandro_deiola_(capitano)",
+          "name": "Alessandro Deiola (capitano)",
           "position": "CEN",
           "number": 14,
           "age": "N/A",
@@ -1130,6 +1195,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_matteo_prati",
+          "name": "Matteo Prati",
+          "position": "CEN",
+          "number": 16,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_mattia_felici",
           "name": "Mattia Felici",
           "position": "ATT",
@@ -1143,75 +1221,36 @@
           "curiosities": null
         },
         {
+          "id": "wp_kingstone_mutandwa",
+          "name": "Kingstone Mutandwa",
+          "position": "ATT",
+          "number": 18,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_yael_trepy",
+          "name": "Yael Trepy",
+          "position": "ATT",
+          "number": 19,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_agust%C3%ADn_albarrac%C3%ADn",
           "name": "Agustín Albarracín",
           "position": "ATT",
           "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_yerry_mina",
-          "name": "Yerry Mina",
-          "position": "DIF",
-          "number": 26,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_joseph_liteta",
-          "name": "Joseph Liteta",
-          "position": "CEN",
-          "number": 27,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_gabriele_zappa",
-          "name": "Gabriele Zappa",
-          "position": "DIF",
-          "number": 28,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_gennaro_borrelli",
-          "name": "Gennaro Borrelli",
-          "position": "ATT",
-          "number": 29,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_paul_mendy",
-          "name": "Paul Mendy",
-          "position": "ATT",
-          "number": 31,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -3912,6 +3951,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_nadir_zortea",
+          "name": "Nadir Zortea",
+          "position": "DIF",
+          "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -6407,8 +6459,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_gianluca_busio",
-          "name": "Gianluca Busio",
+          "id": "wp_gianluca_busio_(capitano)",
+          "name": "Gianluca Busio (capitano)",
           "position": "CEN",
           "number": 6,
           "age": "N/A",
