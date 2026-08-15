@@ -1605,19 +1605,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_pasquale_mazzocchi",
-          "name": "Pasquale Mazzocchi",
-          "position": "DIF",
-          "number": 30,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -5527,19 +5514,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_davide_frattesi",
-          "name": "Davide Frattesi",
-          "position": "CEN",
-          "number": 16,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_andy_diouf",
           "name": "Andy Diouf",
           "position": "CEN",
@@ -8012,8 +7986,21 @@
           "curiosities": null
         },
         {
-          "id": "wp_riccardo_marchizza_(capitano)",
-          "name": "Riccardo Marchizza (capitano)",
+          "id": "wp_ben_lhassine_kone",
+          "name": "Ben Lhassine Kone",
+          "position": "CEN",
+          "number": 4,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_wisdom_amey",
+          "name": "Wisdom Amey",
           "position": "DIF",
           "number": 5,
           "age": "N/A",
@@ -8077,8 +8064,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_francesco_gelli",
-          "name": "Francesco Gelli",
+          "id": "wp_romano_schmid",
+          "name": "Romano Schmid",
           "position": "CEN",
           "number": 10,
           "age": "N/A",
@@ -8090,21 +8077,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_lorenzo_gori",
-          "name": "Lorenzo Gori",
-          "position": "ATT",
-          "number": 11,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_eldin_loli%C4%87",
-          "name": "Eldin Lolić",
+          "id": "wp_matteo_pisseri",
+          "name": "Matteo Pisseri",
           "position": "POR",
           "number": 12,
           "age": "N/A",
@@ -8120,19 +8094,6 @@
           "name": "Giacomo Calò",
           "position": "CEN",
           "number": 14,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_matteo_obleac_(*)",
-          "name": "Matteo Obleac (*)",
-          "position": "DIF",
-          "number": 15,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8198,45 +8159,6 @@
           "name": "Anthony Oyono",
           "position": "DIF",
           "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_j%C3%A9r%C3%A9my_oyono",
-          "name": "Jérémy Oyono",
-          "position": "DIF",
-          "number": 21,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_lorenzo_palmisani",
-          "name": "Lorenzo Palmisani",
-          "position": "POR",
-          "number": 22,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_sergio_kalaj",
-          "name": "Sergio Kalaj",
-          "position": "DIF",
-          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
