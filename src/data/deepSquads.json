@@ -2078,6 +2078,19 @@
       "staff": [],
       "players": [
         {
+          "id": "wp_justin_bijlow",
+          "name": "Justin Bijlow",
+          "position": "POR",
+          "number": 1,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_mario_mitaj",
           "name": "Mario Mitaj",
           "position": "DIF",
@@ -2186,19 +2199,6 @@
           "name": "Brooke Norton-Cuffy",
           "position": "DIF",
           "number": 15,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_justin_bijlow",
-          "name": "Justin Bijlow",
-          "position": "POR",
-          "number": 16,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8998,6 +8998,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_kieron_bowie",
+          "name": "Kieron Bowie",
+          "position": "ATT",
+          "number": 9,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_domenico_berardi_(vice_capitano)",
           "name": "Domenico Berardi (vice capitano)",
           "position": "ATT",
@@ -9076,36 +9089,23 @@
           "curiosities": null
         },
         {
+          "id": "wp_vasilije_adzic",
+          "name": "Vasilije Adzic",
+          "position": "CEN",
+          "number": 17,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_nemanja_mati%C4%87",
           "name": "Nemanja Matić",
           "position": "CEN",
           "number": 18,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_jay_idzes",
-          "name": "Jay Idzes",
-          "position": "DIF",
-          "number": 21,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_luca_moro",
-          "name": "Luca Moro",
-          "position": "ATT",
-          "number": 24,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
