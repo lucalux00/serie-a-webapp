@@ -3927,10 +3927,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_lewis_ferguson",
-          "name": "Lewis Ferguson",
+          "id": "wp_oussama_el_azzouzi",
+          "name": "Oussama El Azzouzi",
           "position": "CEN",
-          "number": 19,
+          "number": 17,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8356,36 +8356,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_samuele_ricci",
-          "name": "Samuele Ricci",
-          "position": "CEN",
-          "number": 4,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_koni_de_winter",
           "name": "Koni De Winter",
           "position": "DIF",
           "number": 5,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_santiago_gim%C3%A9nez",
-          "name": "Santiago Giménez",
-          "position": "ATT",
-          "number": 7,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8512,19 +8486,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_youssouf_fofana",
-          "name": "Youssouf Fofana",
-          "position": "CEN",
-          "number": 19,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_samuel_chukwueze",
           "name": "Samuel Chukwueze",
           "position": "ATT",
@@ -8538,10 +8499,49 @@
           "curiosities": null
         },
         {
-          "id": "wp_fikayo_tomori",
-          "name": "Fikayo Tomori",
+          "id": "wp_christian_comotto",
+          "name": "Christian Comotto",
+          "position": "CEN",
+          "number": 28,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_ardon_jashari",
+          "name": "Ardon Jashari",
+          "position": "CEN",
+          "number": 30,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_strahinja_pavlovi%C4%87",
+          "name": "Strahinja Pavlović",
           "position": "DIF",
-          "number": 23,
+          "number": 31,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_davide_bartesaghi",
+          "name": "Davide Bartesaghi",
+          "position": "DIF",
+          "number": 33,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
