@@ -113,6 +113,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_gustav_isaksen",
+          "name": "Gustav Isaksen",
+          "position": "ATT",
+          "number": 11,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_alessio_romagnoli",
           "name": "Alessio Romagnoli",
           "position": "DIF",
@@ -178,8 +191,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_gustav_isaksen",
-          "name": "Gustav Isaksen",
+          "id": "wp_gabriele_artistico",
+          "name": "Gabriele Artistico",
           "position": "ATT",
           "number": 18,
           "age": "N/A",
@@ -208,19 +221,6 @@
           "name": "Petar Ratkov",
           "position": "ATT",
           "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_reda_belahyane",
-          "name": "Reda Belahyane",
-          "position": "CEN",
-          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7612,19 +7612,6 @@
       },
       "staff": [],
       "players": [
-        {
-          "id": "wp_arvid_brorsson",
-          "name": "Arvid Brorsson",
-          "position": "DIF",
-          "number": 2,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
         {
           "id": "wp_lorenzo_lucchesi",
           "name": "Lorenzo Lucchesi",
