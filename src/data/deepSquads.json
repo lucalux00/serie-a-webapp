@@ -1605,6 +1605,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_alisson_santos",
+          "name": "Alisson Santos",
+          "position": "ATT",
+          "number": 27,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -8811,6 +8824,19 @@
           "name": "Mario Hermoso",
           "position": "DIF",
           "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_gianluca_mancini_(vice_capitano)",
+          "name": "Gianluca Mancini (vice capitano)",
+          "position": "DIF",
+          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
