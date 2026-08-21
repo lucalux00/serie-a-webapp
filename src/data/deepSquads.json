@@ -7331,8 +7331,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_kaiki",
-          "name": "Kaiki",
+          "id": "wp_jacobo_ram%C3%B3n",
+          "name": "Jacobo Ramón",
           "position": "DIF",
           "number": 4,
           "age": "N/A",
@@ -7344,9 +7344,9 @@
           "curiosities": null
         },
         {
-          "id": "wp_edoardo_goldaniga",
-          "name": "Edoardo Goldaniga",
-          "position": "DIF",
+          "id": "wp_m%C3%A1ximo_perrone",
+          "name": "Máximo Perrone",
+          "position": "CEN",
           "number": 5,
           "age": "N/A",
           "height": "N/A",
@@ -7370,9 +7370,9 @@
           "curiosities": null
         },
         {
-          "id": "wp_%C3%A1lvaro_morata",
-          "name": "Álvaro Morata",
-          "position": "ATT",
+          "id": "wp_lucas_da_cunha_(capitano)",
+          "name": "Lucas Da Cunha (capitano)",
+          "position": "CEN",
           "number": 7,
           "age": "N/A",
           "height": "N/A",
@@ -7396,6 +7396,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_tasos_douvikas",
+          "name": "Tasos Douvikas",
+          "position": "ATT",
+          "number": 9,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_nico_paz",
           "name": "Nico Paz",
           "position": "CEN",
@@ -7409,8 +7422,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_tasos_douvikas",
-          "name": "Tasos Douvikas",
+          "id": "wp_assane_diao",
+          "name": "Assane Diao",
           "position": "ATT",
           "number": 11,
           "age": "N/A",
@@ -7422,10 +7435,23 @@
           "curiosities": null
         },
         {
-          "id": "wp_jacobo_ram%C3%B3n",
-          "name": "Jacobo Ramón",
+          "id": "wp_emil_audero",
+          "name": "Emil Audero",
+          "position": "POR",
+          "number": 12,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_alberto_dossena",
+          "name": "Alberto Dossena",
           "position": "DIF",
-          "number": 14,
+          "number": 13,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7448,62 +7474,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_yan_couto",
-          "name": "Yan Couto",
+          "id": "wp_kaiki_bruno",
+          "name": "Kaiki Bruno",
           "position": "DIF",
           "number": 16,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_jes%C3%BAs_rodr%C3%ADguez",
-          "name": "Jesús Rodríguez",
-          "position": "ATT",
-          "number": 17,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_nicolas_k%C3%BChn",
-          "name": "Nicolas Kühn",
-          "position": "ATT",
-          "number": 19,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_martin_baturina",
-          "name": "Martin Baturina",
-          "position": "CEN",
-          "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_noel_t%C3%B6rnqvist",
-          "name": "Noel Törnqvist",
-          "position": "POR",
-          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
