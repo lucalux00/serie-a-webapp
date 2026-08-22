@@ -8408,19 +8408,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_santiago_gim%C3%A9nez",
-          "name": "Santiago Giménez",
-          "position": "ATT",
-          "number": 7,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_ruben_loftus-cheek",
           "name": "Ruben Loftus-Cheek",
           "position": "CEN",
@@ -8516,32 +8503,6 @@
           "name": "Mike Maignan (capitano)",
           "position": "POR",
           "number": 16,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_christopher_nkunku",
-          "name": "Christopher Nkunku",
-          "position": "ATT",
-          "number": 18,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_youssouf_fofana",
-          "name": "Youssouf Fofana",
-          "position": "CEN",
-          "number": 19,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
