@@ -87,19 +87,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_bruno_galassi",
-          "name": "Bruno Galassi",
-          "position": "CEN",
-          "number": 8,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_mattia_zaccagni_(capitano)",
           "name": "Mattia Zaccagni (capitano)",
           "position": "ATT",
@@ -2002,6 +1989,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_m%C3%ABrgim_vojvoda",
+          "name": "Mërgim Vojvoda",
+          "position": "DIF",
+          "number": 23,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -2251,6 +2251,19 @@
           "name": "Elias Havel",
           "position": "ATT",
           "number": 17,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_milutin_osmaji%C4%87",
+          "name": "Milutin Osmajić",
+          "position": "ATT",
+          "number": 18,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
