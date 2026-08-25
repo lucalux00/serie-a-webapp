@@ -1232,19 +1232,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_nicol%C3%B2_cavuoti",
-          "name": "Nicolò Cavuoti",
-          "position": "CEN",
-          "number": 21,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -2572,19 +2559,6 @@
           "name": "Arkadiusz Milik",
           "position": "ATT",
           "number": 14,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_pierre_kalulu",
-          "name": "Pierre Kalulu",
-          "position": "DIF",
-          "number": 15,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8233,19 +8207,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_filippo_grosso",
-          "name": "Filippo Grosso",
-          "position": "CEN",
-          "number": 18,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_niccol%C3%B2_corrado",
           "name": "Niccolò Corrado",
           "position": "DIF",
@@ -8263,6 +8224,32 @@
           "name": "Anthony Oyono",
           "position": "DIF",
           "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_lorenzo_palmisani",
+          "name": "Lorenzo Palmisani",
+          "position": "POR",
+          "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_alessio_zerbin",
+          "name": "Alessio Zerbin",
+          "position": "ATT",
+          "number": 24,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8876,6 +8863,19 @@
           "name": "Gianluca Mancini (vice capitano)",
           "position": "DIF",
           "number": 23,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_jan_zi%C3%B3%C5%82kowski",
+          "name": "Jan Ziółkowski",
+          "position": "DIF",
+          "number": 24,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
