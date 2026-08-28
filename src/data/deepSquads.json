@@ -87,6 +87,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_bruno_galassi",
+          "name": "Bruno Galassi",
+          "position": "DIF",
+          "number": 8,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_andrea_pinamonti",
           "name": "Andrea Pinamonti",
           "position": "ATT",
@@ -4391,19 +4404,6 @@
           "name": "Zakaria Aboukhlal",
           "position": "CEN",
           "number": 7,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_ivan_ili%C4%87",
-          "name": "Ivan Ilić",
-          "position": "CEN",
-          "number": 8,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
