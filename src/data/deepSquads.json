@@ -1232,6 +1232,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_riccardo_ciervo",
+          "name": "Riccardo Ciervo",
+          "position": "ATT",
+          "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -3593,23 +3606,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_%C3%A9derson",
-          "name": "Éderson",
+          "id": "wp_%C3%A9derson_(capitano)",
+          "name": "Éderson (capitano)",
           "position": "CEN",
           "number": 13,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_marten_de_roon_(capitano)",
-          "name": "Marten de Roon (capitano)",
-          "position": "CEN",
-          "number": 15,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -4144,19 +4144,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_moise_kean",
-          "name": "Moise Kean",
-          "position": "ATT",
-          "number": 9,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_albert_gu%C3%B0mundsson",
           "name": "Albert Guðmundsson",
           "position": "ATT",
@@ -4495,19 +4482,6 @@
           "name": "Ché Adams",
           "position": "ATT",
           "number": 19,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_ali_demb%C3%A9l%C3%A9",
-          "name": "Ali Dembélé",
-          "position": "CEN",
-          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -5592,8 +5566,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_kristjan_asllani",
-          "name": "Kristjan Asllani",
+          "id": "wp_curtis_jones",
+          "name": "Curtis Jones",
           "position": "CEN",
           "number": 21,
           "age": "N/A",
@@ -5609,19 +5583,6 @@
           "name": "Henrix Mxit'aryan",
           "position": "CEN",
           "number": 22,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_nicol%C3%B2_barella_(vice_capitano)",
-          "name": "Nicolò Barella (vice capitano)",
-          "position": "CEN",
-          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -8473,19 +8434,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_rafael_le%C3%A3o_(vice_capitano)",
-          "name": "Rafael Leão (vice capitano)",
-          "position": "ATT",
-          "number": 10,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_christian_pulisic",
           "name": "Christian Pulisic",
           "position": "CEN",
@@ -8568,6 +8516,19 @@
           "name": "Diego Moreira",
           "position": "CEN",
           "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_christian_comotto",
+          "name": "Christian Comotto",
+          "position": "CEN",
+          "number": 28,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
