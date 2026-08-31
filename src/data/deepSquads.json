@@ -3669,6 +3669,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_sead_kola%C5%A1inac",
+          "name": "Sead Kolašinac",
+          "position": "DIF",
+          "number": 23,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -4200,6 +4213,19 @@
           "name": "Álex Jiménez",
           "position": "DIF",
           "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_v%C3%ADctor_valdepe%C3%B1as",
+          "name": "Víctor Valdepeñas",
+          "position": "DIF",
+          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7665,6 +7691,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_jan_zi%C3%B3%C5%82kowski",
+          "name": "Jan Ziółkowski",
+          "position": "DIF",
+          "number": 4,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_yvan_maye",
           "name": "Yvan Maye",
           "position": "DIF",
@@ -8755,6 +8794,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_marten_de_roon",
+          "name": "Marten de Roon",
+          "position": "CEN",
+          "number": 15,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_manu_kon%C3%A9",
           "name": "Manu Koné",
           "position": "CEN",
@@ -8811,19 +8863,6 @@
           "name": "Mario Hermoso",
           "position": "DIF",
           "number": 22,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_gianluca_mancini_(vice_capitano)",
-          "name": "Gianluca Mancini (vice capitano)",
-          "position": "DIF",
-          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
