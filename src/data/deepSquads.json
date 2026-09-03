@@ -2206,6 +2206,19 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
+        },
+        {
+          "id": "wp_johan_v%C3%A1squez_(capitano)",
+          "name": "Johan Vásquez (capitano)",
+          "position": "DIF",
+          "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
         }
       ]
     },
@@ -4469,6 +4482,19 @@
           "name": "Cesare Casadei",
           "position": "CEN",
           "number": 22,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_sa%C3%BAl_coco",
+          "name": "Saúl Coco",
+          "position": "DIF",
+          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
