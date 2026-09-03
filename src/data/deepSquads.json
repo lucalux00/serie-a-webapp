@@ -1553,19 +1553,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_giovane",
-          "name": "Giovane",
-          "position": "ATT",
-          "number": 23,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -4157,10 +4144,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_cher_ndour",
-          "name": "Cher Ndour",
-          "position": "CEN",
-          "number": 27,
+          "id": "wp_beto",
+          "name": "Beto",
+          "position": "ATT",
+          "number": 23,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -4170,10 +4157,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_franco_mastantuono",
-          "name": "Franco Mastantuono",
-          "position": "CEN",
-          "number": 30,
+          "id": "wp_alieu_njie",
+          "name": "Alieu Njie",
+          "position": "ATT",
+          "number": 25,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
