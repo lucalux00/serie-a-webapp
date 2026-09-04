@@ -9024,6 +9024,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_andrea_ghion",
+          "name": "Andrea Ghion",
+          "position": "CEN",
+          "number": 8,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_kieron_bowie",
           "name": "Kieron Bowie",
           "position": "ATT",
@@ -9089,10 +9102,23 @@
           "curiosities": null
         },
         {
-          "id": "wp_edoardo_pieragnolo",
-          "name": "Edoardo Pieragnolo",
+          "id": "wp_duje_%C4%87aleta-car",
+          "name": "Duje Ćaleta-Car",
           "position": "DIF",
           "number": 15,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_fedde_leysen",
+          "name": "Fedde Leysen",
+          "position": "DIF",
+          "number": 16,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -9119,19 +9145,6 @@
           "name": "Nemanja Matić (vice capitano)",
           "position": "CEN",
           "number": 18,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_jay_idzes",
-          "name": "Jay Idzes",
-          "position": "DIF",
-          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
