@@ -1501,45 +1501,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_lorenzo_lucca",
-          "name": "Lorenzo Lucca",
-          "position": "ATT",
-          "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_matteo_politano",
-          "name": "Matteo Politano",
-          "position": "ATT",
-          "number": 21,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_giovanni_di_lorenzo_(capitano)",
-          "name": "Giovanni Di Lorenzo (capitano)",
-          "position": "DIF",
-          "number": 22,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -4413,19 +4374,6 @@
           "curiosities": null
         },
         {
-          "id": "wp_tino_anjorin",
-          "name": "Tino Anjorin",
-          "position": "CEN",
-          "number": 14,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
           "id": "wp_pietro_comuzzo",
           "name": "Pietro Comuzzo",
           "position": "DIF",
@@ -4469,6 +4417,19 @@
           "name": "Ché Adams",
           "position": "ATT",
           "number": 19,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_lucas_perri",
+          "name": "Lucas Perri",
+          "position": "POR",
+          "number": 20,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -5531,32 +5492,6 @@
           "name": "Hakan Çalhanoğlu",
           "position": "CEN",
           "number": 20,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_curtis_jones",
-          "name": "Curtis Jones",
-          "position": "CEN",
-          "number": 21,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_henrix_mxit'aryan",
-          "name": "Henrix Mxit'aryan",
-          "position": "CEN",
-          "number": 22,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
