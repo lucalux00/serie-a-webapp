@@ -9,6 +9,19 @@
       "staff": [],
       "players": [
         {
+          "id": "wp_diogo_leite",
+          "name": "Diogo Leite",
+          "position": "DIF",
+          "number": 2,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_luca_pellegrini",
           "name": "Luca Pellegrini",
           "position": "DIF",
@@ -1169,6 +1182,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_yukinari_sugawara",
+          "name": "Yukinari Sugawara",
+          "position": "DIF",
+          "number": 16,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_mattia_felici",
           "name": "Mattia Felici",
           "position": "ATT",
@@ -1199,19 +1225,6 @@
           "name": "Yael Trepy",
           "position": "ATT",
           "number": 19,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
-        },
-        {
-          "id": "wp_riccardo_ciervo",
-          "name": "Riccardo Ciervo",
-          "position": "ATT",
-          "number": 20,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
