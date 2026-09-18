@@ -7023,6 +7023,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_ali_demb%C3%A9l%C3%A9",
+          "name": "Ali Dembélé",
+          "position": "DIF",
+          "number": 2,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_corrie_ndaba",
           "name": "Corrie Ndaba",
           "position": "DIF",
@@ -7192,10 +7205,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_lameck_banda",
-          "name": "Lameck Banda",
-          "position": "ATT",
-          "number": 19,
+          "id": "wp_ivan_ili%C4%87",
+          "name": "Ivan Ilić",
+          "position": "CEN",
+          "number": 20,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -7205,10 +7218,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_ivan_ili%C4%87",
-          "name": "Ivan Ilić",
-          "position": "CEN",
-          "number": 20,
+          "id": "wp_paco_esteban",
+          "name": "Paco Esteban",
+          "position": "ATT",
+          "number": 22,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
