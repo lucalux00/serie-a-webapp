@@ -1718,6 +1718,19 @@
       "staff": [],
       "players": [
         {
+          "id": "wp_saba_goglichidze",
+          "name": "Saba Goglichidze",
+          "position": "DIF",
+          "number": 2,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_sandi_lovri%C4%87",
           "name": "Sandi Lovrić",
           "position": "CEN",
@@ -1757,8 +1770,8 @@
           "curiosities": null
         },
         {
-          "id": "wp_jesper_karlstr%C3%B6m_()",
-          "name": "Jesper Karlström ()",
+          "id": "wp_jesper_karlstr%C3%B6m_(capitano)",
+          "name": "Jesper Karlström (capitano)",
           "position": "CEN",
           "number": 8,
           "age": "N/A",
@@ -1798,7 +1811,7 @@
         {
           "id": "wp_hassane_kamara",
           "name": "Hassane Kamara",
-          "position": "DIF",
+          "position": "CEN",
           "number": 11,
           "age": "N/A",
           "height": "N/A",
@@ -1861,10 +1874,36 @@
           "curiosities": null
         },
         {
+          "id": "wp_adam_buksa",
+          "name": "Adam Buksa",
+          "position": "ATT",
+          "number": 18,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_juan_david_arizala",
           "name": "Juan David Arizala",
           "position": "DIF",
           "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_branimir_mla%C4%8Di%C4%87",
+          "name": "Branimir Mlačić",
+          "position": "DIF",
+          "number": 22,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
