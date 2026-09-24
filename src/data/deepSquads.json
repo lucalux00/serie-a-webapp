@@ -1744,6 +1744,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_david_alaba",
+          "name": "David Alaba",
+          "position": "DIF",
+          "number": 5,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_oier_zarraga",
           "name": "Oier Zarraga",
           "position": "CEN",
