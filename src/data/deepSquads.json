@@ -1924,19 +1924,6 @@
           "status": "In Rosa",
           "stats": null,
           "curiosities": null
-        },
-        {
-          "id": "wp_m%C3%ABrgim_vojvoda",
-          "name": "Mërgim Vojvoda",
-          "position": "DIF",
-          "number": 23,
-          "age": "N/A",
-          "height": "N/A",
-          "weight": "N/A",
-          "foot": "N/A",
-          "status": "In Rosa",
-          "stats": null,
-          "curiosities": null
         }
       ]
     },
@@ -2078,6 +2065,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_kingsley_ehizibue",
+          "name": "Kingsley Ehizibue",
+          "position": "DIF",
+          "number": 3,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_alexsandro_amorim",
           "name": "Alexsandro Amorim",
           "position": "CEN",
@@ -2156,10 +2156,10 @@
           "curiosities": null
         },
         {
-          "id": "wp_brooke_norton-cuffy",
-          "name": "Brooke Norton-Cuffy",
+          "id": "wp_cody_drameh",
+          "name": "Cody Drameh",
           "position": "DIF",
-          "number": 15,
+          "number": 16,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
@@ -2195,10 +2195,36 @@
           "curiosities": null
         },
         {
+          "id": "wp_joi_nuredini",
+          "name": "Joi Nuredini",
+          "position": "ATT",
+          "number": 19,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_stefano_sabelli",
           "name": "Stefano Sabelli",
           "position": "DIF",
           "number": 20,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
+          "id": "wp_robinho_junior",
+          "name": "Robinho Junior",
+          "position": "ATT",
+          "number": 21,
           "age": "N/A",
           "height": "N/A",
           "weight": "N/A",
