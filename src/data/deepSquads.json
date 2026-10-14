@@ -7513,6 +7513,19 @@
           "curiosities": null
         },
         {
+          "id": "wp_lorenzo_ginelli",
+          "name": "Lorenzo Ginelli",
+          "position": "POR",
+          "number": 12,
+          "age": "N/A",
+          "height": "N/A",
+          "weight": "N/A",
+          "foot": "N/A",
+          "status": "In Rosa",
+          "stats": null,
+          "curiosities": null
+        },
+        {
           "id": "wp_alberto_dossena",
           "name": "Alberto Dossena",
           "position": "DIF",
